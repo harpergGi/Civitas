@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Portal | Sharynne Macon | Civitas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628; --navy-mid: #142240; --navy-light: #1e3360;
+    --gold: #c9a84c; --gold-light: #e8c97a;
+    --white: #ffffff; --text-muted: #8a9bb5;
+    --green: #2ecc71; --green-dim: rgba(46,204,113,0.15);
+    --pending: rgba(255,255,255,0.08);
+    --active-border: rgba(201,168,76,0.5);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--navy); font-family: 'DM Sans', sans-serif; color: var(--white); min-height: 100vh; }
+
+  /* TOP BAR */
+  .topbar {
+    background: rgba(20,34,64,0.95);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .topbar-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--white); }
+  .topbar-logo span { color: var(--gold); }
+  .topbar-client { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .topbar-client strong { color: var(--white); font-weight: 500; }
+  .topbar-status { display: flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse-green 2s infinite; }
+  @keyframes pulse-green { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* MAIN LAYOUT */
+  .dashboard { padding: 2rem; display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; }
+
+  /* LEFT PANEL */
+  .left-panel { display: flex; flex-direction: column; gap: 1.5rem; width: 220px; }
+
+  /* PROGRESS RING */
+  .ring-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .ring-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+  .ring-wrap { position: relative; width: 110px; height: 110px; margin: 0 auto 1rem; }
+  .ring-wrap svg { transform: rotate(-90deg); }
+  .ring-track { fill: none; stroke: rgba(201,168,76,0.1); stroke-width: 8; }
+  .ring-fill {
+    fill: none; stroke: var(--gold); stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+    transition: stroke-dashoffset 2s ease;
+  }
+  .ring-fill.animated { stroke-dashoffset: 99; } /* 65% = 283 * 0.35 = 99 offset */
+  .ring-percent {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 600; color: var(--white);
+  }
+  .ring-sub { font-size: 0.65rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* CASE INFO */
+  .info-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 1.25rem;
+  }
+  .info-row { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+  .info-val { font-size: 0.78rem; color: var(--white); font-family: 'DM Mono', monospace; }
+  .info-val.gold { color: var(--gold); }
+
+  /* DEMO CONTROLS */
+  .demo-card {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 1.25rem;
+  }
+  .demo-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .demo-btns { display: flex; flex-direction: column; gap: 0.5rem; }
+  .demo-btn {
+    background: transparent; border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold); font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em;
+    padding: 0.5rem 0.75rem; cursor: pointer; text-transform: uppercase;
+    transition: all 0.2s; text-align: center;
+  }
+  .demo-btn:hover { background: rgba(201,168,76,0.1); }
+  .demo-btn.play { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+  .demo-btn.play:hover { background: var(--gold-light); }
+
+  /* RIGHT PANEL */
+  .right-panel { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  /* HORIZONTAL TIMELINE */
+  .timeline-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 2rem;
+  }
+  .timeline-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+  .timeline-card-title { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .timeline-card-progress { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gold); }
+
+  .timeline-track { position: relative; display: flex; align-items: center; gap: 0; margin-bottom: 1rem; }
+  .timeline-connector { flex: 1; height: 2px; background: rgba(255,255,255,0.06); position: relative; }
+  .timeline-connector.done { background: var(--gold); }
+  .timeline-connector.partial { background: linear-gradient(to right, var(--gold) 60%, rgba(255,255,255,0.06) 60%); }
+
+  .stage-node { position: relative; display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .stage-circle {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 500; position: relative; z-index: 2;
+  }
+  .stage-circle.done { background: var(--gold); color: var(--navy); }
+  .stage-circle.active {
+    background: rgba(201,168,76,0.12);
+    border: 2px solid var(--gold); color: var(--gold);
+  }
+  .stage-circle.active::after {
+    content: ''; position: absolute;
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+    animation: ring-pulse 2s ease infinite;
+  }
+  @keyframes ring-pulse { 0%,100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.15); opacity: 0; } }
+  .stage-circle.pending { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.2); }
+
+  .stage-label { font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.05em; margin-top: 0.6rem; text-align: center; max-width: 70px; line-height: 1.4; }
+  .stage-label.done-label { color: rgba(201,168,76,0.8); }
+  .stage-label.active-label { color: var(--gold); font-weight: 500; }
+
+  /* ACTIVE STAGE DETAIL */
+  .stage-detail {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 1.75rem;
+  }
+  .stage-detail-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+  .stage-detail-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--white); }
+  .stage-detail-badge {
+    font-size: 0.6rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    background: rgba(201,168,76,0.15); color: var(--gold); padding: 0.25rem 0.6rem;
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+  .stage-detail-body { font-size: 0.8rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 1.5rem; }
+  .stage-progress-label { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+  .stage-progress-label span:last-child { color: var(--gold); }
+  .progress-bar { background: rgba(255,255,255,0.06); border-radius: 2px; height: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 1.5s ease; }
+
+  /* DOCUMENTS GRID */
+  .docs-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 2rem;
+  }
+  .docs-header { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.25rem; }
+  .docs-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .doc-chip {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid; font-size: 0.7rem; font-weight: 500;
+  }
+  .doc-chip.filed { background: var(--green-dim); border-color: rgba(46,204,113,0.3); color: var(--green); }
+  .doc-chip.sent { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.25); color: var(--gold); }
+  .doc-chip.pending { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
+  .doc-chip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .doc-chip.filed .doc-chip-dot { background: var(--green); }
+  .doc-chip.sent .doc-chip-dot { background: var(--gold); }
+  .doc-chip.pending .doc-chip-dot { background: rgba(255,255,255,0.15); }
+
+  /* QR SECTION */
+  .qr-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; gap: 2rem;
+  }
+  .qr-box { flex-shrink: 0; }
+  .qr-svg { width: 80px; height: 80px; }
+  .qr-text h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; }
+  .qr-text p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; }
+  .qr-url { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--gold); margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">Civitas<span>.</span></div>
+  <div class="topbar-client">Client Portal / <strong>Sharynne Macon</strong></div>
+  <div class="topbar-status"><div class="status-dot"></div> Live Updates</div>
+</div>
+
+<div class="dashboard">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+
+    <div class="ring-card">
+      <div class="ring-label">Case Progress</div>
+      <div class="ring-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle class="ring-track" cx="55" cy="55" r="45"/>
+          <circle class="ring-fill" id="ringFill" cx="55" cy="55" r="45"/>
+        </svg>
+        <div class="ring-percent" id="ringPct">0%</div>
+      </div>
+      <div class="ring-sub">Stage 3 of 7 active<br>Bureau investigation window open</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-row"><div class="info-key">Client</div><div class="info-val">Sharynne Macon</div></div>
+      <div class="info-row"><div class="info-key">Case ID</div><div class="info-val gold">CVT-2026-0047</div></div>
+      <div class="info-row"><div class="info-key">Opened</div><div class="info-val">Mar 12, 2026</div></div>
+      <div class="info-row"><div class="info-key">Type</div><div class="info-val">Credit Dispute</div></div>
+      <div class="info-row"><div class="info-key">Bureau</div><div class="info-val">Experian / Equifax</div></div>
+      <div class="info-row"><div class="info-key">Next Action</div><div class="info-val gold">Apr 29, 2026</div></div>
+    </div>
+
+    <div class="demo-card">
+      <div class="demo-label">Demo Controls</div>
+      <div class="demo-btns">
+        <button class="demo-btn play" onclick="playDemo()">Play Timeline</button>
+        <button class="demo-btn" onclick="toggleLoop()" id="loopBtn">Loop: Off</button>
+        <button class="demo-btn" onclick="pauseDemo()">Pause</button>
+        <button class="demo-btn" onclick="resetDemo()">Reset</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+
+    <!-- TIMELINE -->
+    <div class="timeline-card">
+      <div class="timeline-card-header">
+        <div class="timeline-card-title">Case Timeline</div>
+        <div class="timeline-card-progress" id="timelineProgress">Stage 3 / 7</div>
+      </div>
+
+      <div class="timeline-track" id="timelineTrack">
+        <div class="stage-node" id="s1">
+          <div class="stage-circle done">&#10003;</div>
+          <div class="stage-label done-label">Consultation</div>
+        </div>
+        <div class="timeline-connector done" id="c1"></div>
+        <div class="stage-node" id="s2">
+          <div class="stage-circle done">&#10003;</div>
+          <div class="stage-label done-label">Report Review</div>
+        </div>
+        <div class="timeline-connector done" id="c2"></div>
+        <div class="stage-node" id="s3">
+          <div class="stage-circle active" id="s3circle">3</div>
+          <div class="stage-label active-label">Bureau Dispute</div>
+        </div>
+        <div class="timeline-connector" id="c3"></div>
+        <div class="stage-node" id="s4">
+          <div class="stage-circle pending" id="s4circle">4</div>
+          <div class="stage-label">Furnisher Contact</div>
+        </div>
+        <div class="timeline-connector" id="c4"></div>
+        <div class="stage-node" id="s5">
+          <div class="stage-circle pending" id="s5circle">5</div>
+          <div class="stage-label">Investigation Review</div>
+        </div>
+        <div class="timeline-connector" id="c5"></div>
+        <div class="stage-node" id="s6">
+          <div class="stage-circle pending" id="s6circle">6</div>
+          <div class="stage-label">Result Analysis</div>
+        </div>
+        <div class="timeline-connector" id="c6"></div>
+        <div class="stage-node" id="s7">
+          <div class="stage-circle pending" id="s7circle">7</div>
+          <div class="stage-label">Case Close</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVE STAGE DETAIL -->
+    <div class="stage-detail" id="stageDetail">
+      <div class="stage-detail-header">
+        <div class="stage-detail-title" id="detailTitle">Stage 3: Bureau Dispute Filed</div>
+        <div class="stage-detail-badge" id="detailBadge">Active</div>
+      </div>
+      <div class="stage-detail-body" id="detailBody">
+        Formal dispute letters have been submitted to Experian and Equifax citing FCRA Section 611, which requires credit bureaus to investigate disputed items within 30 days of receipt. The bureaus are required by law to forward your dispute to the original furnisher and complete their investigation within this window. We are currently on Day 18 of the 30-day investigation period.
+      </div>
+      <div class="stage-progress-label">
+        <span id="progressLabel">Bureau Investigation Window</span>
+        <span id="progressPct">Day 18 of 30</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 60%;"></div>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="docs-card">
+      <div class="docs-header">Filed Documents and Status</div>
+      <div class="docs-grid" id="docsGrid">
+        <div class="doc-chip filed"><div class="doc-chip-dot"></div>Intake Form</div>
+        <div class="doc-chip filed"><div class="doc-chip-dot"></div>Authorization Release</div>
+        <div class="doc-chip filed"><div class="doc-chip-dot"></div>Experian Dispute Letter</div>
+        <div class="doc-chip filed"><div class="doc-chip-dot"></div>Equifax Dispute Letter</div>
+        <div class="doc-chip sent"><div class="doc-chip-dot"></div>FCRA Section 611 Notice</div>
+        <div class="doc-chip pending"><div class="doc-chip-dot"></div>Furnisher Demand Letter</div>
+        <div class="doc-chip pending"><div class="doc-chip-dot"></div>Secondary Dispute</div>
+        <div class="doc-chip pending"><div class="doc-chip-dot"></div>Case Summary</div>
+      </div>
+    </div>
+
+    <!-- QR -->
+    <div class="qr-card">
+      <div class="qr-box">
+        <svg class="qr-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <!-- QR pattern illustration -->
+          <rect x="5" y="5" width="20" height="20" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+          <rect x="9" y="9" width="12" height="12" fill="#c9a84c"/>
+          <rect x="55" y="5" width="20" height="20" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+          <rect x="59" y="9" width="12" height="12" fill="#c9a84c"/>
+          <rect x="5" y="55" width="20" height="20" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+          <rect x="9" y="59" width="12" height="12" fill="#c9a84c"/>
+          <!-- Data pixels -->
+          <rect x="30" y="5" width="5" height="5" fill="#c9a84c" opacity="0.7"/>
+          <rect x="38" y="5" width="5" height="5" fill="#c9a84c" opacity="0.7"/>
+          <rect x="46" y="5" width="5" height="5" fill="#c9a84c" opacity="0.5"/>
+          <rect x="30" y="13" width="5" height="5" fill="#c9a84c" opacity="0.5"/>
+          <rect x="46" y="13" width="5" height="5" fill="#c9a84c" opacity="0.7"/>
+          <rect x="30" y="22" width="5" height="5" fill="#c9a84c" opacity="0.7"/>
+          <rect x="38" y="22" width="5" height="5" fill="#c9a84c" opacity="0.5"/>
+          <rect x="5" y="30" width="5" height="5" fill="#c9a84c" opacity="0.6"/>
+          <rect x="13" y="30" width="5" height="5" fill="#c9a84c" opacity="0.4"/>
+          <rect x="22" y="30" width="5" height="5" fill="#c9a84c" opacity="0.7"/>
+          <rect x="30" y="30" width="5" height="5" fill="#c9a84c" opacity="0.5"/>
+          <rect x="38" y="38" width="5" height="5" fill="#c9a84c" opacity="0.8"/>
+          <rect x="46" y="46" width="5" height="5" fill="#c9a84c" opacity="0.6"/>
+          <rect x="55" y="30" width="5" height="5" fill="#c9a84c" opacity="0.5"/>
+          <rect x="63" y="38" width="5" height="5" fill="#c9a84c" opacity="0.7"/>
+          <rect x="30" y="55" width="5" height="5" fill="#c9a84c" opacity="0.6"/>
+          <rect x="38" y="55" width="5" height="5" fill="#c9a84c" opacity="0.4"/>
+          <rect x="46" y="63" width="5" height="5" fill="#c9a84c" opacity="0.7"/>
+          <rect x="55" y="55" width="5" height="5" fill="#c9a84c" opacity="0.5"/>
+          <rect x="63" y="63" width="5" height="5" fill="#c9a84c" opacity="0.6"/>
+          <rect x="70" y="55" width="5" height="5" fill="#c9a84c" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="qr-text">
+        <h4>Your Portal QR Code</h4>
+        <p>Scan this code to access your live case dashboard at any time from any device. Your status updates the moment Civitas takes action on your matter.</p>
+        <div class="qr-url">civitaslegal.com/portal/CVT-2026-0047</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const stages = [
+    {
+      title: "Stage 1: Initial Consultation",
+      badge: "Complete",
+      body: "Intake consultation completed March 12, 2026. Your situation was reviewed, relevant documents identified, and a service agreement executed in compliance with CROA requirements including your three-day right to cancel.",
+      progressLabel: "Completed",
+      progressPct: "Done",
+      progressWidth: "100%",
+      pct: 14
+    },
+    {
+      title: "Stage 2: Credit Report Review",
+      badge: "Complete",
+      body: "Full tri-bureau credit report analysis completed. Disputed items identified on Experian and Equifax. Documentation strategy developed based on FCRA Section 611 dispute rights. Items targeted: 3 late payment notations, 1 inaccurate balance.",
+      progressLabel: "Analysis Complete",
+      progressPct: "Done",
+      progressWidth: "100%",
+      pct: 28
+    },
+    {
+      title: "Stage 3: Bureau Dispute Filed",
+      badge: "Active",
+      body: "Formal dispute letters have been submitted to Experian and Equifax citing FCRA Section 611, which requires credit bureaus to investigate disputed items within 30 days of receipt. The bureaus are required by law to forward your dispute to the original furnisher and complete their investigation within this window. We are currently on Day 18 of the 30-day investigation period.",
+      progressLabel: "Bureau Investigation Window",
+      progressPct: "Day 18 of 30",
+      progressWidth: "60%",
+      pct: 65
+    },
+    {
+      title: "Stage 4: Furnisher Contact",
+      badge: "Upcoming",
+      body: "If the bureau investigation does not resolve all disputed items, we will prepare FCRA Section 623 demand letters directed to the original furnishers requiring them to investigate and correct inaccurate information they reported to the bureaus.",
+      progressLabel: "Awaiting Stage 3 Resolution",
+      progressPct: "Not Started",
+      progressWidth: "0%",
+      pct: 65
+    },
+    {
+      title: "Stage 5: Investigation Review",
+      badge: "Upcoming",
+      body: "Upon receipt of bureau investigation results, we will review all tradeline changes, confirm accurate updates, and identify any items requiring escalation or secondary dispute.",
+      progressLabel: "Awaiting Investigation Results",
+      progressPct: "Not Started",
+      progressWidth: "0%",
+      pct: 65
+    },
+    {
+      title: "Stage 6: Result Analysis",
+      badge: "Upcoming",
+      body: "Complete credit profile analysis following all dispute resolutions. Score impact assessment, identification of any remaining derogatory items, and recommendation for next steps or secondary action.",
+      progressLabel: "Awaiting Prior Stages",
+      progressPct: "Not Started",
+      progressWidth: "0%",
+      pct: 65
+    },
+    {
+      title: "Stage 7: Case Close",
+      badge: "Upcoming",
+      body: "Final case summary delivered including all documents filed, results obtained, and recommended ongoing credit maintenance steps. Case formally closed with all documentation archived in your portal.",
+      progressLabel: "Awaiting Completion",
+      progressPct: "Not Started",
+      progressWidth: "0%",
+      pct: 65
+    }
+  ];
+
+  let currentStage = 2; // 0-indexed, currently on stage 3
+  let demoInterval = null;
+  let looping = false;
+
+  function animateRing(pct) {
+    const fill = document.getElementById('ringFill');
+    const pctEl = document.getElementById('ringPct');
+    const circumference = 283;
+    const offset = circumference - (pct / 100) * circumference;
+    fill.style.strokeDashoffset = offset;
+    let current = 0;
+    const target = pct;
+    const step = () => {
+      current = Math.min(current + 2, target);
+      pctEl.textContent = current + '%';
+      if (current < target) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  function renderStage(idx) {
+    const s = stages[idx];
+    document.getElementById('detailTitle').textContent = s.title;
+    document.getElementById('detailBadge').textContent = s.badge;
+    document.getElementById('detailBody').textContent = s.body;
+    document.getElementById('progressLabel').textContent = s.progressLabel;
+    document.getElementById('progressPct').textContent = s.progressPct;
+    document.getElementById('progressFill').style.width = s.progressWidth;
+    document.getElementById('timelineProgress').textContent = 'Stage ' + (idx+1) + ' / 7';
+    animateRing(s.pct);
+
+    // Update stage circles
+    for (let i = 1; i <= 7; i++) {
+      const circle = document.getElementById('s' + i + 'circle');
+      if (!circle) continue;
+      const label = circle.closest('.stage-node').querySelector('.stage-label');
+      if (i - 1 < idx) {
+        circle.className = 'stage-circle done';
+        circle.innerHTML = '&#10003;';
+        label.className = 'stage-label done-label';
+      } else if (i - 1 === idx) {
+        circle.className = 'stage-circle active';
+        circle.innerHTML = i;
+        label.className = 'stage-label active-label';
+      } else {
+        circle.className = 'stage-circle pending';
+        circle.innerHTML = i;
+        label.className = 'stage-label';
+      }
+    }
+
+    // Update connectors
+    for (let i = 1; i <= 6; i++) {
+      const conn = document.getElementById('c' + i);
+      if (!conn) continue;
+      if (i <= idx) conn.className = 'timeline-connector done';
+      else conn.className = 'timeline-connector';
+    }
+  }
+
+  function playDemo() {
+    if (demoInterval) clearInterval(demoInterval);
+    let stage = 0;
+    renderStage(stage);
+    demoInterval = setInterval(() => {
+      stage++;
+      if (stage >= 7) {
+        if (looping) { stage = 0; }
+        else { clearInterval(demoInterval); demoInterval = null; return; }
+      }
+      renderStage(stage);
+    }, 2200);
+  }
+
+  function pauseDemo() {
+    if (demoInterval) { clearInterval(demoInterval); demoInterval = null; }
+  }
+
+  function resetDemo() {
+    if (demoInterval) { clearInterval(demoInterval); demoInterval = null; }
+    currentStage = 2;
+    renderStage(currentStage);
+  }
+
+  function toggleLoop() {
+    looping = !looping;
+    document.getElementById('loopBtn').textContent = 'Loop: ' + (looping ? 'On' : 'Off');
+  }
+
+  // Initialize
+  window.addEventListener('load', () => {
+    renderStage(currentStage);
+  });
+</script>
+
+</body>
+</html>
