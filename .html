@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civitas - Secure Client Portal</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f8fafc; color: #1e293b; }
+        .header { background-color: #0f172a; color: white; padding: 1.5rem; text-align: center; border-bottom: 4px solid #3b82f6; }
+        .container { max-width: 600px; margin: 3rem auto; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .hidden { display: none; }
+        h1 { margin: 0; font-size: 1.8rem; letter-spacing: 1px;}
+        h2 { border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 20px;}
+        input { width: 100%; padding: 12px; margin: 10px 0 20px 0; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        button { background-color: #3b82f6; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; transition: background-color 0.2s; }
+        button:hover { background-color: #2563eb; }
+        .btn-secondary { background-color: #64748b; margin-top: 10px; }
+        .btn-secondary:hover { background-color: #475569; }
+        .logout-btn { background-color: #ef4444; margin-top: 30px; }
+        .logout-btn:hover { background-color: #dc2626; }
+        .dashboard-card { background-color: #f1f5f9; padding: 20px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #3b82f6; }
+        .dashboard-card h3 { margin-top: 0; color: #0f172a; }
+        #auth-message { color: #dc2626; text-align: center; margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>CIVITAS SECURE PORTAL</h1>
+</div>
+
+<div class="container">
+    
+    <div id="auth-section">
+        <h2>Client Access</h2>
+        <p>Log in or create an account to access your secure profile and legal resources.</p>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="logIn()">Log In</button>
+        <button class="btn-secondary" onclick="signUp()">Create Account</button>
+        <p id="auth-message"></p>
+    </div>
+
+    <div id="dashboard-section" class="hidden">
+        <h2>Welcome to your Dashboard</h2>
+        <p>Your connection is encrypted and your data is protected.</p>
+
+        <div class="dashboard-card">
+            <h3>My Legal Documents</h3>
+            <p>You currently have no active documents. Use the mobile app to scan and upload forms directly to your vault.</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Submit a Request</h3>
+            <p>Need legal direction? Submit a new inquiry to our team.</p>
+            <button style="width: auto; padding: 8px 15px; font-size: 14px;">Start New Request</button>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Account Settings</h3>
+            <p>Manage your password, personal details, and notification preferences.</p>
+        </div>
+
+        <button class="logout-btn" onclick="logOut()">Secure Log Out</button>
+    </div>
+</div>
+
+<script>
+    // === CONNECT TO SUPABASE ===
+    const SUPABASE_URL = 'https://amskspjunrclvrzzzvvsk.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_HrE1YuE5pRRhDFhFeqlLWg_GUy9YKpS';
+
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // === PAGE ELEMENTS ===
+    const authSection = document.getElementById('auth-section');
+    const dashboardSection = document.getElementById('dashboard-section');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const authMessage = document.getElementById('auth-message');
+
+    // === CHECK IF USER IS ALREADY LOGGED IN ===
+    async function checkUser() {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+            authSection.classList.add('hidden');
+            dashboardSection.classList.remove('hidden');
+        } else {
+            authSection.classList.remove('hidden');
+            dashboardSection.classList.add('hidden');
+        }
+    }
+
+    // === SIGN UP FUNCTION ===
+    async function signUp() {
+        authMessage.style.color = '#3b82f6';
+        authMessage.innerText = "Processing...";
+        const { data, error } = await supabase.auth.signUp({
+            email: emailInput.value,
+            password: passwordInput.value,
+        });
+        if (error) {
+            authMessage.style.color = '#dc2626';
+            authMessage.innerText = error.message;
+        } else {
+            authMessage.style.color = '#16a34a';
+            authMessage.innerText = "Success! Please check your email for a confirmation link.";
+        }
+    }
+
+    // === LOG IN FUNCTION ===
+    async function logIn() {
+        authMessage.style.color = '#3b82f6';
+        authMessage.innerText = "Logging in...";
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: emailInput.value,
+            password: passwordInput.value,
+        });
+        if (error) {
+            authMessage.style.color = '#dc2626';
+            authMessage.innerText = error.message;
+        } else {
+            authMessage.innerText = "";
+            checkUser();
+        }
+    }
+
+    // === LOG OUT FUNCTION ===
+    async function logOut() {
+        await supabase.auth.signOut();
+        emailInput.value = '';
+        passwordInput.value = '';
+        checkUser();
+    }
+
+    // Run the check immediately when the page loads
+    checkUser();
+</script>
+</body>
+</html>
