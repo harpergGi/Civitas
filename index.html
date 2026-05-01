@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Civitas Legal Document Services | California LDA</title>
+<title>Civitas Legal Document Services</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0a1628; --gold: #c9a84c; --gold-light: #e8c97a;
-    --white: #ffffff; --muted: #8a9bb5; --text: #2c3e5c;
+    --navy: #0a1628; --gold: #c9a84c; --white: #ffffff; --muted: #8a9bb5;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 100%; height: 100%; background: var(--navy); color: white; overflow-x: hidden; }
@@ -21,38 +20,37 @@
   }
   #splash.exit { opacity: 0; transform: scale(1.04); pointer-events: none; }
 
-  .logo-area { position: relative; width: 450px; height: 350px; display: flex; justify-content: center; align-items: center; }
+  .logo-area { position: relative; width: 500px; height: 380px; display: flex; justify-content: center; align-items: center; }
   
-  /* Fingerprint Ridges */
   .ridge {
-    fill: none; stroke: var(--gold); stroke-width: 6; stroke-linecap: round;
+    fill: none; stroke: var(--gold); stroke-width: 7; stroke-linecap: round;
     stroke-dasharray: 1000; stroke-dashoffset: 1000;
-    transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: stroke-dashoffset 2.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .dot { fill: var(--white); r: 0; transition: r 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-  .gold-dot { fill: var(--gold); r: 0; transition: r 0.8s ease; }
+  .dot { fill: var(--white); r: 0; transition: r 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .gold-dot { fill: var(--gold); }
 
-  /* Statement Labels - UNALIGNED and PUSHED INWARD */
+  /* UNALIGNED STATEMENTS - PUSHED INWARD */
   .dot-label {
     position: absolute; font-family: 'DM Sans', sans-serif; font-size: 10px;
     font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
     opacity: 0; transition: opacity 0.8s ease; pointer-events: none;
-    text-shadow: 0 0 10px rgba(10,22,40,0.8);
   }
   .l-gold { color: var(--gold); }
 
-  .wordmark { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; letter-spacing: 0.2em; opacity: 0; transition: opacity 1.5s ease; margin-top: 1rem; }
-  .tagline { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.4em; color: var(--muted); opacity: 0; transition: opacity 1.5s ease; }
+  .wordmark { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; letter-spacing: 0.22em; opacity: 0; transition: opacity 1.5s ease; margin-top: 1rem; }
+  .tagline { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; opacity: 0; transition: opacity 1.5s ease; }
 
   .enter-btn {
-    margin-top: 3.5rem; background: transparent; border: 1px solid rgba(201,168,76,0.3);
+    margin-top: 3.5rem; background: transparent; border: 1px solid rgba(255,255,255,0.2);
     color: var(--gold); padding: 0.9rem 2.8rem; font-size: 0.75rem; letter-spacing: 0.35em;
     text-transform: uppercase; cursor: pointer; opacity: 0; transition: all 0.4s ease;
+    text-decoration: none;
   }
-  .enter-btn:hover { background: var(--gold); color: var(--navy); }
+  .enter-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 
-  /* MAIN SITE */
-  #site { position: fixed; inset: 0; opacity: 0; overflow-y: auto; transition: opacity 1s ease 0.3s; pointer-events: none; }
+  /* MAIN SITE WRAPPER */
+  #site { position: fixed; inset: 0; opacity: 0; overflow-y: auto; transition: opacity 1s ease; pointer-events: none; background: var(--navy); }
   #site.visible { opacity: 1; pointer-events: all; position: relative; }
 
   /* TICKER */
@@ -65,27 +63,132 @@
 
   nav { position: sticky; top: 0; background: var(--navy); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; border-bottom: 1px solid rgba(201,168,76,0.2); z-index: 100; }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { font-size: 0.75rem; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; }
-  .nav-links a:hover { color: var(--gold); }
+  .nav-links a { font-size: 0.75rem; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; }
   
-  .hero { min-height: calc(100vh - 110px); background: var(--navy); display: grid; grid-template-columns: 1.1fr 1fr; padding: 0 4rem; align-items: center; gap: 0; }
-  h1 { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white; }
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1.1fr 1fr; padding: 0 4rem; align-items: center; gap: 2rem; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; line-height: 1.1; margin-bottom: 2rem; }
   h1 em { font-style: italic; color: var(--gold); }
-  .hero-sub { color: var(--muted); line-height: 1.8; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem; }
-
-  /* FADE ANIMATION FOR LOGO ON MAIN SITE */
-  .hero-logo-fade { opacity: 0; animation: fadeInLogo 1.5s ease forwards 0.8s; }
-  @keyframes fadeInLogo { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-
-  /* GENERAL SECTIONS */
-  section { padding: 8rem 4rem; background: var(--off-white); color: var(--text); scroll-margin-top: 72px; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--navy); margin-bottom: 2rem; }
-  
-  /* FOOTER */
-  footer { padding: 3rem 4rem; background: var(--navy); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(201,168,76,0.1); }
 </style>
 </head>
 <body>
 
 <div id="splash">
-  <div style="font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 2.5rem; opacity:0.7;">YOU BELONG HERE.http://googleusercontent.com/image_generation_content/0
+  <div style="font-size: 0.65rem; letter-spacing: 0.4em; margin-bottom: 2.5rem; opacity: 0.6;">YOU BELONG HERE.</div>
+  <div class="logo-area">
+    <svg width="340" height="340" viewBox="0 0 300 300">
+      <path id="r1" class="ridge" d="M 150,20 A 130,130 0 0,0 150,280" />
+      <path id="r2" class="ridge" d="M 150,45 A 105,105 0 0,0 150,255" />
+      <path id="r3" class="ridge" d="M 150,70 A 80,80 0 0,0 150,230" />
+      <path id="r4" class="ridge" d="M 150,95 A 55,55 0 0,0 150,205" />
+      <path id="r5" class="ridge" d="M 150,120 A 30,30 0 0,0 150,180" />
+      
+      <circle id="d1" class="dot" cx="150" cy="20" />
+      <circle id="d2" class="dot" cx="70" cy="75" />
+      <circle id="d3" class="dot" cx="40" cy="150" />
+      <circle id="d4" class="dot" cx="70" cy="225" />
+      <circle id="d5" class="dot" cx="150" cy="280" />
+      <circle id="cdot" class="dot gold-dot" cx="150" cy="150" />
+    </svg>
+
+    <div id="l1" class="dot-label l-gold" style="top: 10px; left: 165px;">Credit Disputes</div>
+    <div id="l2" class="dot-label" style="top: 65px; left: -100px; width: 160px; text-align: right;">Their policy is not the law.</div>
+    <div id="l3" class="dot-label l-gold" style="top: 145px; left: -115px;">Goodwill Letters</div>
+    <div id="l4" class="dot-label" style="top: 245px; left: -100px; width: 160px; text-align: right;">The system has a process.</div>
+    <div id="l5" class="dot-label l-gold" style="bottom: 10px; left: 165px;">Debt Validation</div>
+    
+    <div id="l6" class="dot-label" style="top: 100px; right: -120px; width: 180px;">Your record is not your sentence.</div>
+    <div id="l7" class="dot-label" style="bottom: 110px; right: -130px; width: 190px;">Press your mark. Own your ground.</div>
+  </div>
+
+  <div class="wordmark" id="wm">CIVITAS</div>
+  <div class="tagline" id="tg">LEGAL DOCUMENT SERVICES</div>
+  <div id="ebtn" class="enter-btn" onclick="enterSite()">Enter Site &rarr;</div>
+</div>
+
+<div id="site">
+  <div class="ticker-bar">
+    <div class="ticker-label">Live / Impact Report</div>
+    <div class="ticker-track">
+      <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
+      <div class="ti"><div class="d"></div>Defense sector stocks surge / Global spending hits $2.4T</div>
+      <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
+      <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
+      <div class="ti"><div class="d"></div>Defense sector stocks surge / Global spending hits $2.4T</div>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#" class="nav-logo">Civitas<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#rights">Your Rights</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" style="border: 1px solid var(--gold); color: var(--gold); padding: 0.5rem 1.25rem; font-size: 0.7rem; text-decoration: none; text-transform: uppercase;">Get Started</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Their policy<br>is not the <em>law.</em></h1>
+      <p style="color: var(--muted); line-height: 1.8; max-width: 500px; font-size: 1.1rem;">Civitas prepares the documents that put you back in the conversation.</p>
+    </div>
+    <div class="hero-right" id="main-logo-box" style="opacity: 0;">
+      <svg width="360" height="360" viewBox="0 0 300 300">
+        <path id="mr1" class="ridge" d="M 150,20 A 130,130 0 0,0 150,280" />
+        <path id="mr2" class="ridge" d="M 150,45 A 105,105 0 0,0 150,255" />
+        <path id="mr3" class="ridge" d="M 150,70 A 80,80 0 0,0 150,230" />
+        <path id="mr4" class="ridge" d="M 150,95 A 55,55 0 0,0 150,205" />
+        <path id="mr5" class="ridge" d="M 150,120 A 30,30 0 0,0 150,180" />
+        <circle cx="150" cy="150" r="7" fill="#c9a84c" />
+      </svg>
+    </div>
+  </section>
+</div>
+
+<script>
+  function runFingerprint(prefix = 'r') {
+    const s = (id) => document.getElementById(id);
+    setTimeout(() => { s(prefix+'1').style.strokeDashoffset = "410"; }, 200);
+    setTimeout(() => { s(prefix+'2').style.strokeDashoffset = "330"; }, 500);
+    setTimeout(() => { s(prefix+'3').style.strokeDashoffset = "255"; }, 800);
+    setTimeout(() => { s(prefix+'4').style.strokeDashoffset = "175"; }, 1100);
+    setTimeout(() => { s(prefix+'5').style.strokeDashoffset = "95"; }, 1400);
+  }
+
+  function runSplash() {
+    runFingerprint('r');
+    const s = (id) => document.getElementById(id);
+    setTimeout(() => { s('cdot').setAttribute('r', '7'); }, 1800);
+
+    const labels = ['l1','l2','l3','l4','l5'];
+    const dots = ['d1','d2','d3','d4','d5'];
+    
+    dots.forEach((id, i) => {
+      setTimeout(() => {
+        s(id).setAttribute('r', '5');
+        if(s('l'+(i+1))) s('l'+(i+1)).style.opacity = "1";
+      }, 2200 + (i * 400));
+    });
+
+    setTimeout(() => { s('l6').style.opacity = "1"; s('l7').style.opacity = "1"; }, 4200);
+    setTimeout(() => { s('wm').style.opacity = "1"; s('tg').style.opacity = "1"; }, 5200);
+    setTimeout(() => { s('ebtn').style.opacity = "1"; }, 6200);
+    setTimeout(() => enterSite(), 14000);
+  }
+
+  function enterSite() {
+    document.getElementById('splash').classList.add('exit');
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      const site = document.getElementById('site');
+      site.classList.add('visible');
+      document.getElementById('main-logo-box').style.opacity = '1';
+      runFingerprint('mr'); // Run the same animation on main page
+    }, 1000);
+  }
+
+  window.onload = runSplash;
+</script>
+</body>
+</html>
