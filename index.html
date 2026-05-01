@@ -7,285 +7,159 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0a1628;
-    --navy-mid: #142240;
-    --gold: #c9a84c;
-    --gold-light: #e8c97a;
-    --white: #ffffff;
-    --muted: #8a9bb5;
+    --navy: #0a1628; --navy-mid: #142240; --navy-light: #1e3360;
+    --gold: #c9a84c; --gold-light: #e8c97a; --white: #ffffff; --muted: #8a9bb5;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 100%; height: 100%; }
+  html, body { width: 100%; height: 100%; background: var(--navy); overflow: hidden; }
 
-  /* SPLASH SCREEN */
+  /* SPLASH WRAPPER */
   #splash {
-    position: fixed;
-    inset: 0;
-    background: var(--navy);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    transition: opacity 1.2s ease, transform 1.2s ease;
+    position: fixed; inset: 0; background: var(--navy);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 1000; transition: opacity 1.2s ease, transform 1.2s ease;
   }
-
-  #splash.exit {
-    opacity: 0;
-    transform: scale(1.04);
-    pointer-events: none;
-  }
-
-  .splash-inner {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  #splash.exit { opacity: 0; transform: scale(1.04); pointer-events: none; }
 
   .logo-area {
     position: relative;
-    width: 280px;
-    height: 280px;
-    margin-bottom: 2.5rem;
+    width: 500px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .logo-area svg {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+  /* SVG Ridges */
+  .ridge {
+    fill: none; stroke: var(--gold); stroke-width: 6; stroke-linecap: round;
+    stroke-dasharray: 1000; stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* Dot Styling */
+  .terminal-dot {
+    fill: var(--white); r: 0;
+    transition: r 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .center-dot { fill: var(--gold); r: 0; transition: r 0.8s ease; }
+
+  /* Label Styling - Positioned relative to the Logo Area */
   .dot-label {
-    position: absolute;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    position: absolute; font-family: 'DM Sans', sans-serif; font-size: 10px;
+    font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0; transition: opacity 0.8s ease, transform 0.8s ease;
     pointer-events: none;
+    transform: translateY(5px);
   }
-  .dot-label.service   { color: var(--gold); }
-  .dot-label.statement { color: var(--white); }
+  .label-gold { color: var(--gold); }
+  .label-white { color: var(--white); }
 
-  .splash-wordmark {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.4rem;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: 0.22em;
-    opacity: 0;
-    transition: opacity 1.2s ease;
-    text-align: center;
-    line-height: 1;
+  /* Brand Typography */
+  .wordmark {
+    font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 600;
+    color: var(--white); letter-spacing: 0.25em; opacity: 0; margin-top: 1rem;
+    transition: opacity 1.5s ease;
   }
-  .splash-wordmark span { color: var(--gold); }
-
-  .splash-tagline {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.6rem;
-    opacity: 0;
-    transition: opacity 1.2s ease;
-    text-align: center;
+  .tagline {
+    font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.45em;
+    text-transform: uppercase; color: var(--muted); opacity: 0;
+    transition: opacity 1.5s ease; margin-top: 0.5rem;
   }
 
-  .splash-hint {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(138,155,181,0.35);
-    margin-top: 2.5rem;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    cursor: pointer;
-    border: 1px solid rgba(201,168,76,0.2);
-    padding: 0.6rem 1.5rem;
+  .enter-btn {
+    margin-top: 3rem; background: transparent; border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold); padding: 0.8rem 2.5rem; font-size: 0.75rem; letter-spacing: 0.3em;
+    text-transform: uppercase; cursor: pointer; opacity: 0; transition: all 0.4s ease;
+    text-decoration: none;
   }
-  .splash-hint:hover { border-color: rgba(201,168,76,0.5); color: var(--gold); }
+  .enter-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 
-  /* TICKER STYLES */
-  .ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
-  .ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;position:relative;z-index:10;}
-  .ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
-  .ticker-track:hover{animation-play-state:paused;}
-  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-  .ti{font-size:0.68rem;color:var(--white);padding:0 2rem;display:flex;align-items:center;gap:0.5rem;border-right:1px solid rgba(255,255,255,0.05);}
-  .ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
-  .ti span{color:var(--white);font-weight:500;}
-
-  /* MAIN SITE */
-  #site {
-    position: fixed;
-    inset: 0;
-    opacity: 0;
-    overflow-y: auto;
-    transition: opacity 1s ease 0.3s;
-    pointer-events: none;
-    background: var(--off-white);
-  }
-  #site.visible { opacity: 1; pointer-events: all; position: relative; }
-
-  nav {
-    position: sticky; top: 0; left: 0; right: 0; z-index: 100;
-    background: var(--navy);
-    border-bottom: 1px solid rgba(201,168,76,0.2);
-    padding: 0 4rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 72px;
-  }
-  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); letter-spacing: 0.04em; text-decoration: none; }
-  .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { font-size: 0.75rem; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta { border: 1px solid var(--gold); color: var(--gold); padding: 0.5rem 1.25rem; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
-  .nav-cta:hover { background: var(--gold); color: var(--navy); }
-
-  /* HERO */
-  .hero { min-height: calc(100vh - 110px); background: var(--navy); display: flex; align-items: center; padding: 0 4rem; position: relative; overflow: hidden; }
-  .hero-content { max-width: 720px; z-index: 2; color: white; }
-  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; line-height: 1.05; margin-bottom: 2rem; }
-  .hero h1 em { font-style: italic; color: var(--gold-light); }
-  
-  section { padding: 8rem 4rem; scroll-margin-top: 72px; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--navy); margin-bottom: 2rem; }
 </style>
 </head>
 <body>
 
 <div id="splash">
-  <div class="splash-inner">
-    <div class="logo-area">
-      <svg id="thumbsvg" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
-        <path id="r1" d="M 130,16 A 114,114 0 1,0 130,244" fill="none" stroke="#c9a84c" stroke-width="7" stroke-linecap="round" stroke-dasharray="0 800" style="transition: stroke-dasharray 1.8s ease"/>
-        <path id="r2" d="M 130,30 A 100,100 0 1,0 130,230" fill="none" stroke="#c9a84c" stroke-width="7" stroke-linecap="round" stroke-dasharray="0 700" style="transition: stroke-dasharray 1.8s ease"/>
-        <path id="r3" d="M 130,46 A 84,84 0 1,0 130,214" fill="none" stroke="#c9a84c" stroke-width="7" stroke-linecap="round" stroke-dasharray="0 600" style="transition: stroke-dasharray 1.8s ease"/>
-        <path id="r4" d="M 130,62 A 68,68 0 1,0 130,198" fill="none" stroke="#c9a84c" stroke-width="7" stroke-linecap="round" stroke-dasharray="0 500" style="transition: stroke-dasharray 1.8s ease"/>
-        <path id="r5" d="M 130,78 A 52,52 0 1,0 130,182" fill="none" stroke="#c9a84c" stroke-width="6" stroke-linecap="round" stroke-dasharray="0 400" style="transition: stroke-dasharray 1.8s ease"/>
-        <circle id="cdot" cx="130" cy="130" r="0" fill="#c9a84c" style="transition: r 0.6s ease"/>
-        <circle id="d1" cx="100" cy="38"  r="0" fill="#ffffff" style="transition: r 0.4s ease"/>
-        <circle id="d2" cx="178" cy="72"  r="0" fill="#c9a84c" style="transition: r 0.4s ease"/>
-        <circle id="d3" cx="210" cy="130" r="0" fill="#ffffff" style="transition: r 0.4s ease"/>
-        <circle id="d4" cx="185" cy="192" r="0" fill="#c9a84c" style="transition: r 0.4s ease"/>
-        <circle id="d5" cx="130" cy="228" r="0" fill="#ffffff" style="transition: r 0.4s ease"/>
-        <circle id="d6" cx="72"  cy="192" r="0" fill="#c9a84c" style="transition: r 0.4s ease"/>
-        <circle id="d7" cx="44"  cy="130" r="0" fill="#ffffff" style="transition: r 0.4s ease"/>
-      </svg>
-      <div id="l1" class="dot-label statement" style="top:4px; left:22px;">You belong here.</div>
-      <div id="l2" class="dot-label service" style="top:48px; right:-12px; transform:translateX(100%);">Credit Disputes</div>
-      <div id="l3" class="dot-label statement" style="top:118px; right:-16px; transform:translateX(100%);">Your record is not your sentence.</div>
-      <div id="l4" class="dot-label service" style="bottom:46px; right:-12px; transform:translateX(100%);">Goodwill Letters</div>
-      <div id="l5" class="dot-label statement" style="bottom:6px; left:50%; transform:translateX(-50%);">The system has a process. So do we.</div>
-      <div id="l6" class="dot-label service" style="bottom:46px; left:-12px; transform:translateX(-100%);">Debt Validation</div>
-      <div id="l7" class="dot-label statement" style="top:118px; left:-16px; transform:translateX(-100%);">Press your mark. Own your ground.</div>
-    </div>
-    <div class="splash-wordmark" id="swm">CIVITAS<span>.</span></div>
-    <div class="splash-tagline" id="stg">Legal Document Services</div>
-    <div class="splash-hint" id="shint" onclick="enterSite()">Enter &rarr;</div>
-  </div>
-</div>
+  <div class="logo-area">
+    <svg width="340" height="340" viewBox="0 0 300 300">
+      <path id="r1" class="ridge" d="M 150,20 A 130,130 0 0,0 150,280" />
+      <path id="r2" class="ridge" d="M 150,45 A 105,105 0 0,0 150,255" />
+      <path id="r3" class="ridge" d="M 150,70 A 80,80 0 0,0 150,230" />
+      <path id="r4" class="ridge" d="M 150,95 A 55,55 0 0,0 150,205" />
+      <path id="r5" class="ridge" d="M 150,120 A 30,30 0 0,0 150,180" />
 
-<div id="site">
-  <div class="ticker-bar">
-    <div class="ticker-label">Live / Impact Report</div>
-    <div class="ticker-track">
-      <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
-      <div class="ti"><div class="d"></div>Defense stocks surge as global military spending hits $2.4T</div>
-      <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding</div>
-      <div class="ti"><div class="d"></div>Supply chain disruptions driving grocery costs</div>
-      <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span></div>
-      <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
-      <div class="ti"><div class="d"></div>Defense stocks surge as global military spending hits $2.4T</div>
-      <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding</div>
-    </div>
+      <circle id="d1" class="terminal-dot" cx="150" cy="20" />
+      <circle id="d2" class="terminal-dot" cx="70" cy="75" />
+      <circle id="d3" class="terminal-dot" cx="40" cy="150" />
+      <circle id="d4" class="terminal-dot" cx="70" cy="225" />
+      <circle id="d5" class="terminal-dot" cx="150" cy="280" />
+      <circle id="cdot" class="center-dot" cx="150" cy="150" />
+    </svg>
+
+    <div id="l1" class="dot-label label-white" style="top: -20px;">You belong here.</div>
+    <div id="l2" class="dot-label label-gold" style="top: 55px; left: -20px;">Credit Disputes</div>
+    <div id="l3" class="dot-label label-white" style="top: 145px; left: -160px; width: 180px; text-align: right;">Their policy is not the law.</div>
+    <div id="l4" class="dot-label label-gold" style="bottom: 55px; left: -20px;">Goodwill Letters</div>
+    <div id="l5" class="dot-label label-white" style="bottom: -20px;">The system has a process. So do we.</div>
+    
+    <div id="l6" class="dot-label label-gold" style="top: 100px; right: -120px;">Debt Validation</div>
+    <div id="l7" class="dot-label label-white" style="bottom: 100px; right: -140px; width: 180px; text-align: left;">Press your mark. Own your ground.</div>
   </div>
 
-  <nav>
-    <a href="#" class="nav-logo">Civitas<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="about.html">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#rights">Your Rights</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta">Get Started</a>
-  </nav>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h1>You have<br><em>more recourse</em><br>than you think.</h1>
-      <p style="font-size:1.1rem; line-height:1.8; opacity:0.8; margin-bottom:3rem;">Civitas prepares the documents that put you back in the conversation.</p>
-      <a href="#services" class="nav-cta" style="padding:1rem 2rem;">View Services</a>
-    </div>
-  </section>
-
-  <section id="services">
-    <h2 class="section-title">Seven ways we <em>go to work</em> for you.</h2>
-  </section>
-
-  <section id="rights" style="background:var(--navy); color:white;">
-    <h2 class="section-title" style="color:white;">Your Rights</h2>
-  </section>
-
-  <section id="contact">
-    <h2 class="section-title">Get In Touch</h2>
-  </section>
+  <div class="wordmark" id="wm">CIVITAS</div>
+  <div class="tagline" id="tg">Legal Document Services</div>
+  
+  <div id="ebtn" class="enter-btn" onclick="enterSite()">Enter Site &rarr;</div>
 </div>
 
 <script>
-  const delays = { r1:0, r2:600, r3:1200, r4:1800, r5:2400, cdot:3000 };
-  const dotDelays = [3400,4000,4600,5200,5800,6400,7000];
-  const dotIds = ['d1','d2','d3','d4','d5','d6','d7'];
-  const labelIds = ['l1','l2','l3','l4','l5','l6','l7'];
-  const ridgeMax = [715,630,528,428,327];
-  const ridgeTot = [800,700,600,500,400];
-
   function runSplash() {
-    ['r1','r2','r3','r4','r5'].forEach((id,i) => {
+    const get = (id) => document.getElementById(id);
+    
+    // 1. Sequence the ridges
+    setTimeout(() => get('r1').style.strokeDashoffset = "590", 400);
+    setTimeout(() => get('r2').style.strokeDashoffset = "670", 700);
+    setTimeout(() => get('r3').style.strokeDashoffset = "745", 1000);
+    setTimeout(() => get('r4').style.strokeDashoffset = "825", 1300);
+    setTimeout(() => get('r5').style.strokeDashoffset = "905", 1600);
+
+    // 2. Pop the center dot
+    setTimeout(() => get('cdot').setAttribute('r', '7'), 2200);
+
+    // 3. Pop terminal dots and fade labels in sync
+    const order = [1, 2, 3, 4, 5];
+    order.forEach((num, i) => {
       setTimeout(() => {
-        const el = document.getElementById(id);
-        el.setAttribute('stroke-dasharray', `${ridgeMax[i]} ${ridgeTot[i]}`);
-      }, delays['r'+(i+1)]);
+        get('d' + num).setAttribute('r', '5');
+        get('l' + num).style.opacity = "1";
+        get('l' + num).style.transform = "translateY(0)";
+      }, 2600 + (i * 450));
     });
-    setTimeout(() => { document.getElementById('cdot').setAttribute('r','7'); }, delays.cdot);
-    dotIds.forEach((id,i) => {
-      setTimeout(() => {
-        document.getElementById(id).setAttribute('r','7');
-        document.getElementById(labelIds[i]).style.opacity = '1';
-      }, dotDelays[i]);
-    });
-    setTimeout(() => { 
-      document.getElementById('swm').style.opacity = '1'; 
-      document.getElementById('stg').style.opacity = '1';
-    }, 7800);
-    setTimeout(() => { document.getElementById('shint').style.opacity = '1'; }, 8800);
-    setTimeout(() => enterSite(), 11000);
+
+    // 4. Final Balance labels
+    setTimeout(() => {
+        get('l6').style.opacity = "1"; get('l6').style.transform = "translateY(0)";
+        get('l7').style.opacity = "1"; get('l7').style.transform = "translateY(0)";
+    }, 4800);
+
+    // 5. Final Brand revealing
+    setTimeout(() => get('wm').style.opacity = "1", 5800);
+    setTimeout(() => get('tg').style.opacity = "1", 6200);
+    setTimeout(() => get('ebtn').style.opacity = "1", 7200);
+
+    // 6. Auto-advance after 12s
+    setTimeout(() => enterSite(), 12000);
   }
 
   function enterSite() {
-    const splash = document.getElementById('splash');
-    const site = document.getElementById('site');
-    splash.classList.add('exit');
+    document.getElementById('splash').classList.add('exit');
     setTimeout(() => {
-      splash.style.display = 'none';
-      site.classList.add('visible');
-      document.body.style.overflow = 'auto';
-    }, 1300);
+      window.location.href = "main.html"; // Jumps to your polished main page
+    }, 1200);
   }
 
-  window.addEventListener('load', () => {
-    document.body.style.overflow = 'hidden';
-    runSplash();
-  });
+  window.onload = runSplash;
 </script>
 </body>
 </html>
