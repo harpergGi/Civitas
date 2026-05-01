@@ -3,113 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Civitas Legal Document Services</title>
+<title>Civitas Legal Document Services | Welcome</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0a1628; --navy-mid: #142240; --navy-light: #1e3360;
-    --gold: #c9a84c; --gold-light: #e8c97a; --gold-pale: #f5e9c8;
-    --white: #ffffff; --off-white: #f8f6f1;
-    --text-muted: #8a9bb5; --text-body: #2c3e5c;
+    --navy: #0a1628;
+    --gold: #c9a84c;
+    --white: #ffffff;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-body); overflow-x: hidden; }
+  body { 
+    background: var(--navy); 
+    height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+  }
 
-  /* TICKER STYLES */
-  .ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
-  .ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;position:relative;z-index:10;}
-  .ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
-  .ticker-track:hover{animation-play-state:paused;}
-  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-  .ti{font-size:0.68rem;color:var(--white);padding:0 2rem;display:flex;align-items:center;gap:0.5rem;border-right:1px solid rgba(255,255,255,0.05);}
-  .ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
-  .ti span{color:var(--white);font-weight:500;}
+  .splash-container {
+    text-align: center;
+    animation: fadeIn 2s ease-in;
+  }
 
-  /* NAV */
-  nav { position: sticky; top: 0; left: 0; right: 0; z-index: 100; background: var(--navy); border-bottom: 1px solid rgba(201,168,76,0.2); padding: 0 4rem; display: flex; align-items: center; justify-content: space-between; height: 72px; }
-  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); letter-spacing: 0.04em; text-decoration: none; }
-  .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta { background: var(--gold); color: var(--navy); padding: 0.5rem 1.25rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
-  .nav-cta:hover { background: var(--gold-light); }
+  /* ANIMATED LOGO CONTAINER */
+  .logo-svg {
+    width: 300px;
+    margin-bottom: 2rem;
+    animation: pulse 4s infinite ease-in-out;
+  }
 
-  /* HERO */
-  .hero { min-height: 100vh; background: var(--navy); display: grid; grid-template-columns: 1fr 480px; position: relative; overflow: hidden; padding: 0 4rem; }
-  .hero-content { display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; padding-right: 2rem; }
-  .hero-right { display: flex; align-items: center; justify-content: center; margin-right: 4rem; } /* Moved logo in from right */
-  
-  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.05; margin-bottom: 2rem; }
-  h1 em { font-style: italic; color: var(--gold-light); }
-  .hero-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.8; max-width: 520px; margin-bottom: 3rem; }
-  
-  .btn-ghost { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 0.875rem 2rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
-  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .enter-btn {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 1rem 3rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
 
-  /* CONTACT CARD */
-  .cc { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.2); padding: 1.75rem; max-width: 440px; margin-bottom: 4rem; }
-  .cc h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--white); margin-bottom: 0.5rem; }
-  .cc p { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-  .fg { margin-bottom: 1rem; }
-  .fg label { display: block; font-size: 0.6rem; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
-  .fg input, .fg select, .fg textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 0.6rem; font-size: 0.8rem; }
+  .enter-btn:hover {
+    background: var(--gold);
+    color: var(--navy);
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.4);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
 </style>
 </head>
 <body>
 
-<div class="ticker-bar">
-  <div class="ticker-label">Live / Impact Report</div>
-  <div class="ticker-track">
-    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
-    <div class="ti"><div class="d"></div>Defense sector stocks surge as military spending hits $2.4T</div>
-    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding efforts</div>
-    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply disruptions driving grocery costs</div>
-    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
-    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
-    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
-    <div class="ti"><div class="d"></div>Defense sector stocks surge as military spending hits $2.4T</div>
-    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding efforts</div>
-    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply disruptions driving grocery costs</div>
-    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
-    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
-  </div>
+<div class="splash-container">
+  <svg class="logo-svg" viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg">
+      <defs><clipPath id="fc"><ellipse cx="200" cy="195" rx="105" ry="122"/></clipPath></defs>
+      <ellipse cx="200" cy="195" rx="105" ry="122" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.95"/>
+      <g clip-path="url(#fc)">
+        <path d="M108 119 Q140 85 200 81 Q260 85 286 119 Q308 145 306 183 Q304 221 278 245 Q252 267 200 269 Q148 267 122 245 Q96 221 94 183 Q92 145 108 119" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.4"/>
+        <path d="M118 128 Q148 96 200 92 Q252 96 278 128 Q298 152 296 188 Q294 222 270 243 Q246 263 200 265 Q154 263 130 243 Q106 222 104 188 Q102 152 118 128" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.46"/>
+        <path d="M130 138 Q158 108 200 104 Q242 108 264 138 Q282 160 280 192 Q278 222 256 242 Q234 260 200 262 Q166 260 144 242 Q122 222 120 192 Q118 160 130 138" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.52"/>
+        <path d="M142 150 Q168 122 200 118 Q232 122 252 150 Q268 170 266 196 Q264 220 244 238 Q224 254 200 256 Q176 254 156 238 Q136 220 134 196 Q132 170 142 150" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.58"/>
+        <path d="M154 160 Q178 136 200 132 Q222 136 240 160 Q254 178 252 200 Q250 220 232 236 Q216 250 200 251 Q184 250 168 236 Q150 220 148 200 Q146 178 154 160" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.65"/>
+        <path d="M167 170 Q188 150 200 146 Q212 150 228 170 Q240 186 238 204 Q236 220 222 232 Q212 242 200 243 Q188 242 178 232 Q164 220 162 204 Q160 186 167 170" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.72"/>
+        <path d="M179 180 Q194 164 200 160 Q206 164 220 180 Q228 194 226 208 Q224 220 214 228 Q208 234 200 235 Q192 234 186 228 Q176 220 174 208 Q172 194 179 180" fill="none" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.8"/>
+        <path d="M189 190 Q196 178 200 175 Q204 178 212 190 Q217 200 216 210 Q214 219 208 224 Q204 228 200 228 Q196 228 192 224 Q186 219 184 210 Q183 200 189 190" fill="none" stroke="#c9a84c" stroke-width="1.3" stroke-opacity="0.9"/>
+      </g>
+      <circle cx="200" cy="200" r="5" fill="#c9a84c"/>
+      <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond" font-size="42" font-weight="300" fill="#ffffff" letter-spacing="0.35em">CIVITAS</text>
+  </svg>
+
+  <br>
+  <a href="main.html" class="enter-btn">Enter</a>
 </div>
-
-<nav>
-  <a href="index.html" class="nav-logo">Civitas<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="about.html">About</a></li>
-    <li><a href="main.html#services">Services</a></li>
-    <li><a href="main.html#protections">Your Rights</a></li>
-    <li><a href="main.html#cost">Cost Comparison</a></li>
-    <li><a href="main.html#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Get Early Access</a>
-</nav>
-
-<section class="hero">
-  <div class="hero-content">
-    <h1>Their policy<br>is not the <em>law.</em><br>You have recourse.</h1>
-    <p class="hero-sub">Civitas prepares the documents that put you back in the conversation. Credit disputes, goodwill letters, debt validation, and more. Starting at $39/month.</p>
-    
-    <div id="contact" class="cc">
-      <h3>Get in touch now.</h3>
-      <div class="fg"><label>Full Name</label><input type="text"></div>
-      <div class="fg"><label>Contact Info</label><input type="text"></div>
-      <div class="fg"><label>Description</label><textarea></textarea></div>
-      <button class="nav-cta" style="width:100%; border:none;">Send Message</button>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;">
-        <ellipse cx="200" cy="195" rx="105" ry="122" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.95"/>
-        <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="34" font-weight="300" fill="#ffffff" letter-spacing="0.35em">CIVITAS</text>
-    </svg>
-  </div>
-</section>
 
 </body>
 </html>
