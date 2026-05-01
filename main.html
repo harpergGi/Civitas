@@ -14,7 +14,7 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-body); overflow-x: hidden; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
 
   /* TICKER STYLES */
   .ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
@@ -37,16 +37,16 @@
   .nav-cta:hover { background: var(--gold-light); }
 
   /* HERO LAYOUT */
-  .hero { min-height: 100vh; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; position: relative; overflow: hidden; }
-  .hero-content { max-width: 600px; position: relative; z-index: 2; }
-  .hero-right { flex: 1; display: flex; justify-content: center; align-items: center; padding-left: 2rem; } /* Pushed inward to the left */
+  .hero { min-height: calc(100vh - 110px); display: grid; grid-template-columns: 1.2fr 1fr; padding: 0 4rem; align-items: center; gap: 2rem; }
+  .hero-content { max-width: 600px; }
+  .hero-right { display: flex; justify-content: flex-start; padding-left: 0; } 
   
-  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.05; margin-bottom: 2rem; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; }
   h1 em { font-style: italic; color: var(--gold-light); }
   .hero-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 3rem; }
   
   /* SECTION ANCHORS */
-  section { padding: 6rem 4rem; scroll-margin-top: 72px; }
+  section { padding: 6rem 4rem; scroll-margin-top: 72px; background: var(--off-white); color: var(--text-body); }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--navy); margin-bottom: 2rem; }
 </style>
 </head>
@@ -56,16 +56,16 @@
   <div class="ticker-label">Live / Impact Report</div>
   <div class="ticker-track">
     <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
-    <div class="ti"><div class="d"></div>Defense sector stocks surge as military spending hits $2.4T</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits $2.4 trillion</div>
     <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding efforts</div>
-    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply disruptions driving grocery costs</div>
-    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions</div>
+    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden</div>
     <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
     <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
-    <div class="ti"><div class="d"></div>Defense sector stocks surge as military spending hits $2.4T</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits $2.4 trillion</div>
     <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding efforts</div>
-    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply disruptions driving grocery costs</div>
-    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions</div>
+    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden</div>
     <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
   </div>
 </div>
@@ -79,21 +79,37 @@
     <li><a href="#cost">Cost Comparison</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div style="display:flex; gap:1rem;">
-    <a href="register.html" class="nav-links" style="padding-top:0.6rem; color:var(--gold);">Register</a>
+  <div style="display:flex; gap:1.5rem; align-items:center;">
+    <a href="register.html" style="font-size:0.8rem; color:var(--gold); text-decoration:none; text-transform:uppercase; letter-spacing:0.1em;">Register</a>
     <a href="account.html" class="nav-cta">Member Login</a>
   </div>
 </nav>
 
-<section class="hero">
+<section class="hero" style="background:var(--navy); color:white;">
   <div class="hero-content">
+    <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+        <div style="width:40px; height:1px; background:var(--gold);"></div>
+        <span style="font-size:0.7rem; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase;">California Legal Document Services</span>
+    </div>
     <h1>Their policy<br>is not the <em>law.</em><br>You have recourse.</h1>
     <p class="hero-sub">Civitas prepares the documents that put you back in the conversation. Credit disputes, goodwill letters, debt validation, and more. Starting at $39/month.</p>
   </div>
 
   <div class="hero-right">
-    <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;">
+    <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;">
+      <defs><clipPath id="fc"><ellipse cx="200" cy="195" rx="105" ry="122"/></clipPath></defs>
       <ellipse cx="200" cy="195" rx="105" ry="122" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.95"/>
+      <g clip-path="url(#fc)">
+        <path d="M108 119 Q140 85 200 81 Q260 85 286 119 Q308 145 306 183 Q304 221 278 245 Q252 267 200 269 Q148 267 122 245 Q96 221 94 183 Q92 145 108 119" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.4"/>
+        <path d="M118 128 Q148 96 200 92 Q252 96 278 128 Q298 152 296 188 Q294 222 270 243 Q246 263 200 265 Q154 263 130 243 Q106 222 104 188 Q102 152 118 128" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.46"/>
+        <path d="M130 138 Q158 108 200 104 Q242 108 264 138 Q282 160 280 192 Q278 222 256 242 Q234 260 200 262 Q166 260 144 242 Q122 222 120 192 Q118 160 130 138" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.52"/>
+        <path d="M142 150 Q168 122 200 118 Q232 122 252 150 Q268 170 266 196 Q264 220 244 238 Q224 254 200 256 Q176 254 156 238 Q136 220 134 196 Q132 170 142 150" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.58"/>
+        <path d="M154 160 Q178 136 200 132 Q222 136 240 160 Q254 178 252 200 Q250 220 232 236 Q216 250 200 251 Q184 250 168 236 Q150 220 148 200 Q146 178 154 160" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.65"/>
+        <path d="M167 170 Q188 150 200 146 Q212 150 228 170 Q240 186 238 204 Q236 220 222 232 Q212 242 200 243 Q188 242 178 232 Q164 220 162 204 Q160 186 167 170" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.72"/>
+        <path d="M179 180 Q194 164 200 160 Q206 164 220 180 Q228 194 226 208 Q224 220 214 228 Q208 234 200 235 Q192 234 186 228 Q176 220 174 208 Q172 194 179 180" fill="none" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.8"/>
+        <path d="M189 190 Q196 178 200 175 Q204 178 212 190 Q217 200 216 210 Q214 219 208 224 Q204 228 200 228 Q196 228 192 224 Q186 219 184 210 Q183 200 189 190" fill="none" stroke="#c9a84c" stroke-width="1.3" stroke-opacity="0.9"/>
+      </g>
+      <circle cx="200" cy="200" r="5" fill="#c9a84c"/>
       <circle cx="200" cy="81" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
       <text x="200" y="56" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#ffffff">YOU BELONG HERE.</text>
       <circle cx="200" cy="269" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
@@ -105,22 +121,18 @@
 
 <section id="services">
   <h2 class="section-title">Seven ways we <em>go to work</em> for you.</h2>
-  <p>Service descriptions go here...</p>
 </section>
 
 <section id="protections">
-  <h2 class="section-title">The laws that are <em>already on your side.</em></h2>
-  <p>FCRA, FDCPA, and CROA details go here...</p>
+  <h2 class="section-title">The laws <em>already on your side.</em></h2>
 </section>
 
 <section id="cost">
   <h2 class="section-title">The real <em>cost of access.</em></h2>
-  <p>Cost comparison table goes here...</p>
 </section>
 
 <section id="contact">
     <h3 class="section-title">Get in touch now.</h3>
-    <p>Message Brian directly using the form below.</p>
 </section>
 
 </body>
