@@ -36,25 +36,18 @@
   .nav-cta { background: var(--gold); color: var(--navy); padding: 0.5rem 1.25rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
   .nav-cta:hover { background: var(--gold-light); }
 
-  /* HERO */
-  .hero { min-height: 100vh; background: var(--navy); display: grid; grid-template-columns: 1fr 480px; position: relative; overflow: hidden; padding: 0 4rem; }
-  .hero-content { display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; padding-right: 2rem; }
-  .hero-right { display: flex; align-items: center; justify-content: center; margin-right: 4rem; } /* Moved logo in from right */
+  /* HERO LAYOUT */
+  .hero { min-height: 100vh; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; position: relative; overflow: hidden; }
+  .hero-content { max-width: 600px; position: relative; z-index: 2; }
+  .hero-right { flex: 1; display: flex; justify-content: center; align-items: center; padding-left: 2rem; } /* Pushed inward to the left */
   
   h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.05; margin-bottom: 2rem; }
   h1 em { font-style: italic; color: var(--gold-light); }
-  .hero-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.8; max-width: 520px; margin-bottom: 3rem; }
+  .hero-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 3rem; }
   
-  .btn-ghost { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 0.875rem 2rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
-  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-
-  /* CONTACT CARD */
-  .cc { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.2); padding: 1.75rem; max-width: 440px; margin-bottom: 4rem; }
-  .cc h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--white); margin-bottom: 0.5rem; }
-  .cc p { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-  .fg { margin-bottom: 1rem; }
-  .fg label { display: block; font-size: 0.6rem; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
-  .fg input, .fg select, .fg textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 0.6rem; font-size: 0.8rem; }
+  /* SECTION ANCHORS */
+  section { padding: 6rem 4rem; scroll-margin-top: 72px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--navy); margin-bottom: 2rem; }
 </style>
 </head>
 <body>
@@ -81,34 +74,53 @@
   <a href="index.html" class="nav-logo">Civitas<span>.</span></a>
   <ul class="nav-links">
     <li><a href="about.html">About</a></li>
-    <li><a href="main.html#services">Services</a></li>
-    <li><a href="main.html#protections">Your Rights</a></li>
-    <li><a href="main.html#cost">Cost Comparison</a></li>
-    <li><a href="main.html#contact">Contact</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#protections">Your Rights</a></li>
+    <li><a href="#cost">Cost Comparison</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Get Early Access</a>
+  <div style="display:flex; gap:1rem;">
+    <a href="register.html" class="nav-links" style="padding-top:0.6rem; color:var(--gold);">Register</a>
+    <a href="account.html" class="nav-cta">Member Login</a>
+  </div>
 </nav>
 
 <section class="hero">
   <div class="hero-content">
     <h1>Their policy<br>is not the <em>law.</em><br>You have recourse.</h1>
     <p class="hero-sub">Civitas prepares the documents that put you back in the conversation. Credit disputes, goodwill letters, debt validation, and more. Starting at $39/month.</p>
-    
-    <div id="contact" class="cc">
-      <h3>Get in touch now.</h3>
-      <div class="fg"><label>Full Name</label><input type="text"></div>
-      <div class="fg"><label>Contact Info</label><input type="text"></div>
-      <div class="fg"><label>Description</label><textarea></textarea></div>
-      <button class="nav-cta" style="width:100%; border:none;">Send Message</button>
-    </div>
   </div>
 
   <div class="hero-right">
-    <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;">
-        <ellipse cx="200" cy="195" rx="105" ry="122" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.95"/>
-        <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="34" font-weight="300" fill="#ffffff" letter-spacing="0.35em">CIVITAS</text>
+    <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;">
+      <ellipse cx="200" cy="195" rx="105" ry="122" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.95"/>
+      <circle cx="200" cy="81" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+      <text x="200" y="56" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#ffffff">YOU BELONG HERE.</text>
+      <circle cx="200" cy="269" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+      <text x="200" y="290" text-anchor="middle" font-family="DM Sans" font-size="9.5" fill="#ffffff">THE SYSTEM HAS A PROCESS. SO DO WE.</text>
+      <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond" font-size="34" fill="#ffffff" letter-spacing="0.35em">CIVITAS</text>
     </svg>
   </div>
+</section>
+
+<section id="services">
+  <h2 class="section-title">Seven ways we <em>go to work</em> for you.</h2>
+  <p>Service descriptions go here...</p>
+</section>
+
+<section id="protections">
+  <h2 class="section-title">The laws that are <em>already on your side.</em></h2>
+  <p>FCRA, FDCPA, and CROA details go here...</p>
+</section>
+
+<section id="cost">
+  <h2 class="section-title">The real <em>cost of access.</em></h2>
+  <p>Cost comparison table goes here...</p>
+</section>
+
+<section id="contact">
+    <h3 class="section-title">Get in touch now.</h3>
+    <p>Message Brian directly using the form below.</p>
 </section>
 
 </body>
