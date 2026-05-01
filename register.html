@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account | Civitas Legal Document Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--navy-mid:#111f3a;--gold:#c9a84c;--gold-light:#e8c97a;--white:#fff;--muted:#8a9bb5;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);min-height:100vh;display:grid;grid-template-columns:1fr 480px;grid-template-rows:auto 1fr;}
+
+/* NAV */
+nav{grid-column:1/-1;background:rgba(10,22,40,0.98);border-bottom:1px solid rgba(201,168,76,0.15);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--white);text-decoration:none;letter-spacing:0.04em;}
+.nav-logo span{color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:1rem;font-size:0.72rem;color:var(--muted);}
+.nav-right a{color:var(--gold);text-decoration:none;}
+
+/* LEFT PANEL */
+.left-panel{background:#0d1a2e;padding:3rem 3rem 3rem 4rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(201,168,76,0.08);}
+.lp-eyebrow{display:flex;align-items:center;gap:0.6rem;margin-bottom:1.5rem;}
+.lp-line{width:30px;height:1px;background:var(--gold);}
+.lp-eyebrow span{font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.lp-title{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;line-height:1.1;margin-bottom:1.5rem;}
+.lp-title em{font-style:italic;color:var(--gold-light);}
+.lp-body{font-size:0.82rem;color:var(--muted);line-height:1.9;margin-bottom:2rem;max-width:420px;}
+.lp-body strong{color:var(--white);font-weight:500;}
+
+/* FEATURES LIST */
+.features{display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;}
+.feat-item{display:flex;align-items:flex-start;gap:0.75rem;}
+.feat-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;}
+.feat-text{font-size:0.78rem;color:var(--muted);line-height:1.5;}
+.feat-text strong{color:var(--white);font-weight:500;}
+
+/* TIERS MINI */
+.tiers-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.tier-mini{border:1px solid rgba(255,255,255,0.06);padding:0.75rem;text-align:center;}
+.tier-mini.pop{border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.05);}
+.tier-mini-name{font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.tier-mini.pop .tier-mini-name{color:var(--gold);}
+.tier-mini-price{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--white);}
+.tier-mini-price span{font-size:0.65rem;font-family:'DM Sans',sans-serif;color:var(--muted);}
+
+/* RIGHT PANEL - FORM */
+.right-panel{background:var(--navy-mid);padding:2.5rem 2.5rem 2rem;overflow-y:auto;display:flex;flex-direction:column;justify-content:center;}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);margin-bottom:0.3rem;}
+.form-sub{font-size:0.72rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+
+/* STEP INDICATOR */
+.steps{display:flex;align-items:center;gap:0;margin-bottom:1.5rem;}
+.step{display:flex;align-items:center;gap:6px;font-size:0.65rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;}
+.step-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:500;flex-shrink:0;}
+.step.done .step-num{background:var(--gold);color:var(--navy);}
+.step.act .step-num{background:rgba(201,168,76,0.2);border:1.5px solid var(--gold);color:var(--gold);}
+.step.pend .step-num{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.2);}
+.step.act{color:var(--gold);}
+.step.pend{color:rgba(255,255,255,0.2);}
+.step.done{color:rgba(201,168,76,0.7);}
+.step-conn{flex:1;height:1px;background:rgba(255,255,255,0.08);margin:0 6px;}
+.step-conn.done{background:var(--gold);}
+
+/* FORM ELEMENTS */
+.section-divider{font-size:0.62rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);padding-bottom:0.4rem;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:0.75rem;margin-top:1rem;}
+.fg{display:flex;flex-direction:column;gap:0.25rem;margin-bottom:0.65rem;}
+.fg label{font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:0.55rem 0.75rem;outline:none;transition:border-color 0.2s;width:100%;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);}
+.fg input::placeholder{color:rgba(138,155,181,0.35);}
+.fg select option{background:var(--navy-mid);}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;}
+
+/* PASSWORD STRENGTH */
+.pw-strength{height:3px;border-radius:2px;margin-top:4px;transition:all 0.3s;background:rgba(255,255,255,0.08);}
+.pw-strength.weak{background:linear-gradient(to right,#e74c3c 33%,rgba(255,255,255,0.08) 33%);}
+.pw-strength.medium{background:linear-gradient(to right,#c9a84c 66%,rgba(255,255,255,0.08) 66%);}
+.pw-strength.strong{background:#2ecc71;}
+.pw-hint{font-size:0.6rem;color:var(--muted);margin-top:2px;}
+
+/* PLAN SELECTOR */
+.plan-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:0.75rem;}
+.plan-opt{border:1px solid rgba(255,255,255,0.08);padding:0.6rem;text-align:center;cursor:pointer;transition:all 0.15s;position:relative;}
+.plan-opt:hover{border-color:rgba(201,168,76,0.3);}
+.plan-opt.selected{border:1.5px solid var(--gold);background:rgba(201,168,76,0.08);}
+.plan-opt input{position:absolute;opacity:0;}
+.plan-opt-name{font-size:0.6rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.plan-opt.selected .plan-opt-name{color:var(--gold);}
+.plan-opt-price{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--white);}
+.plan-opt-price span{font-size:0.62rem;font-family:'DM Sans',sans-serif;color:var(--muted);}
+
+/* CHECKBOX */
+.check-row{display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.6rem;}
+.check-row input[type=checkbox]{margin-top:2px;flex-shrink:0;accent-color:var(--gold);}
+.check-row label{font-size:0.7rem;color:var(--muted);line-height:1.5;cursor:pointer;}
+.check-row label a{color:var(--gold);text-decoration:none;}
+
+/* SUBMIT */
+.btn-register{width:100%;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.85rem;cursor:pointer;transition:background 0.2s;margin-top:0.5rem;}
+.btn-register:hover{background:var(--gold-light);}
+.sign-in-link{text-align:center;font-size:0.72rem;color:var(--muted);margin-top:1rem;}
+.sign-in-link a{color:var(--gold);text-decoration:none;}
+
+/* DISCLAIMER */
+.reg-disc{font-size:0.6rem;color:rgba(138,155,181,0.4);line-height:1.6;margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.05);}
+
+/* SUCCESS STATE */
+.success-state{display:none;text-align:center;padding:2rem 1rem;}
+.success-icon{font-size:3rem;margin-bottom:1rem;}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:0.75rem;}
+.success-body{font-size:0.82rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;}
+.btn-portal{display:inline-block;background:var(--gold);color:var(--navy);font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.75rem 2rem;text-decoration:none;transition:background 0.2s;}
+.btn-portal:hover{background:var(--gold-light);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="main.html" class="nav-logo">Civitas<span>.</span></a>
+  <div class="nav-right">
+    Already have an account? <a href="account.html">Sign in</a>
+  </div>
+</nav>
+
+<!-- LEFT PANEL -->
+<div class="left-panel">
+  <div class="lp-eyebrow">
+    <div class="lp-line"></div>
+    <span>Create Your Account</span>
+  </div>
+  <h1 class="lp-title">Your case.<br>Your portal.<br><em>Your recourse.</em></h1>
+  <p class="lp-body">Every Civitas client gets a <strong>personal dashboard</strong> with live case updates, document management, secure messaging, and a QR code that brings your portal to your phone in one scan.</p>
+
+  <div class="features">
+    <div class="feat-item"><div class="feat-dot"></div><div class="feat-text"><strong>Live case timeline</strong> with real-time status updates every step of the way</div></div>
+    <div class="feat-item"><div class="feat-dot"></div><div class="feat-text"><strong>Text and email alerts</strong> the moment your case status changes or a document is filed</div></div>
+    <div class="feat-item"><div class="feat-dot"></div><div class="feat-text"><strong>Document vault</strong> to upload, store, and download everything related to your matter</div></div>
+    <div class="feat-item"><div class="feat-dot"></div><div class="feat-text"><strong>Submit on your behalf</strong> - authorize Civitas to mail, fax, or email to any organization for you</div></div>
+    <div class="feat-item"><div class="feat-dot"></div><div class="feat-text"><strong>Resources library</strong> with direct links to FCRA, FDCPA, CFPB, IRS, and California law</div></div>
+    <div class="feat-item"><div class="feat-dot"></div><div class="feat-text"><strong>Secure messaging</strong> directly with Brian Harper at Civitas</div></div>
+    <div class="feat-item"><div class="feat-dot"></div><div class="feat-text"><strong>QR portal access</strong> from any device, no login required after setup</div></div>
+  </div>
+
+  <div style="font-size:0.62rem;color:var(--muted);font-weight:500;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.6rem;">Choose your plan during registration</div>
+  <div class="tiers-mini">
+    <div class="tier-mini"><div class="tier-mini-name">Essential</div><div class="tier-mini-price">$39<span>/mo</span></div></div>
+    <div class="tier-mini pop"><div class="tier-mini-name">Advocate</div><div class="tier-mini-price">$99<span>/mo</span></div></div>
+    <div class="tier-mini"><div class="tier-mini-name">Command</div><div class="tier-mini-price">$149<span>/mo</span></div></div>
+  </div>
+  <div style="font-size:0.62rem;color:rgba(138,155,181,0.4);margin-top:0.6rem;">No setup fee. No retainer. Cancel any time. 3-day right to cancel per CROA.</div>
+</div>
+
+<!-- RIGHT PANEL - FORM -->
+<div class="right-panel">
+  <div id="registerForm">
+    <div class="form-title">Create your account</div>
+    <div class="form-sub">Takes about 2 minutes. No credit card required until your first service agreement is signed.</div>
+
+    <!-- STEPS -->
+    <div class="steps">
+      <div class="step act" id="step1"><div class="step-num">1</div>Your Info</div>
+      <div class="step-conn" id="conn1"></div>
+      <div class="step pend" id="step2"><div class="step-num">2</div>Your Situation</div>
+      <div class="step-conn" id="conn2"></div>
+      <div class="step pend" id="step3"><div class="step-num">3</div>Plan + Confirm</div>
+    </div>
+
+    <!-- STEP 1: PERSONAL INFO -->
+    <div id="stepContent1">
+      <div class="section-divider">Personal Information</div>
+      <div class="row-2">
+        <div class="fg"><label>First Name *</label><input type="text" id="r_fn" placeholder="First name"></div>
+        <div class="fg"><label>Last Name *</label><input type="text" id="r_ln" placeholder="Last name"></div>
+      </div>
+      <div class="fg"><label>Email Address *</label><input type="email" id="r_email" placeholder="your@email.com"></div>
+      <div class="fg"><label>Phone Number *</label><input type="tel" id="r_phone" placeholder="(555) 000-0000"></div>
+      <div class="row-2">
+        <div class="fg"><label>City</label><input type="text" id="r_city" placeholder="Sacramento"></div>
+        <div class="fg"><label>State</label>
+          <select id="r_state">
+            <option value="">State</option>
+            <option value="CA" selected>California</option>
+            <option value="NV">Nevada</option>
+            <option value="AZ">Arizona</option>
+            <option value="OR">Oregon</option>
+            <option value="WA">Washington</option>
+            <option value="other">Other state</option>
+          </select>
+        </div>
+      </div>
+      <div class="section-divider">Create Password</div>
+      <div class="fg">
+        <label>Password *</label>
+        <input type="password" id="r_pw" placeholder="At least 8 characters" oninput="checkPw(this.value)">
+        <div class="pw-strength" id="pwBar"></div>
+        <div class="pw-hint" id="pwHint">Use 8+ characters with a number or symbol</div>
+      </div>
+      <div class="fg"><label>Confirm Password *</label><input type="password" id="r_pw2" placeholder="Repeat your password"></div>
+
+      <div style="font-size:0.62rem;color:rgba(138,155,181,0.45);margin:0.75rem 0;line-height:1.6;">
+        How did you hear about Civitas?
+      </div>
+      <div class="fg">
+        <select>
+          <option value="">Select one</option>
+          <option>Google search</option>
+          <option>Social media</option>
+          <option>Friend or family referral</option>
+          <option>YouTube</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <button class="btn-register" onclick="nextStep(1)">Continue to Step 2</button>
+    </div>
+
+    <!-- STEP 2: SITUATION (hidden initially) -->
+    <div id="stepContent2" style="display:none;">
+      <div class="section-divider">What brings you to Civitas?</div>
+      <p style="font-size:0.72rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">This helps Brian understand your situation before your first consultation. Check all that apply.</p>
+
+      <div style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.75rem;">
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" style="accent-color:var(--gold);"> Credit report errors or late payment notations</label>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" style="accent-color:var(--gold);"> Debt collectors contacting me</label>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" style="accent-color:var(--gold);"> Landlord or tenant dispute</label>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" style="accent-color:var(--gold);"> Tax preparer made errors on my return</label>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" style="accent-color:var(--gold);"> Need a goodwill letter to a creditor</label>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" style="accent-color:var(--gold);"> Need help with a legal document or demand letter</label>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" style="accent-color:var(--gold);"> Just exploring / want to learn my rights</label>
+      </div>
+
+      <div class="fg">
+        <label>Brief description (optional)</label>
+        <textarea placeholder="Tell us a little about your situation in your own words. No legal language needed." style="height:80px;"></textarea>
+      </div>
+
+      <div class="section-divider">Notification Preferences</div>
+      <div style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.75rem;">
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--gold);"> Text me when my case status changes</label>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--gold);"> Email me when a document is filed</label>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--gold);"> Alert me when I have a new message from Brian</label>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--white);cursor:pointer;"><input type="checkbox" style="accent-color:var(--gold);"> Send me a copy of every document filed on my behalf</label>
+      </div>
+
+      <div style="display:flex;gap:0.6rem;">
+        <button class="btn-register" style="background:transparent;border:1px solid rgba(255,255,255,0.12);color:var(--muted);flex:0 0 auto;width:auto;padding:0.85rem 1.25rem;" onclick="prevStep(2)">Back</button>
+        <button class="btn-register" onclick="nextStep(2)" style="flex:1;">Continue to Step 3</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: PLAN + CONFIRM (hidden initially) -->
+    <div id="stepContent3" style="display:none;">
+      <div class="section-divider">Choose Your Plan</div>
+      <div class="plan-selector" id="planSelector">
+        <label class="plan-opt" onclick="selectPlan(this)">
+          <input type="radio" name="plan" value="essential">
+          <div class="plan-opt-name">Essential</div>
+          <div class="plan-opt-price">$39<span>/mo</span></div>
+          <div style="font-size:0.62rem;color:rgba(138,155,181,0.5);margin-top:4px;line-height:1.4;">1 case, 3 docs/mo, portal + QR</div>
+        </label>
+        <label class="plan-opt selected" onclick="selectPlan(this)">
+          <input type="radio" name="plan" value="advocate" checked>
+          <div class="plan-opt-name">Advocate</div>
+          <div class="plan-opt-price">$99<span>/mo</span></div>
+          <div style="font-size:0.62rem;color:rgba(138,155,181,0.5);margin-top:4px;line-height:1.4;">3 cases, unlimited docs, credit tracker</div>
+        </label>
+        <label class="plan-opt" onclick="selectPlan(this)">
+          <input type="radio" name="plan" value="command">
+          <div class="plan-opt-name">Command</div>
+          <div class="plan-opt-price">$149<span>/mo</span></div>
+          <div style="font-size:0.62rem;color:rgba(138,155,181,0.5);margin-top:4px;line-height:1.4;">Unlimited cases, direct phone line, family accounts</div>
+        </label>
+      </div>
+      <div style="font-size:0.65rem;color:rgba(138,155,181,0.4);margin-bottom:1rem;line-height:1.6;">No charge until your first service agreement is signed. You have the right to cancel within three business days of any signed agreement per federal CROA requirements.</div>
+
+      <div class="section-divider">Confirm Your Details</div>
+      <div id="confirmSummary" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:0.75rem;font-size:0.75rem;color:var(--muted);line-height:1.8;margin-bottom:0.75rem;">
+        Loading your information...
+      </div>
+
+      <div class="check-row"><input type="checkbox" id="agreeTerms"><label for="agreeTerms">I have read and agree to the <a href="main.html#protections">Terms of Service and Legal Disclosures</a>. I understand Civitas is a registered California LDA and not a law firm.</label></div>
+      <div class="check-row"><input type="checkbox" id="agreeCROA"><label for="agreeCROA">I understand I have the right to cancel within three business days of signing any service agreement, as required by the federal Credit Repair Organizations Act.</label></div>
+      <div class="check-row"><input type="checkbox" id="agreeNotif"><label for="agreeNotif">I agree to receive text and email notifications about my case status. Standard message rates may apply.</label></div>
+
+      <div style="display:flex;gap:0.6rem;">
+        <button class="btn-register" style="background:transparent;border:1px solid rgba(255,255,255,0.12);color:var(--muted);flex:0 0 auto;width:auto;padding:0.85rem 1.25rem;" onclick="prevStep(3)">Back</button>
+        <button class="btn-register" onclick="submitRegister()" style="flex:1;">Create My Account</button>
+      </div>
+
+      <div class="reg-disc">
+        Civitas Legal Document Services is a registered California Legal Document Assistant under B&amp;P Code 6400-6415. We are not a law firm and do not provide legal advice. Credit services comply with the federal Credit Repair Organizations Act and the California Credit Services Act. No fees are collected for credit-related services before they are performed.
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS STATE -->
+  <div class="success-state" id="successState">
+    <div class="success-icon">&#10003;</div>
+    <div class="success-title">Account Created.</div>
+    <p class="success-body">Welcome to Civitas. Brian will reach out within 24 hours to confirm your case details and get started. Your portal is already active.</p>
+    <a href="account.html" class="btn-portal">Go to My Dashboard</a>
+    <div style="margin-top:1rem;font-size:0.72rem;color:var(--muted);">Check your email and phone for your confirmation and portal QR code.</div>
+  </div>
+</div>
+
+<script>
+let stepData={fn:'',ln:'',email:'',phone:''};
+
+function checkPw(v){
+  const bar=document.getElementById('pwBar');
+  const hint=document.getElementById('pwHint');
+  if(v.length<6){bar.className='pw-strength weak';hint.textContent='Too short';}
+  else if(v.length<10&&!/[0-9!@#$]/.test(v)){bar.className='pw-strength medium';hint.textContent='Add a number or symbol to strengthen';}
+  else{bar.className='pw-strength strong';hint.textContent='Strong password';}
+}
+
+function selectPlan(el){
+  document.querySelectorAll('.plan-opt').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function showToast(text,color){
+  color=color||'#c9a84c';
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:2rem;right:2rem;background:'+color+';color:#0a1628;font-family:\'DM Sans\',sans-serif;font-size:0.78rem;font-weight:500;padding:0.75rem 1.5rem;z-index:9999;';
+  t.textContent=text;
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';t.style.transition='opacity 0.4s';setTimeout(function(){t.remove();},400);},3500);
+}
+
+function setStep(n){
+  for(let i=1;i<=3;i++){
+    const sc=document.getElementById('stepContent'+i);
+    const st=document.getElementById('step'+i);
+    const cn=document.getElementById('conn'+i);
+    if(sc)sc.style.display=i===n?'block':'none';
+    if(st){
+      st.className='step '+(i<n?'done':i===n?'act':'pend');
+    }
+    if(cn&&i<3)cn.className='step-conn'+(i<n?' done':'');
+  }
+}
+
+function nextStep(current){
+  if(current===1){
+    const fn=document.getElementById('r_fn').value.trim();
+    const ln=document.getElementById('r_ln').value.trim();
+    const email=document.getElementById('r_email').value.trim();
+    const phone=document.getElementById('r_phone').value.trim();
+    const pw=document.getElementById('r_pw').value;
+    const pw2=document.getElementById('r_pw2').value;
+    if(!fn||!ln||!email||!phone){showToast('Please fill in all required fields.','#e74c3c');return;}
+    if(pw.length<6){showToast('Password must be at least 6 characters.','#e74c3c');return;}
+    if(pw!==pw2){showToast('Passwords do not match.','#e74c3c');return;}
+    stepData={fn,ln,email,phone};
+  }
+  setStep(current+1);
+  if(current+1===3){
+    const sel=document.querySelector('.plan-opt.selected .plan-opt-name');
+    const plan=sel?sel.textContent:'Advocate';
+    document.getElementById('confirmSummary').innerHTML=
+      '<strong style="color:#fff;">'+stepData.fn+' '+stepData.ln+'</strong><br>'+
+      stepData.email+' / '+stepData.phone+'<br>'+
+      'Plan: <span style="color:#c9a84c;font-weight:500;">'+plan+'</span>';
+  }
+}
+
+function prevStep(current){
+  setStep(current-1);
+}
+
+function submitRegister(){
+  const terms=document.getElementById('agreeTerms').checked;
+  const croa=document.getElementById('agreeCROA').checked;
+  if(!terms||!croa){showToast('Please agree to the required terms to continue.','#e74c3c');return;}
+  document.getElementById('registerForm').style.display='none';
+  document.getElementById('successState').style.display='block';
+}
+</script>
+</body>
+</html>

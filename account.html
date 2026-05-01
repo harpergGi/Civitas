@@ -259,6 +259,7 @@ body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);
   </ul>
   <div class="tn-right">
     <div class="tn-user">Signed in as <strong>Sharynne Macon</strong></div>
+    <a href="register.html" class="tn-logout" style="border-color:rgba(201,168,76,0.4);color:var(--gold);">Register</a>
     <a href="index.html" class="tn-logout">Sign Out</a>
   </div>
 </nav>
@@ -289,6 +290,8 @@ body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);
 
       <div class="sb-section-label">Account</div>
       <a href="#messages" class="sb-item"><div class="sb-dot"></div>Messages <span class="sb-badge">1</span></a>
+      <a href="#notifications" class="sb-item"><div class="sb-dot"></div>Notifications</a>
+      <a href="#submitbehalf" class="sb-item"><div class="sb-dot"></div>Submit on My Behalf</a>
       <a href="#billing" class="sb-item"><div class="sb-dot"></div>Billing</a>
       <a href="portal.html" class="sb-item"><div class="sb-dot"></div>Full Portal View</a>
     </nav>
@@ -708,6 +711,158 @@ body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);
   </main>
 </div>
 
+<!-- NOTIFICATIONS + SUBMIT ON BEHALF -->
+<div class="grid-2" style="padding:0 1.5rem 1rem;">
+
+  <!-- NOTIFICATION PREFERENCES -->
+  <div class="card" id="notifications">
+    <div class="card-hdr">
+      <div class="card-title">Notification Preferences</div>
+      <span style="font-size:0.65rem;color:var(--muted);">We alert you every time something changes</span>
+    </div>
+    <div style="font-size:0.65rem;color:var(--muted);font-weight:500;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">Text Message (SMS)</div>
+    <div class="notif-row" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div>
+        <div class="notif-label" style="font-size:0.78rem;color:var(--white);">Case status updates</div>
+        <div style="font-size:0.65rem;color:var(--muted);">When your timeline advances to a new stage</div>
+      </div>
+      <label style="position:relative;display:inline-block;width:38px;height:20px;flex-shrink:0;">
+        <input type="checkbox" class="notif-toggle" checked style="opacity:0;width:0;height:0;">
+        <span style="position:absolute;inset:0;background:#c9a84c;border-radius:20px;cursor:pointer;"></span>
+      </label>
+    </div>
+    <div class="notif-row" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div>
+        <div class="notif-label" style="font-size:0.78rem;color:var(--white);">Document filed</div>
+        <div style="font-size:0.65rem;color:var(--muted);">When Civitas files or sends a document on your behalf</div>
+      </div>
+      <label style="position:relative;display:inline-block;width:38px;height:20px;flex-shrink:0;">
+        <input type="checkbox" class="notif-toggle" checked style="opacity:0;width:0;height:0;">
+        <span style="position:absolute;inset:0;background:#c9a84c;border-radius:20px;cursor:pointer;"></span>
+      </label>
+    </div>
+    <div class="notif-row" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div>
+        <div class="notif-label" style="font-size:0.78rem;color:var(--white);">New message from Brian</div>
+        <div style="font-size:0.65rem;color:var(--muted);">When you receive a message in your portal</div>
+      </div>
+      <label style="position:relative;display:inline-block;width:38px;height:20px;flex-shrink:0;">
+        <input type="checkbox" class="notif-toggle" checked style="opacity:0;width:0;height:0;">
+        <span style="position:absolute;inset:0;background:#c9a84c;border-radius:20px;cursor:pointer;"></span>
+      </label>
+    </div>
+    <div style="font-size:0.65rem;color:var(--muted);font-weight:500;letter-spacing:0.1em;text-transform:uppercase;margin:0.75rem 0;">Email</div>
+    <div class="notif-row" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div>
+        <div class="notif-label" style="font-size:0.78rem;color:var(--white);">Case status updates</div>
+        <div style="font-size:0.65rem;color:var(--muted);">Full update email when stage changes</div>
+      </div>
+      <label style="position:relative;display:inline-block;width:38px;height:20px;flex-shrink:0;">
+        <input type="checkbox" class="notif-toggle" checked style="opacity:0;width:0;height:0;">
+        <span style="position:absolute;inset:0;background:#c9a84c;border-radius:20px;cursor:pointer;"></span>
+      </label>
+    </div>
+    <div class="notif-row" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div>
+        <div class="notif-label" style="font-size:0.78rem;color:var(--white);">Document copies</div>
+        <div style="font-size:0.65rem;color:var(--muted);">Receive a copy of every document filed</div>
+      </div>
+      <label style="position:relative;display:inline-block;width:38px;height:20px;flex-shrink:0;">
+        <input type="checkbox" class="notif-toggle" style="opacity:0;width:0;height:0;">
+        <span style="position:absolute;inset:0;background:rgba(255,255,255,0.1);border-radius:20px;cursor:pointer;"></span>
+      </label>
+    </div>
+    <div class="notif-row" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;">
+      <div>
+        <div class="notif-label" style="font-size:0.78rem;color:var(--white);">Billing reminders</div>
+        <div style="font-size:0.65rem;color:var(--muted);">3 days before your billing date</div>
+      </div>
+      <label style="position:relative;display:inline-block;width:38px;height:20px;flex-shrink:0;">
+        <input type="checkbox" class="notif-toggle" checked style="opacity:0;width:0;height:0;">
+        <span style="position:absolute;inset:0;background:#c9a84c;border-radius:20px;cursor:pointer;"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- SUBMIT ON BEHALF -->
+  <div class="card" id="submitbehalf">
+    <div class="card-hdr">
+      <div class="card-title">Submit and File on Your Behalf</div>
+      <span style="font-size:0.65rem;color:var(--muted);">Civitas handles the delivery</span>
+    </div>
+    <p style="font-size:0.75rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">You have two options: send directly from your account to an organization, or authorize Civitas to file, mail, fax, or email on your behalf. We handle the delivery and confirm when it lands.</p>
+
+    <div style="font-size:0.65rem;color:var(--muted);font-weight:500;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem;">Send Directly from Your Account</div>
+    <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.25rem;">
+      <button class="btn btn-outline btn-sm" style="text-align:left;justify-content:flex-start;display:flex;align-items:center;gap:0.5rem;" onclick="submitOnBehalf('Email to credit bureau')">
+        <span style="color:var(--gold);">&#9993;</span> Email a credit bureau directly
+      </button>
+      <button class="btn btn-outline btn-sm" style="text-align:left;justify-content:flex-start;display:flex;align-items:center;gap:0.5rem;" onclick="submitOnBehalf('Email to creditor or collector')">
+        <span style="color:var(--gold);">&#9993;</span> Email a creditor or debt collector
+      </button>
+      <button class="btn btn-outline btn-sm" style="text-align:left;justify-content:flex-start;display:flex;align-items:center;gap:0.5rem;" onclick="submitOnBehalf('Submit to CFPB complaint portal')">
+        <span style="color:var(--gold);">&#9654;</span> Submit complaint to CFPB
+      </button>
+      <button class="btn btn-outline btn-sm" style="text-align:left;justify-content:flex-start;display:flex;align-items:center;gap:0.5rem;" onclick="submitOnBehalf('IRS Form 14157 complaint')">
+        <span style="color:var(--gold);">&#9654;</span> File IRS preparer negligence complaint
+      </button>
+    </div>
+
+    <div style="font-size:0.65rem;color:var(--muted);font-weight:500;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem;">Authorize Civitas to File for You</div>
+    <p style="font-size:0.72rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem;">Civitas will mail, fax, or email the document to the correct address on your behalf and confirm delivery. You receive a copy and a status update.</p>
+    <div style="display:flex;flex-direction:column;gap:0.5rem;">
+      <button class="btn btn-gold btn-sm" style="text-align:left;justify-content:flex-start;display:flex;align-items:center;gap:0.5rem;" onclick="submitOnBehalf('Mail letter on your behalf (USPS certified)')">
+        <span>&#9993;</span> Authorize Civitas to mail a letter (certified mail)
+      </button>
+      <button class="btn btn-gold btn-sm" style="text-align:left;justify-content:flex-start;display:flex;align-items:center;gap:0.5rem;" onclick="submitOnBehalf('Fax document on your behalf')">
+        <span>&#9993;</span> Authorize Civitas to fax a document
+      </button>
+      <button class="btn btn-gold btn-sm" style="text-align:left;justify-content:flex-start;display:flex;align-items:center;gap:0.5rem;" onclick="submitOnBehalf('Email document on your behalf')">
+        <span>&#9993;</span> Authorize Civitas to email on your behalf
+      </button>
+    </div>
+    <p style="font-size:0.62rem;color:rgba(138,155,181,0.4);margin-top:0.75rem;line-height:1.5;">Civitas acts as your document assistant, not your legal representative. By authorizing submission you confirm the document was prepared at your direction.</p>
+  </div>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div id="submitModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9998;align-items:center;justify-content:center;">
+  <div style="background:#111f3a;border:1px solid rgba(201,168,76,0.3);padding:2rem;max-width:480px;width:90%;position:relative;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:#fff;margin-bottom:0.5rem;">Confirm Submission</div>
+    <p style="font-size:0.78rem;color:#8a9bb5;margin-bottom:1rem;line-height:1.7;">You are requesting Civitas to handle: <strong style="color:#e8c97a;" id="submitType"></strong></p>
+    <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.25rem;">
+      <div style="display:flex;flex-direction:column;gap:0.3rem;">
+        <label style="font-size:0.62rem;color:#8a9bb5;letter-spacing:0.12em;text-transform:uppercase;">Recipient / Organization</label>
+        <input type="text" placeholder="e.g. Experian, Travis Credit Union, IRS" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:0.5rem 0.75rem;outline:none;width:100%;">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.3rem;">
+        <label style="font-size:0.62rem;color:#8a9bb5;letter-spacing:0.12em;text-transform:uppercase;">Fax / Email / Address (if known)</label>
+        <input type="text" placeholder="Leave blank and Civitas will locate the correct contact" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:0.5rem 0.75rem;outline:none;width:100%;">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.3rem;">
+        <label style="font-size:0.62rem;color:#8a9bb5;letter-spacing:0.12em;text-transform:uppercase;">Which document to send?</label>
+        <select style="background:#111f3a;border:1px solid rgba(255,255,255,0.1);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:0.5rem 0.75rem;outline:none;width:100%;">
+          <option>Experian dispute letter</option>
+          <option>Equifax dispute letter</option>
+          <option>FCRA 611 notice</option>
+          <option>Furnisher demand letter</option>
+          <option>Goodwill adjustment letter</option>
+          <option>Debt validation letter</option>
+          <option>Other (specify in notes)</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.3rem;">
+        <label style="font-size:0.62rem;color:#8a9bb5;letter-spacing:0.12em;text-transform:uppercase;">Notes for Brian (optional)</label>
+        <textarea placeholder="Any special instructions..." style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:0.5rem 0.75rem;outline:none;width:100%;height:60px;resize:none;"></textarea>
+      </div>
+    </div>
+    <div style="display:flex;gap:0.75rem;">
+      <button onclick="confirmSubmit()" style="flex:1;background:#c9a84c;color:#0a1628;border:none;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem;cursor:pointer;">Confirm and Submit</button>
+      <button onclick="closeModal()" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:#8a9bb5;font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:0.7rem 1.25rem;cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <div class="acct-footer">
   <span>Civitas Legal Document Services / CA-LDA Registered</span>
@@ -752,6 +907,15 @@ function handleUpload(input){
   input.value='';
 }
 
+function showToast(text,color){
+  color=color||'#c9a84c';
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:2rem;right:2rem;background:'+color+';color:#0a1628;font-family:\'DM Sans\',sans-serif;font-size:0.78rem;font-weight:500;padding:0.75rem 1.5rem;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.3);';
+  t.textContent=text;
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';t.style.transition='opacity 0.4s';setTimeout(function(){t.remove();},400);},3500);
+}
+
 function sendMsg(){
   const input=document.getElementById('msgInput');
   const text=input.value.trim();
@@ -760,17 +924,52 @@ function sendMsg(){
   const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   const msg=document.createElement('div');
   msg.className='msg me';
-  msg.innerHTML=`<div class="msg-meta">You &middot; ${now}</div><div class="msg-body">${text}</div>`;
+  msg.innerHTML='<div class="msg-meta">You &middot; '+now+'</div><div class="msg-body">'+text+'</div>';
   thread.appendChild(msg);
   thread.scrollTop=thread.scrollHeight;
   input.value='';
+  showToast('Message sent. Brian will respond within 24 hours.','#2ecc71');
 }
 
-// smooth scroll for nav links
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const t=document.querySelector(a.getAttribute('href'));
+function closeModal(){
+  const m=document.getElementById('submitModal');
+  if(m)m.style.display='none';
+}
+
+function submitOnBehalf(type){
+  const m=document.getElementById('submitModal');
+  const st=document.getElementById('submitType');
+  if(st)st.textContent=type;
+  if(m)m.style.display='flex';
+}
+
+function confirmSubmit(){
+  closeModal();
+  showToast('Request sent to Civitas. Brian will review and file within 24 hours.','#2ecc71');
+}
+
+// Smooth scroll without jumping to top
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    const href=this.getAttribute('href');
+    if(!href||href==='#'){e.preventDefault();return;}
+    const t=document.querySelector(href);
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+// Enter to send message
+document.addEventListener('DOMContentLoaded',function(){
+  const mi=document.getElementById('msgInput');
+  if(mi){mi.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});}
+
+  // Notification toggles
+  document.querySelectorAll('.notif-toggle').forEach(function(cb){
+    cb.addEventListener('change',function(){
+      const row=this.closest('.notif-row');
+      const label=row?row.querySelector('.notif-label').textContent:'Notification';
+      showToast(this.checked?label+' notifications enabled.':label+' notifications disabled.');
+    });
   });
 });
 </script>
