@@ -16,7 +16,7 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
 
-  /* TICKER STYLES */
+  /* TICKER */
   .ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
   .ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;position:relative;z-index:10;}
   .ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
@@ -36,18 +36,17 @@
   .nav-cta { background: var(--gold); color: var(--navy); padding: 0.5rem 1.25rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
   .nav-cta:hover { background: var(--gold-light); }
 
-  /* HERO LAYOUT */
-  .hero { min-height: calc(100vh - 110px); display: grid; grid-template-columns: 1.2fr 1fr; padding: 0 4rem; align-items: center; gap: 2rem; }
-  .hero-content { max-width: 600px; }
-  .hero-right { display: flex; justify-content: flex-start; padding-left: 0; } 
+  /* HERO */
+  .hero { min-height: calc(100vh - 110px); display: grid; grid-template-columns: 1fr 1fr; padding: 0 4rem; align-items: center; gap: 0; }
+  .hero-content { max-width: 580px; }
+  .hero-right { display: flex; justify-content: flex-start; margin-left: -4rem; } 
   
-  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 6vw, 6rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; }
   h1 em { font-style: italic; color: var(--gold-light); }
-  .hero-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 3rem; }
-  
-  /* SECTION ANCHORS */
-  section { padding: 6rem 4rem; scroll-margin-top: 72px; background: var(--off-white); color: var(--text-body); }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--navy); margin-bottom: 2rem; }
+  .hero-sub { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 3rem; }
+
+  section { padding: 8rem 4rem; background: var(--off-white); color: var(--text-body); scroll-margin-top: 72px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; margin-bottom: 2rem; color: var(--navy); }
 </style>
 </head>
 <body>
@@ -55,17 +54,17 @@
 <div class="ticker-bar">
   <div class="ticker-label">Live / Impact Report</div>
   <div class="ticker-track">
-    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
-    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits $2.4 trillion</div>
-    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding efforts</div>
-    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions</div>
-    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden</div>
+    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract for advanced missile systems</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits record $2.4 trillion</div>
+    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Private firms secure $800M in rebuilding efforts</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions driving grocery costs</div>
+    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
     <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
-    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
-    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits $2.4 trillion</div>
-    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding efforts</div>
-    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions</div>
-    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden</div>
+    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract for advanced missile systems</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits record $2.4 trillion</div>
+    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Private firms secure $800M in rebuilding efforts</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions driving grocery costs</div>
+    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
     <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
   </div>
 </div>
@@ -96,7 +95,7 @@
   </div>
 
   <div class="hero-right">
-    <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;">
+    <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;">
       <defs><clipPath id="fc"><ellipse cx="200" cy="195" rx="105" ry="122"/></clipPath></defs>
       <ellipse cx="200" cy="195" rx="105" ry="122" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.95"/>
       <g clip-path="url(#fc)">
@@ -111,28 +110,33 @@
       </g>
       <circle cx="200" cy="200" r="5" fill="#c9a84c"/>
       <circle cx="200" cy="81" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-      <text x="200" y="56" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#ffffff">YOU BELONG HERE.</text>
+      <text x="200" y="56" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#ffffff" letter-spacing="0.1em">YOU BELONG HERE.</text>
       <circle cx="200" cy="269" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-      <text x="200" y="290" text-anchor="middle" font-family="DM Sans" font-size="9.5" fill="#ffffff">THE SYSTEM HAS A PROCESS. SO DO WE.</text>
-      <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond" font-size="34" fill="#ffffff" letter-spacing="0.35em">CIVITAS</text>
+      <text x="200" y="290" text-anchor="middle" font-family="DM Sans" font-size="9.5" fill="#ffffff" letter-spacing="0.07em">THE SYSTEM HAS A PROCESS.</text>
+      <text x="200" y="303" text-anchor="middle" font-family="DM Sans" font-size="9.5" fill="#ffffff" letter-spacing="0.07em">SO DO WE.</text>
+      <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond" font-size="34" font-weight="300" fill="#ffffff" letter-spacing="0.35em">CIVITAS</text>
     </svg>
   </div>
 </section>
 
 <section id="services">
   <h2 class="section-title">Seven ways we <em>go to work</em> for you.</h2>
+  <p>Our document preparation services are built on the facts of your situation.</p>
 </section>
 
 <section id="protections">
   <h2 class="section-title">The laws <em>already on your side.</em></h2>
+  <p>Understanding FCRA, FDCPA, and CROA is the foundation of recourse.</p>
 </section>
 
 <section id="cost">
   <h2 class="section-title">The real <em>cost of access.</em></h2>
+  <p>Transparent pricing that beats hourly attorney rates every time.</p>
 </section>
 
 <section id="contact">
     <h3 class="section-title">Get in touch now.</h3>
+    <p>Message Brian directly to begin your educational consultation.</p>
 </section>
 
 </body>
