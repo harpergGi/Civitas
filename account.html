@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account | Civitas Legal Document Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a1628;--navy-mid:#111f3a;--navy-light:#1a2f52;
+  --gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);
+  --white:#ffffff;--off:#f8f6f1;--muted:#8a9bb5;--body:#2c3e5c;
+  --green:#2ecc71;--green-dim:rgba(46,204,113,0.12);
+  --red:#e74c3c;--red-dim:rgba(231,76,60,0.1);
+  --border:rgba(255,255,255,0.07);--border-light:rgba(10,22,40,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);min-height:100vh;}
+
+/* TOP NAV */
+.topnav{
+  background:rgba(10,22,40,0.98);
+  border-bottom:1px solid rgba(201,168,76,0.15);
+  padding:0 2rem;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(8px);
+}
+.tn-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--white);text-decoration:none;letter-spacing:0.04em;}
+.tn-logo span{color:var(--gold);}
+.tn-links{display:flex;gap:1.5rem;list-style:none;}
+.tn-links a{font-size:0.72rem;color:var(--muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;}
+.tn-links a:hover,.tn-links a.act{color:var(--gold);}
+.tn-right{display:flex;align-items:center;gap:1rem;}
+.tn-user{font-size:0.72rem;color:var(--muted);}
+.tn-user strong{color:var(--white);}
+.tn-logout{font-size:0.68rem;color:var(--muted);text-decoration:none;border:1px solid rgba(255,255,255,0.1);padding:4px 10px;transition:all 0.2s;}
+.tn-logout:hover{border-color:var(--gold);color:var(--gold);}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 60px);}
+
+/* SIDEBAR */
+.sidebar{background:#0d1a2e;border-right:1px solid rgba(201,168,76,0.1);padding:1.5rem 0;display:flex;flex-direction:column;}
+.sb-avatar-wrap{padding:0 1rem 1.5rem;text-align:center;border-bottom:1px solid rgba(255,255,255,0.05);}
+.sb-avatar{width:60px;height:60px;border-radius:50%;background:var(--navy-light);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:500;color:var(--gold);margin:0 auto 0.6rem;}
+.sb-name{font-size:0.85rem;font-weight:500;color:var(--white);margin-bottom:2px;}
+.sb-tier{font-size:0.6rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.sb-case{font-size:0.62rem;color:var(--muted);margin-top:3px;font-family:'DM Mono',monospace;}
+.sb-nav{padding:1rem 0;flex:1;}
+.sb-section-label{font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(138,155,181,0.4);padding:0.75rem 1rem 0.25rem;}
+.sb-item{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 1rem;font-size:0.78rem;color:var(--muted);cursor:pointer;text-decoration:none;transition:all 0.15s;position:relative;}
+.sb-item:hover{color:var(--white);background:rgba(255,255,255,0.03);}
+.sb-item.act{color:var(--gold);background:var(--gold-dim);border-right:2px solid var(--gold);}
+.sb-item .sb-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.sb-badge{margin-left:auto;background:var(--red);color:var(--white);font-size:0.6rem;font-weight:500;padding:1px 5px;border-radius:10px;min-width:16px;text-align:center;}
+.sb-qr-wrap{padding:1rem;border-top:1px solid rgba(255,255,255,0.05);margin-top:auto;}
+.sb-qr-label{font-size:0.6rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;}
+.sb-qr-box{background:var(--navy-light);border:1px solid rgba(201,168,76,0.2);padding:0.75rem;text-align:center;}
+.sb-qr-url{font-size:0.58rem;color:var(--muted);margin-top:0.35rem;font-family:'DM Mono',monospace;word-break:break-all;}
+
+/* MAIN CONTENT */
+.main{padding:1.5rem;background:#0e1c30;overflow-y:auto;}
+
+/* PAGE HEADER */
+.page-hdr{margin-bottom:1.5rem;}
+.page-hdr h1{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:0.25rem;}
+.page-hdr h1 em{font-style:italic;color:var(--gold-light);}
+.page-hdr p{font-size:0.78rem;color:var(--muted);}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;}
+.stat-card{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.1);padding:1rem 1.25rem;}
+.stat-label{font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--white);line-height:1;}
+.stat-val.gold{color:var(--gold);}
+.stat-val.green{color:var(--green);}
+.stat-sub{font-size:0.62rem;color:var(--muted);margin-top:3px;}
+
+/* GRID SECTIONS */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;}
+.full{margin-bottom:1rem;}
+
+/* SECTION CARDS */
+.card{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.1);padding:1.25rem;}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+.card-title{font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.card-action{font-size:0.7rem;color:var(--gold);cursor:pointer;text-decoration:none;transition:opacity 0.2s;}
+.card-action:hover{opacity:0.7;}
+
+/* PROFILE FIELDS */
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+.field{display:flex;flex-direction:column;gap:0.25rem;}
+.field label{font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+.field-val{font-size:0.82rem;color:var(--white);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:0.45rem 0.7rem;}
+.field input,.field select{font-size:0.82rem;color:var(--white);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:0.45rem 0.7rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;width:100%;}
+.field input:focus,.field select:focus{border-color:var(--gold);}
+.field select option{background:var(--navy-mid);}
+
+/* TIMELINE */
+.tl-track{display:flex;align-items:center;margin:0.75rem 0;}
+.tl-stage{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.tl-circle{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:500;position:relative;z-index:2;}
+.tl-circle.done{background:var(--gold);color:var(--navy);}
+.tl-circle.active{background:rgba(201,168,76,0.12);border:1.5px solid var(--gold);color:var(--gold);}
+.tl-circle.active::after{content:'';position:absolute;width:46px;height:46px;border-radius:50%;border:1px solid rgba(201,168,76,0.25);animation:pulse-ring 2s ease infinite;}
+@keyframes pulse-ring{0%,100%{transform:scale(1);opacity:0.6;}50%{transform:scale(1.2);opacity:0;}}
+.tl-circle.pend{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.2);}
+.tl-lbl{font-size:0.6rem;color:var(--muted);text-align:center;max-width:60px;margin-top:5px;line-height:1.3;}
+.tl-lbl.act-l{color:var(--gold);font-weight:500;}
+.tl-lbl.done-l{color:rgba(201,168,76,0.7);}
+.tl-conn{flex:1;height:1.5px;background:rgba(255,255,255,0.06);}
+.tl-conn.done{background:var(--gold);}
+
+/* PROGRESS BAR */
+.prog-bar-wrap{margin:0.5rem 0;}
+.prog-bar-label{display:flex;justify-content:space-between;font-size:0.65rem;color:var(--muted);margin-bottom:4px;}
+.prog-bar-label span:last-child{color:var(--gold);}
+.prog-bar{background:rgba(255,255,255,0.06);height:5px;border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width 1s ease;}
+
+/* DOCUMENT CHIPS */
+.doc-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0.75rem;}
+.chip{display:flex;align-items:center;gap:5px;padding:4px 9px;border:1px solid;font-size:0.7rem;font-weight:500;}
+.chip.filed{background:var(--green-dim);border-color:rgba(46,204,113,0.25);color:var(--green);}
+.chip.sent{background:var(--gold-dim);border-color:rgba(201,168,76,0.25);color:var(--gold);}
+.chip.pend{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07);color:rgba(255,255,255,0.25);}
+.chip-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+
+/* UPLOAD ZONE */
+.upload-zone{border:1px dashed rgba(201,168,76,0.25);padding:1.25rem;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;}
+.upload-zone:hover{background:rgba(201,168,76,0.04);border-color:rgba(201,168,76,0.5);}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-icon{font-size:1.5rem;color:rgba(201,168,76,0.4);margin-bottom:0.4rem;}
+.upload-text{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.upload-text strong{color:var(--white);}
+.upload-types{font-size:0.62rem;color:rgba(138,155,181,0.5);margin-top:0.25rem;}
+
+/* UPLOADED FILES LIST */
+.file-list{display:flex;flex-direction:column;gap:6px;margin-top:0.75rem;}
+.file-item{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);padding:0.5rem 0.75rem;}
+.file-name{font-size:0.75rem;color:var(--white);display:flex;align-items:center;gap:0.5rem;}
+.file-icon{font-size:0.8rem;color:var(--gold);}
+.file-size{font-size:0.62rem;color:var(--muted);font-family:'DM Mono',monospace;}
+.file-actions{display:flex;gap:0.5rem;}
+.file-btn{font-size:0.62rem;color:var(--muted);background:none;border:none;cursor:pointer;padding:2px 6px;transition:color 0.2s;}
+.file-btn:hover{color:var(--gold);}
+.file-btn.del:hover{color:var(--red);}
+
+/* RESOURCES */
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.res-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);padding:0.6rem 0.75rem;cursor:pointer;transition:all 0.15s;text-decoration:none;display:block;}
+.res-item:hover{background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.2);}
+.res-tag{font-size:0.58rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.res-tag.fed{color:rgba(52,152,219,0.8);}
+.res-tag.ca{color:rgba(46,204,113,0.8);}
+.res-tag.irs{color:rgba(231,76,60,0.8);}
+.res-tag.tool{color:rgba(201,168,76,0.8);}
+.res-title{font-size:0.75rem;color:var(--white);line-height:1.3;}
+
+/* BILLING */
+.bill-row{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.78rem;}
+.bill-row:last-child{border-bottom:none;}
+.bill-label{color:var(--muted);}
+.bill-val{color:var(--white);font-weight:500;}
+.bill-val.gold{color:var(--gold);}
+.bill-val.green{color:var(--green);}
+.plan-badge{background:var(--gold);color:var(--navy);font-size:0.6rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;}
+
+/* TIER CARDS */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:0.75rem;}
+.tier-card{border:1px solid rgba(255,255,255,0.07);padding:1.25rem;text-align:center;position:relative;transition:all 0.2s;cursor:pointer;}
+.tier-card:hover{border-color:rgba(201,168,76,0.3);}
+.tier-card.current{border:1.5px solid var(--gold);background:var(--gold-dim);}
+.tier-card.current::before{content:'Current plan';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;white-space:nowrap;}
+.tier-name{font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;margin-top:0.5rem;}
+.tier-price{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--white);line-height:1;}
+.tier-price span{font-size:0.7rem;font-family:'DM Sans',sans-serif;color:var(--muted);}
+.tier-features{list-style:none;margin-top:0.75rem;text-align:left;}
+.tier-features li{font-size:0.7rem;color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:5px;}
+.tier-features li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.tier-features li.inc{color:var(--white);}
+
+/* MESSAGES */
+.msg-thread{display:flex;flex-direction:column;gap:0.6rem;max-height:200px;overflow-y:auto;padding-right:0.25rem;}
+.msg-thread::-webkit-scrollbar{width:3px;}
+.msg-thread::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.3);}
+.msg{max-width:85%;padding:0.6rem 0.85rem;}
+.msg.them{background:rgba(255,255,255,0.05);color:var(--white);align-self:flex-start;}
+.msg.me{background:rgba(201,168,76,0.1);color:var(--gold-light);align-self:flex-end;}
+.msg-meta{font-size:0.6rem;color:var(--muted);margin-bottom:3px;}
+.msg-body{font-size:0.78rem;line-height:1.6;}
+.msg-input-row{display:flex;gap:0.5rem;margin-top:0.75rem;}
+.msg-input{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.78rem;padding:0.5rem 0.75rem;outline:none;}
+.msg-input:focus{border-color:var(--gold);}
+.msg-input::placeholder{color:rgba(138,155,181,0.35);}
+.msg-send{background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.7rem;font-weight:500;letter-spacing:0.08em;padding:0.5rem 1rem;cursor:pointer;transition:background 0.2s;}
+.msg-send:hover{background:var(--gold-light);}
+
+/* CREDIT TRACKER */
+.bureau-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;}
+.bureau-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);padding:0.75rem;text-align:center;}
+.bureau-name{font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;}
+.bureau-score{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--white);line-height:1;margin-bottom:3px;}
+.bureau-change{font-size:0.65rem;font-family:'DM Mono',monospace;}
+.bureau-change.up{color:var(--green);}
+.bureau-change.down{color:var(--red);}
+.bureau-change.neutral{color:var(--muted);}
+.disputed-item{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.75rem;}
+.disputed-item:last-child{border-bottom:none;}
+.di-name{color:var(--white);}
+.di-type{font-size:0.62rem;color:var(--muted);}
+.di-status{font-size:0.65rem;font-weight:500;padding:2px 7px;border:1px solid;}
+.di-status.investigating{background:var(--gold-dim);border-color:rgba(201,168,76,0.25);color:var(--gold);}
+.di-status.removed{background:var(--green-dim);border-color:rgba(46,204,113,0.25);color:var(--green);}
+.di-status.pending{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07);color:var(--muted);}
+
+/* APPOINTMENT */
+.appt-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.appt-item:last-child{border-bottom:none;}
+.appt-date{background:var(--gold-dim);border:1px solid rgba(201,168,76,0.2);padding:0.4rem 0.6rem;text-align:center;min-width:46px;}
+.appt-month{font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
+.appt-day{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--white);line-height:1;}
+.appt-info{flex:1;}
+.appt-title{font-size:0.78rem;font-weight:500;color:var(--white);margin-bottom:2px;}
+.appt-sub{font-size:0.65rem;color:var(--muted);}
+
+/* BUTTONS */
+.btn{font-family:'DM Sans',sans-serif;font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.6rem 1.25rem;cursor:pointer;transition:all 0.2s;border:none;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--muted);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn-sm{font-size:0.62rem;padding:0.4rem 0.85rem;}
+
+/* LIVE DOT */
+.live-indicator{display:flex;align-items:center;gap:5px;font-size:0.62rem;color:var(--green);letter-spacing:0.1em;text-transform:uppercase;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.8s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+
+/* FOOTER */
+.acct-footer{background:var(--navy);border-top:1px solid rgba(201,168,76,0.1);padding:1rem 1.5rem;font-size:0.62rem;color:rgba(138,155,181,0.4);display:flex;justify-content:space-between;align-items:center;}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <a href="main.html" class="tn-logo">Civitas<span>.</span></a>
+  <ul class="tn-links">
+    <li><a href="#dashboard" class="act">Dashboard</a></li>
+    <li><a href="#documents">Documents</a></li>
+    <li><a href="#credit">Credit Tracker</a></li>
+    <li><a href="#billing">Billing</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#messages">Messages</a></li>
+  </ul>
+  <div class="tn-right">
+    <div class="tn-user">Signed in as <strong>Sharynne Macon</strong></div>
+    <a href="index.html" class="tn-logout">Sign Out</a>
+  </div>
+</nav>
+
+<!-- MAIN LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-avatar-wrap">
+      <div class="sb-avatar">SM</div>
+      <div class="sb-name">Sharynne Macon</div>
+      <div class="sb-tier">Advocate Plan</div>
+      <div class="sb-case">CVT-2026-0047</div>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-section-label">My Account</div>
+      <a href="#dashboard" class="sb-item act"><div class="sb-dot"></div>Dashboard</a>
+      <a href="#profile" class="sb-item"><div class="sb-dot"></div>My Profile</a>
+      <a href="#credit" class="sb-item"><div class="sb-dot"></div>Credit Tracker</a>
+      <a href="#appointments" class="sb-item"><div class="sb-dot"></div>Appointments</a>
+
+      <div class="sb-section-label">My Case</div>
+      <a href="#dashboard" class="sb-item"><div class="sb-dot"></div>Case Timeline</a>
+      <a href="#documents" class="sb-item"><div class="sb-dot"></div>Documents <span class="sb-badge">2</span></a>
+      <a href="#resources" class="sb-item"><div class="sb-dot"></div>Resources</a>
+
+      <div class="sb-section-label">Account</div>
+      <a href="#messages" class="sb-item"><div class="sb-dot"></div>Messages <span class="sb-badge">1</span></a>
+      <a href="#billing" class="sb-item"><div class="sb-dot"></div>Billing</a>
+      <a href="portal.html" class="sb-item"><div class="sb-dot"></div>Full Portal View</a>
+    </nav>
+
+    <!-- QR CODE -->
+    <div class="sb-qr-wrap">
+      <div class="sb-qr-label">QR Portal Access</div>
+      <div class="sb-qr-box">
+        <svg viewBox="0 0 60 60" width="60" height="60" style="display:block;margin:0 auto;">
+          <rect x="2" y="2" width="18" height="18" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
+          <rect x="5" y="5" width="12" height="12" fill="#c9a84c"/>
+          <rect x="40" y="2" width="18" height="18" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
+          <rect x="43" y="5" width="12" height="12" fill="#c9a84c"/>
+          <rect x="2" y="40" width="18" height="18" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
+          <rect x="5" y="43" width="12" height="12" fill="#c9a84c"/>
+          <rect x="24" y="2" width="5" height="5" fill="#c9a84c" fill-opacity="0.6"/>
+          <rect x="32" y="8" width="5" height="5" fill="#c9a84c" fill-opacity="0.7"/>
+          <rect x="24" y="24" width="5" height="5" fill="#c9a84c" fill-opacity="0.8"/>
+          <rect x="32" y="32" width="5" height="5" fill="#c9a84c" fill-opacity="0.5"/>
+          <rect x="24" y="40" width="5" height="5" fill="#c9a84c" fill-opacity="0.6"/>
+          <rect x="24" y="48" width="5" height="5" fill="#c9a84c" fill-opacity="0.7"/>
+          <rect x="40" y="32" width="5" height="5" fill="#c9a84c" fill-opacity="0.5"/>
+          <rect x="48" y="40" width="5" height="5" fill="#c9a84c" fill-opacity="0.6"/>
+          <rect x="40" y="48" width="5" height="5" fill="#c9a84c" fill-opacity="0.4"/>
+          <rect x="48" y="24" width="5" height="5" fill="#c9a84c" fill-opacity="0.7"/>
+        </svg>
+        <div class="sb-qr-url">civitaslegal.com/portal/CVT-2026-0047</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-hdr" id="dashboard">
+      <h1>Welcome back, <em>Sharynne.</em></h1>
+      <p>Here is where your case stands today, May 1, 2026. All updates are live.</p>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Case Progress</div>
+        <div class="stat-val gold">65%</div>
+        <div class="stat-sub">Stage 3 of 7 active</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Documents Filed</div>
+        <div class="stat-val">5</div>
+        <div class="stat-sub">2 pending</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Items Disputed</div>
+        <div class="stat-val">4</div>
+        <div class="stat-sub">Across 2 bureaus</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Days Remaining</div>
+        <div class="stat-val green">12</div>
+        <div class="stat-sub">Bureau window closes May 13</div>
+      </div>
+    </div>
+
+    <!-- CASE TIMELINE -->
+    <div class="full card" id="timeline">
+      <div class="card-hdr">
+        <div class="card-title">Case Timeline / Credit Dispute</div>
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <div class="live-indicator"><div class="live-dot"></div>Live</div>
+          <a href="portal.html" class="card-action">Full mission control view</a>
+        </div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-stage">
+          <div class="tl-circle done">&#10003;</div>
+          <div class="tl-lbl done-l">Consultation</div>
+        </div>
+        <div class="tl-conn done"></div>
+        <div class="tl-stage">
+          <div class="tl-circle done">&#10003;</div>
+          <div class="tl-lbl done-l">Report Review</div>
+        </div>
+        <div class="tl-conn done"></div>
+        <div class="tl-stage">
+          <div class="tl-circle active">3</div>
+          <div class="tl-lbl act-l">Bureau Dispute</div>
+        </div>
+        <div class="tl-conn"></div>
+        <div class="tl-stage">
+          <div class="tl-circle pend">4</div>
+          <div class="tl-lbl">Furnisher Contact</div>
+        </div>
+        <div class="tl-conn"></div>
+        <div class="tl-stage">
+          <div class="tl-circle pend">5</div>
+          <div class="tl-lbl">Investigation Review</div>
+        </div>
+        <div class="tl-conn"></div>
+        <div class="tl-stage">
+          <div class="tl-circle pend">6</div>
+          <div class="tl-lbl">Result Analysis</div>
+        </div>
+        <div class="tl-conn"></div>
+        <div class="tl-stage">
+          <div class="tl-circle pend">7</div>
+          <div class="tl-lbl">Case Close</div>
+        </div>
+      </div>
+      <div style="background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);padding:1rem;margin-top:0.5rem;">
+        <div style="font-size:0.72rem;font-weight:500;color:var(--white);margin-bottom:0.35rem;">Stage 3 Active: Bureau Dispute Filed</div>
+        <div style="font-size:0.75rem;color:var(--muted);line-height:1.7;margin-bottom:0.75rem;">Formal dispute letters submitted to Experian and Equifax under FCRA Section 611. Bureaus are required to investigate within 30 days and forward your dispute to the original furnisher. We are on Day 18 of the 30-day window.</div>
+        <div class="prog-bar-wrap">
+          <div class="prog-bar-label"><span>Bureau Investigation Window</span><span>Day 18 of 30</span></div>
+          <div class="prog-bar"><div class="prog-fill" style="width:60%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE + CREDIT TRACKER -->
+    <div class="grid-2" id="profile">
+
+      <!-- PROFILE -->
+      <div class="card">
+        <div class="card-hdr">
+          <div class="card-title">Account Profile</div>
+          <a href="#" class="card-action" onclick="toggleEdit()">Edit</a>
+        </div>
+        <div class="field-grid" id="profileDisplay">
+          <div class="field"><label>Full name</label><div class="field-val">Sharynne Macon</div></div>
+          <div class="field"><label>Phone</label><div class="field-val">(916) 555-0182</div></div>
+          <div class="field"><label>Email</label><div class="field-val">s.macon@email.com</div></div>
+          <div class="field"><label>Address</label><div class="field-val">Sacramento, CA 95814</div></div>
+          <div class="field"><label>Date of birth</label><div class="field-val">&#8226;&#8226;/&#8226;&#8226;/19&#8226;&#8226;</div></div>
+          <div class="field"><label>Preferred contact</label><div class="field-val">Text message</div></div>
+        </div>
+        <div class="field-grid" id="profileEdit" style="display:none;">
+          <div class="field"><label>Full name</label><input type="text" value="Sharynne Macon"></div>
+          <div class="field"><label>Phone</label><input type="text" value="(916) 555-0182"></div>
+          <div class="field"><label>Email</label><input type="text" value="s.macon@email.com"></div>
+          <div class="field"><label>Address</label><input type="text" value="Sacramento, CA 95814"></div>
+          <div class="field"><label>Date of birth</label><input type="text" value="••/••/19••"></div>
+          <div class="field"><label>Preferred contact</label>
+            <select>
+              <option selected>Text message</option>
+              <option>Phone call</option>
+              <option>Email</option>
+            </select>
+          </div>
+        </div>
+        <div id="profileSaveBtn" style="display:none;margin-top:0.75rem;">
+          <button class="btn btn-gold btn-sm" onclick="saveProfile()">Save Changes</button>
+          <button class="btn btn-outline btn-sm" style="margin-left:0.5rem;" onclick="toggleEdit()">Cancel</button>
+        </div>
+      </div>
+
+      <!-- CREDIT TRACKER -->
+      <div class="card" id="credit">
+        <div class="card-hdr">
+          <div class="card-title">Credit Score Tracker</div>
+          <a href="#" class="card-action">Full report</a>
+        </div>
+        <div class="bureau-grid">
+          <div class="bureau-card">
+            <div class="bureau-name">Experian</div>
+            <div class="bureau-score">648</div>
+            <div class="bureau-change neutral">Under dispute</div>
+          </div>
+          <div class="bureau-card">
+            <div class="bureau-name">Equifax</div>
+            <div class="bureau-score">661</div>
+            <div class="bureau-change neutral">Under dispute</div>
+          </div>
+          <div class="bureau-card">
+            <div class="bureau-name">TransUnion</div>
+            <div class="bureau-score">674</div>
+            <div class="bureau-change up">+8 this month</div>
+          </div>
+        </div>
+        <div style="margin-top:0.75rem;font-size:0.65rem;color:var(--muted);border-top:1px solid rgba(255,255,255,0.05);padding-top:0.75rem;margin-bottom:0.5rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;">Disputed Items</div>
+        <div class="disputed-item">
+          <div><div class="di-name">Experian / Late Payment x2</div><div class="di-type">30-day notation / 2021-2022</div></div>
+          <div class="di-status investigating">Investigating</div>
+        </div>
+        <div class="disputed-item">
+          <div><div class="di-name">Equifax / Balance Inaccuracy</div><div class="di-type">Account #4030***** / TCU</div></div>
+          <div class="di-status investigating">Investigating</div>
+        </div>
+        <div class="disputed-item">
+          <div><div class="di-name">Experian / Old Collection</div><div class="di-type">Unverifiable / Pre-2020</div></div>
+          <div class="di-status pending">Queued</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="full card" id="documents">
+      <div class="card-hdr">
+        <div class="card-title">My Documents</div>
+        <a href="#" class="card-action">Download all</a>
+      </div>
+      <div style="font-size:0.65rem;color:var(--muted);margin-bottom:0.5rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;">Filed by Civitas</div>
+      <div class="doc-chips">
+        <div class="chip filed"><div class="chip-dot"></div>Intake form</div>
+        <div class="chip filed"><div class="chip-dot"></div>Authorization release</div>
+        <div class="chip filed"><div class="chip-dot"></div>Experian dispute letter</div>
+        <div class="chip filed"><div class="chip-dot"></div>Equifax dispute letter</div>
+        <div class="chip sent"><div class="chip-dot"></div>FCRA 611 notice</div>
+        <div class="chip pend"><div class="chip-dot"></div>Furnisher demand letter</div>
+        <div class="chip pend"><div class="chip-dot"></div>Secondary dispute</div>
+        <div class="chip pend"><div class="chip-dot"></div>Case summary</div>
+      </div>
+
+      <div style="font-size:0.65rem;color:var(--muted);margin:1rem 0 0.5rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;">Your Uploaded Documents</div>
+      <div class="file-list" id="fileList">
+        <div class="file-item">
+          <div class="file-name"><span class="file-icon">&#128196;</span>Credit_Report_April2026.pdf</div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="file-size">2.4 MB</span>
+            <div class="file-actions">
+              <button class="file-btn">Download</button>
+              <button class="file-btn del" onclick="removeFile(this)">Remove</button>
+            </div>
+          </div>
+        </div>
+        <div class="file-item">
+          <div class="file-name"><span class="file-icon">&#128196;</span>TCU_Statement_Mar2026.pdf</div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="file-size">890 KB</span>
+            <div class="file-actions">
+              <button class="file-btn">Download</button>
+              <button class="file-btn del" onclick="removeFile(this)">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="upload-zone" style="margin-top:0.75rem;" id="uploadZone">
+        <input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.png" onchange="handleUpload(this)">
+        <div class="upload-icon">+</div>
+        <div class="upload-text"><strong>Upload your documents</strong><br>Credit reports, creditor letters, notices, court documents, anything relevant</div>
+        <div class="upload-types">PDF, DOC, JPG, PNG / Max 10MB per file</div>
+      </div>
+    </div>
+
+    <!-- RESOURCES -->
+    <div class="full card" id="resources">
+      <div class="card-hdr">
+        <div class="card-title">Legal Resources and References</div>
+        <span style="font-size:0.65rem;color:var(--muted);">Tap any resource to open it</span>
+      </div>
+      <div class="res-grid">
+        <a class="res-item" href="https://www.consumerfinance.gov/consumer-tools/credit-reports-and-scores/" target="_blank">
+          <div class="res-tag fed">Federal / FCRA</div>
+          <div class="res-title">FCRA dispute rights / CFPB guide</div>
+        </a>
+        <a class="res-item" href="https://www.consumerfinance.gov/consumer-tools/debt-collection/" target="_blank">
+          <div class="res-tag fed">Federal / FDCPA</div>
+          <div class="res-title">Debt collection rights / CFPB guide</div>
+        </a>
+        <a class="res-item" href="https://www.annualcreditreport.com" target="_blank">
+          <div class="res-tag tool">Free Tool</div>
+          <div class="res-title">Get your free credit reports (AnnualCreditReport.com)</div>
+        </a>
+        <a class="res-item" href="https://www.consumerfinance.gov/complaint/" target="_blank">
+          <div class="res-tag fed">Federal</div>
+          <div class="res-title">File a complaint with the CFPB</div>
+        </a>
+        <a class="res-item" href="https://dfpi.ca.gov/consumers/" target="_blank">
+          <div class="res-tag ca">California</div>
+          <div class="res-title">CA DFPI consumer protections</div>
+        </a>
+        <a class="res-item" href="https://www.courts.ca.gov/selfhelp-smallclaims.htm" target="_blank">
+          <div class="res-tag ca">California</div>
+          <div class="res-title">Small claims court guide</div>
+        </a>
+        <a class="res-item" href="https://www.irs.gov/individuals/how-do-you-report-suspected-tax-return-preparer-fraud-or-abusive-tax-schemes" target="_blank">
+          <div class="res-tag irs">IRS</div>
+          <div class="res-title">Report negligent tax preparer / Form 14157</div>
+        </a>
+        <a class="res-item" href="https://www.ftc.gov/credit" target="_blank">
+          <div class="res-tag fed">FTC</div>
+          <div class="res-title">FTC consumer credit resources</div>
+        </a>
+        <a class="res-item" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1940.&lawCode=CIV" target="_blank">
+          <div class="res-tag ca">CA Civil Code</div>
+          <div class="res-title">Landlord-tenant law / Section 1940</div>
+        </a>
+        <a class="res-item" href="https://www.ftc.gov/legal-library/browse/rules/fair-debt-collection-practices-act-text" target="_blank">
+          <div class="res-tag fed">FDCPA</div>
+          <div class="res-title">Full FDCPA statute text</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- MESSAGES + APPOINTMENTS -->
+    <div class="grid-2">
+
+      <!-- MESSAGES -->
+      <div class="card" id="messages">
+        <div class="card-hdr">
+          <div class="card-title">Secure Messages</div>
+          <div class="live-indicator"><div class="live-dot"></div>Live</div>
+        </div>
+        <div class="msg-thread" id="msgThread">
+          <div class="msg them">
+            <div class="msg-meta">Brian Harper / Civitas &middot; Apr 28</div>
+            <div class="msg-body">Sharynne, your Experian and Equifax dispute letters have both been sent. The 30-day window opened April 11. I will update your dashboard the moment responses come in. No action needed from you right now.</div>
+          </div>
+          <div class="msg me">
+            <div class="msg-meta">You &middot; Apr 28</div>
+            <div class="msg-body">Thank you, I appreciate the update. Do I need to do anything with Equifax separately?</div>
+          </div>
+          <div class="msg them">
+            <div class="msg-meta">Brian Harper / Civitas &middot; Apr 28</div>
+            <div class="msg-body">Already handled. Both bureaus were filed the same day. You will see both reflected on your timeline.</div>
+          </div>
+        </div>
+        <div class="msg-input-row">
+          <input type="text" class="msg-input" id="msgInput" placeholder="Message Brian at Civitas...">
+          <button class="msg-send" onclick="sendMsg()">Send</button>
+        </div>
+      </div>
+
+      <!-- APPOINTMENTS -->
+      <div class="card" id="appointments">
+        <div class="card-hdr">
+          <div class="card-title">Appointments</div>
+          <a href="#" class="card-action">Schedule new</a>
+        </div>
+        <div class="appt-item">
+          <div class="appt-date"><div class="appt-month">May</div><div class="appt-day">6</div></div>
+          <div class="appt-info">
+            <div class="appt-title">Case status check-in</div>
+            <div class="appt-sub">10:00 AM / Phone call / Brian Harper</div>
+          </div>
+        </div>
+        <div class="appt-item">
+          <div class="appt-date"><div class="appt-month">May</div><div class="appt-day">13</div></div>
+          <div class="appt-info">
+            <div class="appt-title">Bureau response review</div>
+            <div class="appt-sub">2:00 PM / Phone call / 30-day window closes</div>
+          </div>
+        </div>
+        <div style="margin-top:0.75rem;">
+          <button class="btn btn-outline btn-sm" style="width:100%;">Schedule a Consultation</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BILLING -->
+    <div class="full card" id="billing">
+      <div class="card-hdr">
+        <div class="card-title">Billing and Membership</div>
+        <a href="#" class="card-action">Update payment method</a>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+        <div>
+          <div style="font-size:0.65rem;color:var(--muted);font-weight:500;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">Current Billing</div>
+          <div class="bill-row"><span class="bill-label">Current plan</span><span class="plan-badge">Advocate $99/mo</span></div>
+          <div class="bill-row"><span class="bill-label">Next billing date</span><span class="bill-val">May 12, 2026</span></div>
+          <div class="bill-row"><span class="bill-label">Last payment</span><span class="bill-val green">$99.00 paid Apr 12</span></div>
+          <div class="bill-row"><span class="bill-label">Balance due</span><span class="bill-val gold">$0.00</span></div>
+          <div class="bill-row"><span class="bill-label">Payment method</span><span class="bill-val">Visa ending 4821</span></div>
+          <div class="bill-row"><span class="bill-label">Member since</span><span class="bill-val">March 12, 2026</span></div>
+          <div style="display:flex;gap:0.5rem;margin-top:1rem;">
+            <button class="btn btn-gold btn-sm">Pay Now</button>
+            <button class="btn btn-outline btn-sm">Download Invoices</button>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:0.65rem;color:var(--muted);font-weight:500;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">Change Plan</div>
+          <div class="tier-grid">
+            <div class="tier-card">
+              <div class="tier-name">Essential</div>
+              <div class="tier-price">$39<span>/mo</span></div>
+              <ul class="tier-features">
+                <li class="inc">1 active case</li>
+                <li class="inc">3 documents/mo</li>
+                <li class="inc">Portal access</li>
+                <li class="inc">QR code</li>
+                <li>Credit tracker</li>
+                <li>Priority support</li>
+              </ul>
+            </div>
+            <div class="tier-card current">
+              <div class="tier-name">Advocate</div>
+              <div class="tier-price">$99<span>/mo</span></div>
+              <ul class="tier-features">
+                <li class="inc">3 active cases</li>
+                <li class="inc">Unlimited docs</li>
+                <li class="inc">Credit tracker</li>
+                <li class="inc">Priority support</li>
+                <li class="inc">Bureau monitoring</li>
+                <li class="inc">Document vault</li>
+              </ul>
+            </div>
+            <div class="tier-card">
+              <div class="tier-name">Command</div>
+              <div class="tier-price">$149<span>/mo</span></div>
+              <ul class="tier-features">
+                <li class="inc">Unlimited cases</li>
+                <li class="inc">Direct phone line</li>
+                <li class="inc">Tax doc support</li>
+                <li class="inc">Family accounts</li>
+                <li class="inc">All Advocate features</li>
+                <li class="inc">Earliest responses</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<div class="acct-footer">
+  <span>Civitas Legal Document Services / CA-LDA Registered</span>
+  <span>Not a law firm. Nothing here constitutes legal advice.</span>
+  <span>(916) 490-0063 / Oakdale, CA</span>
+</div>
+
+<script>
+function toggleEdit(){
+  const d=document.getElementById('profileDisplay');
+  const e=document.getElementById('profileEdit');
+  const b=document.getElementById('profileSaveBtn');
+  const showing=e.style.display==='grid';
+  d.style.display=showing?'grid':'none';
+  e.style.display=showing?'none':'grid';
+  b.style.display=showing?'none':'block';
+}
+
+function saveProfile(){
+  toggleEdit();
+  const banner=document.createElement('div');
+  banner.style.cssText='position:fixed;top:70px;right:1.5rem;background:#2ecc71;color:#0a1628;font-size:0.75rem;font-weight:500;padding:0.6rem 1.25rem;z-index:999;';
+  banner.textContent='Profile saved successfully.';
+  document.body.appendChild(banner);
+  setTimeout(()=>banner.remove(),3000);
+}
+
+function removeFile(btn){
+  const item=btn.closest('.file-item');
+  if(item)item.remove();
+}
+
+function handleUpload(input){
+  const list=document.getElementById('fileList');
+  Array.from(input.files).forEach(f=>{
+    const div=document.createElement('div');
+    div.className='file-item';
+    const kb=f.size>1048576?(f.size/1048576).toFixed(1)+' MB':(f.size/1024).toFixed(0)+' KB';
+    div.innerHTML=`<div class="file-name"><span class="file-icon">&#128196;</span>${f.name}</div><div style="display:flex;align-items:center;gap:1rem;"><span class="file-size">${kb}</span><div class="file-actions"><button class="file-btn">Download</button><button class="file-btn del" onclick="removeFile(this)">Remove</button></div></div>`;
+    list.appendChild(div);
+  });
+  input.value='';
+}
+
+function sendMsg(){
+  const input=document.getElementById('msgInput');
+  const text=input.value.trim();
+  if(!text)return;
+  const thread=document.getElementById('msgThread');
+  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  const msg=document.createElement('div');
+  msg.className='msg me';
+  msg.innerHTML=`<div class="msg-meta">You &middot; ${now}</div><div class="msg-body">${text}</div>`;
+  thread.appendChild(msg);
+  thread.scrollTop=thread.scrollHeight;
+  input.value='';
+}
+
+// smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+</script>
+
+</body>
+</html>
