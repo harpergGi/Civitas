@@ -30,7 +30,7 @@
   }
 
   nav {
-    position: fixed;
+    position: sticky;
     top: 0; left: 0; right: 0;
     z-index: 100;
     background: var(--navy);
@@ -462,9 +462,39 @@
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  /* TICKER STYLES */
+  .ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
+  .ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;position:relative;z-index:10;}
+  .ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
+  .ticker-track:hover{animation-play-state:paused;}
+  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+  .ti{font-size:0.68rem;color:var(--muted);padding:0 2rem;display:flex;align-items:center;gap:0.5rem;border-right:1px solid rgba(255,255,255,0.05);}
+  .ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+  .ti span{color:var(--white);font-weight:500;}
 </style>
 </head>
 <body>
+
+<div class="ticker-bar">
+  <div class="ticker-label">Live / Impact Report</div>
+  <div class="ticker-track">
+    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract for advanced missile systems</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits record $2.4 trillion</div>
+    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Private firms secure $800M in overseas rebuilding efforts</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions driving up grocery costs</div>
+    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
+    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
+    <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
+    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract for advanced missile systems</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits record $2.4 trillion</div>
+    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Private firms secure $800M in overseas rebuilding efforts</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions driving up grocery costs</div>
+    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
+    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
+    <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
+  </div>
+</div>
 
 <nav>
   <a href="index.html" class="nav-logo">Civitas<span>.</span></a>
@@ -503,7 +533,6 @@
   <p><strong>Important disclosure:</strong> Civitas Legal Document Services operates as a California-registered Legal Document Assistant under B&amp;P Code 6400-6415. Credit-related services comply with the federal Credit Repair Organizations Act (CROA) and the California Credit Services Act. We do not guarantee outcomes. You have the right to cancel within three business days of any signed agreement.</p>
 </div>
 
-<!-- MANIFESTO -->
 <section class="manifesto">
   <p class="manifesto-quote">
     "Fine print is not law. A collector's letter is not a court order. A landlord's clause is not automatically enforceable. A credit bureau's decision is not final. These entities count on you <em>not knowing the difference</em> between what is legally binding and what they simply want you to believe is legally binding."
@@ -513,7 +542,6 @@
   </p>
 </section>
 
-<!-- COST COMPARISON -->
 <section id="cost" class="cost">
   <div class="section-eyebrow">
     <div class="section-eyebrow-line"></div>
@@ -563,7 +591,6 @@
   </div>
 </section>
 
-<!-- ABOUT TEASER -->
 <section class="about-teaser">
   <div>
     <div class="section-eyebrow">
@@ -582,7 +609,6 @@
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services" class="services">
   <div class="services-header">
     <div>
@@ -640,7 +666,6 @@
   </div>
 </section>
 
-<!-- CLIENT PORTAL TEASER -->
 <section class="portal-teaser">
   <div>
     <div class="section-eyebrow">
@@ -680,7 +705,6 @@
   </div>
 </section>
 
-<!-- YOUR RIGHTS -->
 <section id="protections" class="legal">
   <div class="section-eyebrow">
     <div class="section-eyebrow-line"></div>
@@ -712,7 +736,6 @@
   </div>
 </section>
 
-<!-- DISCLAIMERS -->
 <section class="disclaimers">
   <div class="disclaimer-box">
     <h2>Terms of Service and Legal Disclosures</h2>
@@ -724,7 +747,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" class="contact">
   <div class="contact-grid">
     <div>
