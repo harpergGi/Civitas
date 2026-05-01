@@ -3,326 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Civitas Legal Document Services | Coming Soon</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Civitas Legal Document Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0a1628;--navy-mid:#111f3a;--navy-light:#1a2f52;--gold:#c9a84c;--gold-light:#e8c97a;--white:#ffffff;--muted:#8a9bb5;}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);overflow-x:hidden;}
+  :root {
+    --navy: #0a1628; --navy-mid: #142240; --navy-light: #1e3360;
+    --gold: #c9a84c; --gold-light: #e8c97a; --gold-pale: #f5e9c8;
+    --white: #ffffff; --off-white: #f8f6f1;
+    --text-muted: #8a9bb5; --text-body: #2c3e5c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-body); overflow-x: hidden; }
 
-/* TICKER */
-.ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
-.ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;position:relative;z-index:10;}
-.ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
-.ticker-track:hover{animation-play-state:paused;}
-@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-.ti{font-size:0.68rem;color:var(--muted);padding:0 2rem;display:flex;align-items:center;gap:0.5rem;border-right:1px solid rgba(255,255,255,0.05);}
-.ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
-.ti span{color:var(--white);font-weight:500;}
+  /* TICKER STYLES */
+  .ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
+  .ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;position:relative;z-index:10;}
+  .ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
+  .ticker-track:hover{animation-play-state:paused;}
+  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+  .ti{font-size:0.68rem;color:var(--white);padding:0 2rem;display:flex;align-items:center;gap:0.5rem;border-right:1px solid rgba(255,255,255,0.05);}
+  .ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+  .ti span{color:var(--white);font-weight:500;}
 
-/* NAV */
-nav{padding:0 4rem;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,0.1);position:sticky;top:0;background:rgba(10,22,40,0.97);backdrop-filter:blur(8px);z-index:50;}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--white);letter-spacing:0.06em;text-decoration:none;}
-.nav-logo span{color:var(--gold);}
-.nav-badge{font-size:0.6rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.4);padding:0.3rem 0.75rem;}
-.nav-cta{background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.5rem 1.25rem;text-decoration:none;transition:background 0.2s;}
-.nav-cta:hover{background:var(--gold-light);}
+  /* NAV */
+  nav { position: sticky; top: 0; left: 0; right: 0; z-index: 100; background: var(--navy); border-bottom: 1px solid rgba(201,168,76,0.2); padding: 0 4rem; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); letter-spacing: 0.04em; text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--navy); padding: 0.5rem 1.25rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+  .nav-cta:hover { background: var(--gold-light); }
 
-/* HERO */
-.hero{display:grid;grid-template-columns:1fr 440px;min-height:calc(100vh - 102px);position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
-.hero-left{padding:4rem 3.5rem 4rem 4rem;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2;}
-.hero-right{display:flex;align-items:center;justify-content:center;padding:3rem 2rem;position:relative;z-index:2;}
-.eyebrow{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.75rem;}
-.ey-line{width:36px;height:1px;background:var(--gold);}
-.eyebrow span{font-size:0.65rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);}
-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4.5vw,4.5rem);font-weight:300;line-height:1.05;color:var(--white);margin-bottom:1.75rem;letter-spacing:-0.02em;}
-h1 em{font-style:italic;color:var(--gold-light);}
-.hero-sub{font-size:0.9rem;color:var(--muted);line-height:1.9;max-width:480px;margin-bottom:2rem;}
-.hero-sub strong{color:var(--white);font-weight:500;}
+  /* HERO */
+  .hero { min-height: 100vh; background: var(--navy); display: grid; grid-template-columns: 1fr 480px; position: relative; overflow: hidden; padding: 0 4rem; }
+  .hero-content { display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; padding-right: 2rem; }
+  .hero-right { display: flex; align-items: center; justify-content: center; margin-right: 4rem; } /* Moved logo in from right */
+  
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.05; margin-bottom: 2rem; }
+  h1 em { font-style: italic; color: var(--gold-light); }
+  .hero-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.8; max-width: 520px; margin-bottom: 3rem; }
+  
+  .btn-ghost { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 0.875rem 2rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
-/* CONTACT CARD */
-.cc{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.2);padding:1.75rem;max-width:480px;}
-.cc h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--white);margin-bottom:0.3rem;}
-.cc p{font-size:0.72rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.6;}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;}
-.fg{display:flex;flex-direction:column;gap:0.25rem;margin-bottom:0.6rem;}
-.fg label{font-size:0.58rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);}
-.fg input,.fg select,.fg textarea{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:0.55rem 0.8rem;outline:none;transition:border-color 0.2s;width:100%;}
-.fg input::placeholder,.fg textarea::placeholder{color:rgba(138,155,181,0.35);}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);}
-.fg select option{background:var(--navy-mid);}
-.fg textarea{resize:none;height:72px;}
-.btn-sub{width:100%;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.7rem;cursor:pointer;transition:background 0.2s;margin-top:0.35rem;}
-.btn-sub:hover{background:var(--gold-light);}
-.cd{display:flex;gap:1.25rem;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.06);}
-.cd a{font-size:0.72rem;color:var(--muted);text-decoration:none;transition:color 0.2s;display:flex;align-items:center;gap:0.35rem;}
-.cd a:hover{color:var(--gold);}
-.cd a::before{content:'→';color:var(--gold);font-size:0.68rem;}
-.fs{display:none;text-align:center;padding:1.5rem;border:1px solid rgba(46,204,113,0.3);background:rgba(46,204,113,0.05);}
-.fs p{color:#2ecc71;font-size:0.82rem;}
-
-/* DATA SECTION */
-.ds{background:#060e1a;border-top:1px solid rgba(201,168,76,0.15);padding:2.5rem 4rem;}
-.ds-eye{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.75rem;}
-.ld{width:6px;height:6px;border-radius:50%;background:#2ecc71;animation:blink 1.8s ease infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
-.ds-eye-line{width:24px;height:1px;background:var(--gold);}
-.ds-eye span{font-size:0.6rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
-.dg{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:rgba(201,168,76,0.08);margin-bottom:1.5px;}
-.dc{background:var(--navy-mid);padding:1.25rem 1.5rem;position:relative;}
-.dc-lbl{font-size:0.58rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
-.dc-num{font-family:'DM Mono',monospace;font-size:1.45rem;font-weight:500;color:var(--white);line-height:1;margin-bottom:0.25rem;}
-.dc-num.red{color:#e74c3c;}
-.dc-num.gold{color:var(--gold);}
-.dc-sub{font-size:0.62rem;color:var(--muted);line-height:1.5;}
-.dc-chg{position:absolute;top:0.9rem;right:1rem;font-family:'DM Mono',monospace;font-size:0.6rem;color:#e74c3c;}
-.nr{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5px;background:rgba(201,168,76,0.08);}
-.nc{background:var(--navy-mid);padding:1.1rem 1.5rem;display:flex;gap:0.85rem;align-items:flex-start;}
-.nt{font-size:0.54rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:0.18rem 0.5rem;white-space:nowrap;flex-shrink:0;margin-top:0.1rem;}
-.nt.al{background:#e74c3c;color:#fff;}
-.nt.wt{background:var(--navy-light);color:var(--gold);border:1px solid rgba(201,168,76,0.25);}
-.nb{font-size:0.73rem;color:var(--muted);line-height:1.6;}
-.nb strong{color:var(--white);font-weight:500;}
-
-/* WHY */
-.ws{padding:3.5rem 4rem;background:var(--navy-mid);border-top:1px solid rgba(201,168,76,0.1);}
-.wg{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2rem;}
-.wc{border-left:2px solid var(--gold);padding-left:1.25rem;}
-.wc-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:rgba(201,168,76,0.18);line-height:1;margin-bottom:0.2rem;}
-.wc-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--white);margin-bottom:0.4rem;}
-.wc-body{font-size:0.76rem;color:var(--muted);line-height:1.8;}
-
-/* FOOTER */
-footer{background:#060e1a;border-top:1px solid rgba(201,168,76,0.15);padding:1.75rem 4rem;display:flex;justify-content:space-between;align-items:center;}
-.fl{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--white);}
-.fl span{color:var(--gold);}
-.fleg{font-size:0.6rem;color:rgba(138,155,181,0.4);text-align:center;max-width:460px;line-height:1.7;}
-.fc{font-size:0.7rem;color:var(--muted);text-align:right;line-height:1.7;}
+  /* CONTACT CARD */
+  .cc { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.2); padding: 1.75rem; max-width: 440px; margin-bottom: 4rem; }
+  .cc h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--white); margin-bottom: 0.5rem; }
+  .cc p { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+  .fg { margin-bottom: 1rem; }
+  .fg label { display: block; font-size: 0.6rem; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .fg input, .fg select, .fg textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 0.6rem; font-size: 0.8rem; }
 </style>
 </head>
 <body>
 
-<!-- TICKER -->
 <div class="ticker-bar">
-  <div class="ticker-label">Live / Your Rights</div>
+  <div class="ticker-label">Live / Impact Report</div>
   <div class="ticker-track">
-    <div class="ti"><div class="d"></div>National Debt: <span id="t1">$36.22T</span> and rising every second</div>
-    <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
-    <div class="ti"><div class="d"></div>FCRA: You can dispute any inaccurate credit item for <span>free</span> / Civitas prepares the paperwork</div>
-    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
-    <div class="ti"><div class="d"></div>FDCPA: Collectors cannot call before 8am or after 9pm / Debt validation is your right</div>
-    <div class="ti"><div class="d"></div>California: Security deposits must be returned within <span>21 days</span> / Retaliation is prohibited</div>
-    <div class="ti"><div class="d"></div><span>68 million</span> Americans in collections / Most have legal options they have never used</div>
-    <div class="ti"><div class="d"></div>Fine print is not law. A company policy is not a court order. <span>You have recourse.</span></div>
+    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as military spending hits $2.4T</div>
+    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding efforts</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply disruptions driving grocery costs</div>
     <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
-    <div class="ti"><div class="d"></div>IRS: Negligent tax preparers can be reported via Form 14157 / Civitas prepares your filing</div>
-    <!-- duplicate for loop -->
-    <div class="ti"><div class="d"></div>National Debt: <span id="t2">$36.22T</span> and rising every second</div>
-    <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
-    <div class="ti"><div class="d"></div>FCRA: You can dispute any inaccurate credit item for <span>free</span> / Civitas prepares the paperwork</div>
     <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
-    <div class="ti"><div class="d"></div>FDCPA: Collectors cannot call before 8am or after 9pm / Debt validation is your right</div>
-    <div class="ti"><div class="d"></div>California: Security deposits must be returned within <span>21 days</span> / Retaliation is prohibited</div>
-    <div class="ti"><div class="d"></div><span>68 million</span> Americans in collections / Most have legal options they have never used</div>
-    <div class="ti"><div class="d"></div>Fine print is not law. A company policy is not a court order. <span>You have recourse.</span></div>
+    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as military spending hits $2.4T</div>
+    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Firms secure $800M rebuilding efforts</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply disruptions driving grocery costs</div>
     <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
-    <div class="ti"><div class="d"></div>IRS: Negligent tax preparers can be reported via Form 14157 / Civitas prepares your filing</div>
+    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
   </div>
 </div>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Civitas<span>.</span></a>
-  <div class="nav-badge">Launching Soon</div>
-  <div style="display:flex;gap:0.75rem;align-items:center;">
-    <a href="register.html" style="background:transparent;border:1px solid rgba(201,168,76,0.4);color:var(--gold);font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.5rem 1.25rem;text-decoration:none;transition:all 0.2s;">Register</a>
-    <a href="#contact" class="nav-cta">Get Early Access</a>
-  </div>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="main.html#services">Services</a></li>
+    <li><a href="main.html#protections">Your Rights</a></li>
+    <li><a href="main.html#cost">Cost Comparison</a></li>
+    <li><a href="main.html#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Early Access</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <div class="eyebrow">
-      <div class="ey-line"></div>
-      <span>California Legal Document Services</span>
-    </div>
+  <div class="hero-content">
     <h1>Their policy<br>is not the <em>law.</em><br>You have recourse.</h1>
-    <p class="hero-sub"><strong>Civitas Legal Document Services</strong> prepares the documents that put you back in the conversation. Credit disputes, goodwill letters, debt validation, tenant rights, IRS correspondence, and more. Flat fees. No attorneys. No hourly clock. Starting at $39/month.</p>
-
+    <p class="hero-sub">Civitas prepares the documents that put you back in the conversation. Credit disputes, goodwill letters, debt validation, and more. Starting at $39/month.</p>
+    
     <div id="contact" class="cc">
       <h3>Get in touch now.</h3>
-      <p>We are accepting clients while the full site launches. Free educational consultation, no pressure, no clock.</p>
-      <div id="cForm">
-        <div class="fr">
-          <div class="fg"><label>First Name</label><input type="text" id="fn" placeholder="Your first name"></div>
-          <div class="fg"><label>Last Name</label><input type="text" id="ln" placeholder="Your last name"></div>
-        </div>
-        <div class="fg"><label>Phone or Email</label><input type="text" id="ci" placeholder="Best way to reach you"></div>
-        <div class="fg"><label>What do you need help with?</label>
-          <select id="svc">
-            <option value="">Select a service</option>
-            <option>Credit Dispute Letter</option>
-            <option>Goodwill Adjustment Letter</option>
-            <option>Debt Validation Letter</option>
-            <option>Legal Document Preparation</option>
-            <option>Landlord-Tenant Document</option>
-            <option>Tax Preparer Negligence</option>
-            <option>General Consultation</option>
-            <option>Not sure yet</option>
-          </select>
-        </div>
-        <div class="fg"><label>Brief description (optional)</label><textarea placeholder="Tell us what's going on. No legal jargon needed."></textarea></div>
-        <button class="btn-sub" onclick="submitForm()">Send Message</button>
-      </div>
-      <div class="fs" id="fSuccess"><p>Message received. Brian will reach out within 24 hours.</p></div>
-      <div class="cd">
-        <a href="tel:9164900063">(916) 490-0063</a>
-        <a href="mailto:brian@civitaslegal.com">brian@civitaslegal.com</a>
-        <a href="#">Oakdale, CA</a>
-      </div>
+      <div class="fg"><label>Full Name</label><input type="text"></div>
+      <div class="fg"><label>Contact Info</label><input type="text"></div>
+      <div class="fg"><label>Description</label><textarea></textarea></div>
+      <button class="nav-cta" style="width:100%; border:none;">Send Message</button>
     </div>
   </div>
 
-  <!-- CORRECT LOGO -->
   <div class="hero-right">
     <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;">
-      <defs><clipPath id="fc"><ellipse cx="200" cy="195" rx="105" ry="122"/></clipPath></defs>
-
-      <ellipse cx="200" cy="195" rx="105" ry="122" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.95"/>
-
-      <g clip-path="url(#fc)">
-        <path d="M108 119 Q140 85 200 81 Q260 85 286 119 Q308 145 306 183 Q304 221 278 245 Q252 267 200 269 Q148 267 122 245 Q96 221 94 183 Q92 145 108 119" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.4"/>
-        <path d="M118 128 Q148 96 200 92 Q252 96 278 128 Q298 152 296 188 Q294 222 270 243 Q246 263 200 265 Q154 263 130 243 Q106 222 104 188 Q102 152 118 128" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.46"/>
-        <path d="M130 138 Q158 108 200 104 Q242 108 264 138 Q282 160 280 192 Q278 222 256 242 Q234 260 200 262 Q166 260 144 242 Q122 222 120 192 Q118 160 130 138" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.52"/>
-        <path d="M142 150 Q168 122 200 118 Q232 122 252 150 Q268 170 266 196 Q264 220 244 238 Q224 254 200 256 Q176 254 156 238 Q136 220 134 196 Q132 170 142 150" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.58"/>
-        <path d="M154 160 Q178 136 200 132 Q222 136 240 160 Q254 178 252 200 Q250 220 232 236 Q216 250 200 251 Q184 250 168 236 Q150 220 148 200 Q146 178 154 160" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.65"/>
-        <path d="M167 170 Q188 150 200 146 Q212 150 228 170 Q240 186 238 204 Q236 220 222 232 Q212 242 200 243 Q188 242 178 232 Q164 220 162 204 Q160 186 167 170" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.72"/>
-        <path d="M179 180 Q194 164 200 160 Q206 164 220 180 Q228 194 226 208 Q224 220 214 228 Q208 234 200 235 Q192 234 186 228 Q176 220 174 208 Q172 194 179 180" fill="none" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.8"/>
-        <path d="M189 190 Q196 178 200 175 Q204 178 212 190 Q217 200 216 210 Q214 219 208 224 Q204 228 200 228 Q196 228 192 224 Q186 219 184 210 Q183 200 189 190" fill="none" stroke="#c9a84c" stroke-width="1.3" stroke-opacity="0.9"/>
-      </g>
-
-      <circle cx="200" cy="200" r="5" fill="#c9a84c"/>
-
-      <!-- Top dot: "You belong here." -->
-      <circle cx="200" cy="81" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-      <text x="200" y="56" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#ffffff" letter-spacing="0.1em">YOU BELONG HERE.</text>
-
-      <!-- Upper-right dot on ridge 2: "Credit disputes" -->
-      <circle cx="272" cy="133" r="4.5" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
-      <text x="282" y="137" font-family="DM Sans,sans-serif" font-size="10" fill="#c9a84c" letter-spacing="0.08em">CREDIT DISPUTES</text>
-
-      <!-- Mid-right dot on ridge 4: "Their policy is not law." -->
-      <circle cx="304" cy="188" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-      <text x="314" y="185" font-family="DM Sans,sans-serif" font-size="10" fill="#ffffff" letter-spacing="0.07em">THEIR POLICY</text>
-      <text x="314" y="197" font-family="DM Sans,sans-serif" font-size="10" fill="#ffffff" letter-spacing="0.07em">IS NOT LAW.</text>
-
-      <!-- Lower-right dot on ridge 3: "Goodwill letters" -->
-      <circle cx="276" cy="243" r="4.5" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
-      <text x="286" y="247" font-family="DM Sans,sans-serif" font-size="10" fill="#c9a84c" letter-spacing="0.08em">GOODWILL LETTERS</text>
-
-      <!-- Bottom dot: "The system has a process." -->
-      <circle cx="200" cy="269" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-      <text x="200" y="290" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9.5" fill="#ffffff" letter-spacing="0.07em">THE SYSTEM HAS A PROCESS.</text>
-      <text x="200" y="303" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9.5" fill="#ffffff" letter-spacing="0.07em">SO DO WE.</text>
-
-      <!-- Lower-left dot on ridge 3: "Debt validation" -->
-      <circle cx="122" cy="242" r="4.5" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
-      <text x="112" y="246" text-anchor="end" font-family="DM Sans,sans-serif" font-size="10" fill="#c9a84c" letter-spacing="0.08em">DEBT VALIDATION</text>
-
-      <!-- Mid-left dot on ridge 2: "Legal document prep" -->
-      <circle cx="94" cy="184" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-      <text x="84" y="181" text-anchor="end" font-family="DM Sans,sans-serif" font-size="10" fill="#ffffff" letter-spacing="0.07em">LEGAL DOCUMENT</text>
-      <text x="84" y="194" text-anchor="end" font-family="DM Sans,sans-serif" font-size="10" fill="#ffffff" letter-spacing="0.07em">PREPARATION</text>
-
-      <!-- Wordmark -->
-      <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="34" font-weight="300" fill="#ffffff" letter-spacing="0.35em">CIVITAS</text>
-      <text x="200" y="378" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#8a9bb5" letter-spacing="0.22em">LEGAL DOCUMENT SERVICES</text>
-      <text x="345" y="352" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(201,168,76,0.5)">TM</text>
+        <ellipse cx="200" cy="195" rx="105" ry="122" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.95"/>
+        <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="34" font-weight="300" fill="#ffffff" letter-spacing="0.35em">CIVITAS</text>
     </svg>
   </div>
 </section>
 
-<!-- LIVE DATA -->
-<section class="ds">
-  <div class="ds-eye">
-    <div class="ld"></div>
-    <div class="ds-eye-line"></div>
-    <span>Live / The System in Numbers</span>
-  </div>
-  <div class="dg">
-    <div class="dc">
-      <div class="dc-lbl">US National Debt</div>
-      <div class="dc-num red" id="nd">$36.218T</div>
-      <div class="dc-sub">Growing ~$3.8M per minute</div>
-      <div class="dc-chg" id="dc">+$0 since you arrived</div>
-    </div>
-    <div class="dc">
-      <div class="dc-lbl">Avg. Credit Card APR</div>
-      <div class="dc-num gold">28.6%</div>
-      <div class="dc-sub">Highest in recorded US history</div>
-    </div>
-    <div class="dc">
-      <div class="dc-lbl">Americans in Collections</div>
-      <div class="dc-num red">68M+</div>
-      <div class="dc-sub">Most have legal options never used</div>
-    </div>
-    <div class="dc">
-      <div class="dc-lbl">Avg. Attorney Fee / Hour</div>
-      <div class="dc-num gold">$400</div>
-      <div class="dc-sub">Civitas: flat fee / no retainer / no clock</div>
-    </div>
-  </div>
-  <div class="nr" style="margin-top:1.5px;">
-    <div class="nc"><div class="nt al">Alert</div><div class="nb"><strong>CFPB consumer protections under review.</strong> Enforcement of debt collection and credit reporting rules has slowed. Knowing your FDCPA and FCRA rights is more critical than ever right now.</div></div>
-    <div class="nc"><div class="nt">Your Right</div><div class="nb"><strong>You can dispute any inaccurate item for free.</strong> Credit bureaus have 30 days to investigate under FCRA Section 611. Civitas prepares the documentation that makes them respond properly.</div></div>
-    <div class="nc"><div class="nt wt">Watch</div><div class="nb"><strong>Tariff-driven inflation hitting consumer debt hard.</strong> Rising costs mean more Americans falling behind on payments. Debt validation letters are your first legal move when collectors call.</div></div>
-    <div class="nc"><div class="nt">CA Law</div><div class="nb"><strong>California tenant protections among strongest in the nation.</strong> Security deposits must be returned within 21 days. Landlord retaliation is prohibited. Civitas prepares your demand letters.</div></div>
-  </div>
-</section>
-
-<!-- WHY -->
-<section class="ws">
-  <div class="ds-eye" style="margin-bottom:1.5rem;">
-    <div class="ds-eye-line"></div>
-    <span>Why Civitas</span>
-  </div>
-  <div class="wg">
-    <div class="wc"><div class="wc-num">01</div><div class="wc-title">Flat fees. No surprises.</div><p class="wc-body">Starting at $39 per month. No setup fee. No retainer. No hourly billing. Every fee disclosed in writing before you sign, as required by federal law.</p></div>
-    <div class="wc"><div class="wc-num">02</div><div class="wc-title">Your portal. Live updates.</div><p class="wc-body">Every client gets a personal dashboard showing exactly where their case stands. Scan your QR code from anywhere and your status updates the moment we take action.</p></div>
-    <div class="wc"><div class="wc-num">03</div><div class="wc-title">Built by someone who fought back.</div><p class="wc-body">Foster care. Homelessness. 2x national BJJ champion. Hollywood audio engineer. Brian Harper was told what his ceiling was. He disagreed. Civitas exists because of that.</p></div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="fl">Civitas<span>.</span></div>
-  <div class="fleg">Civitas Legal Document Services is a registered California Legal Document Assistant (LDA) under B&amp;P Code 6400-6415. Not a law firm. Nothing here constitutes legal advice. Credit services comply with CROA and the California Credit Services Act. You have the right to cancel any agreement within three business days. &copy; 2026 Civitas Legal Document Services.</div>
-  <div class="fc">(916) 490-0063<br>Oakdale, CA<br>civitaslegal.com</div>
-</footer>
-
-<script>
-const base=36217843000000,rate=63333,t0=Date.now();
-function upd(){
-  const s=(Date.now()-t0)/1000,cur=base+s*rate,add=s*rate;
-  const fmt='$'+(cur/1e12).toFixed(3)+'T';
-  document.getElementById('nd').textContent=fmt;
-  document.getElementById('dc').textContent='+$'+Math.round(add).toLocaleString()+' since you arrived';
-  const ts='$'+(cur/1e12).toFixed(2)+'T';
-  document.getElementById('t1').textContent=ts;
-  document.getElementById('t2').textContent=ts;
-}
-setInterval(upd,250);upd();
-
-function submitForm(){
-  const fn=document.getElementById('fn').value.trim();
-  const ci=document.getElementById('ci').value.trim();
-  if(!fn||!ci){alert('Please enter your name and a way to reach you.');return;}
-  document.getElementById('cForm').style.display='none';
-  document.getElementById('fSuccess').style.display='block';
-}
-</script>
 </body>
 </html>
