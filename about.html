@@ -16,8 +16,19 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-body); }
 
+  /* TICKER STYLES */
+  .ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
+  .ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;position:relative;z-index:10;}
+  .ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
+  .ticker-track:hover{animation-play-state:paused;}
+  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+  .ti{font-size:0.68rem;color:var(--white);padding:0 2rem;display:flex;align-items:center;gap:0.5rem;border-right:1px solid rgba(255,255,255,0.05);}
+  .ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+  .ti span{color:var(--white);font-weight:500;}
+
+  /* NAV STYLES */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: sticky; top: 0; left: 0; right: 0; z-index: 100;
     background: var(--navy);
     border-bottom: 1px solid rgba(201,168,76,0.2);
     padding: 0 4rem;
@@ -26,8 +37,28 @@
   }
   .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); letter-spacing: 0.04em; text-decoration: none; }
   .nav-logo span { color: var(--gold); }
-  .nav-back { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
-  .nav-back:hover { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem; font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--navy); }
 
   /* HERO */
   .about-hero {
@@ -157,9 +188,36 @@
 </head>
 <body>
 
+<div class="ticker-bar">
+  <div class="ticker-label">Live / Impact Report</div>
+  <div class="ticker-track">
+    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract for advanced missile systems</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits record $2.4 trillion</div>
+    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Private firms secure $800M in overseas rebuilding efforts</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions driving up grocery costs</div>
+    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
+    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
+    <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
+    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract for advanced missile systems</div>
+    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits record $2.4 trillion</div>
+    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Private firms secure $800M in overseas rebuilding efforts</div>
+    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions driving up grocery costs</div>
+    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
+    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
+    <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
+  </div>
+</div>
+
 <nav>
-  <a href="main.html" class="nav-logo">Civitas<span>.</span></a>
-  <a href="main.html" class="nav-back">Back to Site</a>
+  <a href="index.html" class="nav-logo">Civitas<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="main.html#services">Services</a></li>
+    <li><a href="main.html#protections">Your Rights</a></li>
+    <li><a href="main.html#cost">Cost Comparison</a></li>
+    <li><a href="main.html#contact">Contact</a></li>
+  </ul>
+  <a href="main.html#contact" class="nav-cta">Get Started</a>
 </nav>
 
 <section class="about-hero">
