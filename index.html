@@ -10,8 +10,8 @@
   :root {
     --navy: #0a1628; --navy-mid: #142240; --gold: #c9a84c; --white: #ffffff; --muted: #8a9bb5;
   }
-  /* Anti-Scraping: Block text selection */
-  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+  /* Anti-Scraping */
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
   html, body { width: 100%; height: 100%; background: var(--navy); color: white; overflow-x: hidden; scroll-behavior: smooth; }
 
   /* SPLASH SCREEN */
@@ -22,7 +22,8 @@
   }
   #splash.exit { opacity: 0; pointer-events: none; }
 
-  .logo-area { position: relative; width: 650px; height: 400px; display: flex; justify-content: center; align-items: center; }
+  /* SHARED LOGO AREA STYLING */
+  .logo-wrapper { position: relative; width: 600px; height: 400px; display: flex; justify-content: center; align-items: center; }
   
   .ridge {
     fill: none; stroke: var(--gold); stroke-width: 7; stroke-linecap: round;
@@ -30,8 +31,7 @@
     transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .dot { fill: var(--white); r: 0; transition: r 0.5s ease; }
-
-  /* STATEMENTS - PUSHED INWARD CLOSER TO LOGO */
+  
   .dot-label {
     position: absolute; font-family: 'DM Sans', sans-serif; font-size: 10px;
     font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
@@ -43,19 +43,13 @@
   .wordmark { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; letter-spacing: 0.22em; opacity: 0; transition: opacity 1s ease; margin-top: 1rem; color: white; }
   .wordmark span { color: var(--gold); }
   .tagline { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; opacity: 0; transition: opacity 1s ease; }
-
-  .enter-btn {
-    margin-top: 3.5rem; background: transparent; border: 1px solid rgba(255,255,255,0.2);
-    color: var(--gold); padding: 0.9rem 2.8rem; font-size: 0.75rem; letter-spacing: 0.35em;
-    text-transform: uppercase; cursor: pointer; opacity: 0; transition: all 0.3s;
-  }
+  .enter-btn { margin-top: 3.5rem; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--gold); padding: 0.9rem 2.8rem; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; opacity: 0; transition: all 0.3s; }
   .enter-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 
   /* MAIN SITE */
   #site { position: fixed; inset: 0; opacity: 0; overflow-y: auto; transition: opacity 1s ease; pointer-events: none; background: var(--navy); }
   #site.visible { opacity: 1; pointer-events: all; position: relative; }
 
-  /* TICKER HEADER - DARK/STEALTH */
   .ticker-bar { background: #060e1a; border-bottom: 1px solid rgba(201,168,76,0.2); height: 38px; display: none; align-items: center; overflow: hidden; width: 100%; }
   #site.visible .ticker-bar { display: flex; }
   .ticker-label { background: var(--gold); color: var(--navy); font-size: 0.58rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0 1rem; height: 100%; display: flex; align-items: center; flex-shrink: 0; }
@@ -64,9 +58,8 @@
   .ti { font-size: 0.68rem; color: white; padding: 0 2rem; display: flex; align-items: center; gap: 0.5rem; border-right: 1px solid rgba(255,255,255,0.05); }
   .ti .d { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
 
-  /* NAVIGATION */
   nav { position: sticky; top: 0; background: var(--navy); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; border-bottom: 1px solid rgba(201,168,76,0.15); z-index: 100; }
-  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: white; text-decoration: none; cursor: pointer; }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: white; text-decoration: none; }
   .nav-logo span { color: var(--gold); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a { font-size: 0.75rem; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; }
@@ -77,15 +70,14 @@
   footer { padding: 4rem; background: var(--navy); color: var(--muted); border-top: 1px solid rgba(201,168,76,0.1); display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; }
 </style>
 <script>
-  /* Stealth Script: Block Right Click */
-  document.addEventListener('contextmenu', event => event.preventDefault());
+  document.addEventListener('contextmenu', e => e.preventDefault());
 </script>
 </head>
 <body>
 
 <div id="splash">
   <div style="font-size: 0.65rem; letter-spacing: 0.4em; margin-bottom: 2.5rem; opacity: 0.6; text-transform: uppercase;">You Belong Here.</div>
-  <div class="logo-area">
+  <div class="logo-wrapper">
     <svg width="340" height="340" viewBox="0 0 300 300">
       <path id="r1" class="ridge" d="M 150,20 A 130,130 0 0,0 150,280" />
       <path id="r2" class="ridge" d="M 150,45 A 105,105 0 0,0 150,255" />
@@ -100,12 +92,13 @@
       <circle id="cdot" class="dot" cx="150" cy="150" style="fill:var(--gold);" />
     </svg>
     <div id="l1" class="dot-label l-gold" style="top: 10px; left: 165px;">Credit Disputes</div>
-    <div id="l2" class="dot-label" style="top: 70px; left: -40px; width: 150px; text-align: right;">Their policy is not the law.</div>
-    <div id="l3" class="dot-label l-gold" style="top: 145px; left: -90px;">Goodwill Letters</div>
-    <div id="l4" class="dot-label" style="bottom: 70px; left: -40px; width: 150px; text-align: right;">The system has a process.</div>
+    <div id="l2" class="dot-label" style="top: 70px; left: -35px; width: 150px; text-align: right;">Their policy is not the law.</div>
+    <div id="l3" class="dot-label l-gold" style="top: 145px; left: -85px;">Goodwill Letters</div>
+    <div id="l4" class="dot-label" style="bottom: 70px; left: -35px; width: 150px; text-align: right;">The system has a process.</div>
     <div id="l5" class="dot-label l-gold" style="bottom: 10px; left: 165px;">Debt Validation</div>
-    <div id="l6" class="dot-label" style="top: 105px; left: 310px; width: 180px;">Your record is not your sentence.</div>
-    <div id="l7" class="dot-label" style="bottom: 115px; left: 310px; width: 180px;">Press your mark. Own your ground.</div>
+    
+    <div id="l6" class="dot-label" style="top: 105px; left: 240px; width: 180px;">Your record is not your sentence.</div>
+    <div id="l7" class="dot-label" style="bottom: 115px; left: 240px; width: 180px;">Press your mark. Own your ground.</div>
   </div>
   <div class="wordmark" id="wm">CIVITAS<span>.</span></div>
   <div class="tagline" id="tg">Legal Document Services</div>
@@ -142,6 +135,7 @@
       <h1>Their policy<br>is not the <em>law.</em></h1>
       <p style="color:var(--muted); line-height:1.8; margin-bottom:3rem; font-size: 1.1rem;">Civitas prepares the documents that put you back in the conversation.</p>
     </div>
+    
     <div id="main-logo-box" style="opacity: 0; position: relative; width: 550px; height: 380px; display: flex; justify-content: center; align-items: center;">
       <svg width="340" height="340" viewBox="0 0 300 300">
         <path id="mr1" class="ridge" d="M 150,20 A 130,130 0 0,0 150,280" />
@@ -161,12 +155,12 @@
       <div id="ml3" class="dot-label l-gold" style="top: 145px; left: -85px;">Goodwill Letters</div>
       <div id="ml4" class="dot-label" style="bottom: 70px; left: -35px; width: 150px; text-align: right;">The system has a process.</div>
       <div id="ml5" class="dot-label l-gold" style="bottom: 10px; left: 165px;">Debt Validation</div>
-      <div id="ml6" class="dot-label" style="top: 105px; left: 310px; width: 180px;">Your record is not your sentence.</div>
-      <div id="ml7" class="dot-label" style="bottom: 115px; left: 310px; width: 180px;">Press your mark. Own your ground.</div>
+      <div id="ml6" class="dot-label" style="top: 105px; left: 240px; width: 180px;">Your record is not your sentence.</div>
+      <div id="ml7" class="dot-label" style="bottom: 115px; left: 240px; width: 180px;">Press your mark. Own your ground.</div>
     </div>
   </section>
 
-  <footer id="footer">
+  <footer>
     <div class="nav-logo">Civitas<span>.</span></div>
     <div>&copy; <span id="year"></span> Civitas Legal Document Services. All rights reserved.</div>
   </footer>
