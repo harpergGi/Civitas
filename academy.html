@@ -18,7 +18,7 @@
   /* Grid Layout */
   .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
 
-  /* Victory Vault (Searchable Wins) */
+  /* Victory Vault */
   .vault-section { grid-column: span 8; background: var(--navy-mid); padding: 2.5rem; border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; }
   .search-bar { width: 100%; padding: 1rem; background: #0a1628; border: 1px solid rgba(201,168,76,0.3); color: white; margin-bottom: 2rem; font-family: 'DM Sans', sans-serif; }
   
@@ -27,13 +27,12 @@
   .win-tag { font-size: 0.65rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
   .win-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin: 0.5rem 0; }
 
-  /* Sidebar - Simulators & Courses */
+  /* Sidebar */
   .sidebar { grid-column: span 4; display: flex; flex-direction: column; gap: 2rem; }
   .side-box { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); padding: 2rem; text-align: left; }
   .side-box h3 { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.6rem; margin-bottom: 1rem; }
   .btn-sim { width: 100%; padding: 1rem; background: var(--gold); color: var(--navy); border: none; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; }
 
-  /* Certification Badges */
   .badge-grid { display: flex; gap: 1rem; margin-top: 1rem; }
   .badge { width: 45px; height: 45px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: var(--gold); }
 
@@ -64,26 +63,33 @@
     <div class="win-card">
       <div class="win-tag">Tenant Rights / Security Deposit</div>
       <div class="win-title">Tenant vs. Corporate Management: The $4,500 Estoppel</div>
-      <p style="font-size: 0.8rem; color: var(--muted);">Plaintiff successfully cited CA CC 1950.5(g) to prove bad-faith withholding. Treble damages awarded without attorney representation.</p>
+      <p style="font-size: 0.8rem; color: var(--muted);">Plaintiff successfully cited CA CC 1950.5(g) to prove bad-faith withholding. Treble damages awarded.</p>
     </div>
 
     <div class="win-card">
       <div class="win-tag">Credit / Debt Validation</div>
       <div class="win-title">Removing a $12k "Zombie Debt" via Chain of Title Audit</div>
-      <p style="font-size: 0.8rem; color: var(--muted);">Used FDCPA § 809(b) to halt collection activity after proving the junk debt buyer lacked the original contract.</p>
+      <p style="font-size: 0.8rem; color: var(--muted);">Used FDCPA § 809(b) to halt collection activity after proving lack of original contract.</p>
     </div>
   </div>
 
   <div class="sidebar">
+    <div class="side-box" style="border: 2px solid var(--gold); background: rgba(201,168,76,0.1);">
+      <h3>War Binder™</h3>
+      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">
+        Structure your Small Claims case. Script your opener. Map your evidence.
+      </p>
+      <button class="btn-sim" onclick="buildPlaybook()">Initialize War Binder</button>
+    </div>
+
     <div class="side-box">
       <h3>The Simulator</h3>
       <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Practice your response against an AI-driven collector or landlord.</p>
-      <button class="btn-sim" onclick="startSim()">Start Simulation</button>
+      <button class="btn-sim" onclick="startSim()" style="background: transparent; color: var(--gold); border: 1px solid var(--gold);">Start Simulation</button>
     </div>
 
     <div class="side-box">
       <h3>Your Certifications</h3>
-      <p style="font-size: 0.8rem; color: var(--muted);">Complete modules to unlock advanced Battle Plans.</p>
       <div class="badge-grid">
         <div class="badge" title="FCRA Mastery">FCRA</div>
         <div class="badge" title="Tenant Rights">T.R.</div>
@@ -95,7 +101,11 @@
 
 <script>
   function startSim() {
-    alert("AI Simulation Loading... You will be placed in a mock negotiation with a property manager. Your goal: Cite CA CC 1954 to stop illegal entry.");
+    alert("AI Simulation Loading... Practice your negotiation against a mock property manager.");
+  }
+
+  function buildPlaybook() {
+    alert("WAR BINDER INITIALIZED:\n\n1. Opening Statement Template Generated\n2. Statute Cheat Sheet Compiled\n3. Evidence Mapping Started\n\nPlease check your Commander Dashboard for review.");
   }
 </script>
 
