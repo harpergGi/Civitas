@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Civitas | Commander Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0a1628; --gold: #c9a84c; --white: #ffffff; --muted: #8a9bb5; --danger: #e74c3c; --success: #2ecc71; }
+  body { background: #060e1a; color: white; font-family: 'DM Sans', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+  
+  /* Sidebar */
+  .sidebar { width: 260px; background: var(--navy); border-right: 1px solid rgba(201,168,76,0.2); padding: 2rem; flex-shrink: 0; }
+  .nav-item { padding: 1rem 0; color: var(--muted); cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+  .nav-item:hover { color: var(--gold); padding-left: 5px; }
+  .nav-active { color: var(--gold); font-weight: bold; border-left: 3px solid var(--gold); padding-left: 10px; }
+
+  /* Main Content */
+  .main-deck { flex: 1; padding: 3rem; overflow-y: auto; background: linear-gradient(135deg, #060e1a 0%, #0a1628 100%); }
+  .case-card { background: var(--navy); border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 2.5rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+  
+  h1, h2 { font-family: 'Cormorant Garamond', serif; color: var(--gold); margin-top: 0; }
+  h1 { font-size: 2.5rem; letter-spacing: 1px; }
+  
+  .status-badge { background: rgba(231, 76, 60, 0.2); color: var(--danger); padding: 6px 16px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; float: right; }
+  .status-approved { background: rgba(46, 204, 113, 0.2); color: var(--success); }
+
+  /* Battle Plan Area */
+  .playbook-logic { background: #0d1b2e; padding: 1.5rem; border-radius: 4px; border-left: 4px solid var(--gold); margin: 2rem 0; }
+  .code-hook { color: var(--gold); font-weight: bold; margin-bottom: 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+
+  textarea { width: 100%; height: 250px; background: #060e1a; color: #d1d1d1; border: 1px solid rgba(201,168,76,0.2); padding: 1.5rem; font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; line-height: 1.6; resize: none; border-radius: 4px; }
+  textarea:focus { outline: none; border-color: var(--gold); }
+  
+  .controls { display: flex; gap: 1.5rem; margin-top: 2.5rem; }
+  .btn { padding: 1rem 2.5rem; border: none; cursor: pointer; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; font-size: 0.75rem; transition: 0.3s; border-radius: 4px; }
+  .btn-gold { background: var(--gold); color: var(--navy); }
+  .btn-gold:hover { background: #b08f3a; transform: translateY(-2px); }
+  .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+  .btn-outline:hover { background: rgba(201,168,76,0.1); }
+  .btn:disabled { opacity: 0.2; cursor: not-allowed; transform: none !important; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2 style="font-size: 2rem; margin-bottom: 3rem;">Civitas<span>.</span></h2>
+  <div class="nav-item nav-active">Case Queue</div>
+  <div class="nav-item">Academy Manager</div>
+  <div class="nav-item">Victory Vault</div>
+  <div class="nav-item">System Logs</div>
+  <div class="nav-item" style="margin-top: auto; border: none; color: var(--danger);">Logout</div>
+</div>
+
+<div class="main-deck">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+    <h1>Commander Dashboard</h1>
+    <div style="text-align: right;">
+        <div style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase;">System Operator</div>
+        <div style="font-size: 1rem; color: var(--white);">Brian Harper</div>
+    </div>
+  </div>
+  
+  <div class="case-card">
+    <span class="status-badge" id="statusLabel">Awaiting Review</span>
+    <h2>Active Case: Brooklyn H.</h2>
+    <p style="color:var(--muted); font-size: 0.9rem;">Subject: Landlord-Tenant / Illegal Entry & Quiet Enjoyment Breach</p>
+    
+    <div class="playbook-logic">
+      <div class="code-hook">Tactical Intelligence: Phase 1</div>
+      <p style="margin: 0; line-height: 1.6;">Identified multiple breaches of <strong>CA Civil Code 1954</strong> and <strong>Quiet Enjoyment</strong>. Strategy: Force immediate accounting and return of deposit. If non-compliant within 72 hours, escalate to statutory damage notice.</p>
+    </div>
+
+    <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Document Staging Area</h3>
+    <textarea id="docEditor">
+RE: NOTICE OF STATUTORY VIOLATION & DEMAND FOR ACCOUNTING
+Property: 123 Main St, Oakdale, CA
+
+Dear Property Management,
+
+Pursuant to CA Civil Code 1954, you are hereby notified that the undocumented entries made into my residence on [Date] constitute a breach of California law regarding tenant privacy and notice. 
+
+Furthermore, as it has been [Number] days since the termination of tenancy, you are in direct violation of CA Civil Code 1950.5(g) regarding the return of security deposits. This letter serves as a formal demand for the immediate return of the full deposit amount of $[Amount]...
+    </textarea>
+
+    <div class="controls">
+      <button class="btn btn-outline" onclick="saveDraft()">Update Draft</button>
+      <button class="btn btn-outline" onclick="pushToClient()" id="pushBtn">Push to Client Portal</button>
+      <button id="executeBtn" class="btn btn-gold" disabled onclick="finalExecution()">Execute (Certified Mail)</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function saveDraft() {
+    alert("Draft updated in the database.");
+  }
+
+  function pushToClient() {
+    const btn = document.getElementById('pushBtn');
+    const status = document.getElementById('statusLabel');
+    
+    btn.innerText = "Pushed to Portal";
+    btn.disabled = true;
+    status.innerText = "Awaiting Client Consent";
+    status.classList.add('status-approved'); // Simplified for visual feedback
+    
+    alert("Battle Plan pushed to Brooklyn H. The 'Execute' button will unlock once the client clicks 'Consented' in their portal.");
+    
+    // Simulate client approval for demo purposes
+    setTimeout(() => {
+        if(confirm("SIMULATION: Client Brooklyn H. has reviewed and clicked 'CONSENT TO EXECUTE'. Unlock Commander override?")) {
+            document.getElementById('executeBtn').disabled = false;
+            status.innerText = "Execution Authorized";
+        }
+    }, 3000);
+  }
+
+  function finalExecution() {
+    alert("COMMAND EXECUTED. Document is being processed for Certified Mail delivery with Return Receipt.");
+  }
+</script>
+</body>
+</html>
