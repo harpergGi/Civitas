@@ -9,7 +9,6 @@
 :root {
   --navy: #0a1628;
   --navy-mid: #111f3a;
-  --navy-light: #1a2f52;
   --gold: #c9a84c;
   --gold-light: #e8c97a;
   --white: #ffffff;
@@ -19,13 +18,12 @@
 html { scroll-behavior: smooth; }
 body { background: var(--navy); font-family: 'DM Sans', sans-serif; color: var(--white); overflow-x: hidden; }
 
-/* 1. SPLASH SCREEN */
+/* 1. SPLASH SCREEN (RESTORED) */
 #splash {
   position: fixed; inset: 0; background: var(--navy); z-index: 9999;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   transition: opacity 0.8s ease;
 }
-.splash-text { font-size: 0.65rem; letter-spacing: 0.4em; margin-bottom: 2.5rem; opacity: 0.6; text-transform: uppercase; color: var(--white); }
 .logo-wrapper { position: relative; width: 340px; height: 340px; }
 .wordmark { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--white); margin-top: 2rem; letter-spacing: 0.2em; }
 .wordmark span { color: var(--gold); }
@@ -36,229 +34,297 @@ body { background: var(--navy); font-family: 'DM Sans', sans-serif; color: var(-
 }
 .enter-btn:hover { background: var(--gold); color: var(--navy); }
 
-/* 2. SITE WRAPPER */
+/* 2. SITE CONTENT */
 #site { display: none; opacity: 0; transition: opacity 1s ease; }
 
 /* TICKER */
 .ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
 .ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;}
 .ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
-.ticker-track:hover{animation-play-state:paused;}
-@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 .ti{font-size:0.68rem;color:var(--muted);padding:0 2rem;display:flex;align-items:center;gap:0.5rem;border-right:1px solid rgba(255,255,255,0.05);}
 .ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
 .ti span{color:var(--white);font-weight:500;}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
 /* NAV */
-nav{padding:0 4rem;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,0.1);position:sticky;top:0;background:rgba(10,22,40,0.97);backdrop-filter:blur(8px);z-index:50;}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--white);letter-spacing:0.06em;text-decoration:none;}
+nav{padding:0 4rem;height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,0.1);position:sticky;top:0;background:rgba(10,22,40,0.97);backdrop-filter:blur(8px);z-index:50;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--white);letter-spacing:0.04em;text-decoration:none;}
 .nav-logo span{color:var(--gold);}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
 .nav-links a{font-size:0.75rem;color:var(--muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.12em;font-weight:500;transition:color 0.2s;}
 .nav-links a:hover{color:var(--gold);}
-.nav-cta{background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.5rem 1.25rem;text-decoration:none;transition:background 0.2s;}
-.nav-cta:hover{background:var(--gold-light);}
+.nav-cta{background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.5rem 1.25rem;text-decoration:none;}
 
 /* HERO */
-.hero{display:flex;align-items:center;min-height:calc(100vh - 102px);position:relative;overflow:hidden;padding:4rem;}
-.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
-.hero-content{max-width: 800px; position:relative; z-index:2;}
-.eyebrow{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.75rem;}
-.ey-line{width:36px;height:1px;background:var(--gold);}
-.eyebrow span{font-size:0.65rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);}
-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4.5vw,5rem);font-weight:300;line-height:1.05;color:var(--white);margin-bottom:1.75rem;letter-spacing:-0.02em;}
-h1 em{font-style:italic;color:var(--gold-light);}
-.hero-sub{font-size:1.1rem;color:var(--muted);line-height:1.9;max-width:600px;margin-bottom:3rem;}
-.hero-sub strong{color:var(--white);font-weight:500;}
+.hero { min-height: 80vh; background: var(--navy); display: flex; align-items: center; position: relative; padding: 0 4rem; border-bottom: 1px solid rgba(201,168,76,0.15); }
+.hero-content { max-width: 720px; position: relative; z-index: 2; }
+.hero-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
+.hero-eyebrow span { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 300; color: var(--white); line-height: 1.05; margin-bottom: 2rem; }
+.hero h1 em { font-style: italic; color: var(--gold-light); }
+.hero-sub { font-size: 1.1rem; font-weight: 300; color: var(--muted); line-height: 1.8; max-width: 600px; margin-bottom: 3rem; }
 
-/* SERVICES / STRUCTURAL RECOURSE */
-.ns-section{padding:8rem 4rem;background:var(--navy);border-top:1px solid rgba(201,168,76,0.15);display:flex;justify-content:center;position:relative;z-index:10;}
-.ns-grid{max-width:1200px;width:100%;display:grid;grid-template-columns:1.2fr 1fr;gap:5rem;align-items:center;}
-.ns-title{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:4rem;line-height:1.1;margin-bottom:1.5rem;font-weight:600;}
-.ns-body{color:var(--muted);font-size:1.1rem;line-height:1.8;margin-bottom:2.5rem;}
-.ns-list{list-style:none;line-height:3;font-size:0.85rem;text-transform:uppercase;letter-spacing:2px;color:var(--white);}
-.ns-list li span{color:var(--gold);margin-right:15px;font-weight:bold;}
-.ns-box{border:1px solid rgba(201,168,76,0.3);padding:3rem;background:rgba(255,255,255,0.03);border-radius:4px;box-shadow:0 20px 40px rgba(0,0,0,0.4);backdrop-filter:blur(10px);}
-.ns-box h3{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.8rem;margin-bottom:1.5rem;border-bottom:1px solid rgba(201,168,76,0.2);padding-bottom:10px;}
-.ns-box p{font-size:0.85rem;color:var(--muted);margin-bottom:15px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:10px;}
+/* SHARED SECTION STYLES */
+section { padding: 7rem 4rem; }
+.section-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.section-eyebrow-line { width: 30px; height: 1px; background: var(--gold); }
+.section-eyebrow span { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; }
+.section-title em { font-style: italic; color: var(--gold); }
+.section-body { font-size: 1rem; color: var(--muted); line-height: 1.8; max-width: 600px; }
 
-/* COST / MATH OF JUSTICE */
-.nc-section{padding:8rem 4rem;background:#060e1a;border-top:1px solid rgba(255,255,255,0.05);position:relative;z-index:10;}
-.nc-title{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:4rem;text-align:center;margin-bottom:4rem;font-weight:600;}
-.nc-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;}
-.nc-card{padding:4rem 2rem;border:1px solid rgba(255,255,255,0.1);text-align:center;background:var(--navy-mid);}
-.nc-card.gold{border:2px solid var(--gold);background:rgba(201,168,76,0.05);position:relative;transform:translateY(-10px);}
-.nc-label{color:var(--muted);text-transform:uppercase;font-size:0.75rem;letter-spacing:2px;}
+/* SERVICES (RESTORED & DARK THEMED) */
+.services { background: var(--navy-mid); }
+.services-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.service-card { background: var(--navy); border: 1px solid rgba(255,255,255,0.05); padding: 2.5rem; transition: all 0.3s; }
+.service-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+.service-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: rgba(201,168,76,0.3); margin-bottom: 1.5rem; }
+.service-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--gold); margin-bottom: 0.75rem; }
+.service-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+
+/* PROTECTIONS / YOUR RIGHTS */
+.legal { background: var(--navy); }
+.legal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3rem; }
+.legal-item { border: 1px solid rgba(201,168,76,0.15); padding: 2.5rem; position: relative; background: var(--navy-mid); }
+.legal-item-num { position: absolute; top: -10px; left: 2rem; background: var(--gold); padding: 2px 10px; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); }
+.legal-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--white); margin-bottom: 1rem; margin-top: 0.5rem; }
+.legal-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
+
+/* COST COMPARISON (MATH OF JUSTICE) */
+.nc-section{background:#060e1a; border-top:1px solid rgba(255,255,255,0.05);}
+.nc-grid{max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:2.5rem;}
+.nc-card{padding:4rem 2rem; border:1px solid rgba(255,255,255,0.1); text-align:center; background:var(--navy-mid);}
+.nc-card.gold{border:2px solid var(--gold); background:rgba(201,168,76,0.05); position:relative; transform:translateY(-10px);}
+.nc-label{color:var(--muted); text-transform:uppercase; font-size:0.75rem; letter-spacing:2px;}
 .nc-card.gold .nc-label{color:var(--gold);}
-.nc-price{font-size:3rem;margin:1.5rem 0;font-family:'Cormorant Garamond',serif;color:var(--white);}
-.nc-card.gold .nc-price{font-size:4rem;color:var(--gold);}
-.nc-sub{font-size:0.75rem;color:var(--white);text-transform:uppercase;letter-spacing:1px;font-weight:bold;}
+.nc-price{font-size:3.5rem; margin:1.5rem 0; font-family:'Cormorant Garamond', serif; color:var(--white);}
+.nc-card.gold .nc-price{font-size:4.5rem; color:var(--gold);}
+.nc-sub{font-size:0.75rem; color:var(--white); text-transform:uppercase; letter-spacing:1px; font-weight:bold;}
 
-/* LIVE DATA */
-.ds{background:#060e1a;border-top:1px solid rgba(201,168,76,0.15);padding:4rem 4rem;}
-.ds-eye{display:flex;align-items:center;gap:0.75rem;margin-bottom:2rem;}
-.ld{width:6px;height:6px;border-radius:50%;background:#2ecc71;animation:blink 1.8s ease infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
-.ds-eye-line{width:24px;height:1px;background:var(--gold);}
-.ds-eye span{font-size:0.7rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
-.dg{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:rgba(201,168,76,0.08);margin-bottom:1.5px;}
-.dc{background:var(--navy-mid);padding:2rem 1.5rem;position:relative;}
-.dc-lbl{font-size:0.65rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;}
-.dc-num{font-family:'DM Mono',monospace;font-size:1.8rem;font-weight:500;color:var(--white);line-height:1;margin-bottom:0.5rem;}
-.dc-num.red{color:#e74c3c;}
-.dc-num.gold{color:var(--gold);}
-.dc-sub{font-size:0.7rem;color:var(--muted);line-height:1.5;}
-.dc-chg{position:absolute;top:1rem;right:1rem;font-family:'DM Mono',monospace;font-size:0.65rem;color:#e74c3c;}
+/* CONTACT (RESTORED & DARK THEMED) */
+.contact { background: var(--navy-mid); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; max-width: 1200px; margin: 0 auto; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+.form-group label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+.form-group input, .form-group select, .form-group textarea { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--white); outline: none; transition: border-color 0.2s; width: 100%; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+.form-group select option { background: var(--navy-mid); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.btn-primary { background: var(--gold); color: var(--navy); border: none; padding: 1rem 2.5rem; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+.btn-primary:hover { background: var(--gold-light); }
 
 /* FOOTER */
-footer{background:#0a1628;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;}
-.fl{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--white);}
-.fl span{color:var(--gold);}
-.fleg{font-size:0.7rem;color:rgba(138,155,181,0.5);text-align:center;max-width:500px;line-height:1.7;}
-.fc{font-size:0.75rem;color:var(--muted);text-align:right;line-height:1.7;}
+footer { background: #060e1a; padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(201,168,76,0.15); }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--white); }
+.footer-logo span { color: var(--gold); }
+.footer-legal { font-size: 0.65rem; color: rgba(138,155,181,0.5); text-align: center; max-width: 500px; line-height: 1.7; }
+.footer-right { font-size: 0.7rem; color: var(--muted); text-align: right; line-height: 1.5; }
 </style>
 </head>
 <body>
 
 <div id="splash">
-  <div class="splash-text">You Belong Here.</div>
+  <div style="font-size:0.65rem; letter-spacing:0.4em; margin-bottom:2.5rem; opacity:0.6; text-transform:uppercase;">You Belong Here.</div>
   <div class="logo-wrapper">
-    <svg viewBox="0 0 300 300" style="width:100%; height:100%;">
-      <path d="M 150,20 A 130,130 0 0,0 150,280" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
-      <path d="M 150,45 A 105,105 0 0,0 150,255" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
-      <path d="M 150,70 A 80,80 0 0,0 150,230" fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.8"/>
-      <path d="M 150,95 A 55,55 0 0,0 150,205" fill="none" stroke="#c9a84c" stroke-width="2.5" opacity="0.9"/>
-      <circle cx="150" cy="20" r="4" fill="white" />
-      <circle cx="73" cy="78" r="4" fill="white" />
-      <circle cx="43" cy="150" r="4" fill="white" />
-      <circle cx="73" cy="222" r="4" fill="white" />
-      <circle cx="150" cy="280" r="4" fill="white" />
+    <svg width="340" height="340" viewBox="0 0 300 300">
+      <path d="M 150,20 A 130,130 0 0,0 150,280" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+      <path d="M 150,45 A 105,105 0 0,0 150,255" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+      <path d="M 150,70 A 80,80 0 0,0 150,230" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/>
+      <path d="M 150,95 A 55,55 0 0,0 150,205" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.9"/>
+      <path d="M 150,120 A 30,30 0 0,0 150,180" fill="none" stroke="#c9a84c" stroke-width="2" opacity="1"/>
+      <circle cx="150" cy="20" r="4" fill="#ffffff" />
+      <circle cx="73" cy="78" r="4" fill="#ffffff" />
+      <circle cx="43" cy="150" r="4" fill="#ffffff" />
+      <circle cx="73" cy="222" r="4" fill="#ffffff" />
+      <circle cx="150" cy="280" r="4" fill="#ffffff" />
       <circle cx="150" cy="150" r="5" fill="#c9a84c" />
     </svg>
+    <div style="position:absolute; top:10px; left:165px; font-size:0.65rem; color:#c9a84c; letter-spacing:1px;">Credit Disputes</div>
+    <div style="position:absolute; top:70px; left:-35px; width:150px; text-align:right; font-size:0.65rem; color:#ffffff;">Their policy is not the law.</div>
+    <div style="position:absolute; top:145px; left:-85px; font-size:0.65rem; color:#c9a84c; letter-spacing:1px;">Goodwill Letters</div>
+    <div style="position:absolute; bottom:70px; left:-35px; width:150px; text-align:right; font-size:0.65rem; color:#ffffff;">The system has a process.</div>
+    <div style="position:absolute; bottom:10px; left:165px; font-size:0.65rem; color:#c9a84c; letter-spacing:1px;">Debt Validation</div>
   </div>
   <div class="wordmark">CIVITAS<span>.</span></div>
   <div class="tagline">Legal Document Services</div>
-  <div id="ebtn" class="enter-btn" onclick="enterSite()">Enter Site &rarr;</div>
+  <div class="enter-btn" onclick="enterSite()">Enter Site &rarr;</div>
 </div>
 
 <div id="site">
+  
   <div class="ticker-bar">
     <div class="ticker-label">Live / Your Rights</div>
     <div class="ticker-track">
-      <div class="ti"><div class="d"></div>National Debt: <span id="t1">$36.22T</span> and rising every second</div>
-      <div class="ti"><div class="d"></div>CFPB consumer protections under federal review</div>
-      <div class="ti"><div class="d"></div>FCRA: You can dispute any inaccurate credit item for <span>free</span></div>
+      <div class="ti"><div class="d"></div>National Debt: <span id="t1">$36.22T</span> and rising</div>
+      <div class="ti"><div class="d"></div>FCRA: You can dispute inaccurate items for <span>free</span></div>
       <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span></div>
       <div class="ti"><div class="d"></div>FDCPA: Debt validation is your right</div>
-      <div class="ti"><div class="d"></div>California: Security deposits must be returned within <span>21 days</span></div>
+      <div class="ti"><div class="d"></div>CA: Security deposits must be returned within <span>21 days</span></div>
+      <div class="ti"><div class="d"></div>Fine print is not law. <span>You have recourse.</span></div>
+      <div class="ti"><div class="d"></div>National Debt: <span id="t2">$36.22T</span> and rising</div>
+      <div class="ti"><div class="d"></div>FCRA: You can dispute inaccurate items for <span>free</span></div>
+      <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span></div>
+      <div class="ti"><div class="d"></div>FDCPA: Debt validation is your right</div>
+      <div class="ti"><div class="d"></div>CA: Security deposits must be returned within <span>21 days</span></div>
       <div class="ti"><div class="d"></div>Fine print is not law. <span>You have recourse.</span></div>
     </div>
   </div>
 
   <nav>
-    <a href="index.html" class="nav-logo">Civitas<span>.</span></a>
+    <a href="#" class="nav-logo">Civitas<span>.</span></a>
     <ul class="nav-links">
-      <li><a href="academy.html" style="color: var(--gold); border-bottom: 1px solid rgba(201,168,76,0.3); padding-bottom: 2px;">Civitas Academy</a></li>
+      <li><a href="academy.html" style="color: var(--gold); border-bottom: 1px solid rgba(201,168,76,0.4); padding-bottom: 2px;">Academy</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="war-binder.html">War Binder™</a></li>
+      <li><a href="#protections">Your Rights</a></li>
+      <li><a href="#cost">Cost Comparison</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <div style="display:flex;gap:0.75rem;align-items:center;">
-      <a href="account.html" style="background:transparent;border:1px solid rgba(201,168,76,0.4);color:var(--gold);font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.5rem 1.25rem;text-decoration:none;transition:all 0.2s;">Sign In</a>
-      <a href="register.html" class="nav-cta">Register</a>
-    </div>
+    <a href="register.html" class="nav-cta">Register</a>
   </nav>
 
   <section class="hero">
     <div class="hero-content">
-      <div class="eyebrow">
-        <div class="ey-line"></div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
         <span>California Legal Document Services</span>
       </div>
       <h1>Their policy<br>is not the <em>law.</em><br>You have recourse.</h1>
       <p class="hero-sub">Civitas prepares the documents that put you back in the conversation. Credit disputes, goodwill letters, debt validation, tenant rights. Flat fees. No attorneys. No hourly clock.</p>
-      <a href="#services" class="nav-cta" style="padding: 1rem 2rem; font-size: 0.8rem;">Explore Recourse</a>
+      <a href="#services" class="btn-primary" style="text-decoration:none; display:inline-block;">Explore Recourse</a>
     </div>
   </section>
 
-  <section id="services" class="ns-section">
-    <div class="ns-grid">
+  <section id="services" class="services">
+    <div class="services-header">
       <div>
-        <h2 class="ns-title">Structural<br>Recourse.</h2>
-        <p class="ns-body">The <strong>War Binder™</strong> transforms your scattered evidence into a high-impact <strong>Evidence Map</strong> designed for the podium. We organize the documents so you can command the room.</p>
-        <ul class="ns-list">
-          <li><span>[✔]</span> Forensic Document Review</li>
-          <li><span>[✔]</span> Statutory Violation Mapping</li>
-          <li><span>[✔]</span> Certified Evidence Indexing</li>
-        </ul>
+        <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>What We Do</span></div>
+        <h2 class="section-title">Seven ways we<br><em>go to work</em><br>for you.</h2>
       </div>
-      <div class="ns-box">
-        <h3>The Binder Index</h3>
-        <p>TAB 1: Notice to Vacate & Proof of Service</p>
-        <p>TAB 2: Move-Out Condition Photos</p>
-        <p style="border: none; margin: 0; padding: 0;">TAB 3: CA Civil Code 1950.5 Violation Log</p>
+      <p class="section-body">Every document is prepared specifically for your situation based on the facts of your case and the applicable law.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-title">Credit Dispute Letters</div>
+        <p class="service-desc">FCRA-compliant dispute correspondence directed to credit bureaus and original furnishers.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-title">Goodwill Letters</div>
+        <p class="service-desc">Professionally drafted correspondence requesting creditor review of negative notations.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-title">Debt Validation</div>
+        <p class="service-desc">FDCPA-compliant validation requests to halt collection efforts while proof is gathered.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-title">Landlord / Tenant</div>
+        <p class="service-desc">Security deposit demands, habitability notices, and responses citing CA Civil Code.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <div class="service-title">The War Binder™</div>
+        <p class="service-desc">Complete evidence mapping and statutory violation logs organized for small claims court.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <div class="service-title">Tax Preparer Negligence</div>
+        <p class="service-desc">IRS Form 14157 complaint filings and error analysis documentation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="protections" class="legal">
+    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>Your Protections</span></div>
+    <h2 class="section-title">The laws that are<br><em>already on your side.</em></h2>
+    <div class="legal-grid">
+      <div class="legal-item">
+        <span class="legal-item-num">Federal</span>
+        <h3>Fair Credit Reporting Act (FCRA)</h3>
+        <p>You have the right to dispute inaccurate, incomplete, or unverifiable information. Bureaus must investigate within 30 days. Civitas prepares your dispute to meet these statutory requirements.</p>
+      </div>
+      <div class="legal-item">
+        <span class="legal-item-num">Federal</span>
+        <h3>Fair Debt Collection Practices Act</h3>
+        <p>Debt collectors must validate debts upon written request. They cannot harass or misrepresent. Civitas prepares your validation letters within statutory timeframes to preserve your rights.</p>
+      </div>
+      <div class="legal-item">
+        <span class="legal-item-num">California</span>
+        <h3>CA Civil Code / Tenant Rights</h3>
+        <p>California tenants have strong rights regarding security deposits, habitability, and retaliation. Civitas prepares correspondence that cites the applicable code sections directly.</p>
+      </div>
+      <div class="legal-item">
+        <span class="legal-item-num">Federal</span>
+        <h3>Credit Repair Organizations Act</h3>
+        <p>Any company providing credit services must give you a written contract, a three-day right to cancel, and cannot charge upfront fees. These protections govern how we operate.</p>
       </div>
     </div>
   </section>
 
   <section id="cost" class="nc-section">
-    <h2 class="nc-title">The Math of Justice.</h2>
-    <div class="nc-grid">
-      <div class="nc-card">
-        <h4 class="nc-label">Attorney Retainer</h4>
-        <p class="nc-price">$3,500+</p>
-        <p class="nc-sub" style="color: var(--muted);">High-cost representation</p>
-      </div>
-      <div class="nc-card gold">
-        <h4 class="nc-label">The War Binder™</h4>
-        <p class="nc-price">$299</p>
-        <p class="nc-sub">One-Time Strategy</p>
-      </div>
-      <div class="nc-card">
-        <h4 class="nc-label">In Pro Per (DIY)</h4>
-        <p class="nc-price">$0</p>
-        <p class="nc-sub" style="color: var(--muted);">High risk of freezing</p>
+    <div style="padding: 7rem 4rem;">
+      <h2 class="section-title" style="text-align:center; margin-bottom:4rem;">The Math of Justice.</h2>
+      <div class="nc-grid">
+        <div class="nc-card">
+          <h4 class="nc-label">Attorney Retainer</h4>
+          <p class="nc-price">$3,500+</p>
+          <p class="nc-sub" style="color: var(--muted);">High-cost representation</p>
+        </div>
+        <div class="nc-card gold">
+          <h4 class="nc-label">The War Binder™</h4>
+          <p class="nc-price">$299</p>
+          <p class="nc-sub">One-Time Strategy</p>
+        </div>
+        <div class="nc-card">
+          <h4 class="nc-label">In Pro Per (DIY)</h4>
+          <p class="nc-price">$0</p>
+          <p class="nc-sub" style="color: var(--muted);">High risk of freezing</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="ds">
-    <div class="ds-eye">
-      <div class="ld"></div>
-      <div class="ds-eye-line"></div>
-      <span>Live / The System in Numbers</span>
-    </div>
-    <div class="dg">
-      <div class="dc">
-        <div class="dc-lbl">US National Debt</div>
-        <div class="dc-num red" id="nd">$36.218T</div>
-        <div class="dc-sub">Growing ~$3.8M per minute</div>
-        <div class="dc-chg" id="dc">+$0 since you arrived</div>
+  <section id="contact" class="contact">
+    <div class="contact-grid">
+      <div>
+        <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>Get In Touch</span></div>
+        <h3 class="section-title">Let's talk about<br><em>your situation.</em></h3>
+        <p class="section-body" style="margin-bottom: 2.5rem;">Initial consultations are educational. We will listen, explain what documents may apply, and give you a clear picture of what we can prepare for you, with no pressure and no hourly clock.</p>
+        <div style="margin-bottom:1rem;"><span style="color:var(--gold);font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;display:block;">Phone</span>(916) 490-0063</div>
+        <div style="margin-bottom:1rem;"><span style="color:var(--gold);font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;display:block;">Location</span>Oakdale, CA / Serving clients statewide</div>
       </div>
-      <div class="dc">
-        <div class="dc-lbl">Avg Credit Card APR</div>
-        <div class="dc-num gold">28.6%</div>
-        <div class="dc-sub">Highest in recorded US history</div>
-      </div>
-      <div class="dc">
-        <div class="dc-lbl">Americans in Collections</div>
-        <div class="dc-num red">68M+</div>
-        <div class="dc-sub">Most have legal options never used</div>
-      </div>
-      <div class="dc">
-        <div class="dc-lbl">Avg Attorney Fee</div>
-        <div class="dc-num gold">$400/hr</div>
-        <div class="dc-sub">Civitas: flat fee / no retainer</div>
-      </div>
+      <form style="background:var(--navy); padding:2.5rem; border:1px solid rgba(255,255,255,0.05);" onsubmit="event.preventDefault(); alert('Message Sent.');">
+        <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name" required></div>
+        <div class="form-group"><label>Email or Phone</label><input type="text" placeholder="Best way to reach you" required></div>
+        <div class="form-group">
+          <label>Service Needed</label>
+          <select>
+            <option value="">Select a service</option>
+            <option>Credit Dispute Letter</option>
+            <option>Goodwill Adjustment Letter</option>
+            <option>Debt Validation Letter</option>
+            <option>Landlord-Tenant Document</option>
+            <option>The War Binder™</option>
+            <option>General Consultation</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Brief Description</label><textarea placeholder="Tell us briefly about your situation"></textarea></div>
+        <button type="submit" class="btn-primary">Send Message</button>
+      </form>
     </div>
   </section>
 
   <footer>
-    <div class="fl">Civitas<span>.</span></div>
-    <div class="fleg">Civitas Legal Document Services is a registered California Legal Document Assistant under B&P Code 6400-6415. Not a law firm. Nothing here constitutes legal advice. Credit services comply with CROA.</div>
-    <div class="fc">(916) 490-0063<br>Oakdale, CA<br>civitasca.com</div>
+    <div class="footer-logo">Civitas<span>.</span></div>
+    <div class="footer-legal">Civitas Legal Document Services is a registered California Legal Document Assistant. Not a law firm. Nothing here constitutes legal advice.</div>
+    <div class="footer-right">(916) 490-0063<br>Oakdale, CA<br>civitasca.com</div>
   </footer>
+
 </div>
 
 <script>
@@ -274,10 +340,11 @@ function enterSite() {
 
 const base=36217843000000,rate=63333,t0=Date.now();
 function upd(){
-  const s=(Date.now()-t0)/1000,cur=base+s*rate,add=s*rate;
-  document.getElementById('nd').textContent='$'+(cur/1e12).toFixed(3)+'T';
-  document.getElementById('dc').textContent='+$'+Math.round(add).toLocaleString()+' since you arrived';
-  document.getElementById('t1').textContent='$'+(cur/1e12).toFixed(2)+'T';
+  const s=(Date.now()-t0)/1000,cur=base+s*rate;
+  const t1 = document.getElementById('t1');
+  const t2 = document.getElementById('t2');
+  if(t1) t1.textContent='$'+(cur/1e12).toFixed(2)+'T';
+  if(t2) t2.textContent='$'+(cur/1e12).toFixed(2)+'T';
 }
 setInterval(upd,250);upd();
 </script>
