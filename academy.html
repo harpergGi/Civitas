@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civitas Academy | The Recourse Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0a1628; --navy-mid: #142240; --gold: #c9a84c; --white: #ffffff; --muted: #8a9bb5; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--navy); color: white; font-family: 'DM Sans', sans-serif; line-height: 1.6; }
+
+  /* Hero Section */
+  .academy-hero { padding: 8rem 4rem 4rem; text-align: center; background: linear-gradient(to bottom, #060e1a, var(--navy)); border-bottom: 1px solid rgba(201,168,76,0.1); }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--gold); margin-bottom: 1rem; }
+  .subtitle { color: var(--muted); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 3rem; }
+
+  /* Grid Layout */
+  .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
+
+  /* Victory Vault (Searchable Wins) */
+  .vault-section { grid-column: span 8; background: var(--navy-mid); padding: 2.5rem; border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; }
+  .search-bar { width: 100%; padding: 1rem; background: #0a1628; border: 1px solid rgba(201,168,76,0.3); color: white; margin-bottom: 2rem; font-family: 'DM Sans', sans-serif; }
+  
+  .win-card { border-left: 3px solid var(--gold); background: rgba(0,0,0,0.2); padding: 1.5rem; margin-bottom: 1.5rem; transition: 0.3s; cursor: pointer; }
+  .win-card:hover { transform: translateX(10px); background: rgba(201,168,76,0.05); }
+  .win-tag { font-size: 0.65rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+  .win-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin: 0.5rem 0; }
+
+  /* Sidebar - Simulators & Courses */
+  .sidebar { grid-column: span 4; display: flex; flex-direction: column; gap: 2rem; }
+  .side-box { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); padding: 2rem; text-align: left; }
+  .side-box h3 { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.6rem; margin-bottom: 1rem; }
+  .btn-sim { width: 100%; padding: 1rem; background: var(--gold); color: var(--navy); border: none; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; }
+
+  /* Certification Badges */
+  .badge-grid { display: flex; gap: 1rem; margin-top: 1rem; }
+  .badge { width: 45px; height: 45px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: var(--gold); }
+
+  nav { position: absolute; top: 0; width: 100%; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; text-decoration: none; color: white; }
+  .logo span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Civitas<span>.</span></a>
+  <div style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted);">Academy / The Recourse Lab</div>
+</nav>
+
+<section class="academy-hero">
+  <div class="subtitle">Future-Forward Legal Intelligence</div>
+  <h1>Knowledge is the <em>Weapon.</em></h1>
+  <p style="max-width: 600px; margin: 0 auto; color: var(--muted);">Explore real-world wins, simulate your interactions, and master the Civil Codes that protect your rights.</p>
+</section>
+
+<div class="container">
+  <div class="vault-section">
+    <h3>The Victory Vault</h3>
+    <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem;">Public record wins from In Pro Per individuals utilizing statutory strategy.</p>
+    <input type="text" class="search-bar" placeholder="Search by statute (e.g. CA CC 1950.5 or FCRA)...">
+
+    <div class="win-card">
+      <div class="win-tag">Tenant Rights / Security Deposit</div>
+      <div class="win-title">Tenant vs. Corporate Management: The $4,500 Estoppel</div>
+      <p style="font-size: 0.8rem; color: var(--muted);">Plaintiff successfully cited CA CC 1950.5(g) to prove bad-faith withholding. Treble damages awarded without attorney representation.</p>
+    </div>
+
+    <div class="win-card">
+      <div class="win-tag">Credit / Debt Validation</div>
+      <div class="win-title">Removing a $12k "Zombie Debt" via Chain of Title Audit</div>
+      <p style="font-size: 0.8rem; color: var(--muted);">Used FDCPA § 809(b) to halt collection activity after proving the junk debt buyer lacked the original contract.</p>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="side-box">
+      <h3>The Simulator</h3>
+      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Practice your response against an AI-driven collector or landlord.</p>
+      <button class="btn-sim" onclick="startSim()">Start Simulation</button>
+    </div>
+
+    <div class="side-box">
+      <h3>Your Certifications</h3>
+      <p style="font-size: 0.8rem; color: var(--muted);">Complete modules to unlock advanced Battle Plans.</p>
+      <div class="badge-grid">
+        <div class="badge" title="FCRA Mastery">FCRA</div>
+        <div class="badge" title="Tenant Rights">T.R.</div>
+        <div class="badge" style="opacity: 0.3;">TAX</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function startSim() {
+    alert("AI Simulation Loading... You will be placed in a mock negotiation with a property manager. Your goal: Cite CA CC 1954 to stop illegal entry.");
+  }
+</script>
+
+</body>
+</html>
