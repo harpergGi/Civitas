@@ -1,0 +1,26 @@
+{
+  "name": "Civi by Civitas",
+  "short_name": "Civi",
+  "description": "Know your rights. Fight back. Your legal navigator.",
+  "start_url": "/app.html",
+  "display": "standalone",
+  "background_color": "#0a1628",
+  "theme_color": "#0a1628",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["legal", "education", "utilities"],
+  "lang": "en-US"
+}
