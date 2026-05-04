@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Civi">
+<meta name="theme-color" content="#0a1628">
+<meta name="description" content="Civi by Civitas. Know your rights. Fight back.">
+<title>Civi by Civitas</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a1628;--navy-mid:#111f3a;--navy-light:#1a2f52;
+  --gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);
+  --white:#fff;--muted:#8a9bb5;
+  --green:#2ecc71;--green-dim:rgba(46,204,113,0.1);
+  --red:#e74c3c;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;background:var(--navy);}
+body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direction:column;max-width:430px;margin:0 auto;position:relative;}
+
+/* ── APP SHELL ── */
+.app{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;}
+
+/* STATUS BAR SPACER */
+.status-bar{height:var(–safe-top);background:var(–navy);flex-shrink:0;}
+
+/* TOP BAR */
+.topbar{background:var(–navy);border-bottom:1px solid rgba(201,168,76,0.12);padding:0.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.topbar-logo{font-family:‘Cormorant Garamond’,serif;font-size:1.4rem;font-weight:600;color:var(–white);letter-spacing:0.04em;}
+.topbar-logo span{color:var(–gold);}
+.topbar-sub{font-size:0.55rem;color:var(–muted);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-top:-2px;}
+.topbar-right{display:flex;align-items:center;gap:0.75rem;}
+.notif-btn{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.05);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;}
+.notif-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(–gold);border:1.5px solid var(–navy);}
+.avatar-btn{width:34px;height:34px;border-radius:50%;background:var(–gold-dim);border:1.5px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:500;color:var(–gold);cursor:pointer;}
+
+/* SCREEN CONTAINER */
+.screens{flex:1;overflow:hidden;position:relative;}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;display:none;padding-bottom:80px;}
+.screen.active{display:block;}
+.screen::-webkit-scrollbar{display:none;}
+
+/* ── HOME SCREEN ── */
+.home-hero{padding:1.5rem 1.25rem 1rem;background:linear-gradient(to bottom,var(–navy),#0d1e38);}
+.greeting{font-size:0.65rem;color:var(–muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;}
+.hero-name{font-family:‘Cormorant Garamond’,serif;font-size:1.8rem;font-weight:300;color:var(–white);margin-bottom:0.15rem;}
+.hero-name em{font-style:italic;color:var(–gold-light);}
+.hero-tagline{font-size:0.72rem;color:var(–muted);line-height:1.5;}
+
+/* CASE CARD */
+.case-card{margin:1rem 1.25rem;background:var(–navy-mid);border:1px solid rgba(201,168,76,0.15);padding:1.25rem;position:relative;overflow:hidden;}
+.case-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(–gold),transparent);}
+.case-card-label{font-size:0.58rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(–gold);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem;}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(–green);animation:blink 1.8s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+.case-type{font-family:‘Cormorant Garamond’,serif;font-size:1.2rem;font-weight:600;color:var(–white);margin-bottom:0.35rem;}
+.case-stage{font-size:0.72rem;color:var(–muted);margin-bottom:0.85rem;}
+.case-stage span{color:var(–gold);}
+
+/* MINI TIMELINE */
+.mini-tl{display:flex;align-items:center;gap:0;margin-bottom:0.85rem;}
+.mt-node{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:500;flex-shrink:0;}
+.mt-node.done{background:var(–gold);color:var(–navy);}
+.mt-node.act{background:rgba(201,168,76,0.15);border:1.5px solid var(–gold);color:var(–gold);}
+.mt-node.pend{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.2);}
+.mt-conn{flex:1;height:1.5px;background:rgba(255,255,255,0.06);}
+.mt-conn.done{background:var(–gold);}
+
+.prog-bar{background:rgba(255,255,255,0.06);height:4px;border-radius:2px;overflow:hidden;margin-bottom:0.4rem;}
+.prog-fill{height:100%;background:var(–gold);border-radius:2px;}
+.prog-label{font-size:0.62rem;color:var(–muted);}
+.prog-label span{color:var(–gold);}
+
+.case-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:0.85rem;padding-top:0.85rem;border-top:1px solid rgba(255,255,255,0.05);}
+.next-action{font-size:0.62rem;color:var(–muted);}
+.next-action strong{color:var(–white);}
+.view-btn{font-size:0.62rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(–gold);background:none;border:1px solid rgba(201,168,76,0.3);padding:4px 10px;cursor:pointer;font-family:‘DM Sans’,sans-serif;}
+
+/* QUICK ACTIONS */
+.quick-actions{padding:0 1.25rem;margin-bottom:1rem;}
+.qa-label{font-size:0.58rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(–muted);margin-bottom:0.75rem;}
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;}
+.qa-item{background:var(–navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.75rem 0.4rem;text-align:center;cursor:pointer;transition:all 0.15s;}
+.qa-item:hover{border-color:rgba(201,168,76,0.3);}
+.qa-icon{font-size:1.2rem;margin-bottom:0.3rem;}
+.qa-text{font-size:0.58rem;color:var(–muted);line-height:1.3;}
+
+/* RECENT DOCS */
+.section-block{padding:0 1.25rem;margin-bottom:1rem;}
+.section-label{font-size:0.58rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(–muted);margin-bottom:0.75rem;display:flex;align-items:center;justify-content:space-between;}
+.section-label a{color:var(–gold);font-size:0.6rem;text-decoration:none;}
+.doc-item{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.doc-item:last-child{border-bottom:none;}
+.doc-icon-wrap{width:34px;height:34px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.doc-info{flex:1;}
+.doc-name{font-size:0.75rem;color:var(–white);margin-bottom:1px;}
+.doc-meta{font-size:0.6rem;color:var(–muted);}
+.doc-status{font-size:0.58rem;font-weight:500;padding:2px 6px;border-radius:2px;}
+.doc-status.filed{background:var(–green-dim);color:var(–green);}
+.doc-status.sent{background:var(–gold-dim);color:var(–gold);}
+.doc-status.review{background:rgba(52,152,219,0.1);color:#3498db;}
+
+/* ── VOICE SCREEN ── */
+.voice-screen{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:2rem 1.5rem;min-height:100%;}
+.voice-title{font-family:‘Cormorant Garamond’,serif;font-size:1.6rem;font-weight:300;color:var(–white);text-align:center;margin-bottom:0.5rem;}
+.voice-title em{font-style:italic;color:var(–gold-light);}
+.voice-sub{font-size:0.75rem;color:var(–muted);text-align:center;line-height:1.6;margin-bottom:2rem;max-width:280px;}
+
+/* MIC BUTTON */
+.mic-wrap{position:relative;margin-bottom:1.5rem;}
+.mic-rings{position:absolute;inset:-30px;display:flex;align-items:center;justify-content:center;pointer-events:none;}
+.mic-ring{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,0.2);animation:ringPulse 2s ease infinite;}
+.mic-ring:nth-child(1){width:120px;height:120px;animation-delay:0s;}
+.mic-ring:nth-child(2){width:160px;height:160px;animation-delay:0.4s;}
+.mic-ring:nth-child(3){width:200px;height:200px;animation-delay:0.8s;}
+@keyframes ringPulse{0%,100%{opacity:0.6;transform:scale(1);}50%{opacity:0;transform:scale(1.05);}}
+.mic-ring.listening{border-color:rgba(201,168,76,0.5);animation:ringPulseFast 0.8s ease infinite;}
+@keyframes ringPulseFast{0%,100%{opacity:0.8;transform:scale(1);}50%{opacity:0.2;transform:scale(1.08);}}
+
+.mic-btn{width:90px;height:90px;border-radius:50%;background:var(–gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;position:relative;z-index:2;box-shadow:0 8px 32px rgba(201,168,76,0.3);}
+.mic-btn.listening{background:#e74c3c;box-shadow:0 8px 32px rgba(231,76,60,0.4);}
+.mic-btn svg{width:32px;height:32px;}
+
+.voice-status{font-size:0.72rem;color:var(–muted);text-align:center;margin-bottom:1.5rem;min-height:20px;letter-spacing:0.06em;}
+.voice-status.active{color:var(–gold);}
+.voice-status.thinking{color:#3498db;}
+
+/* TRANSCRIPT */
+.transcript{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:1rem;width:100%;max-width:360px;min-height:60px;margin-bottom:1rem;font-size:0.78rem;color:var(–white);line-height:1.6;font-style:italic;display:none;}
+.transcript.show{display:block;}
+
+/* AI RESPONSE */
+.ai-response{width:100%;max-width:360px;display:none;}
+.ai-response.show{display:block;}
+.ai-response-hdr{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;}
+.ai-response-icon{width:28px;height:28px;background:var(–gold-dim);border:1px solid rgba(201,168,76,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;}
+.ai-response-label{font-size:0.62rem;color:var(–gold);letter-spacing:0.1em;text-transform:uppercase;}
+.ai-response-body{font-size:0.78rem;color:var(–muted);line-height:1.8;background:var(–navy-mid);border:1px solid rgba(201,168,76,0.1);padding:1rem;margin-bottom:0.75rem;}
+.ai-response-body strong{color:var(–white);}
+
+/* AUDIO CONTROLS */
+.audio-controls{display:flex;gap:0.6rem;width:100%;max-width:360px;}
+.audio-btn{flex:1;padding:0.65rem;font-family:‘DM Sans’,sans-serif;font-size:0.65rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;border:none;}
+.audio-btn.play{background:var(–gold);color:var(–navy);}
+.audio-btn.play:hover{background:var(–gold-light);}
+.audio-btn.story{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(–muted);}
+.audio-btn.story:hover{border-color:rgba(201,168,76,0.3);color:var(–gold);}
+.audio-btn.reset{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);color:rgba(138,155,181,0.5);}
+
+/* TOPIC CHIPS */
+.topic-chips{display:flex;flex-wrap:wrap;gap:6px;width:100%;max-width:360px;margin-bottom:1.5rem;}
+.topic-chip{font-size:0.65rem;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:var(–muted);cursor:pointer;transition:all 0.15s;}
+.topic-chip:hover{border-color:rgba(201,168,76,0.3);color:var(–gold);}
+
+/* STORY PLAYER */
+.story-player{position:fixed;bottom:80px;left:0;right:0;max-width:430px;margin:0 auto;background:#060e1a;border-top:1px solid rgba(201,168,76,0.2);padding:1rem 1.25rem;display:none;z-index:50;}
+.story-player.show{display:block;}
+.sp-label{font-size:0.58rem;color:var(–gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;}
+.sp-title{font-size:0.82rem;color:var(–white);margin-bottom:0.5rem;font-weight:500;}
+.sp-progress{background:rgba(255,255,255,0.06);height:3px;border-radius:2px;overflow:hidden;margin-bottom:0.5rem;}
+.sp-fill{height:100%;background:var(–gold);border-radius:2px;width:0%;transition:width 0.5s linear;}
+.sp-controls{display:flex;align-items:center;gap:1rem;}
+.sp-btn{background:none;border:none;color:var(–muted);cursor:pointer;font-size:1rem;padding:4px;}
+.sp-btn.main{width:36px;height:36px;border-radius:50%;background:var(–gold);color:var(–navy);font-size:0.9rem;display:flex;align-items:center;justify-content:center;}
+.sp-time{font-family:‘DM Mono’,monospace;font-size:0.62rem;color:var(–muted);margin-left:auto;}
+.sp-close{background:none;border:none;color:var(–muted);cursor:pointer;font-size:0.8rem;margin-left:0.5rem;}
+
+/* ── DOCUMENTS SCREEN ── */
+.doc-section{padding:1.25rem;}
+.doc-section-title{font-family:‘Cormorant Garamond’,serif;font-size:1.4rem;font-weight:300;color:var(–white);margin-bottom:0.25rem;}
+.doc-section-sub{font-size:0.72rem;color:var(–muted);margin-bottom:1.25rem;}
+
+.upload-area{border:1px dashed rgba(201,168,76,0.25);padding:1.5rem;text-align:center;margin-bottom:1.25rem;cursor:pointer;transition:all 0.2s;position:relative;}
+.upload-area:hover{background:rgba(201,168,76,0.03);border-color:rgba(201,168,76,0.5);}
+.upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-icon{font-size:1.5rem;margin-bottom:0.4rem;color:rgba(201,168,76,0.4);}
+.upload-text{font-size:0.72rem;color:var(–muted);line-height:1.5;}
+.upload-text strong{color:var(–white);}
+
+.doc-group-label{font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(–muted);margin-bottom:0.5rem;padding-bottom:0.35rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+.doc-list{display:flex;flex-direction:column;gap:0;margin-bottom:1.25rem;}
+
+/* ── ACADEMY SCREEN ── */
+.academy-hero{padding:1.5rem 1.25rem 1rem;background:linear-gradient(to bottom,#060e1a,var(–navy));border-bottom:1px solid rgba(255,255,255,0.05);}
+.academy-hero h2{font-family:‘Cormorant Garamond’,serif;font-size:1.6rem;font-weight:300;color:var(–white);margin-bottom:0.4rem;}
+.academy-hero h2 em{font-style:italic;color:var(–gold-light);}
+.academy-hero p{font-size:0.72rem;color:var(–muted);line-height:1.6;}
+
+.course-list{padding:1rem 1.25rem;}
+.course-item{background:var(–navy-mid);border:1px solid rgba(255,255,255,0.05);padding:1rem;margin-bottom:0.6rem;cursor:pointer;transition:all 0.15s;display:flex;align-items:flex-start;gap:0.75rem;}
+.course-item:hover{border-color:rgba(201,168,76,0.2);}
+.course-num{font-family:‘Cormorant Garamond’,serif;font-size:1.4rem;font-weight:300;color:rgba(201,168,76,0.3);line-height:1;flex-shrink:0;min-width:28px;}
+.course-info{flex:1;}
+.course-badge{font-size:0.56rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:2px;display:inline-block;margin-bottom:0.3rem;}
+.course-title{font-size:0.82rem;font-weight:500;color:var(–white);margin-bottom:0.2rem;}
+.course-lessons{font-size:0.62rem;color:var(–muted);}
+.course-arrow{color:var(–muted);font-size:0.8rem;margin-top:2px;}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{background:rgba(10,22,40,0.97);border-top:1px solid rgba(201,168,76,0.12);display:flex;align-items:center;justify-content:space-around;padding:0.6rem 0;padding-bottom:calc(0.6rem + var(–safe-bottom));flex-shrink:0;backdrop-filter:blur(8px);}
+.nav-item-btn{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:4px 16px;transition:all 0.15s;min-width:60px;}
+.nav-item-btn.active .nav-icon{color:var(–gold);}
+.nav-item-btn.active .nav-label{color:var(–gold);}
+.nav-icon{font-size:1.2rem;color:var(–muted);transition:color 0.15s;}
+.nav-label{font-size:0.56rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(–muted);transition:color 0.15s;}
+
+/* VOICE NAV BUTTON */
+.nav-voice-btn{width:52px;height:52px;border-radius:50%;background:var(–gold);border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;margin-top:-20px;box-shadow:0 4px 20px rgba(201,168,76,0.4);transition:all 0.2s;}
+.nav-voice-btn:hover{background:var(–gold-light);}
+.nav-voice-btn .nav-icon{font-size:1.1rem;color:var(–navy);margin:0;}
+.nav-voice-btn .nav-label{font-size:0.5rem;color:var(–navy);letter-spacing:0.06em;}
+
+/* PROFILE SCREEN */
+.profile-wrap{padding:1.25rem;}
+.profile-avatar{width:72px;height:72px;border-radius:50%;background:var(–gold-dim);border:2px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:500;color:var(–gold);margin:0 auto 0.75rem;}
+.profile-name{font-family:‘Cormorant Garamond’,serif;font-size:1.4rem;font-weight:600;color:var(–white);text-align:center;margin-bottom:0.2rem;}
+.profile-plan{font-size:0.62rem;color:var(–gold);letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin-bottom:1.25rem;}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:1.25rem;}
+.ps-card{background:var(–navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.75rem;text-align:center;}
+.ps-num{font-family:‘Cormorant Garamond’,serif;font-size:1.5rem;font-weight:600;color:var(–gold);line-height:1;}
+.ps-label{font-size:0.58rem;color:var(–muted);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;}
+.profile-field{display:flex;align-items:flex-start;justify-content:space-between;padding:0.65rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.profile-field:last-child{border-bottom:none;}
+.pf-label{font-size:0.62rem;color:var(–muted);letter-spacing:0.1em;text-transform:uppercase;}
+.pf-val{font-size:0.75rem;color:var(–white);text-align:right;}
+.section-card{background:var(–navy-mid);border:1px solid rgba(255,255,255,0.05);padding:1rem;margin-bottom:0.75rem;}
+.sc-title{font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(–muted);margin-bottom:0.75rem;}
+.notif-row{display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0;font-size:0.75rem;color:var(–white);}
+.toggle{width:36px;height:20px;background:var(–gold);border-radius:10px;position:relative;cursor:pointer;transition:background 0.2s;}
+.toggle.off{background:rgba(255,255,255,0.1);}
+.toggle::after{content:’’;position:absolute;width:16px;height:16px;border-radius:50%;background:var(–white);top:2px;right:2px;transition:transform 0.2s;}
+.toggle.off::after{transform:translateX(-16px);}
+.signout-btn{width:100%;background:transparent;border:1px solid rgba(231,76,60,0.25);color:rgba(231,76,60,0.6);font-family:‘DM Sans’,sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem;cursor:pointer;margin-top:0.75rem;transition:all 0.2s;}
+.signout-btn:hover{background:rgba(231,76,60,0.08);color:var(–red);}
+
+/* TOAST */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(–gold);color:var(–navy);font-size:0.72rem;font-weight:500;padding:0.6rem 1.25rem;border-radius:24px;z-index:999;opacity:0;transition:opacity 0.3s;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;}
+
+/* LOADING */
+.thinking-dots{display:inline-flex;gap:4px;}
+.thinking-dots span{width:6px;height:6px;border-radius:50%;background:var(–gold);animation:dot 1.2s ease infinite;}
+.thinking-dots span:nth-child(2){animation-delay:0.2s;}
+.thinking-dots span:nth-child(3){animation-delay:0.4s;}
+@keyframes dot{0%,80%,100%{opacity:0.2;transform:scale(0.8);}40%{opacity:1;transform:scale(1);}}
+
+/* SCROLL REVEAL */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp 0.4s ease forwards;}
+</style>
+
+</head>
+<body>
+<div class="app">
+  <div class="status-bar"></div>
+
+  <!-- TOP BAR -->
+
+  <div class="topbar">
+    <div>
+      <div class="topbar-logo">Civi<span>.</span></div>
+      <div class="topbar-sub">by Civitas</div>
+    </div>
+    <div class="topbar-right">
+      <button class="notif-btn" onclick="showToast('No new notifications')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <div class="notif-dot"></div>
+      </button>
+      <div class="avatar-btn" onclick="switchScreen('profile')">SM</div>
+    </div>
+  </div>
+
+  <!-- SCREENS -->
+
+  <div class="screens">
+
+```
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero fade-up">
+    <div class="greeting">Good morning</div>
+    <div class="hero-name">Sharynne <em>Macon.</em></div>
+    <div class="hero-tagline">Your case is active. Bureau window closes in 12 days.</div>
+  </div>
+
+  <!-- CASE CARD -->
+  <div class="case-card fade-up">
+    <div class="case-card-label"><div class="live-dot"></div>Active Case / Live Updates</div>
+    <div class="case-type">Credit Dispute</div>
+    <div class="case-stage">Stage <span>3 of 7</span> / Bureau Investigation Open</div>
+    <div class="mini-tl">
+      <div class="mt-node done">✓</div><div class="mt-conn done"></div>
+      <div class="mt-node done">✓</div><div class="mt-conn done"></div>
+      <div class="mt-node act">3</div><div class="mt-conn"></div>
+      <div class="mt-node pend">4</div><div class="mt-conn"></div>
+      <div class="mt-node pend">5</div><div class="mt-conn"></div>
+      <div class="mt-node pend">6</div><div class="mt-conn"></div>
+      <div class="mt-node pend">7</div>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" style="width:60%"></div></div>
+    <div class="prog-label">Bureau investigation window / <span>Day 18 of 30</span></div>
+    <div class="case-card-footer">
+      <div class="next-action">Next action: <strong>May 13, 2026</strong></div>
+      <button class="view-btn" onclick="showToast('Opening full portal...')">View Full Case</button>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="quick-actions fade-up">
+    <div class="qa-label">Quick Access</div>
+    <div class="qa-grid">
+      <div class="qa-item" onclick="switchScreen('voice')">
+        <div class="qa-icon">🎤</div>
+        <div class="qa-text">Ask Civi</div>
+      </div>
+      <div class="qa-item" onclick="switchScreen('documents')">
+        <div class="qa-icon">📁</div>
+        <div class="qa-text">Documents</div>
+      </div>
+      <div class="qa-item" onclick="switchScreen('academy')">
+        <div class="qa-icon">🎓</div>
+        <div class="qa-text">Academy</div>
+      </div>
+      <div class="qa-item" onclick="showToast('Opening messages...')">
+        <div class="qa-icon">💬</div>
+        <div class="qa-text">Message Brian</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECENT DOCS -->
+  <div class="section-block fade-up">
+    <div class="section-label">Recent Documents <a href="#" onclick="switchScreen('documents');return false;">View all</a></div>
+    <div class="doc-item">
+      <div class="doc-icon-wrap">📄</div>
+      <div class="doc-info">
+        <div class="doc-name">Experian Dispute Letter</div>
+        <div class="doc-meta">Filed Apr 11 / Civitas</div>
+      </div>
+      <div class="doc-status filed">Filed</div>
+    </div>
+    <div class="doc-item">
+      <div class="doc-icon-wrap">📄</div>
+      <div class="doc-info">
+        <div class="doc-name">FCRA 611 Notice</div>
+        <div class="doc-meta">Sent Apr 11 / Civitas</div>
+      </div>
+      <div class="doc-status sent">Sent</div>
+    </div>
+    <div class="doc-item">
+      <div class="doc-icon-wrap">📄</div>
+      <div class="doc-info">
+        <div class="doc-name">Credit Report May 2026</div>
+        <div class="doc-meta">Uploaded May 3 / You</div>
+      </div>
+      <div class="doc-status review">Reviewing</div>
+    </div>
+  </div>
+
+  <!-- ACADEMY PREVIEW -->
+  <div class="section-block fade-up">
+    <div class="section-label">Academy <a href="#" onclick="switchScreen('academy');return false;">All courses</a></div>
+    <div class="course-item" onclick="switchScreen('academy')">
+      <div class="course-num">01</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(201,168,76,0.12);color:var(--gold);">Credit Rights</div>
+        <div class="course-title">Credit Dispute Mastery</div>
+        <div class="course-lessons">8 lessons / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="switchScreen('academy')">
+      <div class="course-num">02</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(243,156,18,0.12);color:#f39c12;">Debt Defense</div>
+        <div class="course-title">Debt Collector Defense</div>
+        <div class="course-lessons">7 lessons / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- VOICE / ASK CIVI -->
+<div class="screen" id="screen-voice">
+  <div class="voice-screen">
+    <div class="voice-title">Ask <em>Civi.</em></div>
+    <p class="voice-sub">Tap the mic and speak your situation. Civi will identify what law applies, point you to the right resources, and read you a real case where someone in your position won.</p>
+
+    <div class="mic-wrap">
+      <div class="mic-rings">
+        <div class="mic-ring" id="ring1"></div>
+        <div class="mic-ring" id="ring2"></div>
+        <div class="mic-ring" id="ring3"></div>
+      </div>
+      <button class="mic-btn" id="micBtn" onclick="toggleMic()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" fill="rgba(10,22,40,0.3)"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="voice-status" id="voiceStatus">Tap the mic to speak your situation</div>
+
+    <div class="transcript" id="transcript"></div>
+
+    <div class="ai-response" id="aiResponse">
+      <div class="ai-response-hdr">
+        <div class="ai-response-icon">⚖️</div>
+        <div class="ai-response-label">Civi Analysis</div>
+      </div>
+      <div class="ai-response-body" id="aiResponseBody"></div>
+      <div class="audio-controls">
+        <button class="audio-btn play" onclick="readResponse()">▶ Read Aloud</button>
+        <button class="audio-btn story" onclick="playStory()">📖 Hear a Win</button>
+        <button class="audio-btn reset" onclick="resetVoice()">↺ Reset</button>
+      </div>
+    </div>
+
+    <div style="width:100%;max-width:360px;margin-top:1.5rem;">
+      <div style="font-size:0.6rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;">Or tap a common situation</div>
+      <div class="topic-chips">
+        <div class="topic-chip" onclick="quickAsk('My landlord is keeping my security deposit')">Security Deposit</div>
+        <div class="topic-chip" onclick="quickAsk('A debt collector keeps calling me')">Debt Collector Calls</div>
+        <div class="topic-chip" onclick="quickAsk('I have errors on my credit report')">Credit Report Error</div>
+        <div class="topic-chip" onclick="quickAsk('I was wrongfully terminated from my job')">Wrongful Termination</div>
+        <div class="topic-chip" onclick="quickAsk('My landlord entered without notice')">Landlord Entry</div>
+        <div class="topic-chip" onclick="quickAsk('I got an IRS notice I do not understand')">IRS Notice</div>
+        <div class="topic-chip" onclick="quickAsk('I want to file in small claims court')">Small Claims Court</div>
+        <div class="topic-chip" onclick="quickAsk('My tax preparer made errors on my return')">Tax Preparer Error</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCUMENTS -->
+<div class="screen" id="screen-documents">
+  <div class="doc-section">
+    <div class="doc-section-title">My Documents</div>
+    <div class="doc-section-sub">Your vault is private and isolated to your account only.</div>
+
+    <div class="upload-area">
+      <input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.png" onchange="handleUpload(this)">
+      <div class="upload-icon">+</div>
+      <div class="upload-text"><strong>Upload a document</strong><br>Credit reports, letters, notices, anything relevant</div>
+    </div>
+
+    <div class="doc-group-label">Filed by Civitas</div>
+    <div class="doc-list">
+      <div class="doc-item">
+        <div class="doc-icon-wrap">📄</div>
+        <div class="doc-info"><div class="doc-name">Experian Dispute Letter</div><div class="doc-meta">Apr 11, 2026 / 140 KB</div></div>
+        <div class="doc-status filed">Filed</div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon-wrap">📄</div>
+        <div class="doc-info"><div class="doc-name">Equifax Dispute Letter</div><div class="doc-meta">Apr 11, 2026 / 138 KB</div></div>
+        <div class="doc-status filed">Filed</div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon-wrap">📄</div>
+        <div class="doc-info"><div class="doc-name">FCRA Section 611 Notice</div><div class="doc-meta">Apr 11, 2026 / 95 KB</div></div>
+        <div class="doc-status sent">Sent</div>
+      </div>
+    </div>
+
+    <div class="doc-group-label">Uploaded by You</div>
+    <div class="doc-list" id="uploadedDocs">
+      <div class="doc-item">
+        <div class="doc-icon-wrap">📄</div>
+        <div class="doc-info"><div class="doc-name">Credit Report May 2026</div><div class="doc-meta">May 3, 2026 / 2.4 MB</div></div>
+        <div class="doc-status review">Reviewing</div>
+      </div>
+    </div>
+
+    <div class="doc-group-label">Pending</div>
+    <div class="doc-list">
+      <div class="doc-item" style="opacity:0.5;">
+        <div class="doc-icon-wrap" style="background:rgba(255,255,255,0.02);">📄</div>
+        <div class="doc-info"><div class="doc-name">Furnisher Demand Letter</div><div class="doc-meta">Not yet filed / Stage 4</div></div>
+        <div class="doc-status" style="color:var(--muted);font-size:0.58rem;">Pending</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACADEMY -->
+<div class="screen" id="screen-academy">
+  <div class="academy-hero">
+    <h2>Civitas <em>Academy.</em></h2>
+    <p>12 course tracks. Every fight everyday Americans face. Learn the process, know the law, and go in prepared.</p>
+  </div>
+  <div class="course-list">
+    <div class="course-item" onclick="showToast('Opening Credit Dispute Mastery...')">
+      <div class="course-num">01</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(201,168,76,0.12);color:var(--gold);">Credit Rights</div>
+        <div class="course-title">Credit Dispute Mastery</div>
+        <div class="course-lessons">8 lessons / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Debt Collector Defense...')">
+      <div class="course-num">02</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(243,156,18,0.12);color:#f39c12;">Debt Defense</div>
+        <div class="course-title">Debt Collector Defense</div>
+        <div class="course-lessons">7 lessons / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Landlord-Tenant Combat...')">
+      <div class="course-num">03</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(46,204,113,0.12);color:#2ecc71;">Tenant Rights</div>
+        <div class="course-title">Landlord-Tenant Combat</div>
+        <div class="course-lessons">9 lessons / CA-specific / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Small Claims Mastery...')">
+      <div class="course-num">04</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(52,152,219,0.12);color:#3498db;">Small Claims</div>
+        <div class="course-title">Small Claims Mastery</div>
+        <div class="course-lessons">10 lessons / Step-by-step / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Divorce and Family Court...')">
+      <div class="course-num">05</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(155,89,182,0.12);color:#9b59b6;">Family Law</div>
+        <div class="course-title">Divorce and Family Court</div>
+        <div class="course-lessons">11 lessons / CA family code / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening IRS Defense...')">
+      <div class="course-num">06</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(231,76,60,0.12);color:#e74c3c;">IRS and Tax</div>
+        <div class="course-title">IRS Defense and Tax Rights</div>
+        <div class="course-lessons">8 lessons / Federal tax / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Employment Rights...')">
+      <div class="course-num">07</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(26,188,156,0.12);color:#1abc9c;">Employment</div>
+        <div class="course-title">Workplace Rights and Wrongful Termination</div>
+        <div class="course-lessons">9 lessons / Federal and CA / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Consumer Protection...')">
+      <div class="course-num">08</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(243,156,18,0.12);color:#f39c12;">Consumer</div>
+        <div class="course-title">Consumer Protection and Fraud</div>
+        <div class="course-lessons">7 lessons / Federal and CA / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Insurance Disputes...')">
+      <div class="course-num">09</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(52,152,219,0.12);color:#3498db;">Insurance</div>
+        <div class="course-title">Fighting Insurance Denials</div>
+        <div class="course-lessons">7 lessons / Multi-state / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Estate and Probate...')">
+      <div class="course-num">10</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(155,89,182,0.12);color:#9b59b6;">Estate</div>
+        <div class="course-title">Probate, Wills, and Estate Basics</div>
+        <div class="course-lessons">8 lessons / CA probate / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Civil Rights...')">
+      <div class="course-num">11</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(52,152,219,0.12);color:#3498db;">Civil Rights</div>
+        <div class="course-title">Civil Rights and Police Accountability</div>
+        <div class="course-lessons">8 lessons / Federal law / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+    <div class="course-item" onclick="showToast('Opening Civic Power...')">
+      <div class="course-num">12</div>
+      <div class="course-info">
+        <div class="course-badge" style="background:rgba(52,152,219,0.12);color:#3498db;">Civic Power</div>
+        <div class="course-title">Ballots, Bonds, and Legislation</div>
+        <div class="course-lessons">6 lessons / Civic education / Certificate included</div>
+      </div>
+      <div class="course-arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div class="screen" id="screen-profile">
+  <div class="profile-wrap">
+    <div class="profile-avatar">SM</div>
+    <div class="profile-name">Sharynne Macon</div>
+    <div class="profile-plan">Advocate Plan / CVT-2026-0047</div>
+    <div class="profile-stats">
+      <div class="ps-card"><div class="ps-num">65%</div><div class="ps-label">Case Progress</div></div>
+      <div class="ps-card"><div class="ps-num">5</div><div class="ps-label">Docs Filed</div></div>
+      <div class="ps-card"><div class="ps-num">52</div><div class="ps-label">Days Active</div></div>
+    </div>
+
+    <div class="section-card">
+      <div class="sc-title">Account Information</div>
+      <div class="profile-field"><div class="pf-label">Name</div><div class="pf-val">Sharynne Macon</div></div>
+      <div class="profile-field"><div class="pf-label">Email</div><div class="pf-val">s.macon@email.com</div></div>
+      <div class="profile-field"><div class="pf-label">Phone</div><div class="pf-val">(916) 555-0182</div></div>
+      <div class="profile-field"><div class="pf-label">Location</div><div class="pf-val">Sacramento, CA</div></div>
+      <div class="profile-field"><div class="pf-label">Plan</div><div class="pf-val" style="color:var(--gold);">Advocate $99/mo</div></div>
+      <div class="profile-field"><div class="pf-label">Member Since</div><div class="pf-val">Mar 12, 2026</div></div>
+    </div>
+
+    <div class="section-card">
+      <div class="sc-title">Notifications</div>
+      <div class="notif-row">Case status updates (SMS) <div class="toggle" onclick="toggleSwitch(this)"></div></div>
+      <div class="notif-row">Document filed (Email) <div class="toggle" onclick="toggleSwitch(this)"></div></div>
+      <div class="notif-row">New message from Brian <div class="toggle" onclick="toggleSwitch(this)"></div></div>
+      <div class="notif-row">Billing reminders <div class="toggle off" onclick="toggleSwitch(this)"></div></div>
+    </div>
+
+    <div class="section-card">
+      <div class="sc-title">Resources</div>
+      <div class="profile-field" style="cursor:pointer;" onclick="showToast('Opening FCRA guide...')"><div class="pf-label">FCRA dispute rights</div><div class="pf-val" style="color:var(--gold);">Open ›</div></div>
+      <div class="profile-field" style="cursor:pointer;" onclick="showToast('Opening CFPB...')"><div class="pf-label">File a CFPB complaint</div><div class="pf-val" style="color:var(--gold);">Open ›</div></div>
+      <div class="profile-field" style="cursor:pointer;" onclick="showToast('Opening AnnualCreditReport...')"><div class="pf-label">Free credit reports</div><div class="pf-val" style="color:var(--gold);">Open ›</div></div>
+      <div class="profile-field" style="cursor:pointer;" onclick="showToast('Opening CA tenant rights...')"><div class="pf-label">CA tenant protections</div><div class="pf-val" style="color:var(--gold);">Open ›</div></div>
+    </div>
+
+    <button class="signout-btn" onclick="showToast('Signing out...')">Sign Out</button>
+  </div>
+</div>
+```
+
+  </div><!-- end screens -->
+
+  <!-- STORY PLAYER -->
+
+  <div class="story-player" id="storyPlayer">
+    <div class="sp-label">Victory Vault / Case Story</div>
+    <div class="sp-title" id="spTitle">Tenant Recovers $13,500 Security Deposit</div>
+    <div class="sp-progress"><div class="sp-fill" id="spFill"></div></div>
+    <div class="sp-controls">
+      <button class="sp-btn" onclick="skipBack()">⏮</button>
+      <button class="sp-btn main" id="spPlayBtn" onclick="toggleStoryPlay()">▶</button>
+      <button class="sp-btn" onclick="skipForward()">⏭</button>
+      <span class="sp-time" id="spTime">0:00</span>
+      <button class="sp-close" onclick="closeStory()">✕</button>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+
+  <div class="bottom-nav">
+    <button class="nav-item-btn active" id="nav-home" onclick="switchScreen('home')">
+      <span class="nav-icon">⌂</span>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-item-btn" id="nav-documents" onclick="switchScreen('documents')">
+      <span class="nav-icon">📁</span>
+      <span class="nav-label">Docs</span>
+    </button>
+    <button class="nav-voice-btn" onclick="switchScreen('voice')">
+      <span class="nav-icon">🎤</span>
+      <span class="nav-label">Ask Civi</span>
+    </button>
+    <button class="nav-item-btn" id="nav-academy" onclick="switchScreen('academy')">
+      <span class="nav-icon">🎓</span>
+      <span class="nav-label">Academy</span>
+    </button>
+    <button class="nav-item-btn" id="nav-profile" onclick="switchScreen('profile')">
+      <span class="nav-icon">◎</span>
+      <span class="nav-label">Profile</span>
+    </button>
+  </div>
+
+</div><!-- end app -->
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── NAVIGATION ──
+function switchScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  const navBtn = document.getElementById('nav-' + name);
+  if (navBtn) navBtn.classList.add('active');
+}
+
+// ── TOAST ──
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── TOGGLE SWITCH ──
+function toggleSwitch(el) {
+  el.classList.toggle('off');
+  showToast(el.classList.contains('off') ? 'Notification disabled' : 'Notification enabled');
+}
+
+// ── VOICE / MIC ──
+let recognition = null;
+let isListening = false;
+let currentTranscript = '';
+
+// ── CIVI STORY LIBRARY ──
+// Podcast-style narratives. Preface teases the story, fullStory tells it like Serial.
+const responses = {
+  'security deposit': {
+    text: 'Under California Civil Code Section 1950.5, your landlord must return your security deposit within 21 days of you vacating, with an itemized statement of any deductions. Bad-faith withholding can cost them up to 2x the deposit in statutory damages on top of returning the full amount. Civitas can prepare your demand letter today.',
+    story: {
+      title: 'The Deposit That Cost a Landlord Three Times as Much',
+      preface: 'In California, your security deposit does not belong to your landlord the moment you hand it over. It never did. The law has always said so. Most landlords count on you not knowing that. Today we are going to talk about what happened when one tenant decided to find out exactly what the law said.',
+      fullStory: `Her name was Maria. She had lived in the same Sacramento apartment for three years. Three years of on-time rent. Three years of keeping the place clean. Three years of being, by any measure, a model tenant.\n\nWhen she moved out, her landlord kept every dollar of her security deposit. Two thousand dollars. And he sent her a letter full of charges she had never seen before.\n\nWhat the landlord did not know was that Maria had found a copy of California Civil Code Section 1950.5. And she had read it.\n\nUnder California law, a landlord has exactly 21 days after a tenant vacates to return the security deposit, along with an itemized written statement of any deductions. Twenty-one days. Her landlord sent the letter on day twenty-four.\n\nMaria sent a demand letter by certified mail citing the exact code section. She requested the full return of her deposit plus statutory damages for bad faith withholding.\n\nHer landlord did not respond.\n\nShe filed in small claims court. The filing fee was seventy dollars. The hearing was forty-five minutes. The judge found bad faith and awarded Maria her two thousand dollar deposit plus two thousand dollars in statutory damages. Plus her court costs.\n\nThe landlord who thought he was keeping two thousand dollars ended up writing a check for four thousand one hundred and twenty dollars.\n\nThe law was always on Maria's side. She just had to know it was there.`
+    }
+  },
+  'debt collector': {
+    text: 'Under the Fair Debt Collection Practices Act, collectors must send written validation notice within 5 days of first contact. You have 30 days to request validation in writing. Once you do, all collection activity must stop until they validate. Many collectors cannot produce the documentation. Civitas prepares your validation letter today.',
+    story: {
+      title: 'The Collector Who Could Not Prove the Debt Existed',
+      preface: 'Debt collectors are in the business of creating urgency. Pressure. Fear. They need you to feel like you have no options and no rights. What they do not advertise is that there is a federal law written specifically to protect you from them that most of them violate regularly. This is a story about what happens when someone finally reads that law.',
+      fullStory: `James had been getting the calls for three months. Morning calls. Evening calls. Calls from numbers he did not recognize that turned out to be the same collector using a rotating set of phone numbers. The debt they claimed he owed was nine thousand dollars on a credit card he had closed eight years ago.\n\nHere is something most people do not know. When a debt gets bought and sold by collection agencies, the chain of title can break. The company calling you may have purchased a spreadsheet of names and balances with no supporting documentation.\n\nJames had no idea about any of this. What he did know was that he was exhausted and scared.\n\nThen a friend mentioned three letters: F, D, C, A. The Fair Debt Collection Practices Act.\n\nUnder this federal law, James had thirty days from the collector's first written notice to send a written request for debt validation. Once he sent that letter by certified mail, all collection activity had to stop until the collector provided written verification of the debt.\n\nJames sent the letter. He kept the certified mail receipt. He noted the date.\n\nThe collector never responded. Not with the original contract. Not with the chain of title. Not with anything.\n\nJames filed a complaint with the Consumer Financial Protection Bureau. The calls stopped. Completely. And three months later, the account disappeared from all three of his credit reports.\n\nNine thousand dollars. Gone. Not because James paid it. Because he asked one question in writing: prove it.`
+    }
+  },
+  'credit report': {
+    text: 'Under FCRA Section 611, you can dispute any inaccurate, incomplete, or unverifiable item. Bureaus must investigate within 30 days. If they cannot verify the information with the original furnisher, they must delete it. Civitas prepares dispute letters that bureaus are required by law to respond to.',
+    story: {
+      title: 'Three Late Payments That Were Never Late',
+      preface: 'There is a moment that happens in a lot of people\'s lives, usually at the worst possible time, when they pull their credit report and find something that should not be there. The credit bureaus are not infallible. And the law knows it.',
+      fullStory: `Diana was a teacher in Fresno. She had been saving for two years for a down payment on a house. When she finally sat down with a mortgage lender, the number on the screen was not what she expected. Sixty-seven points below where she needed to be.\n\nThe culprit was three late payment notations on her Experian report from 2019. Thirty days late, they said, on a credit card she had always paid on time. She went back through her bank records. Every payment, on time. Every single one.\n\nUnder the Fair Credit Reporting Act, specifically Section 611, any consumer can dispute information they believe to be inaccurate. The bureau has thirty days to investigate. If they cannot verify the information with the original furnisher, they are required to delete it.\n\nDiana wrote a dispute letter. Formal. FCRA-compliant. Citing the specific code section and identifying the exact accounts she was disputing. She sent it certified mail.\n\nOn day twenty-eight of the thirty-day window, Experian sent her a response. The original furnisher could not provide documentation supporting the late payment notations. All three were deleted.\n\nDiana went back to her mortgage lender six weeks later. Her score had moved sixty-seven points in the right direction. She closed on her house four months after that.\n\nThe information was wrong. She knew it was wrong. She said so in writing. And the law required them to prove she was wrong or remove it. They could not prove it.`
+    }
+  },
+  'landlord entry': {
+    text: 'California Civil Code Section 1954 requires at least 24 hours written notice before any landlord entry except a genuine emergency. Repeated unauthorized entries can constitute harassment and breach your right to quiet enjoyment under CC 1927. Document every incident. Civitas prepares formal notice to cure letters.',
+    story: {
+      title: 'The Landlord Who Learned What Written Notice Means',
+      preface: 'Your home is supposed to be a place where you have control. California law takes that seriously. There is a specific code section that says your landlord must give you at least twenty-four hours written notice before entering. Not a call. Not a text. Written notice. Some landlords simply bet that their tenants do not know it.',
+      fullStory: `Keisha had been renting her Oakland apartment for two years when the intrusions started. Her landlord lived next door and had a key. And he used it. Sometimes to check on a repair completed weeks ago. Sometimes for what he called a walkthrough. Once, she came home to find him standing in her kitchen.\n\nHe never gave written notice. Sometimes he would text. Once he called while already on his way.\n\nKeisha documented every incident. The date. The time. Whether notice had been given. She had fourteen entries over four months, all without proper written notice.\n\nCalifornia Civil Code Section 1954 is very specific. A landlord may enter only for certain reasons, and except in emergencies, must provide written notice of at least twenty-four hours stating the date, approximate time, and purpose of entry.\n\nKeisha sent her landlord a formal letter by certified mail. She cited California Civil Code 1954 verbatim. She documented each of the fourteen entries with specific dates and times. She demanded immediate compliance. And she notified him that continued unauthorized entry could constitute harassment and a breach of her right to quiet enjoyment under Civil Code 1927.\n\nHer landlord stopped entering without notice immediately.\n\nSix weeks later, he attempted another unannounced entry. Keisha filed a complaint with the city's code enforcement office and submitted her documentation. During the investigation, her landlord agreed to a rent reduction of two hundred dollars per month for the remainder of her lease.\n\nAll she did was document, cite the code, and put it in writing.`
+    }
+  },
+  'small claims': {
+    text: 'California small claims court lets individuals sue up to $12,500 without an attorney. You file the SC-100 form, pay a $30 to $75 filing fee, serve the defendant, and present your case to a judge. Success depends on organization, documentation, and knowing the specific law that applies. Civitas prepares your case file through the War Binder.',
+    story: {
+      title: 'Seventy-Five Dollars in Filing Fees. Fifteen Hundred Back.',
+      preface: 'Small claims court was specifically designed for everyday people to resolve everyday disputes without needing an attorney. What it does require is that you show up prepared, with evidence, and with a clear understanding of what law applies. This is a story about someone who did exactly that.',
+      fullStory: `Marcus had hired a contractor to repaint his house. He paid a fifteen hundred dollar deposit upfront to cover materials. The contractor showed up once, looked around, said he would be back Monday with his crew.\n\nMonday came and went. Three weeks of calls followed, each one met with a new excuse. A family emergency. A supply delay. Equipment problems.\n\nAfter sixty days Marcus had a fifteen hundred dollar receipt and an unpainted house.\n\nHe started researching small claims court. In California, individuals can sue for up to twelve thousand five hundred dollars. No attorney required. The filing fee for his amount was seventy-five dollars.\n\nMarcus filed the SC-100 form. He served the contractor through the county sheriff's office.\n\nOn the day of the hearing, Marcus brought three things. A copy of the signed contract. A copy of his bank statement showing the deposit payment. And a printed record of every text message between him and the contractor, including the contractor's own admissions that he had not completed the work.\n\nThe contractor did not appear.\n\nThe judge reviewed Marcus's documentation. A default judgment was entered. Marcus was awarded the full fifteen hundred dollars plus his filing fees.\n\nHe never needed a lawyer. He needed documentation and the willingness to show up.\n\nStart to finish: eleven weeks. Total cost to him: seventy-five dollars. Total recovered: fifteen hundred dollars plus fees.`
+    }
+  },
+  'irs': {
+    text: 'Most IRS notices are routine and have straightforward responses. Penalty notices can often be resolved through first-time abatement if you have a clean compliance history. CP2000 notices can be resolved with documentation. Never ignore an IRS notice. Civitas prepares IRS correspondence and Form 14157 preparer negligence complaints at your direction.',
+    story: {
+      title: 'The Eight Thousand Dollar Penalty That Disappeared',
+      preface: 'The IRS sends out millions of notices every year. Most people who receive them do one of two things: they panic and pay whatever is asked, or they ignore it and let the problem get worse. What most people do not know is that the IRS has a formal process for reducing penalties that is available to anyone willing to use it.',
+      fullStory: `Sandra ran a small landscaping business in San Jose. She had been filing her taxes for twelve years, always with the same local preparer. In year thirteen, she received a CP14 notice from the IRS. She owed eight thousand two hundred dollars in failure-to-pay penalties.\n\nShe called her tax preparer. He told her the penalty was valid and she should pay it.\n\nSomething about that answer did not sit right with Sandra. She started reading.\n\nWhat she discovered was that her preparer had made an error on her prior year return, using the wrong entity classification for her business structure. The additional tax that resulted had triggered the failure-to-pay penalty. The mistake was not hers.\n\nThe IRS has a provision called first-time abatement, available to taxpayers with a history of compliance who have not previously received a penalty. Sandra had filed and paid on time for eleven consecutive years. She qualified.\n\nShe submitted a written penalty abatement request citing the Internal Revenue Manual provisions for first-time abatement and reasonable cause. She attached her twelve-year filing history. She also submitted Form 14157, a complaint against her tax preparer for the error that caused the underlying liability.\n\nSix weeks later, the IRS sent her a letter. The eight thousand two hundred dollar penalty was removed in full.\n\nHer preparer was subsequently investigated by the IRS Office of Professional Responsibility.\n\nShe lost one preparer and kept eight thousand two hundred dollars. Not a bad trade.`
+    }
+  },
+  'wrongful termination': {
+    text: 'California is at-will employment but with critical exceptions. You cannot be fired for discriminatory reasons under FEHA, for whistleblowing, for taking protected leave, or in retaliation for exercising a legal right. File with the EEOC or California DFEH. Documentation is everything. Start building your paper trail today.',
+    story: {
+      title: 'Two Weeks After the Workers Comp Claim. Not a Coincidence.',
+      preface: 'California is what is called an at-will employment state. That means your employer can generally fire you for any reason, or no reason at all. Except. There are exceptions written directly into California law. And one of the most powerful ones is this: you cannot be fired in retaliation for exercising a legal right. This is a story about a man who knew the timeline.',
+      fullStory: `David had worked at the same Stockton warehouse for four years. In March, he hurt his back on the job moving inventory. He filed a workers compensation claim, as he had every right to do.\n\nTwo weeks later, he was called into his supervisor's office and told his position was being eliminated due to restructuring.\n\nHe was the only one let go.\n\nDavid started writing things down. Every conversation. Every date. Every email. He pulled his personnel file and requested records of the restructuring they had mentioned. There were none.\n\nCalifornia Labor Code Section 132a makes it illegal for an employer to discriminate against an employee for filing a workers compensation claim. The California Department of Fair Employment and Housing also prohibits retaliation for engaging in protected activities.\n\nDavid filed a complaint with the DFEH and attached his documentation. The timeline was the evidence. Workers comp claim filed March 8th. Termination notice March 22nd. Two weeks.\n\nDuring the investigation, his employer could not produce any documentation supporting a restructuring decision that predated his termination.\n\nThe case settled. David received forty-two thousand dollars in back pay plus an agreement for reinstatement to an equivalent position.\n\nHe did not win because he had a lawyer. He won because he had a timeline.`
+    }
+  },
+  'tax preparer': {
+    text: 'If a tax preparer made errors causing penalties or additional taxes, you can file a complaint using IRS Form 14157. You may also qualify for reasonable cause penalty abatement by showing you relied in good faith on a professional. Civitas prepares the IRS correspondence and Form 14157 documentation at your direction.',
+    story: {
+      title: 'The Tax Preparer Who Cost Her Eight Thousand Dollars',
+      preface: 'Every year, millions of Americans hand their financial lives over to a tax preparer they trust. Most of the time that trust is well-placed. But when it is not, when an error appears on your return that triggers penalties, an audit, or additional taxes, the question becomes: what do you do? The answer is: more than most people realize.',
+      fullStory: `A nurse named Angela in Sacramento had been using the same local tax preparer for eight years. In year nine, she received a notice from the IRS. Eight thousand two hundred dollars in penalties and additional tax.\n\nHer preparer had used the wrong filing status for her situation. The error cascaded through her entire return.\n\nAngela went back to her preparer. He told her the error was a gray area and she would need to pay.\n\nShe did not pay. She started reading.\n\nThe IRS has a process called reasonable cause abatement. If a taxpayer can show that they made a good-faith effort to comply with the law by relying on a professional, and that reliance was reasonable, penalties may be reduced or eliminated.\n\nAngela also discovered IRS Form 14157, a formal complaint form used to report tax preparer misconduct or negligence to the IRS Return Preparer Office.\n\nShe submitted both. A penalty abatement request with a letter explaining that she had relied in good faith on a licensed preparer, along with documentation of the preparer's error. And a Form 14157 complaint against that preparer.\n\nThe IRS removed the penalties. The amended return with the corrected filing status resulted in a refund.\n\nAngela walked out of that situation having paid nothing she did not legitimately owe, and having filed a formal complaint against the person who caused the problem.\n\nThe form exists. Most people just do not know to ask for it.`
+    }
+  }
+};
+
+function getResponseKey(text) {
+  text = text.toLowerCase();
+  if (text.includes('deposit') || text.includes('security')) return 'security deposit';
+  if (text.includes('collector') || text.includes('collection') || text.includes('debt')) return 'debt collector';
+  if (text.includes('credit report') || text.includes('credit bureau') || text.includes('experian') || text.includes('equifax')) return 'credit report';
+  if (text.includes('terminat') || text.includes('fired') || text.includes('wrongful')) return 'wrongful termination';
+  if (text.includes('entry') || text.includes('entered') || text.includes('notice') || text.includes('landlord')) return 'landlord entry';
+  if (text.includes('irs') || text.includes('tax') && text.includes('notice')) return 'irs';
+  if (text.includes('small claims') || text.includes('sue') || text.includes('court')) return 'small claims';
+  if (text.includes('preparer') || text.includes('tax preparer')) return 'tax preparer';
+  return null;
+}
+
+function toggleMic() {
+  if (isListening) {
+    stopListening();
+  } else {
+    startListening();
+  }
+}
+
+function startListening() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    showToast('Voice recognition not available in this browser');
+    return;
+  }
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  recognition.onstart = () => {
+    isListening = true;
+    document.getElementById('micBtn').classList.add('listening');
+    document.querySelectorAll('.mic-ring').forEach(r => r.classList.add('listening'));
+    document.getElementById('voiceStatus').textContent = 'Listening... speak your situation';
+    document.getElementById('voiceStatus').className = 'voice-status active';
+    document.getElementById('transcript').classList.add('show');
+    document.getElementById('transcript').textContent = '';
+    document.getElementById('aiResponse').classList.remove('show');
+  };
+
+  recognition.onresult = (e) => {
+    let interim = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) {
+        currentTranscript += e.results[i][0].transcript;
+      } else {
+        interim += e.results[i][0].transcript;
+      }
+    }
+    document.getElementById('transcript').textContent = currentTranscript + interim;
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    document.getElementById('micBtn').classList.remove('listening');
+    document.querySelectorAll('.mic-ring').forEach(r => r.classList.remove('listening'));
+    if (currentTranscript) {
+      processVoice(currentTranscript);
+    } else {
+      document.getElementById('voiceStatus').textContent = 'Tap the mic to speak your situation';
+      document.getElementById('voiceStatus').className = 'voice-status';
+    }
+  };
+
+  recognition.onerror = (e) => {
+    isListening = false;
+    document.getElementById('micBtn').classList.remove('listening');
+    document.querySelectorAll('.mic-ring').forEach(r => r.classList.remove('listening'));
+    document.getElementById('voiceStatus').textContent = 'Could not hear you. Try again.';
+    document.getElementById('voiceStatus').className = 'voice-status';
+  };
+
+  recognition.start();
+}
+
+function stopListening() {
+  if (recognition) recognition.stop();
+}
+
+function processVoice(text) {
+  document.getElementById('voiceStatus').textContent = 'Analyzing your situation...';
+  document.getElementById('voiceStatus').className = 'voice-status thinking';
+
+  setTimeout(() => {
+    const key = getResponseKey(text);
+    const resp = key ? responses[key] : null;
+    const responseText = resp ? resp.text : 'Based on what you described, this may involve consumer protection, civil rights, or contract law. Civitas can help identify the specific statutes that apply and prepare the appropriate documentation. Please describe your situation in more detail or tap one of the common situations below.';
+
+    document.getElementById('voiceStatus').textContent = 'Here is what Civi found';
+    document.getElementById('voiceStatus').className = 'voice-status';
+    document.getElementById('aiResponseBody').innerHTML = responseText.replace(/\b(FCRA|FDCPA|California Civil Code|CA CC|IRS|CFPB|Section \d+\w*)\b/g, '<strong>$1</strong>');
+    document.getElementById('aiResponse').classList.add('show');
+    window._currentStory = resp ? resp.story : null;
+  }, 1500);
+}
+
+function quickAsk(text) {
+  currentTranscript = text;
+  document.getElementById('transcript').classList.add('show');
+  document.getElementById('transcript').textContent = text;
+  document.getElementById('aiResponse').classList.remove('show');
+  processVoice(text);
+}
+
+function readResponse() {
+  const text = document.getElementById('aiResponseBody').textContent;
+  if (!('speechSynthesis' in window)) { showToast('Text-to-speech not available'); return; }
+  speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.rate = 0.88;
+  utt.pitch = 1;
+  const voices = speechSynthesis.getVoices();
+  const pref = voices.find(v => v.lang === 'en-US' && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha')));
+  if (pref) utt.voice = pref;
+  speechSynthesis.speak(utt);
+  showToast('Reading response aloud...');
+}
+
+function playStory() {
+  const story = window._currentStory;
+  if (!story) { showToast('Ask Civi a question first to hear a related case story'); return; }
+  document.getElementById('spTitle').textContent = story.title;
+  document.getElementById('storyPlayer').classList.add('show');
+  // Read preface first, then full story — separated by a natural pause
+  window._storyText = story.preface + '\n\n' + story.fullStory;
+  startStoryPlayback();
+}
+
+let storyInterval = null;
+let storyProgress = 0;
+let storyPlaying = false;
+
+function startStoryPlayback() {
+  if (!('speechSynthesis' in window)) { showToast('Text-to-speech not available'); return; }
+  speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(window._storyText);
+  utt.rate = 0.85;
+  utt.pitch = 1;
+  const voices = speechSynthesis.getVoices();
+  const pref = voices.find(v => v.lang === 'en-US');
+  if (pref) utt.voice = pref;
+  speechSynthesis.speak(utt);
+  storyPlaying = true;
+  document.getElementById('spPlayBtn').textContent = '⏸';
+  storyProgress = 0;
+  const duration = window._storyText.length * 55;
+  const start = Date.now();
+  storyInterval = setInterval(() => {
+    const elapsed = Date.now() - start;
+    const pct = Math.min((elapsed / duration) * 100, 100);
+    storyProgress = pct;
+    document.getElementById('spFill').style.width = pct + '%';
+    const secs = Math.floor(elapsed / 1000);
+    document.getElementById('spTime').textContent = Math.floor(secs/60) + ':' + String(secs%60).padStart(2,'0');
+    if (pct >= 100) { clearInterval(storyInterval); storyPlaying = false; document.getElementById('spPlayBtn').textContent = '▶'; }
+  }, 200);
+  utt.onend = () => {
+    clearInterval(storyInterval);
+    storyPlaying = false;
+    document.getElementById('spPlayBtn').textContent = '▶';
+  };
+}
+
+function toggleStoryPlay() {
+  if (storyPlaying) {
+    speechSynthesis.pause();
+    clearInterval(storyInterval);
+    storyPlaying = false;
+    document.getElementById('spPlayBtn').textContent = '▶';
+  } else {
+    if (storyProgress > 0) {
+      speechSynthesis.resume();
+      storyPlaying = true;
+      document.getElementById('spPlayBtn').textContent = '⏸';
+    } else {
+      startStoryPlayback();
+    }
+  }
+}
+
+function skipBack() { speechSynthesis.cancel(); storyProgress = 0; startStoryPlayback(); }
+function skipForward() { speechSynthesis.cancel(); closeStory(); }
+
+function closeStory() {
+  speechSynthesis.cancel();
+  clearInterval(storyInterval);
+  storyPlaying = false;
+  document.getElementById('storyPlayer').classList.remove('show');
+  storyProgress = 0;
+  document.getElementById('spFill').style.width = '0%';
+}
+
+function resetVoice() {
+  speechSynthesis.cancel();
+  currentTranscript = '';
+  document.getElementById('transcript').classList.remove('show');
+  document.getElementById('transcript').textContent = '';
+  document.getElementById('aiResponse').classList.remove('show');
+  document.getElementById('voiceStatus').textContent = 'Tap the mic to speak your situation';
+  document.getElementById('voiceStatus').className = 'voice-status';
+  window._currentStory = null;
+}
+
+// ── DOCUMENT UPLOAD ──
+function handleUpload(input) {
+  const list = document.getElementById('uploadedDocs');
+  Array.from(input.files).forEach(f => {
+    const size = f.size > 1048576 ? (f.size/1048576).toFixed(1)+' MB' : (f.size/1024).toFixed(0)+' KB';
+    const today = new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+    const div = document.createElement('div');
+    div.className = 'doc-item';
+    div.innerHTML = `<div class="doc-icon-wrap">📄</div><div class="doc-info"><div class="doc-name">${f.name}</div><div class="doc-meta">${today} / ${size}</div></div><div class="doc-status review">Uploaded</div>`;
+    list.appendChild(div);
+  });
+  showToast('Document uploaded. Brian will review shortly.');
+  input.value = '';
+}
+
+// Load voices for speech
+if ('speechSynthesis' in window) {
+  speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+}
+</script>
+
+</body>
+</html>
