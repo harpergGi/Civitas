@@ -3,141 +3,445 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Civitas Legal Document Services</title>
+<title>Civitas Legal Document Services | You Have More Recourse Than You Think</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #0a1628; --navy-mid: #142240; --navy-light: #1e3360;
-    --gold: #c9a84c; --gold-light: #e8c97a; --gold-pale: #f5e9c8;
-    --white: #ffffff; --off-white: #f8f6f1;
-    --text-muted: #8a9bb5; --text-body: #2c3e5c;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+:root {
+  --navy:#0a1628; --navy-dark:#060e1a; --navy-light:#111f3a;
+  --gold:#c9a84c; --gold-light:#e8c97a; --white:#fff; --muted:#8a9bb5;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
 
-  /* TICKER */
-  .ticker-bar{background:#060e1a;border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;}
-  .ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;position:relative;z-index:10;}
-  .ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
-  .ticker-track:hover{animation-play-state:paused;}
-  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-  .ti{font-size:0.68rem;color:var(--white);padding:0 2rem;display:flex;align-items:center;gap:0.5rem;border-right:1px solid rgba(255,255,255,0.05);}
-  .ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
-  .ti span{color:var(--white);font-weight:500;}
+/* TICKER — fixed so it never overlaps */
+.ticker-wrap{position:sticky;top:0;z-index:200;}
+.ticker-bar{background:var(--navy-dark);border-bottom:1px solid rgba(201,168,76,0.2);height:38px;display:flex;align-items:center;overflow:hidden;width:100%;}
+.ticker-label{background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:0 1rem;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;z-index:2;}
+.ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.ti{font-size:0.68rem;color:var(--muted);padding:0 2rem;display:flex;align-items:center;gap:0.5rem;border-right:1px solid rgba(255,255,255,0.05);}
+.ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.ti span{color:var(--white);font-weight:500;}
 
-  /* NAV */
-  nav { position: sticky; top: 0; left: 0; right: 0; z-index: 100; background: var(--navy); border-bottom: 1px solid rgba(201,168,76,0.2); padding: 0 4rem; display: flex; align-items: center; justify-content: space-between; height: 72px; }
-  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); letter-spacing: 0.04em; text-decoration: none; }
-  .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta { background: var(--gold); color: var(--navy); padding: 0.5rem 1.25rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
-  .nav-cta:hover { background: var(--gold-light); }
+/* NAV */
+nav{background:rgba(10,22,40,0.98);border-bottom:1px solid rgba(201,168,76,0.2);padding:0 4rem;display:flex;align-items:center;justify-content:space-between;height:72px;backdrop-filter:blur(8px);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--white);text-decoration:none;letter-spacing:0.04em;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.78rem;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-right{display:flex;gap:1rem;align-items:center;}
+.nav-link-alt{color:var(--gold);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;}
+.nav-cta{background:var(--gold);color:var(--navy);padding:0.5rem 1.25rem;font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;border:1px solid var(--gold);}
+.nav-cta:hover{background:transparent;color:var(--gold);}
 
-  /* HERO */
-  .hero { min-height: calc(100vh - 110px); display: grid; grid-template-columns: 1fr 1fr; padding: 0 4rem; align-items: center; gap: 0; }
-  .hero-content { max-width: 580px; }
-  .hero-right { display: flex; justify-content: flex-start; margin-left: -4rem; } 
-  
-  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 6vw, 6rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; }
-  h1 em { font-style: italic; color: var(--gold-light); }
-  .hero-sub { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 3rem; }
+/* HERO */
+.hero{min-height:calc(100vh - 110px);background:var(--navy);padding:0 4rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
+.hero-eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;}
+.hero-eyebrow-line{width:40px;height:1px;background:var(--gold);}
+.hero-eyebrow span{font-size:0.7rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;color:var(--white);line-height:1.05;margin-bottom:2rem;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:1rem;color:var(--muted);line-height:1.8;max-width:520px;margin-bottom:2rem;}
+.hero-disc{font-size:0.68rem;color:rgba(138,155,181,0.5);line-height:1.6;max-width:480px;border-top:1px solid rgba(201,168,76,0.12);padding-top:1rem;margin-top:1rem;}
+.btn-primary{background:var(--gold);color:var(--navy);border:none;padding:0.875rem 2rem;font-size:0.8rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all 0.2s;cursor:pointer;margin-right:0.75rem;}
+.btn-primary:hover{background:var(--gold-light);}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2);padding:0.875rem 2rem;font-size:0.8rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all 0.2s;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.hero-right{display:flex;justify-content:center;align-items:center;}
 
-  section { padding: 8rem 4rem; background: var(--off-white); color: var(--text-body); scroll-margin-top: 72px; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; margin-bottom: 2rem; color: var(--navy); }
+/* ALERT BANNER */
+.alert-banner{background:var(--navy-light);border-top:1px solid rgba(201,168,76,0.15);border-bottom:1px solid rgba(201,168,76,0.15);padding:1rem 4rem;display:flex;align-items:flex-start;gap:1rem;}
+.alert-icon{color:var(--gold);font-size:0.9rem;font-weight:500;white-space:nowrap;}
+.alert-banner p{font-size:0.72rem;color:var(--muted);line-height:1.7;}
+.alert-banner strong{color:#f5e9c8;font-weight:500;}
+
+/* SECTIONS */
+section{padding:6rem 4rem;}
+.section-eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+.section-eyebrow-line{width:30px;height:1px;background:var(--gold);}
+.section-eyebrow span{font-size:0.65rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--white);line-height:1.1;margin-bottom:1.5rem;}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-body{font-size:0.95rem;color:var(--muted);line-height:1.8;max-width:560px;}
+
+/* MANIFESTO */
+.manifesto{background:var(--navy-dark);text-align:center;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);}
+.manifesto-quote{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--white);line-height:1.7;max-width:820px;margin:0 auto 2rem;}
+.manifesto-quote em{color:var(--gold-light);font-style:italic;}
+.manifesto-body{font-size:0.85rem;color:var(--muted);line-height:1.9;max-width:680px;margin:0 auto;}
+
+/* ABOUT TEASER */
+.about-teaser{background:var(--navy-light);display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.stat-card{border-left:2px solid var(--gold);padding-left:1.25rem;}
+.stat-number{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;color:var(--white);line-height:1;margin-bottom:0.25rem;}
+.stat-label{font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+
+/* SERVICES */
+.services{background:var(--navy);}
+.services-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(201,168,76,0.1);}
+.service-card{background:var(--navy-light);padding:2.5rem;transition:all 0.3s;}
+.service-card:hover{background:#1a2f52;border-top:1px solid rgba(201,168,76,0.3);}
+.service-num{font-family:'Cormorant Garamond',serif;font-size:3rem;color:rgba(201,168,76,0.25);margin-bottom:1.5rem;line-height:1;}
+.service-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--white);margin-bottom:0.75rem;}
+.service-desc{font-size:0.82rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;}
+.service-disclaimer{font-size:0.62rem;color:rgba(138,155,181,0.45);border-top:1px solid rgba(255,255,255,0.05);padding-top:0.75rem;line-height:1.6;}
+
+/* LEGAL PROTECTIONS */
+.legal{background:var(--navy-dark);}
+.legal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:3rem;}
+.legal-item{border:1px solid rgba(201,168,76,0.15);padding:2.5rem;background:var(--navy);position:relative;}
+.legal-item-num{position:absolute;top:-10px;left:2rem;background:var(--navy);padding:0 0.5rem;font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.legal-item h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--white);margin-bottom:1rem;}
+.legal-item p{font-size:0.82rem;color:var(--muted);line-height:1.8;}
+
+/* COST */
+.cost{background:var(--navy);}
+.cost-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;}
+.cost-card{background:var(--navy-light);padding:3rem 2rem;text-align:center;border:1px solid rgba(255,255,255,0.05);}
+.cost-card.featured{background:rgba(201,168,76,0.05);border:2px solid var(--gold);transform:translateY(-10px);}
+.cost-card-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+.cost-card.featured .cost-card-label{color:var(--gold);}
+.cost-price{font-family:'Cormorant Garamond',serif;font-size:3rem;color:var(--white);margin-bottom:0.25rem;}
+.cost-card.featured .cost-price{color:var(--gold);font-size:3.5rem;}
+.cost-unit{font-size:0.72rem;color:var(--muted);text-transform:uppercase;margin-bottom:1.5rem;}
+.cost-items{list-style:none;text-align:left;}
+.cost-items li{font-size:0.78rem;color:var(--muted);line-height:1.6;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.cost-items li:last-child{border-bottom:none;}
+
+/* DISCLAIMERS */
+.disclaimers{background:var(--navy-light);padding:5rem 4rem;}
+.disclaimer-box{border:1px solid rgba(201,168,76,0.15);padding:3rem;max-width:900px;margin:0 auto;}
+.disclaimer-box h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold);margin-bottom:1.5rem;}
+.disclaimer-box p{font-size:0.75rem;color:var(--muted);line-height:1.9;margin-bottom:1rem;}
+.disclaimer-box p:last-child{margin-bottom:0;}
+.disclaimer-box strong{color:#f5e9c8;font-weight:500;}
+
+/* CONTACT */
+.contact{background:var(--navy-dark);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;}
+.contact-form{display:flex;flex-direction:column;gap:1.25rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
+.form-group label{font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
+.form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:0.75rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;outline:none;transition:border-color 0.2s;width:100%;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);}
+.form-group select option{background:var(--navy-light);}
+.form-group textarea{resize:vertical;min-height:120px;}
+.contact-detail{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,0.06);}
+.contact-detail:last-child{border-bottom:none;}
+.contact-detail-label{font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);min-width:80px;}
+.contact-detail-value{font-size:0.85rem;color:var(--white);line-height:1.6;}
+.form-success{display:none;padding:0.75rem;background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.25);color:#2ecc71;font-size:0.78rem;}
+
+/* FOOTER */
+footer{background:var(--navy);padding:3rem 4rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(201,168,76,0.15);}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--white);}
+.footer-logo span{color:var(--gold);}
+.footer-legal{font-size:0.62rem;color:rgba(138,155,181,0.4);text-align:center;max-width:500px;line-height:1.7;}
+.footer-right{font-size:0.7rem;color:var(--muted);text-align:right;}
 </style>
 </head>
 <body>
 
-<div class="ticker-bar">
-  <div class="ticker-label">Live / Impact Report</div>
-  <div class="ticker-track">
-    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract for advanced missile systems</div>
-    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits record $2.4 trillion</div>
-    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Private firms secure $800M in rebuilding efforts</div>
-    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions driving grocery costs</div>
-    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
-    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
-    <div class="ti"><div class="d"></div>Lockheed Martin awarded $4.1B Pentagon contract for advanced missile systems</div>
-    <div class="ti"><div class="d"></div>Defense sector stocks surge as global military spending hits record $2.4 trillion</div>
-    <div class="ti"><div class="d"></div>Post-conflict cleanup contracts: Private firms secure $800M in rebuilding efforts</div>
-    <div class="ti"><div class="d"></div>How overseas conflicts impact your wallet: Supply chain disruptions driving grocery costs</div>
-    <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
-    <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
+<!-- TICKER — sits above nav, never overlaps -->
+<div class="ticker-wrap">
+  <div class="ticker-bar">
+    <div class="ticker-label">Live / Your Rights</div>
+    <div class="ticker-track">
+      <div class="ti"><div class="d"></div>National Debt: <span id="t1">$36.22T</span> and rising every second</div>
+      <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
+      <div class="ti"><div class="d"></div>FCRA: You can dispute inaccurate items for <span>free</span> / Civitas prepares the paperwork</div>
+      <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
+      <div class="ti"><div class="d"></div>FDCPA: Collectors cannot call before 8am or after 9pm / Debt validation is your right</div>
+      <div class="ti"><div class="d"></div>CA: Security deposits must be returned within <span>21 days</span> / Retaliation is prohibited</div>
+      <div class="ti"><div class="d"></div><span>68 million</span> Americans in collections / Most have legal options never used</div>
+      <div class="ti"><div class="d"></div>Fine print is not law. A company policy is not a court order. <span>You have recourse.</span></div>
+      <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
+      <!-- duplicate for seamless loop -->
+      <div class="ti"><div class="d"></div>National Debt: <span id="t2">$36.22T</span> and rising every second</div>
+      <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
+      <div class="ti"><div class="d"></div>FCRA: You can dispute inaccurate items for <span>free</span> / Civitas prepares the paperwork</div>
+      <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
+      <div class="ti"><div class="d"></div>FDCPA: Collectors cannot call before 8am or after 9pm / Debt validation is your right</div>
+      <div class="ti"><div class="d"></div>CA: Security deposits must be returned within <span>21 days</span> / Retaliation is prohibited</div>
+      <div class="ti"><div class="d"></div><span>68 million</span> Americans in collections / Most have legal options never used</div>
+      <div class="ti"><div class="d"></div>Fine print is not law. A company policy is not a court order. <span>You have recourse.</span></div>
+      <div class="ti"><div class="d"></div>Tariff-driven inflation raising consumer debt burden across all income levels</div>
+    </div>
   </div>
 </div>
 
+<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Civitas<span>.</span></a>
   <ul class="nav-links">
+    <li><a href="academy.html" style="color:var(--gold);">Academy</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#protections">Your Rights</a></li>
     <li><a href="#cost">Cost Comparison</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div style="display:flex; gap:1.5rem; align-items:center;">
-    <a href="register.html" style="font-size:0.8rem; color:var(--gold); text-decoration:none; text-transform:uppercase; letter-spacing:0.1em;">Register</a>
-    <a href="account.html" class="nav-cta">Member Login</a>
+  <div class="nav-right">
+    <a href="login.html" class="nav-link-alt">Member Login</a>
+    <a href="register.html" class="nav-cta">Register</a>
   </div>
 </nav>
 
-<section class="hero" style="background:var(--navy); color:white;">
-  <div class="hero-content">
-    <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;">
-        <div style="width:40px; height:1px; background:var(--gold);"></div>
-        <span style="font-size:0.7rem; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase;">California Legal Document Services</span>
-    </div>
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span>California Legal Document Services</span></div>
     <h1>Their policy<br>is not the <em>law.</em><br>You have recourse.</h1>
-    <p class="hero-sub">Civitas prepares the documents that put you back in the conversation. Credit disputes, goodwill letters, debt validation, and more. Starting at $39/month.</p>
+    <p class="hero-sub">The government does not own you. A company's policy is not the law. Every year, millions of Americans sign things they did not have to sign, pay things they were never obligated to pay, and accept outcomes they had every right to challenge. Civitas prepares the documents that put you back in the conversation.</p>
+    <a href="#services" class="btn-primary">View Services</a>
+    <a href="#contact" class="btn-ghost">Free Consultation</a>
+    <div class="hero-disc">Civitas Legal Document Services is a registered California Legal Document Assistant (LDA). We prepare legal documents at your direction. We are not a law firm and do not provide legal advice.</div>
   </div>
-
   <div class="hero-right">
-    <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;">
-      <defs><clipPath id="fc"><ellipse cx="200" cy="195" rx="105" ry="122"/></clipPath></defs>
-      <ellipse cx="200" cy="195" rx="105" ry="122" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.95"/>
-      <g clip-path="url(#fc)">
-        <path d="M108 119 Q140 85 200 81 Q260 85 286 119 Q308 145 306 183 Q304 221 278 245 Q252 267 200 269 Q148 267 122 245 Q96 221 94 183 Q92 145 108 119" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.4"/>
-        <path d="M118 128 Q148 96 200 92 Q252 96 278 128 Q298 152 296 188 Q294 222 270 243 Q246 263 200 265 Q154 263 130 243 Q106 222 104 188 Q102 152 118 128" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.46"/>
-        <path d="M130 138 Q158 108 200 104 Q242 108 264 138 Q282 160 280 192 Q278 222 256 242 Q234 260 200 262 Q166 260 144 242 Q122 222 120 192 Q118 160 130 138" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.52"/>
-        <path d="M142 150 Q168 122 200 118 Q232 122 252 150 Q268 170 266 196 Q264 220 244 238 Q224 254 200 256 Q176 254 156 238 Q136 220 134 196 Q132 170 142 150" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.58"/>
-        <path d="M154 160 Q178 136 200 132 Q222 136 240 160 Q254 178 252 200 Q250 220 232 236 Q216 250 200 251 Q184 250 168 236 Q150 220 148 200 Q146 178 154 160" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.65"/>
-        <path d="M167 170 Q188 150 200 146 Q212 150 228 170 Q240 186 238 204 Q236 220 222 232 Q212 242 200 243 Q188 242 178 232 Q164 220 162 204 Q160 186 167 170" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.72"/>
-        <path d="M179 180 Q194 164 200 160 Q206 164 220 180 Q228 194 226 208 Q224 220 214 228 Q208 234 200 235 Q192 234 186 228 Q176 220 174 208 Q172 194 179 180" fill="none" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.8"/>
-        <path d="M189 190 Q196 178 200 175 Q204 178 212 190 Q217 200 216 210 Q214 219 208 224 Q204 228 200 228 Q196 228 192 224 Q186 219 184 210 Q183 200 189 190" fill="none" stroke="#c9a84c" stroke-width="1.3" stroke-opacity="0.9"/>
-      </g>
-      <circle cx="200" cy="200" r="5" fill="#c9a84c"/>
-      <circle cx="200" cy="81" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-      <text x="200" y="56" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#ffffff" letter-spacing="0.1em">YOU BELONG HERE.</text>
-      <circle cx="200" cy="269" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-      <text x="200" y="290" text-anchor="middle" font-family="DM Sans" font-size="9.5" fill="#ffffff" letter-spacing="0.07em">THE SYSTEM HAS A PROCESS.</text>
-      <text x="200" y="303" text-anchor="middle" font-family="DM Sans" font-size="9.5" fill="#ffffff" letter-spacing="0.07em">SO DO WE.</text>
-      <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond" font-size="34" font-weight="300" fill="#ffffff" letter-spacing="0.35em">CIVITAS</text>
+    <svg viewBox="0 0 300 300" style="width:100%;max-width:340px;">
+      <path fill="none" stroke="#c9a84c" stroke-width="1"   opacity="0.3" d="M 150,20 A 130,130 0 0,0 150,280"/>
+      <path fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.5" d="M 150,45 A 105,105 0 0,0 150,255"/>
+      <path fill="none" stroke="#c9a84c" stroke-width="2"   opacity="0.7" d="M 150,70 A 80,80   0 0,0 150,230"/>
+      <path fill="none" stroke="#c9a84c" stroke-width="2.5" opacity="0.9" d="M 150,95 A 55,55   0 0,0 150,205"/>
+      <path fill="none" stroke="#c9a84c" stroke-width="3"   opacity="1"   d="M 150,120 A 30,30  0 0,0 150,180"/>
+      <circle cx="150" cy="150" r="6" fill="#c9a84c"/>
     </svg>
   </div>
 </section>
 
-<section id="services">
-  <h2 class="section-title">Seven ways we <em>go to work</em> for you.</h2>
-  <p>Our document preparation services are built on the facts of your situation.</p>
+<!-- ALERT BANNER -->
+<div class="alert-banner">
+  <span class="alert-icon">Notice</span>
+  <p><strong>Important disclosure:</strong> Civitas Legal Document Services operates as a California-registered Legal Document Assistant under B&amp;P Code 6400-6415. Credit-related services comply with the federal Credit Repair Organizations Act (CROA) and the California Credit Services Act. We do not guarantee outcomes. You have the right to cancel within three business days of any signed agreement.</p>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <p class="manifesto-quote">"Fine print is not law. A collector's letter is not a court order. A landlord's clause is not automatically enforceable. A credit bureau's decision is not final. These entities count on you <em>not knowing the difference</em> between what is legally binding and what they simply want you to believe is legally binding."</p>
+  <p class="manifesto-body">That gap, between what they claim and what the law actually says, is exactly where Civitas works. We are not here to scare you or doom-and-gloom you into spending thousands of dollars. We are here to hand you the document that says: you have rights, here they are, and here is how to use them.</p>
 </section>
 
-<section id="protections">
-  <h2 class="section-title">The laws <em>already on your side.</em></h2>
-  <p>Understanding FCRA, FDCPA, and CROA is the foundation of recourse.</p>
+<!-- ABOUT TEASER -->
+<section class="about-teaser">
+  <div>
+    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>The Story Behind Civitas</span></div>
+    <h2 class="section-title">Born into the system.<br><em>Built to fight back.</em></h2>
+    <p class="section-body" style="margin-bottom:2rem;">Foster care. Homelessness. Academically written off. 2x national Brazilian Jiu-Jitsu champion. Hollywood audio engineer. Credits with Michael Jackson, Kanye West, the UFC, and major networks. Brian Harper was told what his ceiling was. He disagreed. Civitas exists because the people this system is hardest on deserve someone in their corner who has actually been there.</p>
+    <a href="about.html" style="background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0.75rem 1.75rem;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;display:inline-block;">Read the Full Story</a>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">2x</div><div class="stat-label">National BJJ Champion</div></div>
+    <div class="stat-card"><div class="stat-number">20+</div><div class="stat-label">Yrs Entertainment Industry</div></div>
+    <div class="stat-card"><div class="stat-number">LDA</div><div class="stat-label">CA Registered</div></div>
+    <div class="stat-card"><div class="stat-number">7</div><div class="stat-label">Services Available</div></div>
+  </div>
 </section>
 
-<section id="cost">
-  <h2 class="section-title">The real <em>cost of access.</em></h2>
-  <p>Transparent pricing that beats hourly attorney rates every time.</p>
+<!-- SERVICES -->
+<section id="services" class="services">
+  <div class="services-header">
+    <div>
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>What We Do</span></div>
+      <h2 class="section-title">Seven ways we<br><em>go to work</em><br>for you.</h2>
+    </div>
+    <p class="section-body">Every document prepared specifically for your situation. No generic templates. Real correspondence built around the facts of your case, the applicable law, and the outcome you are pursuing. Starting at $39 per month. No setup fee. No retainer.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-title">Credit Dispute Letters</div>
+      <p class="service-desc">FCRA-compliant dispute correspondence directed to credit bureaus and original furnishers. We prepare documentation that meets the exact statutory requirements bureaus are legally required to respond to within 30 days.</p>
+      <div class="service-disclaimer">Document preparation only. We do not guarantee removal of any item. You retain the right to dispute directly at no cost through AnnualCreditReport.com.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-title">Goodwill Adjustment Letters</div>
+      <p class="service-desc">Professionally drafted goodwill correspondence requesting creditor review of negative notations. Structured for tone, accuracy, and maximum readability by the decision makers who have the authority to remove the item.</p>
+      <div class="service-disclaimer">Document preparation only. Creditor response is entirely discretionary. No outcome is guaranteed.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-title">Debt Validation Letters</div>
+      <p class="service-desc">FDCPA-compliant debt validation requests prepared at your direction for submission to collection agencies. Collectors are legally required to cease collection activity until they validate the debt in writing.</p>
+      <div class="service-disclaimer">Document preparation only. Submission timing is your responsibility. Civitas does not provide legal advice on FDCPA rights or strategy.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-title">Legal Document Preparation</div>
+      <p class="service-desc">General legal document preparation for small claims, landlord-tenant correspondence, demand letters, and other civil matters. Every document is prepared at your specific direction and reviewed for accuracy before delivery.</p>
+      <div class="service-disclaimer">Civitas is a registered LDA, not a law firm. We do not provide legal advice. For complex legal matters, consult a licensed California attorney.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-title">Landlord-Tenant Documents</div>
+      <p class="service-desc">Tenant rights correspondence, habitability demand letters, security deposit demand letters, and notice response documents prepared under California Civil Code. California tenants have some of the strongest rights in the nation and most landlords count on you not knowing them.</p>
+      <div class="service-disclaimer">Documents prepared at your direction under applicable California statutes. Not legal advice. For litigation, consult a licensed tenant rights attorney.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-title">General Consultation</div>
+      <p class="service-desc">Educational consultation to help you understand your situation, the documents relevant to it, and the options available to you as a consumer and tenant under California and federal law. No hourly clock. No pressure. Just clarity.</p>
+      <div class="service-disclaimer">Consultation is educational only and does not constitute legal or financial advice. Civitas does not represent clients in any legal proceeding.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">07</div>
+      <div class="service-title">Tax Preparer Negligence</div>
+      <p class="service-desc">Documentation support for clients whose tax preparer made material errors including incorrect classifications, missing deductions, or wrong filing statuses. We prepare IRS correspondence, error analysis documentation, and formal complaint filings including IRS Form 14157.</p>
+      <div class="service-disclaimer">Civitas is not a licensed tax preparer, CPA, or enrolled agent. We prepare documents at your direction. For tax advice or IRS representation, consult a licensed tax professional.</div>
+    </div>
+  </div>
 </section>
 
-<section id="contact">
-    <h3 class="section-title">Get in touch now.</h3>
-    <p>Message Brian directly to begin your educational consultation.</p>
+<!-- YOUR RIGHTS -->
+<section id="protections" class="legal">
+  <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>Your Protections</span></div>
+  <h2 class="section-title">The laws that are<br><em>already on your side.</em></h2>
+  <p class="section-body">Most people who contact us do not know these statutes exist. We do. And we know exactly how to use them to prepare documentation that speaks the language institutions are required by law to respond to.</p>
+  <div class="legal-grid">
+    <div class="legal-item">
+      <span class="legal-item-num">Federal</span>
+      <h3>Fair Credit Reporting Act (FCRA)</h3>
+      <p>You have the right to dispute inaccurate, incomplete, or unverifiable information on your credit report. Credit bureaus must investigate within 30 days. Original furnishers must correct errors they reported. Civitas prepares your dispute documentation to meet these statutory requirements precisely so bureaus cannot simply ignore your correspondence.</p>
+    </div>
+    <div class="legal-item">
+      <span class="legal-item-num">Federal</span>
+      <h3>Fair Debt Collection Practices Act (FDCPA)</h3>
+      <p>Debt collectors must validate debts upon written request. They cannot harass, threaten, or misrepresent. They cannot call before 8am or after 9pm. You have a 30-day validation window after first contact. Once you send a validation request, all collection activity must stop until they respond. Civitas prepares your letters within these statutory timeframes.</p>
+    </div>
+    <div class="legal-item">
+      <span class="legal-item-num">Federal</span>
+      <h3>Credit Repair Organizations Act (CROA)</h3>
+      <p>Any company providing credit services must give you a written contract, a three-day right to cancel, and cannot charge fees before services are performed. These protections apply to you as our client and govern exactly how Civitas operates. No exceptions. If a company is charging you upfront credit fees before doing any work, that is a CROA violation.</p>
+    </div>
+    <div class="legal-item">
+      <span class="legal-item-num">California</span>
+      <h3>CA Civil Code, Tenant Protections</h3>
+      <p>California tenants have some of the strongest rights in the nation. Security deposits must be returned within 21 days with an itemized statement. Landlords must provide 24 hours written notice before entering. Retaliation for exercising your rights is prohibited. Habitability is not optional. Civitas prepares correspondence that cites the applicable Civil Code sections directly.</p>
+    </div>
+  </div>
 </section>
 
+<!-- COST COMPARISON -->
+<section id="cost" class="cost">
+  <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>Know What You Are Paying For</span></div>
+  <h2 class="section-title">The real <em>cost of access</em><br>to the legal system.</h2>
+  <p class="section-body">Before you decide whether to hire someone, understand what the market actually charges. Then decide if preparation, knowledge, and persistence can accomplish what an hourly rate cannot.</p>
+  <div class="cost-grid">
+    <div class="cost-card">
+      <div class="cost-card-label">Attorney</div>
+      <div class="cost-price">$400</div>
+      <div class="cost-unit">per hour / avg. California</div>
+      <ul class="cost-items">
+        <li>$1,500 to $4,000 for a credit dispute matter</li>
+        <li>Retainer required upfront, often $2,500 to $5,000</li>
+        <li>No outcome guarantee, billing continues regardless</li>
+        <li>Hourly rate includes time to learn your case</li>
+        <li>You pay for their expertise and their time</li>
+      </ul>
+    </div>
+    <div class="cost-card featured">
+      <div class="cost-card-label">Civitas Legal Document Assistant</div>
+      <div class="cost-price">$39</div>
+      <div class="cost-unit">per month / no hourly billing</div>
+      <ul class="cost-items">
+        <li>Flat monthly fee starting at $39, disclosed before you sign</li>
+        <li>No retainer, no setup fee, no surprise billing</li>
+        <li>No outcome guarantee but no hourly clock either</li>
+        <li>You own every document we prepare</li>
+        <li>Live client portal with real-time case updates</li>
+        <li>Compliant with CROA, no upfront credit fees</li>
+      </ul>
+    </div>
+    <div class="cost-card">
+      <div class="cost-card-label">Paralegal</div>
+      <div class="cost-price">$110</div>
+      <div class="cost-unit">per hour / avg. California</div>
+      <ul class="cost-items">
+        <li>Lower rate but still hourly, adds up fast</li>
+        <li>$500 to $1,500 for document-heavy matters</li>
+        <li>Often works under attorney supervision</li>
+        <li>Cannot represent you or give legal advice</li>
+        <li>Limited independently to document preparation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DISCLAIMERS -->
+<section class="disclaimers">
+  <div class="disclaimer-box">
+    <h2>Terms of Service and Legal Disclosures</h2>
+    <p><strong>Not a Law Firm.</strong> Civitas Legal Document Services is not a law firm and is not owned or operated by an attorney. We are a California-registered Legal Document Assistant (LDA) operating under Business and Professions Code Sections 6400-6415. We prepare legal documents at the specific direction of our clients. We do not provide legal advice, legal representation, or legal strategy of any kind.</p>
+    <p><strong>Credit Services Disclosure.</strong> Civitas operates in compliance with the federal Credit Repair Organizations Act (15 U.S.C. 1679 et seq.) and the California Credit Services Act (Civil Code 1789.10 et seq.). We do not guarantee the removal of any item from any credit report. You have the right to dispute items directly and at no cost through the credit bureaus. You have the right to cancel any signed service agreement within three business days without penalty.</p>
+    <p><strong>No Outcome Guarantee.</strong> Document preparation does not guarantee any specific outcome. Whether a creditor responds to a goodwill request, a bureau completes an investigation, or a landlord complies with a demand letter depends entirely on the facts and the discretion of the receiving party. Civitas makes no representation that any document will produce a specific result.</p>
+    <p><strong>Consult an Attorney.</strong> For matters involving litigation, criminal proceedings, immigration, family law, or any matter requiring legal representation, consult a licensed California attorney. LDA services are limited to document preparation and do not substitute for the advice of counsel.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>Get In Touch</span></div>
+      <h3 class="section-title">Let's talk about<br><em>your situation.</em></h3>
+      <p class="section-body" style="margin-bottom:2.5rem;">Initial consultations are educational. We will listen, explain what documents may apply, and give you a clear picture of what we can prepare for you. No pressure. No hourly clock. No legal jargon.</p>
+      <div class="contact-detail"><span class="contact-detail-label">Phone</span><span class="contact-detail-value">(916) 490-0063</span></div>
+      <div class="contact-detail"><span class="contact-detail-label">Email</span><span class="contact-detail-value">harper.gi.76@gmail.com</span></div>
+      <div class="contact-detail"><span class="contact-detail-label">Location</span><span class="contact-detail-value">Oakdale, CA / Serving clients statewide</span></div>
+      <div class="contact-detail" style="border:none;"><span class="contact-detail-label">Notice</span><span class="contact-detail-value" style="font-size:0.72rem;color:#8a9bb5;">Civitas Legal Document Services is a registered California LDA. We are not a law firm. Consultation is educational only.</span></div>
+    </div>
+    <form class="contact-form" onsubmit="submitContact(event)">
+      <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name" required></div>
+      <div class="form-group"><label>Phone or Email</label><input type="text" placeholder="Best way to reach you" required></div>
+      <div class="form-group"><label>Service Needed</label>
+        <select required>
+          <option value="">Select a service</option>
+          <option>Credit Dispute Letter</option>
+          <option>Goodwill Adjustment Letter</option>
+          <option>Debt Validation Letter</option>
+          <option>Legal Document Preparation</option>
+          <option>Landlord-Tenant Document</option>
+          <option>The War Binder™</option>
+          <option>Tax Preparer Negligence</option>
+          <option>General Consultation</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Brief Description</label><textarea placeholder="Tell us briefly about your situation. No legal jargon needed."></textarea></div>
+      <button type="submit" class="btn-primary">Send Message</button>
+      <div class="form-success" id="formSuccess">Message received. Brian will reach out within 24 hours.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Civitas<span>.</span></div>
+  <div class="footer-legal">Civitas Legal Document Services is a registered California Legal Document Assistant under B&amp;P Code 6400-6415. Not a law firm. Nothing here constitutes legal advice. Credit services comply with CROA and the California Credit Services Act. &copy; 2026 Civitas Legal Document Services.</div>
+  <div class="footer-right">(916) 490-0063<br>Oakdale, CA<br>civitasca.com</div>
+</footer>
+
+<script>
+function submitContact(e) {
+  e.preventDefault();
+  document.getElementById('formSuccess').style.display = 'block';
+}
+
+const base = 36217843000000, rate = 63333, t0 = Date.now();
+function upd() {
+  const cur = base + ((Date.now() - t0) / 1000) * rate;
+  const fmt = '$' + (cur / 1e12).toFixed(2) + 'T';
+  const t1 = document.getElementById('t1');
+  const t2 = document.getElementById('t2');
+  if(t1) t1.textContent = fmt;
+  if(t2) t2.textContent = fmt;
+}
+setInterval(upd, 250);
+upd();
+</script>
 </body>
 </html>
