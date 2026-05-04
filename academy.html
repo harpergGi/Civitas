@@ -4,110 +4,368 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Civitas Academy | The Recourse Lab</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root { --navy: #0a1628; --navy-mid: #142240; --gold: #c9a84c; --white: #ffffff; --muted: #8a9bb5; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--navy); color: white; font-family: 'DM Sans', sans-serif; line-height: 1.6; }
-
-  /* Hero Section */
-  .academy-hero { padding: 8rem 4rem 4rem; text-align: center; background: linear-gradient(to bottom, #060e1a, var(--navy)); border-bottom: 1px solid rgba(201,168,76,0.1); }
-  h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--gold); margin-bottom: 1rem; }
-  .subtitle { color: var(--muted); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 3rem; }
-
-  /* Grid Layout */
-  .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
-
-  /* Victory Vault */
-  .vault-section { grid-column: span 8; background: var(--navy-mid); padding: 2.5rem; border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; }
-  .search-bar { width: 100%; padding: 1rem; background: #0a1628; border: 1px solid rgba(201,168,76,0.3); color: white; margin-bottom: 2rem; font-family: 'DM Sans', sans-serif; }
-  
-  .win-card { border-left: 3px solid var(--gold); background: rgba(0,0,0,0.2); padding: 1.5rem; margin-bottom: 1.5rem; transition: 0.3s; cursor: pointer; }
-  .win-card:hover { transform: translateX(10px); background: rgba(201,168,76,0.05); }
-  .win-tag { font-size: 0.65rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
-  .win-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin: 0.5rem 0; }
-
-  /* Sidebar */
-  .sidebar { grid-column: span 4; display: flex; flex-direction: column; gap: 2rem; }
-  .side-box { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); padding: 2rem; text-align: left; }
-  .side-box h3 { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.6rem; margin-bottom: 1rem; }
-  .btn-sim { width: 100%; padding: 1rem; background: var(--gold); color: var(--navy); border: none; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; }
-
-  .badge-grid { display: flex; gap: 1rem; margin-top: 1rem; }
-  .badge { width: 45px; height: 45px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: var(--gold); }
-
-  nav { position: absolute; top: 0; width: 100%; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; border-bottom: 1px solid rgba(201,168,76,0.1); }
-  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; text-decoration: none; color: white; }
-  .logo span { color: var(--gold); }
+:root{--navy:#0a1628;--navy-mid:#111f3a;--navy-light:#1a2f52;--navy-dark:#060e1a;--gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);--white:#fff;--muted:#8a9bb5;--green:#2ecc71;--red:#e74c3c;--amber:#f39c12;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);overflow-x:hidden;}
+nav{background:rgba(10,22,40,0.98);border-bottom:1px solid rgba(201,168,76,0.15);padding:0 4rem;display:flex;align-items:center;justify-content:space-between;height:68px;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--white);text-decoration:none;letter-spacing:0.04em;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.75rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.act{color:var(--gold);}
+.nav-right{display:flex;gap:0.75rem;align-items:center;}
+.nav-cta{background:var(--gold);color:var(--navy);padding:0.45rem 1.1rem;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{background:var(--gold-light);}
+.nav-login{font-size:0.72rem;color:var(--gold);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;}
+.hero{background:linear-gradient(to bottom,var(--navy-dark),var(--navy));padding:6rem 4rem 4rem;text-align:center;border-bottom:1px solid rgba(201,168,76,0.1);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.25);padding:0.35rem 1rem;font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5rem);font-weight:300;line-height:1.05;margin-bottom:1.5rem;position:relative;}
+.hero h1 em{font-style:italic;color:var(--gold-light);}
+.hero-sub{font-size:1rem;color:var(--muted);line-height:1.9;max-width:680px;margin:0 auto 2rem;}
+.hero-sub strong{color:var(--white);}
+.hero-stats{display:flex;align-items:center;justify-content:center;gap:3rem;margin:2.5rem 0;flex-wrap:wrap;}
+.hstat{text-align:center;}
+.hstat-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;color:var(--gold);line-height:1;}
+.hstat-label{font-size:0.65rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:3px;}
+.hstat-div{width:1px;height:40px;background:rgba(201,168,76,0.2);}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:var(--navy);border:none;padding:0.85rem 2rem;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block;transition:background 0.2s;}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-outline{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.4);padding:0.85rem 2rem;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block;transition:all 0.2s;}
+.btn-outline:hover{background:var(--gold-dim);}
+.data-bar{background:var(--navy-dark);border-top:1px solid rgba(201,168,76,0.1);border-bottom:1px solid rgba(201,168,76,0.1);padding:1rem 4rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+.db-item{text-align:center;}
+.db-num{font-family:'DM Mono',monospace;font-size:1.2rem;font-weight:500;color:var(--red);}
+.db-num.gold{color:var(--gold);}
+.db-label{font-size:0.6rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;}
+.section{padding:5rem 4rem;}
+.section-eye{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;}
+.section-eye-line{width:28px;height:1px;background:var(--gold);}
+.section-eye span{font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.1;margin-bottom:1rem;}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-body{font-size:0.9rem;color:var(--muted);line-height:1.9;max-width:620px;}
+.tiers-section{background:var(--navy-dark);padding:5rem 4rem;}
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.tier-card{border:1px solid rgba(255,255,255,0.07);padding:2rem;position:relative;transition:all 0.2s;}
+.tier-card:hover{border-color:rgba(201,168,76,0.3);}
+.tier-card.featured{border:2px solid var(--gold);background:var(--gold-dim);}
+.tier-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:0.58rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.85rem;white-space:nowrap;}
+.tier-name{font-size:0.65rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;margin-top:0.5rem;}
+.tier-card.featured .tier-name{color:var(--gold);}
+.tier-price{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--white);line-height:1;margin-bottom:0.25rem;}
+.tier-price span{font-size:0.8rem;font-family:'DM Sans',sans-serif;color:var(--muted);}
+.tier-desc{font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+.tier-features{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;}
+.tier-features li{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.75rem;color:var(--white);line-height:1.4;}
+.tier-features li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;}
+.tier-features li.dim{color:rgba(255,255,255,0.3);}
+.tier-features li.dim::before{background:rgba(255,255,255,0.15);}
+.courses-section{background:var(--navy);padding:5rem 4rem;}
+.tracks-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem;}
+.tracks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(201,168,76,0.08);}
+.track-card{background:var(--navy-mid);padding:2rem;cursor:pointer;transition:all 0.25s;position:relative;}
+.track-card:hover{background:var(--navy-light);transform:translateY(-2px);}
+.track-card.fp::after{content:'Free Preview';position:absolute;top:0.75rem;right:0.75rem;background:var(--green);color:var(--navy);font-size:0.55rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;}
+.track-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:rgba(201,168,76,0.2);line-height:1;margin-bottom:0.75rem;}
+.track-icon{font-size:1.5rem;margin-bottom:0.75rem;}
+.track-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--white);margin-bottom:0.5rem;}
+.track-desc{font-size:0.75rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;}
+.track-meta{display:flex;align-items:center;justify-content:space-between;}
+.track-lessons{font-size:0.62rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+.track-level{font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;}
+.track-level.b{background:rgba(46,204,113,0.12);color:var(--green);}
+.track-level.i{background:rgba(243,156,18,0.12);color:var(--amber);}
+.track-level.a{background:rgba(231,76,60,0.1);color:var(--red);}
+.track-statutes{font-size:0.62rem;color:rgba(201,168,76,0.5);margin-top:0.5rem;font-family:'DM Mono',monospace;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:500;align-items:center;justify-content:center;padding:2rem;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.2);max-width:680px;width:100%;max-height:85vh;overflow-y:auto;position:relative;}
+.modal-close{position:absolute;top:1rem;right:1.25rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
+.modal-close:hover{color:var(--gold);}
+.modal-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);margin-bottom:0.5rem;}
+.modal-sub{font-size:0.75rem;color:var(--muted);line-height:1.6;}
+.modal-body{padding:1.5rem 2rem;}
+.lesson-list{display:flex;flex-direction:column;gap:0;}
+.lesson-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.lesson-num{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);min-width:24px;}
+.lesson-title{font-size:0.8rem;color:var(--white);flex:1;}
+.lesson-dur{font-size:0.62rem;color:var(--muted);}
+.lesson-free{font-size:0.55rem;background:var(--green);color:var(--navy);padding:1px 6px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;}
+.lesson-locked{font-size:0.72rem;color:rgba(255,255,255,0.2);}
+.modal-enroll{padding:1.5rem 2rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:0.75rem;align-items:center;}
+.modal-cert{font-size:0.7rem;color:var(--muted);line-height:1.5;}
+.modal-cert strong{color:var(--gold);}
+.vault{background:var(--navy-dark);padding:5rem 4rem;}
+.vault-grid{display:grid;grid-template-columns:2fr 1fr;gap:3rem;margin-top:3rem;}
+.vault-cases{display:flex;flex-direction:column;gap:1rem;}
+.vault-case{border-left:3px solid var(--gold);background:rgba(255,255,255,0.02);padding:1.25rem 1.5rem;cursor:pointer;transition:all 0.2s;}
+.vault-case:hover{background:rgba(201,168,76,0.05);transform:translateX(4px);}
+.vc-tag{font-size:0.58rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.15em;font-weight:500;margin-bottom:0.4rem;}
+.vc-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--white);margin-bottom:0.35rem;}
+.vc-desc{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.vc-statute{font-size:0.62rem;color:rgba(201,168,76,0.5);font-family:'DM Mono',monospace;margin-top:0.4rem;}
+.vault-sidebar{display:flex;flex-direction:column;gap:1.25rem;}
+.vault-stat{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.1);padding:1.25rem;text-align:center;}
+.vs-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;color:var(--gold);line-height:1;}
+.vs-label{font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;line-height:1.4;}
+.sim-section{background:var(--navy);padding:5rem 4rem;}
+.sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:3rem;}
+.sim-terminal{background:var(--navy-dark);border:1px solid rgba(201,168,76,0.15);padding:1.5rem;font-family:'DM Mono',monospace;}
+.sim-bar{display:flex;align-items:center;gap:0.4rem;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sim-dot{width:10px;height:10px;border-radius:50%;}
+.sim-bar-title{font-size:0.65rem;color:var(--muted);margin-left:0.5rem;}
+.sim-line{font-size:0.75rem;line-height:1.8;margin-bottom:0.25rem;}
+.sim-line.system{color:var(--gold);}
+.sim-line.user{color:var(--white);}
+.sim-line.response{color:var(--muted);}
+.sim-line.statute{color:var(--green);}
+.sim-input-row{display:flex;gap:0.5rem;margin-top:1rem;border-top:1px solid rgba(255,255,255,0.06);padding-top:0.75rem;}
+.sim-input{flex:1;background:transparent;border:none;color:var(--gold);font-family:'DM Mono',monospace;font-size:0.75rem;outline:none;}
+.sim-input::placeholder{color:rgba(201,168,76,0.3);}
+.sim-send{background:var(--gold);color:var(--navy);border:none;font-size:0.65rem;font-weight:500;padding:4px 10px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.sim-scenarios{display:flex;flex-direction:column;gap:0.75rem;}
+.sim-scenario{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:0.85rem 1rem;cursor:pointer;transition:all 0.15s;font-size:0.78rem;color:var(--white);}
+.sim-scenario:hover{border-color:rgba(201,168,76,0.3);background:var(--gold-dim);color:var(--gold);}
+.sim-scenario-tag{font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:3px;}
+.cert-section{background:var(--navy-mid);padding:5rem 4rem;text-align:center;}
+.cert-tracks{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:3rem 0;}
+.cert-track{border:1px solid rgba(255,255,255,0.07);padding:1.5rem 1rem;text-align:center;transition:all 0.2s;cursor:pointer;}
+.cert-track:hover{border-color:rgba(201,168,76,0.3);background:var(--gold-dim);}
+.cert-icon{font-size:2rem;margin-bottom:0.75rem;}
+.cert-name{font-size:0.75rem;font-weight:500;color:var(--white);margin-bottom:0.25rem;}
+.cert-sub{font-size:0.65rem;color:var(--muted);}
+.cert-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.25);padding:0.6rem 1.5rem;margin-top:2rem;}
+.cert-badge span{font-size:0.72rem;color:var(--gold);letter-spacing:0.1em;}
+footer{background:var(--navy-dark);padding:2.5rem 4rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(201,168,76,0.1);}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--white);}
+.footer-logo span{color:var(--gold);}
+.footer-legal{font-size:0.6rem;color:rgba(138,155,181,0.4);text-align:center;max-width:460px;line-height:1.6;}
+.footer-right{font-size:0.68rem;color:var(--muted);text-align:right;line-height:1.7;}
 </style>
 </head>
 <body>
-
 <nav>
-  <a href="index.html" class="logo">Civitas<span>.</span></a>
-  <div style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted);">Academy / The Recourse Lab</div>
+  <a href="index.html" class="nav-logo">Civitas<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="academy.html" class="act">Academy</a></li>
+    <li><a href="main.html#services">Services</a></li>
+    <li><a href="main.html#protections">Your Rights</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="main.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="login.html" class="nav-login">Member Login</a>
+    <a href="register.html" class="nav-cta">Enroll Now</a>
+  </div>
 </nav>
 
-<section class="academy-hero">
-  <div class="subtitle">Future-Forward Legal Intelligence</div>
-  <h1>Knowledge is the <em>Weapon.</em></h1>
-  <p style="max-width: 600px; margin: 0 auto; color: var(--muted);">Explore real-world wins, simulate your interactions, and master the Civil Codes that protect your rights.</p>
+<section class="hero">
+  <div class="hero-badge">&#9670; Civitas Academy / The Recourse Lab</div>
+  <h1>Knowledge is the<br><em>weapon they never</em><br>wanted you to have.</h1>
+  <p class="hero-sub"><strong>80 to 90 percent of people who represent themselves in court lose</strong> not because their case is weak, but because they do not know the process, the paperwork, or the statutes that protect them. The Civitas Academy exists to close that gap for everyone, regardless of income, background, or education level.</p>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num">12</div><div class="hstat-label">Course Tracks</div></div>
+    <div class="hstat-div"></div>
+    <div class="hstat"><div class="hstat-num">80+</div><div class="hstat-label">Lessons</div></div>
+    <div class="hstat-div"></div>
+    <div class="hstat"><div class="hstat-num">50M+</div><div class="hstat-label">Americans Who Need This</div></div>
+    <div class="hstat-div"></div>
+    <div class="hstat"><div class="hstat-num">$0</div><div class="hstat-label">Cost to Preview</div></div>
+  </div>
+  <div class="hero-actions">
+    <a href="#courses" class="btn-gold">Browse All 12 Tracks</a>
+    <a href="#simulator" class="btn-outline">Try the Simulator Free</a>
+  </div>
 </section>
 
-<div class="container">
-  <div class="vault-section">
-    <h3>The Victory Vault</h3>
-    <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem;">Public record wins from In Pro Per individuals utilizing statutory strategy.</p>
-    <input type="text" class="search-bar" placeholder="Search by statute (e.g. CA CC 1950.5 or FCRA)...">
+<div class="data-bar">
+  <div class="db-item"><div class="db-num">90%</div><div class="db-label">Pro se litigants lose without training</div></div>
+  <div class="db-item"><div class="db-num">80%</div><div class="db-label">Family law cases have no attorney</div></div>
+  <div class="db-item"><div class="db-num gold">16.8%</div><div class="db-label">Rise in self-represented cases 2025</div></div>
+  <div class="db-item"><div class="db-num gold">$400</div><div class="db-label">Avg attorney hourly rate in California</div></div>
+</div>
 
-    <div class="win-card">
-      <div class="win-tag">Tenant Rights / Security Deposit</div>
-      <div class="win-title">Tenant vs. Corporate Management: The $4,500 Estoppel</div>
-      <p style="font-size: 0.8rem; color: var(--muted);">Plaintiff successfully cited CA CC 1950.5(g) to prove bad-faith withholding. Treble damages awarded.</p>
+<section class="tiers-section">
+  <div class="section-eye"><div class="section-eye-line"></div><span>Academy Access</span></div>
+  <h2 class="section-title">Choose your <em>level of recourse.</em></h2>
+  <p class="section-body">Every track includes a free preview lesson. Full access starts at $19 per month. Bundle with Civitas document services for the complete system.</p>
+  <div class="tiers-grid">
+    <div class="tier-card">
+      <div class="tier-name">Academy Basic</div>
+      <div class="tier-price">$19<span>/mo</span></div>
+      <div class="tier-desc">Self-paced access to all 12 course tracks. Learn at your own speed, earn certificates, use the simulator.</div>
+      <ul class="tier-features">
+        <li>All 12 course tracks</li><li>80+ lessons, self-paced</li><li>The Simulator (AI practice)</li><li>Victory Vault access</li><li>Civitas Certificate per track</li><li>Statute reference library</li>
+        <li class="dim">Document preparation services</li><li class="dim">Live case portal</li>
+      </ul>
+      <a href="register.html" class="btn-outline" style="width:100%;text-align:center;display:block;">Enroll in Academy</a>
     </div>
-
-    <div class="win-card">
-      <div class="win-tag">Credit / Debt Validation</div>
-      <div class="win-title">Removing a $12k "Zombie Debt" via Chain of Title Audit</div>
-      <p style="font-size: 0.8rem; color: var(--muted);">Used FDCPA § 809(b) to halt collection activity after proving lack of original contract.</p>
+    <div class="tier-card featured">
+      <div class="tier-badge">Most Popular</div>
+      <div class="tier-name">Advocate Bundle</div>
+      <div class="tier-price">$99<span>/mo</span></div>
+      <div class="tier-desc">Academy plus full Civitas document services. Learn the law and have Civitas prepare your documents at the same time.</div>
+      <ul class="tier-features">
+        <li>Everything in Academy Basic</li><li>3 active document cases</li><li>Unlimited document preparation</li><li>Live client portal with QR code</li><li>Text and email notifications</li><li>Secure messaging with Brian</li><li>Priority support</li>
+      </ul>
+      <a href="register.html" class="btn-gold" style="width:100%;text-align:center;display:block;">Get the Full System</a>
+    </div>
+    <div class="tier-card">
+      <div class="tier-name">Command</div>
+      <div class="tier-price">$149<span>/mo</span></div>
+      <div class="tier-desc">Everything, unlimited, with direct phone access to Brian Harper and family account support.</div>
+      <ul class="tier-features">
+        <li>Everything in Advocate Bundle</li><li>Unlimited active cases</li><li>Direct phone line to Brian</li><li>Tax document support</li><li>Family accounts included</li><li>War Binder full build-out</li><li>Court appearance preparation</li>
+      </ul>
+      <a href="register.html" class="btn-outline" style="width:100%;text-align:center;display:block;">Go Command</a>
     </div>
   </div>
+</section>
 
-  <div class="sidebar">
-    <div class="side-box" style="border: 2px solid var(--gold); background: rgba(201,168,76,0.1);">
-      <h3>War Binder™</h3>
-      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">
-        Structure your Small Claims case. Script your opener. Map your evidence.
-      </p>
-      <button class="btn-sim" onclick="buildPlaybook()">Initialize War Binder</button>
+<section id="courses" class="courses-section">
+  <div class="tracks-intro">
+    <div>
+      <div class="section-eye"><div class="section-eye-line"></div><span>12 Course Tracks</span></div>
+      <h2 class="section-title">Every situation<br>Americans face <em>alone.</em></h2>
+      <p class="section-body">These are not hypothetical scenarios. These are the real situations that hit people every day regardless of income, background, or zip code. Click any track to see the full lesson list.</p>
     </div>
-
-    <div class="side-box">
-      <h3>The Simulator</h3>
-      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Practice your response against an AI-driven collector or landlord.</p>
-      <button class="btn-sim" onclick="startSim()" style="background: transparent; color: var(--gold); border: 1px solid var(--gold);">Start Simulation</button>
+    <div style="background:var(--navy-dark);border:1px solid rgba(201,168,76,0.1);padding:1.5rem;">
+      <div style="font-size:0.62rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;">Who this is for</div>
+      <div style="font-size:0.82rem;color:var(--white);line-height:1.9;">Anyone who has ever felt powerless in front of a system that counts on you not knowing your rights. A landlord dispute does not care about your income. A debt collector does not ask your salary. <span style="color:var(--gold);">This is for everyone.</span></div>
     </div>
+  </div>
+  <div class="tracks-grid">
+    <div class="track-card fp" onclick="openModal('credit')"><div class="track-num">01</div><div class="track-icon">&#128196;</div><div class="track-title">Credit Rights and Dispute Mastery</div><p class="track-desc">FCRA dispute rights, bureau obligations, goodwill letters, and rebuilding your credit profile from the ground up.</p><div class="track-statutes">FCRA / 15 U.S.C. 1681 / CROA</div><div class="track-meta"><div class="track-lessons">8 lessons / 4.5 hrs</div><div class="track-level b">Beginner</div></div></div>
+    <div class="track-card fp" onclick="openModal('debt')"><div class="track-num">02</div><div class="track-icon">&#128737;</div><div class="track-title">Debt Defense and Collector Tactics</div><p class="track-desc">Stop collector harassment, send validation letters, understand statute of limitations, and deal with zombie debt.</p><div class="track-statutes">FDCPA / 15 U.S.C. 1692 / CA Rosenthal Act</div><div class="track-meta"><div class="track-lessons">7 lessons / 4 hrs</div><div class="track-level b">Beginner</div></div></div>
+    <div class="track-card fp" onclick="openModal('tenant')"><div class="track-num">03</div><div class="track-icon">&#127968;</div><div class="track-title">Tenant Rights and Landlord Disputes</div><p class="track-desc">Security deposits, habitability, illegal entry, retaliation, and everything California Civil Code gives you that most tenants never use.</p><div class="track-statutes">CA Civil Code 1940-1954 / CC 1950.5</div><div class="track-meta"><div class="track-lessons">9 lessons / 5 hrs</div><div class="track-level b">Beginner</div></div></div>
+    <div class="track-card" onclick="openModal('smallclaims')"><div class="track-num">04</div><div class="track-icon">&#9878;</div><div class="track-title">Small Claims Court Start to Finish</div><p class="track-desc">How to file, serve, present evidence, make your opening statement, and enforce a judgment. Walk in prepared, walk out with a result.</p><div class="track-statutes">CA CCP 116.110 / SC-100 / SC-134</div><div class="track-meta"><div class="track-lessons">10 lessons / 6 hrs</div><div class="track-level i">Intermediate</div></div></div>
+    <div class="track-card" onclick="openModal('family')"><div class="track-num">05</div><div class="track-icon">&#128106;</div><div class="track-title">Divorce and Family Court Pro Per</div><p class="track-desc">Uncontested divorce, child custody basics, support calculations, property division, and California family court forms.</p><div class="track-statutes">CA Family Code / FL-100 / FL-110 / FL-150</div><div class="track-meta"><div class="track-lessons">12 lessons / 7 hrs</div><div class="track-level i">Intermediate</div></div></div>
+    <div class="track-card" onclick="openModal('irs')"><div class="track-num">06</div><div class="track-icon">&#128203;</div><div class="track-title">IRS and Tax Preparer Accountability</div><p class="track-desc">Respond to IRS notices, request payment plans, dispute incorrect assessments, and file complaints against negligent preparers.</p><div class="track-statutes">IRC 6213 / Form 14157 / CDP Rights</div><div class="track-meta"><div class="track-lessons">8 lessons / 4.5 hrs</div><div class="track-level i">Intermediate</div></div></div>
+    <div class="track-card" onclick="openModal('employment')"><div class="track-num">07</div><div class="track-icon">&#128188;</div><div class="track-title">Employment Rights and Workplace Disputes</div><p class="track-desc">Wrongful termination, wage theft, discrimination, EEOC complaints, and California Labor Board claims.</p><div class="track-statutes">Title VII / ADA / CA FEHA / DLSE</div><div class="track-meta"><div class="track-lessons">9 lessons / 5 hrs</div><div class="track-level i">Intermediate</div></div></div>
+    <div class="track-card" onclick="openModal('consumer')"><div class="track-num">08</div><div class="track-icon">&#128722;</div><div class="track-title">Consumer Protection and Corporate Accountability</div><p class="track-desc">Fight back against deceptive practices, warranty violations, auto dealer fraud, subscription traps, and corporate fine print.</p><div class="track-statutes">FTC Act / CA CLRA / Song-Beverly Act</div><div class="track-meta"><div class="track-lessons">7 lessons / 4 hrs</div><div class="track-level b">Beginner</div></div></div>
+    <div class="track-card" onclick="openModal('eviction')"><div class="track-num">09</div><div class="track-icon">&#128274;</div><div class="track-title">Eviction Defense</div><p class="track-desc">Respond to an unlawful detainer, assert your defenses, use habitability as a defense, and understand your notice rights.</p><div class="track-statutes">CA CCP 1161 / UD-105 / AB 1482</div><div class="track-meta"><div class="track-lessons">8 lessons / 4.5 hrs</div><div class="track-level i">Intermediate</div></div></div>
+    <div class="track-card" onclick="openModal('civil')"><div class="track-num">10</div><div class="track-icon">&#9878;&#65039;</div><div class="track-title">Civil Rights Documentation</div><p class="track-desc">Document civil rights violations, file Section 1983 claims, submit DOJ and CFPB complaints, and build an accountable paper trail.</p><div class="track-statutes">42 U.S.C. 1983 / Bane Act / CFPB</div><div class="track-meta"><div class="track-lessons">7 lessons / 4 hrs</div><div class="track-level a">Advanced</div></div></div>
+    <div class="track-card" onclick="openModal('probate')"><div class="track-num">11</div><div class="track-icon">&#128209;</div><div class="track-title">Probate, Wills, and Estate Basics</div><p class="track-desc">Navigate estates without a will, small estate affidavits, contesting a will, and basic asset protection planning.</p><div class="track-statutes">CA Probate Code / Small Estate Affidavit</div><div class="track-meta"><div class="track-lessons">6 lessons / 3.5 hrs</div><div class="track-level i">Intermediate</div></div></div>
+    <div class="track-card" onclick="openModal('warbinder')"><div class="track-num">12</div><div class="track-icon">&#128481;</div><div class="track-title">The War Binder™ Complete System</div><p class="track-desc">Build a complete case file, script your opening statement, map your evidence, and walk into any court or negotiation ready to win.</p><div class="track-statutes">All applicable codes / Cross-track synthesis</div><div class="track-meta"><div class="track-lessons">14 lessons / 8 hrs</div><div class="track-level a">Advanced</div></div></div>
+  </div>
+</section>
 
-    <div class="side-box">
-      <h3>Your Certifications</h3>
-      <div class="badge-grid">
-        <div class="badge" title="FCRA Mastery">FCRA</div>
-        <div class="badge" title="Tenant Rights">T.R.</div>
-        <div class="badge" style="opacity: 0.3;">TAX</div>
+<section class="vault">
+  <div class="section-eye"><div class="section-eye-line"></div><span>Victory Vault</span></div>
+  <h2 class="section-title">Real wins. Real people.<br><em>No attorney.</em></h2>
+  <p class="section-body">Public record cases where individuals represented themselves using statutory knowledge and proper documentation.</p>
+  <div class="vault-grid">
+    <div class="vault-cases">
+      <div class="vault-case"><div class="vc-tag">Tenant Rights / Security Deposit</div><div class="vc-title">Tenant vs. Corporate Property Management / $4,500 Plus Treble Damages</div><div class="vc-desc">Plaintiff cited CA Civil Code 1950.5(g) to prove bad-faith withholding beyond the 21-day window. Court awarded full deposit plus double damages. No attorney. Time from filing to judgment: 6 weeks.</div><div class="vc-statute">CA CC 1950.5(g) / Bad Faith Withholding / SC-100</div></div>
+      <div class="vault-case"><div class="vc-tag">Debt Validation / FDCPA</div><div class="vc-title">Removing a $12,000 Zombie Debt via Chain of Title Audit</div><div class="vc-desc">Used FDCPA Section 809(b) to halt all collection activity after the collector could not produce the original signed contract. Account removed from credit report within 30 days.</div><div class="vc-statute">FDCPA 809(b) / 15 U.S.C. 1692g / Debt Validation</div></div>
+      <div class="vault-case"><div class="vc-tag">Credit Dispute / FCRA</div><div class="vc-title">Four Late Payment Notations Removed After Goodwill Campaign</div><div class="vc-desc">Sequential goodwill letters citing an 8-year creditor relationship and isolated hardship-period lates resulted in all four notations being removed within 45 days.</div><div class="vc-statute">FCRA 611 / Goodwill Adjustment / Creditor Discretion</div></div>
+      <div class="vault-case"><div class="vc-tag">Employment / ADA</div><div class="vc-title">Pro Per Plaintiff Survives Summary Judgment in Federal ADA Case</div><div class="vc-desc">Self-represented plaintiff filed a federal disability discrimination lawsuit after multiple attorneys declined. Her case survived summary judgment in July 2025, marking the first time endometriosis was found to meet ADA disability standards in North Carolina. Settled with favorable monetary terms December 2025.</div><div class="vc-statute">ADA / 42 U.S.C. 12101 / Reasonable Accommodation</div></div>
+    </div>
+    <div class="vault-sidebar">
+      <div class="vault-stat"><div class="vs-num">50%</div><div class="vs-label">Of all state court cases involve at least one self-represented litigant in 2025</div></div>
+      <div class="vault-stat"><div class="vs-num" style="color:var(--green);">3%</div><div class="vs-label">Win rate for untrained pro se plaintiffs. Training changes everything.</div></div>
+      <div class="vault-stat"><div class="vs-num">$0</div><div class="vs-label">Cost to file a debt validation letter that stops all collection activity</div></div>
+      <div class="vault-stat"><div class="vs-num" style="color:var(--gold);">30</div><div class="vs-label">Days bureaus have to investigate a properly filed FCRA dispute</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="simulator" class="sim-section">
+  <div class="section-eye"><div class="section-eye-line"></div><span>Free Feature / Try It Now</span></div>
+  <h2 class="section-title">Practice before you <em>have to perform.</em></h2>
+  <p class="section-body">Select a scenario or type your situation. The simulator references real public statutes and tells you exactly what applies to your situation and what to do next.</p>
+  <div class="sim-grid">
+    <div>
+      <div style="font-size:0.65rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;">Choose a scenario</div>
+      <div class="sim-scenarios">
+        <div class="sim-scenario" onclick="loadScenario('collector')"><span class="sim-scenario-tag">Debt Collection</span>A collector just called me about a debt I do not recognize</div>
+        <div class="sim-scenario" onclick="loadScenario('landlord')"><span class="sim-scenario-tag">Tenant Rights</span>My landlord entered my unit without 24 hours notice</div>
+        <div class="sim-scenario" onclick="loadScenario('credit')"><span class="sim-scenario-tag">Credit Dispute</span>There is a late payment on my credit report that is wrong</div>
+        <div class="sim-scenario" onclick="loadScenario('irs')"><span class="sim-scenario-tag">IRS</span>I got a notice from the IRS saying I owe money I do not think I owe</div>
+        <div class="sim-scenario" onclick="loadScenario('employer')"><span class="sim-scenario-tag">Employment</span>My employer did not pay me for two weeks of overtime</div>
+        <div class="sim-scenario" onclick="loadScenario('eviction')"><span class="sim-scenario-tag">Eviction</span>I just received a 3-day notice to pay or quit</div>
       </div>
+    </div>
+    <div class="sim-terminal">
+      <div class="sim-bar">
+        <div class="sim-dot" style="background:#ff5f57;"></div>
+        <div class="sim-dot" style="background:#ffbd2e;"></div>
+        <div class="sim-dot" style="background:#28c840;"></div>
+        <div class="sim-bar-title">Civitas Recourse Simulator / Free Preview</div>
+      </div>
+      <div id="simOutput">
+        <div class="sim-line system">CIVITAS RECOURSE LAB v1.0</div>
+        <div class="sim-line system">Referencing federal statutes, state civil codes, and public case law.</div>
+        <div class="sim-line response">Select a scenario or type your situation below.</div>
+        <div class="sim-line response">This tool references public legal resources only. Not legal advice.</div>
+      </div>
+      <div class="sim-input-row">
+        <input type="text" class="sim-input" id="simInput" placeholder="Type your situation..." onkeydown="if(event.key==='Enter')runSim()">
+        <button class="sim-send" onclick="runSim()">&#9654;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cert-section">
+  <div class="section-eye" style="justify-content:center;"><div class="section-eye-line"></div><span>Civitas Certification System</span></div>
+  <h2 class="section-title">Earn your <em>certification.</em></h2>
+  <p class="section-body" style="margin:0 auto;">Complete a track, pass the assessment, earn your Civitas Certificate of Completion. Proof that you know your rights and how to use them. Shareable on LinkedIn, printable, and recognized by Civitas partner organizations.</p>
+  <div class="cert-tracks">
+    <div class="cert-track"><div class="cert-icon">&#128196;</div><div class="cert-name">Credit Rights</div><div class="cert-sub">FCRA Mastery</div></div>
+    <div class="cert-track"><div class="cert-icon">&#128737;</div><div class="cert-name">Debt Defense</div><div class="cert-sub">FDCPA Mastery</div></div>
+    <div class="cert-track"><div class="cert-icon">&#127968;</div><div class="cert-name">Tenant Rights</div><div class="cert-sub">CA Civil Code</div></div>
+    <div class="cert-track"><div class="cert-icon">&#9878;</div><div class="cert-name">Small Claims</div><div class="cert-sub">Court Ready</div></div>
+    <div class="cert-track"><div class="cert-icon">&#128106;</div><div class="cert-name">Family Court</div><div class="cert-sub">Pro Per</div></div>
+    <div class="cert-track"><div class="cert-icon">&#128203;</div><div class="cert-name">IRS Defense</div><div class="cert-sub">Tax Rights</div></div>
+    <div class="cert-track"><div class="cert-icon">&#128188;</div><div class="cert-name">Employment</div><div class="cert-sub">Workplace Rights</div></div>
+    <div class="cert-track"><div class="cert-icon">&#128481;</div><div class="cert-name">War Binder™</div><div class="cert-sub">Complete System</div></div>
+  </div>
+  <div class="cert-badge"><span>&#9670;</span><span>Civitas Academy / Certificate of Completion / 2026</span><span>&#9670;</span></div>
+  <div style="margin-top:2rem;"><a href="register.html" class="btn-gold">Start Earning Certifications</a></div>
+</section>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-sub" id="modalSub"></div>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:0.62rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;">Lesson List</div>
+      <div class="lesson-list" id="lessonList"></div>
+    </div>
+    <div class="modal-enroll">
+      <a href="register.html" class="btn-gold">Enroll and Start Learning</a>
+      <div class="modal-cert"><strong>Includes Civitas Certificate</strong><br>Complete all lessons and pass the assessment.</div>
     </div>
   </div>
 </div>
 
+<footer>
+  <div class="footer-logo">Civitas<span>.</span></div>
+  <div class="footer-legal">Civitas Academy is an educational platform. Course content references publicly available statutes, regulations, and court records. Nothing constitutes legal advice. Civitas Legal Document Services is a registered California LDA under B&amp;P Code 6400-6415. &copy; 2026.</div>
+  <div class="footer-right">civitasca.com/academy<br>(916) 490-0063</div>
+</footer>
+
 <script>
-  function startSim() {
-    alert("AI Simulation Loading... Practice your negotiation against a mock property manager.");
-  }
+const courses={credit:{title:'Track 01: Credit Rights and Dispute Mastery',sub:'FCRA / 15 U.S.C. 1681 / CROA — 8 lessons / 4.5 hours / Beginner',lessons:[{num:'01',title:'How your credit report actually works',dur:'28 min',free:true},{num:'02',title:'Reading a credit report like an expert',dur:'35 min',free:true},{num:'03',title:'Your FCRA dispute rights, word for word',dur:'40 min',free:false},{num:'04',title:'How to write a bureau dispute letter that gets results',dur:'45 min',free:false},{num:'05',title:'The 30-day investigation window and what to do if they ignore you',dur:'32 min',free:false},{num:'06',title:'Furnisher demands under FCRA Section 623',dur:'38 min',free:false},{num:'07',title:'Goodwill letters: strategy, tone, and timing',dur:'42 min',free:false},{num:'08',title:'Building your credit profile after disputes resolve',dur:'30 min',free:false}]},debt:{title:'Track 02: Debt Defense and Collector Tactics',sub:'FDCPA / 15 U.S.C. 1692 / CA Rosenthal Act — 7 lessons / 4 hours / Beginner',lessons:[{num:'01',title:'What debt collectors can and cannot do by law',dur:'32 min',free:true},{num:'02',title:'The 30-day validation window and why it matters',dur:'28 min',free:true},{num:'03',title:'How to write a debt validation letter',dur:'40 min',free:false},{num:'04',title:'Zombie debt: what it is and how to kill it',dur:'35 min',free:false},{num:'05',title:'Statute of limitations on debt by state',dur:'30 min',free:false},{num:'06',title:'When to sue a collector for FDCPA violations',dur:'42 min',free:false},{num:'07',title:'California Rosenthal Act: extra protections',dur:'28 min',free:false}]},tenant:{title:'Track 03: Tenant Rights and Landlord Disputes',sub:'CA Civil Code 1940-1954 / CC 1950.5 — 9 lessons / 5 hours / Beginner',lessons:[{num:'01',title:'California tenant rights: the full picture',dur:'38 min',free:true},{num:'02',title:'Security deposits: the 21-day rule and bad faith penalties',dur:'35 min',free:true},{num:'03',title:'Habitability: what your landlord is legally required to maintain',dur:'32 min',free:false},{num:'04',title:'Illegal entry and your right to quiet enjoyment',dur:'28 min',free:false},{num:'05',title:'How to write a habitability demand letter',dur:'40 min',free:false},{num:'06',title:'Retaliation: what it is and how to document it',dur:'30 min',free:false},{num:'07',title:'Notice requirements: 3-day, 30-day, 60-day',dur:'25 min',free:false},{num:'08',title:'AB 1482 rent control and just cause eviction',dur:'35 min',free:false},{num:'09',title:'How to respond to an unlawful detainer',dur:'45 min',free:false}]},smallclaims:{title:'Track 04: Small Claims Court Start to Finish',sub:'CA CCP 116.110 / SC-100 / SC-134 — 10 lessons / 6 hours / Intermediate',lessons:[{num:'01',title:'Is small claims right for your case?',dur:'25 min',free:true},{num:'02',title:'Filing the SC-100 complaint form correctly',dur:'40 min',free:false},{num:'03',title:'Serving the defendant: rules and proof of service',dur:'35 min',free:false},{num:'04',title:'Building your evidence package',dur:'45 min',free:false},{num:'05',title:'Writing your opening statement',dur:'40 min',free:false},{num:'06',title:'Presenting evidence and questioning witnesses',dur:'50 min',free:false},{num:'07',title:'What to do if the other side does not show up',dur:'20 min',free:false},{num:'08',title:'Appeals: SC-140 and when to file',dur:'35 min',free:false},{num:'09',title:'Enforcing a judgment after you win',dur:'40 min',free:false},{num:'10',title:'War Binder for small claims: full checklist',dur:'30 min',free:false}]},family:{title:'Track 05: Divorce and Family Court Pro Per',sub:'CA Family Code / FL-100 / FL-110 / FL-150 — 12 lessons / 7 hours / Intermediate',lessons:[{num:'01',title:'Understanding the California divorce process',dur:'35 min',free:true},{num:'02',title:'Contested vs uncontested: which path is yours',dur:'28 min',free:false},{num:'03',title:'Filing the FL-100 Petition for Dissolution',dur:'45 min',free:false},{num:'04',title:'Serving your spouse and proof of service',dur:'30 min',free:false},{num:'05',title:'The FL-150 Income and Expense Declaration',dur:'40 min',free:false},{num:'06',title:'Child custody: legal vs physical, schedules',dur:'50 min',free:false},{num:'07',title:'Child support calculations in California',dur:'38 min',free:false},{num:'08',title:'Spousal support basics',dur:'32 min',free:false},{num:'09',title:'Community property and asset division',dur:'45 min',free:false},{num:'10',title:'Restraining orders in family court',dur:'35 min',free:false},{num:'11',title:'Finalizing the divorce: Judgment package',dur:'40 min',free:false},{num:'12',title:'Modifying orders after judgment',dur:'30 min',free:false}]},irs:{title:'Track 06: IRS and Tax Preparer Accountability',sub:'IRC 6213 / Form 14157 / CDP Rights — 8 lessons / 4.5 hours / Intermediate',lessons:[{num:'01',title:'Decoding an IRS notice: what they actually mean',dur:'35 min',free:true},{num:'02',title:'Your CDP hearing rights: the most powerful tool most people never use',dur:'40 min',free:false},{num:'03',title:'How to dispute an incorrect IRS assessment',dur:'45 min',free:false},{num:'04',title:'IRS payment plans and currently not collectible status',dur:'38 min',free:false},{num:'05',title:'Filing Form 14157 against a negligent preparer',dur:'40 min',free:false},{num:'06',title:'Amended returns: when and how to file Form 1040-X',dur:'35 min',free:false},{num:'07',title:'IRS appeals: the Office of Appeals process',dur:'42 min',free:false},{num:'08',title:'Innocent spouse relief',dur:'30 min',free:false}]},employment:{title:'Track 07: Employment Rights and Workplace Disputes',sub:'Title VII / ADA / CA FEHA / DLSE — 9 lessons / 5 hours / Intermediate',lessons:[{num:'01',title:'California employment rights overview',dur:'35 min',free:true},{num:'02',title:'Wage theft: how to file a DLSE claim',dur:'40 min',free:false},{num:'03',title:'Discrimination and harassment: documenting your case',dur:'45 min',free:false},{num:'04',title:'Filing an EEOC charge',dur:'38 min',free:false},{num:'05',title:'Wrongful termination: what it actually means legally',dur:'40 min',free:false},{num:'06',title:'FMLA and CFRA: medical leave rights',dur:'32 min',free:false},{num:'07',title:'Whistleblower protections in California',dur:'30 min',free:false},{num:'08',title:'Retaliation claims: documentation and timeline',dur:'35 min',free:false},{num:'09',title:'Right to sue letter and next steps',dur:'28 min',free:false}]},consumer:{title:'Track 08: Consumer Protection and Corporate Accountability',sub:'FTC Act / CA CLRA / Song-Beverly — 7 lessons / 4 hours / Beginner',lessons:[{num:'01',title:"The Consumer Legal Remedies Act: California's most powerful consumer tool",dur:'35 min',free:true},{num:'02',title:'Auto dealer fraud: spot it, document it, fight it',dur:'40 min',free:false},{num:'03',title:'Warranty rights and the Song-Beverly Act',dur:'38 min',free:false},{num:'04',title:'Subscription traps and unauthorized charges',dur:'30 min',free:false},{num:'05',title:'Data breach: your rights and how to act',dur:'35 min',free:false},{num:'06',title:'Filing FTC and CFPB complaints that get results',dur:'32 min',free:false},{num:'07',title:'Corporate fine print: what is and is not enforceable',dur:'40 min',free:false}]},eviction:{title:'Track 09: Eviction Defense',sub:'CA CCP 1161 / UD-105 / AB 1482 — 8 lessons / 4.5 hours / Intermediate',lessons:[{num:'01',title:'Types of eviction notices and what each one means',dur:'30 min',free:true},{num:'02',title:'Filing the UD-105 Answer to unlawful detainer',dur:'45 min',free:false},{num:'03',title:'Habitability as an eviction defense',dur:'38 min',free:false},{num:'04',title:'Retaliatory eviction: how to prove it',dur:'35 min',free:false},{num:'05',title:'Requesting a jury trial in an eviction case',dur:'28 min',free:false},{num:'06',title:'AB 1482 just cause protections: do they apply to you?',dur:'32 min',free:false},{num:'07',title:'Local rent control and tenant protections by city',dur:'35 min',free:false},{num:'08',title:'If you lose: appeal and delay strategies',dur:'30 min',free:false}]},civil:{title:'Track 10: Civil Rights Documentation',sub:'42 U.S.C. 1983 / Bane Act / CFPB Process — 7 lessons / 4 hours / Advanced',lessons:[{num:'01',title:'What is a civil rights violation and do you have one',dur:'35 min',free:true},{num:'02',title:'Section 1983 claims: suing government actors',dur:'45 min',free:false},{num:'03',title:'The Bane Act: California civil rights tool',dur:'38 min',free:false},{num:'04',title:'Building a documentation timeline',dur:'40 min',free:false},{num:'05',title:'Filing DOJ complaints',dur:'32 min',free:false},{num:'06',title:'CFPB complaints: process and outcomes',dur:'30 min',free:false},{num:'07',title:'Pattern and practice: when to escalate',dur:'35 min',free:false}]},probate:{title:'Track 11: Probate, Wills, and Estate Basics',sub:'CA Probate Code / Small Estate Affidavit — 6 lessons / 3.5 hours / Intermediate',lessons:[{num:'01',title:'What happens when someone dies without a will in California',dur:'35 min',free:true},{num:'02',title:'Small estate affidavit: avoid probate under $184,500',dur:'40 min',free:false},{num:'03',title:'Contesting a will: grounds and process',dur:'45 min',free:false},{num:'04',title:'Basic estate planning: what you can do yourself',dur:'38 min',free:false},{num:'05',title:'Trusts: what they are and when you need one',dur:'35 min',free:false},{num:'06',title:'Protecting your assets: beneficiary designations',dur:'30 min',free:false}]},warbinder:{title:'Track 12: The War Binder™ Complete System',sub:'All applicable codes / Cross-track synthesis — 14 lessons / 8 hours / Advanced',lessons:[{num:'01',title:'War Binder orientation: how this system works',dur:'20 min',free:true},{num:'02',title:'Situation mapping: defining your dispute precisely',dur:'35 min',free:true},{num:'03',title:'Identifying every applicable statute',dur:'45 min',free:false},{num:'04',title:'Case law research: finding wins to cite',dur:'50 min',free:false},{num:'05',title:'Building your document set',dur:'55 min',free:false},{num:'06',title:'Evidence organization and exhibit labeling',dur:'40 min',free:false},{num:'07',title:'Writing the demand letter that opens everything',dur:'45 min',free:false},{num:'08',title:'Scripting your opening statement',dur:'50 min',free:false},{num:'09',title:'Anticipating opposition arguments',dur:'40 min',free:false},{num:'10',title:'Witness preparation and question lists',dur:'38 min',free:false},{num:'11',title:'Negotiation strategy before the hearing',dur:'35 min',free:false},{num:'12',title:'Day of court: what to bring, what to say',dur:'45 min',free:false},{num:'13',title:'If you win: enforcing the judgment',dur:'35 min',free:false},{num:'14',title:'If you lose: appeals and next steps',dur:'30 min',free:false}]}};
 
-  function buildPlaybook() {
-    alert("WAR BINDER INITIALIZED:\n\n1. Opening Statement Template Generated\n2. Statute Cheat Sheet Compiled\n3. Evidence Mapping Started\n\nPlease check your Commander Dashboard for review.");
-  }
+function openModal(key){const c=courses[key];if(!c)return;document.getElementById('modalTitle').textContent=c.title;document.getElementById('modalSub').textContent=c.sub;const list=document.getElementById('lessonList');list.innerHTML='';c.lessons.forEach(l=>{const item=document.createElement('div');item.className='lesson-item';item.innerHTML=`<div class="lesson-num">${l.num}</div><div class="lesson-title">${l.title}</div><div class="lesson-dur">${l.dur}</div>${l.free?'<div class="lesson-free">Free</div>':'<div class="lesson-locked">&#128274;</div>'}`;list.appendChild(item);});document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+const scenarios={collector:{situation:'A collector just called me about a debt I do not recognize.',response:[{type:'system',text:'Analyzing situation...'},{type:'statute',text:'APPLICABLE: FDCPA 15 U.S.C. 1692g(b) — Debt Validation Rights'},{type:'response',text:'You have the right to request debt validation in writing within 30 days of first contact.'},{type:'response',text:'Once you send a written validation request, ALL collection activity must stop until they respond.'},{type:'statute',text:'ALSO APPLIES: CA Rosenthal Fair Debt Collection Practices Act'},{type:'response',text:'ACTION: Send a certified mail debt validation letter immediately. Civitas can prepare this for you.'}]},landlord:{situation:'My landlord entered my unit without 24 hours notice.',response:[{type:'system',text:'Analyzing situation...'},{type:'statute',text:'APPLICABLE: CA Civil Code 1954 — Landlord Right of Entry'},{type:'response',text:'California law requires landlords to give at least 24 hours written notice before entry.'},{type:'response',text:'Exceptions are limited to emergencies or abandonment. A routine entry without notice violates CC 1954.'},{type:'statute',text:'ALSO APPLIES: CC 1940.2 — Harassment and Retaliation Prohibition'},{type:'response',text:'ACTION: Document the date, time, and circumstances in writing. Send a written notice to your landlord citing CC 1954.'}]},credit:{situation:'There is a late payment on my credit report that is wrong.',response:[{type:'system',text:'Analyzing situation...'},{type:'statute',text:'APPLICABLE: FCRA 15 U.S.C. 1681i — Dispute Rights'},{type:'response',text:'You have the right to dispute any inaccurate, incomplete, or unverifiable item on your credit report.'},{type:'response',text:'Credit bureaus must investigate within 30 days and correct or delete items they cannot verify.'},{type:'statute',text:'ALSO APPLIES: FCRA 1681s-2(b) — Furnisher Obligations'},{type:'response',text:'ACTION: File a written dispute with the bureau. Civitas prepares FCRA-compliant dispute letters at your direction.'}]},irs:{situation:'I got a notice from the IRS saying I owe money I do not think I owe.',response:[{type:'system',text:'Analyzing situation...'},{type:'statute',text:'APPLICABLE: IRC 6213 — Deficiency Notice Rights / CDP Hearing Rights'},{type:'response',text:'You have the right to dispute an IRS assessment before you are required to pay.'},{type:'response',text:'If you received a Notice of Deficiency (CP3219A), you have 90 days to petition the Tax Court.'},{type:'statute',text:'ALSO APPLIES: IRS Collection Due Process (CDP) Hearing Rights'},{type:'response',text:'ACTION: Do not ignore the notice. Identify the notice number and respond within the deadline. Civitas prepares IRS correspondence.'}]},employer:{situation:'My employer did not pay me for two weeks of overtime.',response:[{type:'system',text:'Analyzing situation...'},{type:'statute',text:'APPLICABLE: CA Labor Code 510 / FLSA — Overtime Rights'},{type:'response',text:'California requires overtime pay at 1.5x for hours over 8 in a day or 40 in a week, and 2x for hours over 12 in a day.'},{type:'response',text:'Unpaid wages carry waiting time penalties equal to your daily rate for up to 30 days.'},{type:'statute',text:'ALSO APPLIES: CA Labor Code 203 — Waiting Time Penalties'},{type:'response',text:'ACTION: File a wage claim with the California Labor Commissioner (DLSE) online. No attorney needed. Civitas can prepare your documentation.'}]},eviction:{situation:'I just received a 3-day notice to pay or quit.',response:[{type:'system',text:'Analyzing situation...'},{type:'statute',text:'APPLICABLE: CA CCP 1161 — Unlawful Detainer / Notice Requirements'},{type:'response',text:'A 3-day notice to pay or quit starts the eviction clock, but it is not an eviction order.'},{type:'response',text:'You have 3 business days to pay the exact amount stated, not including weekends or court holidays.'},{type:'statute',text:'ALSO APPLIES: AB 1482 — Just Cause Eviction / Local Rent Control Ordinances'},{type:'response',text:'ACTION: If you cannot pay, do not ignore it. File your UD-105 Answer if an unlawful detainer is filed. Check if AB 1482 applies to your unit.'}]}};
+
+function loadScenario(key){const s=scenarios[key];if(!s)return;const output=document.getElementById('simOutput');output.innerHTML='';const u=document.createElement('div');u.className='sim-line user';u.textContent='> '+s.situation;output.appendChild(u);let delay=300;s.response.forEach(line=>{setTimeout(()=>{const el=document.createElement('div');el.className='sim-line '+line.type;el.textContent=line.text;output.appendChild(el);output.scrollTop=output.scrollHeight;},delay);delay+=400;});}
+
+function runSim(){const input=document.getElementById('simInput');const text=input.value.trim();if(!text)return;const output=document.getElementById('simOutput');const u=document.createElement('div');u.className='sim-line user';u.textContent='> '+text;output.appendChild(u);input.value='';setTimeout(()=>{const r=document.createElement('div');r.className='sim-line system';r.textContent='Analyzing your situation against federal and California statutes...';output.appendChild(r);setTimeout(()=>{const r2=document.createElement('div');r2.className='sim-line response';r2.textContent='For a full statute-backed analysis, enroll in the relevant Academy track or book a free consultation with Civitas.';output.appendChild(r2);const r3=document.createElement('div');r3.className='sim-line statute';r3.textContent='civitasca.com/register — Free preview lessons available for all 12 tracks.';output.appendChild(r3);output.scrollTop=output.scrollHeight;},800);},500);}
 </script>
-
 </body>
 </html>
