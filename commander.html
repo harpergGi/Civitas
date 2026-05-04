@@ -2,122 +2,1004 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Civitas | Commander Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-  :root { --navy: #0a1628; --gold: #c9a84c; --white: #ffffff; --muted: #8a9bb5; --danger: #e74c3c; --success: #2ecc71; }
-  body { background: #060e1a; color: white; font-family: 'DM Sans', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
-  
-  /* Sidebar */
-  .sidebar { width: 260px; background: var(--navy); border-right: 1px solid rgba(201,168,76,0.2); padding: 2rem; flex-shrink: 0; }
-  .nav-item { padding: 1rem 0; color: var(--muted); cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-  .nav-item:hover { color: var(--gold); padding-left: 5px; }
-  .nav-active { color: var(--gold); font-weight: bold; border-left: 3px solid var(--gold); padding-left: 10px; }
+:root {
+  --navy:#0a1628; --navy-mid:#111f3a; --navy-light:#1a2f52;
+  --gold:#c9a84c; --gold-light:#e8c97a; --gold-dim:rgba(201,168,76,0.12);
+  --white:#fff; --muted:#8a9bb5;
+  --green:#2ecc71; --green-dim:rgba(46,204,113,0.12);
+  --red:#e74c3c; --red-dim:rgba(231,76,60,0.1);
+  --amber:#f39c12;
+  --border:rgba(255,255,255,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#060e1a;font-family:'DM Sans',sans-serif;color:var(--white);display:flex;height:100vh;overflow:hidden;}
 
-  /* Main Content */
-  .main-deck { flex: 1; padding: 3rem; overflow-y: auto; background: linear-gradient(135deg, #060e1a 0%, #0a1628 100%); }
-  .case-card { background: var(--navy); border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 2.5rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-  
-  h1, h2 { font-family: 'Cormorant Garamond', serif; color: var(--gold); margin-top: 0; }
-  h1 { font-size: 2.5rem; letter-spacing: 1px; }
-  
-  .status-badge { background: rgba(231, 76, 60, 0.2); color: var(--danger); padding: 6px 16px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; float: right; }
-  .status-approved { background: rgba(46, 204, 113, 0.2); color: var(--success); }
+/* ── SIDEBAR ── */
+.sidebar{width:240px;background:var(--navy);border-right:1px solid rgba(201,168,76,0.15);display:flex;flex-direction:column;flex-shrink:0;}
+.sb-brand{padding:1.25rem 1.5rem;border-bottom:1px solid rgba(201,168,76,0.1);display:flex;align-items:center;gap:0.5rem;}
+.sb-brand-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--white);}
+.sb-brand-name span{color:var(--gold);}
+.sb-role{font-size:0.55rem;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;margin-left:auto;}
+.sb-nav{padding:1rem 0;flex:1;overflow-y:auto;}
+.sb-section{font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(138,155,181,0.4);padding:0.6rem 1.25rem 0.2rem;}
+.sb-item{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 1.25rem;font-size:0.78rem;color:var(--muted);cursor:pointer;transition:all 0.15s;text-decoration:none;position:relative;}
+.sb-item:hover{color:var(--white);background:rgba(255,255,255,0.03);}
+.sb-item.act{color:var(--gold);background:var(--gold-dim);border-right:2px solid var(--gold);}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.sb-badge{margin-left:auto;background:var(--red);color:var(--white);font-size:0.6rem;font-weight:500;padding:1px 6px;border-radius:10px;}
+.sb-badge.gold{background:var(--gold);color:var(--navy);}
+.sb-footer{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,0.05);}
+.sb-operator{font-size:0.7rem;color:var(--muted);}
+.sb-operator strong{color:var(--white);display:block;font-size:0.8rem;}
+.sb-logout{font-size:0.62rem;color:rgba(231,76,60,0.6);cursor:pointer;margin-top:4px;}
+.sb-logout:hover{color:var(--red);}
 
-  /* Battle Plan Area */
-  .playbook-logic { background: #0d1b2e; padding: 1.5rem; border-radius: 4px; border-left: 4px solid var(--gold); margin: 2rem 0; }
-  .code-hook { color: var(--gold); font-weight: bold; margin-bottom: 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{background:var(--navy-mid);border-bottom:1px solid rgba(201,168,76,0.1);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.topbar-title{font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.topbar-right{display:flex;align-items:center;gap:1rem;}
+.live-pill{display:flex;align-items:center;gap:5px;font-size:0.62rem;color:var(--green);letter-spacing:0.1em;text-transform:uppercase;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.8s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+.notif-btn{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);color:var(--gold);font-size:0.65rem;font-weight:500;letter-spacing:0.1em;padding:4px 10px;cursor:pointer;font-family:'DM Sans',sans-serif;position:relative;}
+.notif-count{position:absolute;top:-6px;right:-6px;background:var(--red);color:var(--white);font-size:0.55rem;font-weight:500;padding:1px 4px;border-radius:8px;}
 
-  textarea { width: 100%; height: 250px; background: #060e1a; color: #d1d1d1; border: 1px solid rgba(201,168,76,0.2); padding: 1.5rem; font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; line-height: 1.6; resize: none; border-radius: 4px; }
-  textarea:focus { outline: none; border-color: var(--gold); }
-  
-  .controls { display: flex; gap: 1.5rem; margin-top: 2.5rem; }
-  .btn { padding: 1rem 2.5rem; border: none; cursor: pointer; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; font-size: 0.75rem; transition: 0.3s; border-radius: 4px; }
-  .btn-gold { background: var(--gold); color: var(--navy); }
-  .btn-gold:hover { background: #b08f3a; transform: translateY(-2px); }
-  .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
-  .btn-outline:hover { background: rgba(201,168,76,0.1); }
-  .btn:disabled { opacity: 0.2; cursor: not-allowed; transform: none !important; }
+.content{flex:1;display:grid;grid-template-columns:320px 1fr;overflow:hidden;}
+
+/* ── CLIENT LIST ── */
+.client-list{background:var(--navy-mid);border-right:1px solid rgba(255,255,255,0.05);display:flex;flex-direction:column;overflow:hidden;}
+.cl-header{padding:1rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+.cl-search{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.78rem;padding:0.5rem 0.75rem;outline:none;}
+.cl-search:focus{border-color:var(--gold);}
+.cl-search::placeholder{color:rgba(138,155,181,0.35);}
+.cl-count{font-size:0.6rem;color:var(--muted);margin-top:0.4rem;letter-spacing:0.08em;}
+.cl-scroll{flex:1;overflow-y:auto;}
+.cl-scroll::-webkit-scrollbar{width:3px;}
+.cl-scroll::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2);}
+.client-card{padding:0.85rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.15s;position:relative;}
+.client-card:hover{background:rgba(255,255,255,0.03);}
+.client-card.selected{background:var(--gold-dim);border-right:2px solid var(--gold);}
+.cc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;}
+.cc-name{font-size:0.82rem;font-weight:500;color:var(--white);}
+.cc-status{font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:2px;}
+.cc-status.active{background:var(--green-dim);color:var(--green);}
+.cc-status.review{background:rgba(243,156,18,0.15);color:var(--amber);}
+.cc-status.new{background:var(--red-dim);color:var(--red);}
+.cc-case{font-size:0.68rem;color:var(--muted);}
+.cc-meta{display:flex;align-items:center;gap:0.5rem;margin-top:4px;}
+.cc-tag{font-size:0.58rem;color:rgba(138,155,181,0.5);}
+.cc-unread{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+
+/* ── CASE PANEL ── */
+.case-panel{display:flex;flex-direction:column;overflow:hidden;}
+.cp-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.07);background:var(--navy-mid);flex-shrink:0;}
+.cp-tab{padding:0.75rem 1.25rem;font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;}
+.cp-tab:hover{color:var(--white);}
+.cp-tab.act{color:var(--gold);border-bottom-color:var(--gold);}
+.cp-body{flex:1;overflow-y:auto;padding:1.25rem;}
+.cp-body::-webkit-scrollbar{width:3px;}
+.cp-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2);}
+
+/* CARDS */
+.card{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.08);padding:1.25rem;margin-bottom:1rem;}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.85rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+.card-title{font-size:0.65rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+.card-action{font-size:0.68rem;color:var(--gold);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;transition:opacity 0.2s;}
+.card-action:hover{opacity:0.7;}
+
+/* PROFILE ROW */
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;}
+.pf{display:flex;flex-direction:column;gap:2px;}
+.pf label{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.pf-val{font-size:0.78rem;color:var(--white);}
+.pf-val.gold{color:var(--gold);font-family:'DM Mono',monospace;}
+
+/* TIMELINE */
+.tl{display:flex;align-items:center;margin:0.5rem 0;}
+.tl-node{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.tl-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:500;}
+.tl-circle.done{background:var(--gold);color:var(--navy);}
+.tl-circle.act{background:rgba(201,168,76,0.15);border:1.5px solid var(--gold);color:var(--gold);}
+.tl-circle.pend{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.2);}
+.tl-lbl{font-size:0.55rem;color:var(--muted);text-align:center;max-width:52px;margin-top:3px;line-height:1.3;}
+.tl-lbl.act-l{color:var(--gold);}
+.tl-lbl.done-l{color:rgba(201,168,76,0.6);}
+.tl-conn{flex:1;height:1.5px;background:rgba(255,255,255,0.06);}
+.tl-conn.done{background:var(--gold);}
+
+/* STAGE SELECTOR */
+.stage-select{display:flex;flex-wrap:wrap;gap:6px;margin-top:0.5rem;}
+.stage-btn{font-size:0.62rem;font-weight:500;letter-spacing:0.08em;padding:4px 10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;}
+.stage-btn:hover{border-color:rgba(201,168,76,0.4);color:var(--white);}
+.stage-btn.current{background:var(--gold-dim);border-color:rgba(201,168,76,0.4);color:var(--gold);}
+
+/* DOCUMENT VAULT */
+.doc-vault{display:flex;flex-direction:column;gap:6px;}
+.doc-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);padding:0.5rem 0.75rem;transition:background 0.15s;}
+.doc-row:hover{background:rgba(255,255,255,0.05);}
+.doc-info{display:flex;align-items:center;gap:0.5rem;}
+.doc-icon{font-size:0.9rem;color:var(--gold);}
+.doc-name{font-size:0.75rem;color:var(--white);}
+.doc-meta{font-size:0.6rem;color:var(--muted);}
+.doc-actions{display:flex;gap:0.4rem;align-items:center;}
+.doc-status{font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:2px 6px;border-radius:2px;}
+.doc-status.uploaded{background:rgba(243,156,18,0.15);color:var(--amber);}
+.doc-status.opened{background:var(--green-dim);color:var(--green);}
+.doc-status.reviewing{background:var(--gold-dim);color:var(--gold);}
+.doc-status.actioned{background:var(--green-dim);color:var(--green);}
+.doc-btn{font-size:0.62rem;color:var(--muted);background:none;border:none;cursor:pointer;padding:2px 6px;font-family:'DM Sans',sans-serif;transition:color 0.15s;}
+.doc-btn:hover{color:var(--gold);}
+.doc-btn.danger:hover{color:var(--red);}
+
+/* UPLOAD AREA */
+.upload-zone{border:1px dashed rgba(201,168,76,0.2);padding:1rem;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;margin-top:0.75rem;}
+.upload-zone:hover{background:rgba(201,168,76,0.03);border-color:rgba(201,168,76,0.4);}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-text{font-size:0.72rem;color:var(--muted);}
+.upload-text strong{color:var(--white);}
+
+/* NOTES / MESSAGES */
+.msg-thread{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;}
+.msg{padding:0.55rem 0.75rem;font-size:0.75rem;line-height:1.5;max-width:88%;}
+.msg.brian{background:var(--gold-dim);color:var(--gold-light);align-self:flex-end;}
+.msg.client{background:rgba(255,255,255,0.04);color:var(--white);align-self:flex-start;}
+.msg-who{font-size:0.58rem;color:var(--muted);margin-bottom:2px;}
+.msg-input-row{display:flex;gap:6px;margin-top:8px;}
+.msg-input{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.75rem;padding:0.45rem 0.7rem;outline:none;}
+.msg-input:focus{border-color:var(--gold);}
+.msg-send{background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.65rem;font-weight:500;letter-spacing:0.08em;padding:0.45rem 0.85rem;cursor:pointer;}
+
+/* ACTION TOOLS */
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.tool-btn{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:0.75rem;cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;text-align:left;}
+.tool-btn:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.04);}
+.tool-btn-icon{font-size:1.1rem;margin-bottom:4px;}
+.tool-btn-label{font-size:0.72rem;font-weight:500;color:var(--white);display:block;}
+.tool-btn-sub{font-size:0.62rem;color:var(--muted);}
+
+/* AI READER */
+.ai-reader{background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);padding:1rem;}
+.ai-reader-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem;}
+.ai-reader-title{font-size:0.65rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);}
+.ai-pulse{display:flex;align-items:center;gap:5px;font-size:0.6rem;color:var(--green);}
+.ai-pulse-dot{width:5px;height:5px;border-radius:50%;background:var(--green);}
+.ai-text{font-size:0.78rem;color:var(--muted);line-height:1.7;margin-bottom:0.75rem;}
+.ai-controls{display:flex;gap:6px;}
+.ai-btn{font-size:0.62rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;transition:all 0.2s;}
+.ai-btn.play{background:var(--gold);color:var(--navy);}
+.ai-btn.stop{background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:var(--red);}
+
+/* PROGRESS BAR */
+.prog-wrap{margin:0.4rem 0;}
+.prog-label{display:flex;justify-content:space-between;font-size:0.62rem;color:var(--muted);margin-bottom:3px;}
+.prog-label span:last-child{color:var(--gold);}
+.prog-bar{background:rgba(255,255,255,0.06);height:4px;border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width 0.8s ease;}
+
+/* STATUS UPDATE TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;padding:0.75rem 1.25rem;font-size:0.75rem;font-weight:500;z-index:999;opacity:0;transition:opacity 0.3s;}
+
+/* NOTIF PANEL */
+.notif-panel{display:none;position:absolute;top:56px;right:0;width:320px;background:var(--navy-mid);border:1px solid rgba(201,168,76,0.15);z-index:200;max-height:400px;overflow-y:auto;}
+.notif-item{padding:0.75rem 1rem;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;}
+.notif-item:hover{background:rgba(255,255,255,0.03);}
+.notif-item.unread{border-left:2px solid var(--gold);}
+.notif-title{font-size:0.75rem;font-weight:500;color:var(--white);margin-bottom:2px;}
+.notif-sub{font-size:0.65rem;color:var(--muted);}
+.notif-time{font-size:0.58rem;color:rgba(138,155,181,0.4);margin-top:2px;}
+
+/* EMPTY STATE */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--muted);text-align:center;padding:2rem;}
+.empty-icon{font-size:2.5rem;margin-bottom:1rem;opacity:0.3;}
+.empty-text{font-size:0.82rem;line-height:1.6;}
+
+/* BUTTONS */
+.btn{font-family:'DM Sans',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.5rem 1rem;cursor:pointer;border:none;transition:all 0.2s;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.12);color:var(--muted);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn-danger{background:var(--red-dim);border:1px solid rgba(231,76,60,0.25);color:var(--red);}
 </style>
 </head>
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
-  <h2 style="font-size: 2rem; margin-bottom: 3rem;">Civitas<span>.</span></h2>
-  <div class="nav-item nav-active">Case Queue</div>
-  <div class="nav-item">Academy Manager</div>
-  <div class="nav-item">Victory Vault</div>
-  <div class="nav-item">System Logs</div>
-  <div class="nav-item" style="margin-top: auto; border: none; color: var(--danger);">Logout</div>
-</div>
-
-<div class="main-deck">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
-    <h1>Commander Dashboard</h1>
-    <div style="text-align: right;">
-        <div style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase;">System Operator</div>
-        <div style="font-size: 1rem; color: var(--white);">Brian Harper</div>
-    </div>
+  <div class="sb-brand">
+    <div class="sb-brand-name">Civitas<span>.</span></div>
+    <div class="sb-role">Commander</div>
   </div>
-  
-  <div class="case-card">
-    <span class="status-badge" id="statusLabel">Awaiting Review</span>
-    <h2>Active Case: Brooklyn H.</h2>
-    <p style="color:var(--muted); font-size: 0.9rem;">Subject: Landlord-Tenant / Illegal Entry & Quiet Enjoyment Breach</p>
-    
-    <div class="playbook-logic">
-      <div class="code-hook">Tactical Intelligence: Phase 1</div>
-      <p style="margin: 0; line-height: 1.6;">Identified multiple breaches of <strong>CA Civil Code 1954</strong> and <strong>Quiet Enjoyment</strong>. Strategy: Force immediate accounting and return of deposit. If non-compliant within 72 hours, escalate to statutory damage notice.</p>
+  <nav class="sb-nav">
+    <div class="sb-section">Operations</div>
+    <div class="sb-item act" onclick="showPanel('cases')"><div class="sb-dot"></div>Case Queue <span class="sb-badge" id="newCaseCount">3</span></div>
+    <div class="sb-item" onclick="showPanel('documents')"><div class="sb-dot"></div>Document Vault <span class="sb-badge gold" id="newDocCount">5</span></div>
+    <div class="sb-item" onclick="showPanel('messages')"><div class="sb-dot"></div>Messages <span class="sb-badge">2</span></div>
+    <div class="sb-item" onclick="showPanel('notifications')"><div class="sb-dot"></div>Notifications</div>
+
+    <div class="sb-section">Tools</div>
+    <div class="sb-item" onclick="showPanel('forms')"><div class="sb-dot"></div>Legal Forms</div>
+    <div class="sb-item" onclick="showPanel('submit')"><div class="sb-dot"></div>Submit on Behalf</div>
+    <div class="sb-item" onclick="showPanel('academy')"><div class="sb-dot"></div>Academy Manager</div>
+
+    <div class="sb-section">Admin</div>
+    <div class="sb-item" onclick="showPanel('clients')"><div class="sb-dot"></div>All Clients</div>
+    <div class="sb-item" onclick="showPanel('billing')"><div class="sb-dot"></div>Billing Overview</div>
+    <div class="sb-item" onclick="showPanel('settings')"><div class="sb-dot"></div>Settings</div>
+  </nav>
+  <div class="sb-footer">
+    <div class="sb-operator">
+      <strong>Brian Harper</strong>
+      System Operator / Civitas
     </div>
-
-    <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Document Staging Area</h3>
-    <textarea id="docEditor">
-RE: NOTICE OF STATUTORY VIOLATION & DEMAND FOR ACCOUNTING
-Property: 123 Main St, Oakdale, CA
-
-Dear Property Management,
-
-Pursuant to CA Civil Code 1954, you are hereby notified that the undocumented entries made into my residence on [Date] constitute a breach of California law regarding tenant privacy and notice. 
-
-Furthermore, as it has been [Number] days since the termination of tenancy, you are in direct violation of CA Civil Code 1950.5(g) regarding the return of security deposits. This letter serves as a formal demand for the immediate return of the full deposit amount of $[Amount]...
-    </textarea>
-
-    <div class="controls">
-      <button class="btn btn-outline" onclick="saveDraft()">Update Draft</button>
-      <button class="btn btn-outline" onclick="pushToClient()" id="pushBtn">Push to Client Portal</button>
-      <button id="executeBtn" class="btn btn-gold" disabled onclick="finalExecution()">Execute (Certified Mail)</button>
-    </div>
+    <div class="sb-logout" onclick="logout()">Sign out</div>
   </div>
 </div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-title">Commander Dashboard / Case Queue</div>
+    <div class="topbar-right" style="position:relative;">
+      <div class="live-pill"><div class="live-dot"></div>Live</div>
+      <button class="notif-btn" onclick="toggleNotif()">
+        Notifications <span class="notif-count" id="notifCount">5</span>
+      </button>
+      <div class="notif-panel" id="notifPanel">
+        <div style="padding:0.75rem 1rem;border-bottom:1px solid rgba(255,255,255,0.07);font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;">Recent Notifications</div>
+        <div class="notif-item unread" onclick="selectClientById('SM-001')">
+          <div class="notif-title">Document uploaded — Sharynne Macon</div>
+          <div class="notif-sub">Credit_Report_May2026.pdf / 2.4 MB</div>
+          <div class="notif-time">2 minutes ago</div>
+        </div>
+        <div class="notif-item unread" onclick="selectClientById('BJ-002')">
+          <div class="notif-title">New client registered — Brooklyn J.</div>
+          <div class="notif-sub">Landlord-tenant dispute / Stage 1</div>
+          <div class="notif-time">18 minutes ago</div>
+        </div>
+        <div class="notif-item unread">
+          <div class="notif-title">Message received — Marcus T.</div>
+          <div class="notif-sub">"Do I need to sign anything before..."</div>
+          <div class="notif-time">1 hour ago</div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-title">Document uploaded — Elena V.</div>
+          <div class="notif-sub">Lease_Agreement.pdf / 890 KB</div>
+          <div class="notif-time">3 hours ago</div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-title">Payment received — Sharynne Macon</div>
+          <div class="notif-sub">$99.00 / Advocate Plan</div>
+          <div class="notif-time">Yesterday</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT: CLIENT LIST + CASE PANEL -->
+  <div class="content">
+
+    <!-- CLIENT LIST -->
+    <div class="client-list">
+      <div class="cl-header">
+        <input type="text" class="cl-search" placeholder="Search clients..." oninput="filterClients(this.value)">
+        <div class="cl-count" id="clientCount">6 active clients</div>
+      </div>
+      <div class="cl-scroll" id="clientScroll">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- CASE PANEL -->
+    <div class="case-panel" id="casePanel">
+
+      <!-- TABS -->
+      <div class="cp-tabs">
+        <div class="cp-tab act" onclick="showTab('overview', this)">Overview</div>
+        <div class="cp-tab" onclick="showTab('documents', this)">Documents</div>
+        <div class="cp-tab" onclick="showTab('messages', this)">Messages</div>
+        <div class="cp-tab" onclick="showTab('tools', this)">Tools</div>
+        <div class="cp-tab" onclick="showTab('timeline', this)">Timeline</div>
+      </div>
+
+      <!-- TAB: OVERVIEW -->
+      <div class="cp-body" id="tab-overview">
+
+        <!-- AI CASE READER -->
+        <div class="ai-reader">
+          <div class="ai-reader-hdr">
+            <div class="ai-reader-title">AI Case Reader</div>
+            <div class="ai-pulse"><div class="ai-pulse-dot"></div>Ready</div>
+          </div>
+          <div class="ai-text" id="aiReadText">
+            Select a client to load their case summary. The AI will read it aloud and provide a plain-language status briefing you can share or play for the client.
+          </div>
+          <div class="ai-controls">
+            <button class="ai-btn play" onclick="readCaseAloud()">&#9654; Read Case Aloud</button>
+            <button class="ai-btn stop" onclick="stopReading()">&#9632; Stop</button>
+          </div>
+        </div>
+
+        <!-- CLIENT PROFILE -->
+        <div class="card" style="margin-top:1rem;">
+          <div class="card-hdr">
+            <div class="card-title">Client Profile</div>
+            <button class="card-action" onclick="editProfile()">Edit</button>
+          </div>
+          <div class="profile-grid" id="profileGrid">
+            <div class="pf"><label>Name</label><div class="pf-val" id="p-name">Select a client</div></div>
+            <div class="pf"><label>Case ID</label><div class="pf-val gold" id="p-caseid">—</div></div>
+            <div class="pf"><label>Phone</label><div class="pf-val" id="p-phone">—</div></div>
+            <div class="pf"><label>Email</label><div class="pf-val" id="p-email">—</div></div>
+            <div class="pf"><label>Plan</label><div class="pf-val" id="p-plan">—</div></div>
+            <div class="pf"><label>Member Since</label><div class="pf-val" id="p-since">—</div></div>
+            <div class="pf"><label>Case Type</label><div class="pf-val" id="p-type">—</div></div>
+            <div class="pf"><label>Next Action</label><div class="pf-val gold" id="p-next">—</div></div>
+          </div>
+        </div>
+
+        <!-- CASE STAGE -->
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Case Stage</div>
+            <button class="card-action" onclick="saveStageUpdate()">Push Update to Client</button>
+          </div>
+          <div class="tl" id="stageTl">
+            <!-- Built by JS -->
+          </div>
+          <div style="font-size:0.65rem;color:var(--muted);margin:0.5rem 0 0.35rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;">Advance Stage</div>
+          <div class="stage-select" id="stageSelect">
+            <!-- Built by JS -->
+          </div>
+          <div class="prog-wrap" style="margin-top:0.75rem;">
+            <div class="prog-label"><span id="progLabel">Investigation Window</span><span id="progVal">—</span></div>
+            <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <!-- QUICK STATS -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem;">
+          <div class="card" style="margin:0;text-align:center;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--gold);" id="statDocs">0</div>
+            <div style="font-size:0.6rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;">Docs Filed</div>
+          </div>
+          <div class="card" style="margin:0;text-align:center;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--white);" id="statDays">0</div>
+            <div style="font-size:0.6rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;">Days Active</div>
+          </div>
+          <div class="card" style="margin:0;text-align:center;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--green);" id="statPct">0%</div>
+            <div style="font-size:0.6rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;">Complete</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TAB: DOCUMENTS -->
+      <div class="cp-body" id="tab-documents" style="display:none;">
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Client Document Vault</div>
+            <span style="font-size:0.62rem;color:var(--muted);">Isolated per client. Nothing shared.</span>
+          </div>
+          <div style="font-size:0.62rem;color:var(--muted);font-weight:500;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;">Uploaded by Client</div>
+          <div class="doc-vault" id="clientUploads">
+            <div style="font-size:0.75rem;color:var(--muted);padding:0.5rem 0;">Select a client to view their uploaded documents.</div>
+          </div>
+
+          <div style="font-size:0.62rem;color:var(--muted);font-weight:500;letter-spacing:0.1em;text-transform:uppercase;margin:1rem 0 0.5rem;">Filed by Civitas</div>
+          <div class="doc-vault" id="civitatsDocs">
+          </div>
+
+          <div class="upload-zone" style="margin-top:1rem;">
+            <input type="file" multiple onchange="handleCommanderUpload(this)">
+            <div class="upload-text"><strong>Upload document to client vault</strong><br>Drag or click to add a filed document</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: MESSAGES -->
+      <div class="cp-body" id="tab-messages" style="display:none;">
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Secure Message Thread</div>
+            <div class="live-pill"><div class="live-dot"></div>Live</div>
+          </div>
+          <div class="msg-thread" id="msgThread">
+            <div style="font-size:0.75rem;color:var(--muted);text-align:center;padding:1rem;">Select a client to load their message thread.</div>
+          </div>
+          <div class="msg-input-row">
+            <input type="text" class="msg-input" id="msgInput" placeholder="Message this client...">
+            <button class="msg-send" onclick="sendMessage()">Send</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: TOOLS -->
+      <div class="cp-body" id="tab-tools" style="display:none;">
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Case Action Tools</div>
+            <span style="font-size:0.62rem;color:var(--muted);">Actions push status to client portal</span>
+          </div>
+          <div class="tools-grid">
+            <button class="tool-btn" onclick="useTool('SC-100 Small Claims')">
+              <div class="tool-btn-icon">📋</div>
+              <span class="tool-btn-label">File SC-100</span>
+              <span class="tool-btn-sub">Small Claims Court</span>
+            </button>
+            <button class="tool-btn" onclick="useTool('FCRA Section 611 Dispute')">
+              <div class="tool-btn-icon">📨</div>
+              <span class="tool-btn-label">Credit Dispute</span>
+              <span class="tool-btn-sub">FCRA Section 611</span>
+            </button>
+            <button class="tool-btn" onclick="useTool('FDCPA Debt Validation')">
+              <div class="tool-btn-icon">🛡️</div>
+              <span class="tool-btn-label">Debt Validation</span>
+              <span class="tool-btn-sub">FDCPA Section 809</span>
+            </button>
+            <button class="tool-btn" onclick="useTool('Goodwill Adjustment Letter')">
+              <div class="tool-btn-icon">✉️</div>
+              <span class="tool-btn-label">Goodwill Letter</span>
+              <span class="tool-btn-sub">Creditor adjustment</span>
+            </button>
+            <button class="tool-btn" onclick="useTool('Demand Letter - Security Deposit')">
+              <div class="tool-btn-icon">🏠</div>
+              <span class="tool-btn-label">Deposit Demand</span>
+              <span class="tool-btn-sub">CA CC 1950.5</span>
+            </button>
+            <button class="tool-btn" onclick="useTool('IRS Form 14157 - Preparer Negligence')">
+              <div class="tool-btn-icon">📑</div>
+              <span class="tool-btn-label">IRS Form 14157</span>
+              <span class="tool-btn-sub">Preparer negligence</span>
+            </button>
+            <button class="tool-btn" onclick="useTool('Certified Mail Authorization')">
+              <div class="tool-btn-icon">📮</div>
+              <span class="tool-btn-label">Certified Mail</span>
+              <span class="tool-btn-sub">Authorize and send</span>
+            </button>
+            <button class="tool-btn" onclick="useTool('CFPB Complaint Filing')">
+              <div class="tool-btn-icon">⚖️</div>
+              <span class="tool-btn-label">CFPB Complaint</span>
+              <span class="tool-btn-sub">File on behalf</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TOOL ACTION AREA -->
+        <div class="card" id="toolActionArea" style="display:none;">
+          <div class="card-hdr">
+            <div class="card-title" id="toolActionTitle">Tool</div>
+            <button class="card-action" onclick="document.getElementById('toolActionArea').style.display='none'">Close</button>
+          </div>
+          <textarea id="toolDoc" style="width:100%;height:220px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Mono',monospace;font-size:0.78rem;padding:0.75rem;outline:none;resize:none;line-height:1.6;" placeholder="Document will load here for review and editing before filing..."></textarea>
+          <div style="display:flex;gap:0.5rem;margin-top:0.75rem;">
+            <button class="btn btn-gold" onclick="executeToolAction()">Mark as Filed and Push to Client</button>
+            <button class="btn btn-outline" onclick="saveToolDraft()">Save Draft</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: TIMELINE -->
+      <div class="cp-body" id="tab-timeline" style="display:none;">
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Case Activity Log</div>
+          </div>
+          <div id="activityLog" style="display:flex;flex-direction:column;gap:0;">
+            <div style="font-size:0.75rem;color:var(--muted);text-align:center;padding:1rem;">Select a client to view their activity log.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end case-panel -->
+  </div><!-- end content -->
+</div><!-- end main -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <script>
-  function saveDraft() {
-    alert("Draft updated in the database.");
+// ══════════════════════════════════════
+// SUPABASE CONFIG — replace with your keys
+// ══════════════════════════════════════
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+let supabase_client = null;
+try {
+  supabase_client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} catch(e) {
+  console.log('Supabase not configured yet — running in demo mode');
+}
+
+// ══════════════════════════════════════
+// DEMO DATA — replaced by Supabase queries once connected
+// ══════════════════════════════════════
+const clients = [
+  {
+    id: 'SM-001', name: 'Sharynne Macon', phone: '(916) 555-0182',
+    email: 's.macon@email.com', plan: 'Advocate $99/mo',
+    since: 'Mar 12, 2026', type: 'Credit Dispute', next: 'May 13, 2026',
+    stage: 2, pct: 65, days: 52, docs: 5,
+    status: 'active', unread: true,
+    uploads: [
+      { name: 'Credit_Report_May2026.pdf', size: '2.4 MB', date: 'May 3', status: 'uploaded' },
+      { name: 'TCU_Statement.pdf', size: '890 KB', date: 'Apr 28', status: 'reviewing' }
+    ],
+    civitatsDocs: [
+      { name: 'Experian_Dispute_Letter.pdf', size: '140 KB', date: 'Apr 11', status: 'actioned' },
+      { name: 'Equifax_Dispute_Letter.pdf', size: '138 KB', date: 'Apr 11', status: 'actioned' },
+      { name: 'FCRA_611_Notice.pdf', size: '95 KB', date: 'Apr 11', status: 'actioned' }
+    ],
+    messages: [
+      { from: 'brian', text: 'Sharynne, your Experian and Equifax disputes have been filed. 30-day window opened April 11.', time: 'Apr 28' },
+      { from: 'client', text: 'Do I need to do anything with Equifax separately?', time: 'Apr 28' },
+      { from: 'brian', text: 'Already handled. Both filed same day. You will see both on your timeline.', time: 'Apr 28' }
+    ],
+    activity: [
+      { date: 'May 3', action: 'Client uploaded Credit_Report_May2026.pdf', type: 'upload' },
+      { date: 'Apr 28', action: 'Message sent to client re: Equifax confirmation', type: 'message' },
+      { date: 'Apr 11', action: 'Experian and Equifax dispute letters filed', type: 'filed' },
+      { date: 'Mar 15', action: 'Credit report analysis completed', type: 'review' },
+      { date: 'Mar 12', action: 'Intake consultation completed', type: 'intake' }
+    ],
+    caseText: 'Sharynne Macon, Case CVT-2026-0047. Credit dispute. Stage 3 of 7, bureau investigation active. Experian and Equifax dispute letters were filed on April 11th under FCRA Section 611. The bureaus have 30 days to investigate. We are currently on day 22 of that window. Next action is May 13th when we review the investigation results. 65 percent complete.'
+  },
+  {
+    id: 'BJ-002', name: 'Brooklyn J.', phone: '(510) 555-0341',
+    email: 'b.jones@email.com', plan: 'Essential $39/mo',
+    since: 'May 1, 2026', type: 'Landlord-Tenant', next: 'May 10, 2026',
+    stage: 0, pct: 14, days: 2, docs: 1,
+    status: 'new', unread: true,
+    uploads: [
+      { name: 'Lease_Agreement_2024.pdf', size: '1.2 MB', date: 'May 2', status: 'uploaded' }
+    ],
+    civitatsDocs: [],
+    messages: [
+      { from: 'client', text: 'Hi Brian, I just uploaded my lease. My landlord entered without notice three times.', time: 'May 2' }
+    ],
+    activity: [
+      { date: 'May 2', action: 'Client uploaded Lease_Agreement_2024.pdf', type: 'upload' },
+      { date: 'May 1', action: 'New client registered. Landlord-tenant dispute.', type: 'intake' }
+    ],
+    caseText: 'Brooklyn Jones, new client, Essential plan. Landlord-tenant dispute. Stage 1 of 7, intake consultation pending. Client reports landlord entered property without 24 hour notice on three occasions, in potential violation of California Civil Code 1954. Lease agreement uploaded. Next action May 10th.'
+  },
+  {
+    id: 'MT-003', name: 'Marcus T.', phone: '(213) 555-0987',
+    email: 'm.thomas@email.com', plan: 'Advocate $99/mo',
+    since: 'Apr 1, 2026', type: 'Debt Validation', next: 'May 15, 2026',
+    stage: 3, pct: 55, days: 32, docs: 3,
+    status: 'review', unread: false,
+    uploads: [
+      { name: 'Collector_Letter_Midland.pdf', size: '320 KB', date: 'Apr 5', status: 'opened' }
+    ],
+    civitatsDocs: [
+      { name: 'FDCPA_Validation_Letter.pdf', size: '115 KB', date: 'Apr 10', status: 'actioned' }
+    ],
+    messages: [
+      { from: 'client', text: 'Do I need to sign anything before you send the validation letter?', time: '1 hr ago' },
+      { from: 'brian', text: 'No signature needed. I will send it today and update your portal.', time: '45 min ago' }
+    ],
+    activity: [
+      { date: 'May 3', action: 'Client message received re: validation letter', type: 'message' },
+      { date: 'Apr 10', action: 'FDCPA debt validation letter sent to Midland Credit', type: 'filed' },
+      { date: 'Apr 5', action: 'Client uploaded collector letter', type: 'upload' },
+      { date: 'Apr 1', action: 'Intake completed', type: 'intake' }
+    ],
+    caseText: 'Marcus Thomas, Case DVL-2026-0103. Debt validation matter. Stage 4 of 7 active. FDCPA Section 809 validation letter was sent to Midland Credit Management on April 10th. We are awaiting their response. If they cannot validate the debt, collection activity must cease. 55 percent complete.'
+  }
+];
+
+const stages = ['Consultation','Report Review','Bureau Dispute','Furnisher Contact','Investigation Review','Result Analysis','Case Close'];
+
+let selectedClient = null;
+let currentTab = 'overview';
+let speechSynth = window.speechSynthesis;
+let speaking = false;
+
+// ── INIT ──
+window.addEventListener('DOMContentLoaded', () => {
+  renderClientList(clients);
+  renderTimeline(null);
+  selectClient(clients[0]);
+});
+
+// ── CLIENT LIST ──
+function renderClientList(list) {
+  const scroll = document.getElementById('clientScroll');
+  scroll.innerHTML = '';
+  list.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'client-card' + (selectedClient && selectedClient.id === c.id ? ' selected' : '');
+    div.id = 'cc-' + c.id;
+    div.onclick = () => selectClient(c);
+    div.innerHTML = `
+      <div class="cc-top">
+        <div class="cc-name">${c.name}</div>
+        <div class="cc-status ${c.status}">${c.status}</div>
+      </div>
+      <div class="cc-case">${c.type} / ${stages[c.stage]}</div>
+      <div class="cc-meta">
+        <div class="cc-tag">${c.plan}</div>
+        ${c.unread ? '<div class="cc-unread" title="Unread activity"></div>' : ''}
+      </div>
+    `;
+    scroll.appendChild(div);
+  });
+  document.getElementById('clientCount').textContent = list.length + ' active clients';
+}
+
+function filterClients(q) {
+  const filtered = clients.filter(c =>
+    c.name.toLowerCase().includes(q.toLowerCase()) ||
+    c.type.toLowerCase().includes(q.toLowerCase())
+  );
+  renderClientList(filtered);
+}
+
+function selectClientById(id) {
+  const c = clients.find(x => x.id === id);
+  if (c) selectClient(c);
+  document.getElementById('notifPanel').style.display = 'none';
+}
+
+function selectClient(c) {
+  selectedClient = c;
+  c.unread = false;
+
+  // Highlight in list
+  document.querySelectorAll('.client-card').forEach(el => el.classList.remove('selected'));
+  const card = document.getElementById('cc-' + c.id);
+  if (card) card.classList.add('selected');
+
+  // Profile
+  document.getElementById('p-name').textContent = c.name;
+  document.getElementById('p-caseid').textContent = c.id;
+  document.getElementById('p-phone').textContent = c.phone;
+  document.getElementById('p-email').textContent = c.email;
+  document.getElementById('p-plan').textContent = c.plan;
+  document.getElementById('p-since').textContent = c.since;
+  document.getElementById('p-type').textContent = c.type;
+  document.getElementById('p-next').textContent = c.next;
+
+  // Stats
+  document.getElementById('statDocs').textContent = c.docs;
+  document.getElementById('statDays').textContent = c.days;
+  document.getElementById('statPct').textContent = c.pct + '%';
+
+  // Progress
+  document.getElementById('progFill').style.width = c.pct + '%';
+  document.getElementById('progVal').textContent = c.pct + '% complete';
+
+  // Timeline
+  renderTimeline(c);
+
+  // Stage buttons
+  renderStageButtons(c);
+
+  // AI text
+  document.getElementById('aiReadText').textContent = c.caseText;
+
+  // Documents
+  renderDocuments(c);
+
+  // Messages
+  renderMessages(c);
+
+  // Activity
+  renderActivity(c);
+
+  // Update topbar
+  document.querySelector('.topbar-title').textContent = 'Commander Dashboard / ' + c.name;
+}
+
+// ── TIMELINE ──
+function renderTimeline(c) {
+  const tl = document.getElementById('stageTl');
+  tl.innerHTML = '';
+  const current = c ? c.stage : -1;
+  stages.forEach((s, i) => {
+    const node = document.createElement('div');
+    node.className = 'tl-node';
+    const cls = i < current ? 'done' : i === current ? 'act' : 'pend';
+    const lblCls = i < current ? 'done-l' : i === current ? 'act-l' : '';
+    node.innerHTML = `
+      <div class="tl-circle ${cls}">${i < current ? '✓' : i + 1}</div>
+      <div class="tl-lbl ${lblCls}">${s}</div>
+    `;
+    tl.appendChild(node);
+    if (i < stages.length - 1) {
+      const conn = document.createElement('div');
+      conn.className = 'tl-conn' + (i < current ? ' done' : '');
+      tl.appendChild(conn);
+    }
+  });
+}
+
+function renderStageButtons(c) {
+  const area = document.getElementById('stageSelect');
+  area.innerHTML = '';
+  stages.forEach((s, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'stage-btn' + (i === c.stage ? ' current' : '');
+    btn.textContent = (i + 1) + '. ' + s;
+    btn.onclick = () => {
+      if (!selectedClient) return;
+      selectedClient.stage = i;
+      selectedClient.pct = Math.round(((i + 1) / stages.length) * 100);
+      renderTimeline(selectedClient);
+      renderStageButtons(selectedClient);
+      document.getElementById('progFill').style.width = selectedClient.pct + '%';
+      document.getElementById('progVal').textContent = selectedClient.pct + '% complete';
+      document.getElementById('statPct').textContent = selectedClient.pct + '%';
+      showToast('Stage updated. Click "Push Update to Client" to notify them.', '#c9a84c');
+    };
+    area.appendChild(btn);
+  });
+}
+
+// ── DOCUMENTS ──
+function renderDocuments(c) {
+  const uploads = document.getElementById('clientUploads');
+  const civDocs = document.getElementById('civitatsDocs');
+
+  uploads.innerHTML = '';
+  if (c.uploads.length === 0) {
+    uploads.innerHTML = '<div style="font-size:0.75rem;color:var(--muted);padding:0.5rem 0;">No documents uploaded yet.</div>';
+  } else {
+    c.uploads.forEach(d => {
+      uploads.appendChild(makeDocRow(d, true));
+    });
   }
 
-  function pushToClient() {
-    const btn = document.getElementById('pushBtn');
-    const status = document.getElementById('statusLabel');
-    
-    btn.innerText = "Pushed to Portal";
-    btn.disabled = true;
-    status.innerText = "Awaiting Client Consent";
-    status.classList.add('status-approved'); // Simplified for visual feedback
-    
-    alert("Battle Plan pushed to Brooklyn H. The 'Execute' button will unlock once the client clicks 'Consented' in their portal.");
-    
-    // Simulate client approval for demo purposes
-    setTimeout(() => {
-        if(confirm("SIMULATION: Client Brooklyn H. has reviewed and clicked 'CONSENT TO EXECUTE'. Unlock Commander override?")) {
-            document.getElementById('executeBtn').disabled = false;
-            status.innerText = "Execution Authorized";
-        }
-    }, 3000);
+  civDocs.innerHTML = '';
+  if (c.civitatsDocs.length === 0) {
+    civDocs.innerHTML = '<div style="font-size:0.75rem;color:var(--muted);padding:0.5rem 0;">No documents filed yet.</div>';
+  } else {
+    c.civitatsDocs.forEach(d => civDocs.appendChild(makeDocRow(d, false)));
   }
+}
 
-  function finalExecution() {
-    alert("COMMAND EXECUTED. Document is being processed for Certified Mail delivery with Return Receipt.");
+function makeDocRow(d, isClientUpload) {
+  const row = document.createElement('div');
+  row.className = 'doc-row';
+  row.innerHTML = `
+    <div class="doc-info">
+      <span class="doc-icon">📄</span>
+      <div>
+        <div class="doc-name">${d.name}</div>
+        <div class="doc-meta">${d.size} / ${d.date}</div>
+      </div>
+    </div>
+    <div class="doc-actions">
+      <div class="doc-status ${d.status}">${d.status}</div>
+      <button class="doc-btn" onclick="openDoc('${d.name}', this)">Open</button>
+      <button class="doc-btn" onclick="downloadDoc('${d.name}')">Download</button>
+    </div>
+  `;
+  return row;
+}
+
+function openDoc(name, btn) {
+  // Mark as opened and notify client
+  const row = btn.closest('.doc-row');
+  const statusEl = row.querySelector('.doc-status');
+  if (statusEl.textContent === 'uploaded') {
+    statusEl.textContent = 'opened';
+    statusEl.className = 'doc-status opened';
+    // Update in client's data
+    if (selectedClient) {
+      const doc = selectedClient.uploads.find(d => d.name === name);
+      if (doc) doc.status = 'opened';
+      logActivity('Brian opened ' + name);
+    }
+    showToast('Document opened. Client notified that you are reviewing it.', '#2ecc71');
   }
+  showToast('Opening ' + name + '...', '#c9a84c');
+}
+
+function downloadDoc(name) {
+  showToast('Downloading ' + name + '...', '#c9a84c');
+}
+
+function handleCommanderUpload(input) {
+  if (!selectedClient) { showToast('Select a client first.', '#e74c3c'); return; }
+  Array.from(input.files).forEach(f => {
+    const size = f.size > 1048576 ? (f.size/1048576).toFixed(1)+' MB' : (f.size/1024).toFixed(0)+' KB';
+    const doc = { name: f.name, size, date: 'Today', status: 'actioned' };
+    selectedClient.civitatsDocs.push(doc);
+    selectedClient.docs++;
+    document.getElementById('statDocs').textContent = selectedClient.docs;
+    logActivity('Brian uploaded ' + f.name + ' to client vault');
+  });
+  renderDocuments(selectedClient);
+  showToast('Document added to ' + selectedClient.name + "'s vault.", '#2ecc71');
+}
+
+// ── MESSAGES ──
+function renderMessages(c) {
+  const thread = document.getElementById('msgThread');
+  thread.innerHTML = '';
+  c.messages.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'msg ' + (m.from === 'brian' ? 'brian' : 'client');
+    div.innerHTML = `<div class="msg-who">${m.from === 'brian' ? 'Brian / Civitas' : c.name} · ${m.time}</div>${m.text}`;
+    thread.appendChild(div);
+  });
+  thread.scrollTop = thread.scrollHeight;
+}
+
+function sendMessage() {
+  const input = document.getElementById('msgInput');
+  const text = input.value.trim();
+  if (!text || !selectedClient) return;
+  const time = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  selectedClient.messages.push({ from: 'brian', text, time });
+  renderMessages(selectedClient);
+  input.value = '';
+  logActivity('Message sent to ' + selectedClient.name);
+  showToast('Message sent. Client will be notified by text and email.', '#2ecc71');
+
+  // Supabase insert when connected
+  if (supabase_client) {
+    supabase_client.from('messages').insert({
+      client_id: selectedClient.id,
+      from_brian: true,
+      text,
+      created_at: new Date().toISOString()
+    });
+  }
+}
+
+// ── ACTIVITY LOG ──
+function renderActivity(c) {
+  const log = document.getElementById('activityLog');
+  log.innerHTML = '';
+  const typeColors = { upload:'#c9a84c', message:'#8a9bb5', filed:'#2ecc71', review:'#3498db', intake:'#9b59b6' };
+  c.activity.forEach(a => {
+    const item = document.createElement('div');
+    item.style.cssText = 'display:flex;align-items:flex-start;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);';
+    item.innerHTML = `
+      <div style="width:8px;height:8px;border-radius:50%;background:${typeColors[a.type]||'#8a9bb5'};flex-shrink:0;margin-top:5px;"></div>
+      <div>
+        <div style="font-size:0.75rem;color:var(--white);">${a.action}</div>
+        <div style="font-size:0.6rem;color:var(--muted);margin-top:1px;">${a.date}</div>
+      </div>
+    `;
+    log.appendChild(item);
+  });
+}
+
+function logActivity(text) {
+  if (!selectedClient) return;
+  selectedClient.activity.unshift({ date: 'Just now', action: text, type: 'review' });
+  renderActivity(selectedClient);
+}
+
+// ── STAGE UPDATE ──
+function saveStageUpdate() {
+  if (!selectedClient) return;
+  const stageName = stages[selectedClient.stage];
+  logActivity('Stage updated to: ' + stageName + '. Client portal updated.');
+  showToast('Client portal updated. ' + selectedClient.name + ' notified by text and email.', '#2ecc71');
+
+  // Supabase update when connected
+  if (supabase_client) {
+    supabase_client.from('cases').update({
+      stage: selectedClient.stage,
+      updated_at: new Date().toISOString()
+    }).eq('client_id', selectedClient.id);
+  }
+}
+
+// ── TOOLS ──
+function useTool(toolName) {
+  document.getElementById('toolActionArea').style.display = 'block';
+  document.getElementById('toolActionTitle').textContent = toolName;
+  const client = selectedClient ? selectedClient.name : '[Client Name]';
+  const templates = {
+    'SC-100 Small Claims': `SC-100 — PLAINTIFF'S CLAIM AND ORDER TO GO TO SMALL CLAIMS COURT\n\nPlaintiff: ${client}\nDefendant: [Defendant Name]\n\nClaim Amount: $[Amount]\n\nBasis of Claim:\nPursuant to California Civil Code Section [applicable code], plaintiff seeks relief for [description of dispute].\n\n[Complete remaining fields per court instructions]`,
+    'FCRA Section 611 Dispute': `RE: FORMAL DISPUTE — FCRA SECTION 611\n\nTo: [Bureau Name] / Dispute Department\nRe: ${client}\n\nPursuant to the Fair Credit Reporting Act, 15 U.S.C. § 1681i, I am disputing the following information which is inaccurate, incomplete, or unverifiable:\n\nAccount: [Account Name / Number]\nReason: [Specific reason]\n\nPlease investigate and correct or delete this item within 30 days.`,
+    'FDCPA Debt Validation': `RE: DEBT VALIDATION REQUEST — FDCPA SECTION 809(b)\n\nTo: [Collection Agency]\nRe: ${client} / Account [Number]\n\nPursuant to the Fair Debt Collection Practices Act, 15 U.S.C. § 1692g(b), I hereby request validation of the alleged debt referenced above.\n\nPlease provide: (1) Verification of the debt; (2) Name and address of original creditor; (3) Proof of licensure to collect in California.\n\nAll collection activity must cease until validation is provided.`
+  };
+  document.getElementById('toolDoc').value = templates[toolName] || `[${toolName}]\n\nClient: ${client}\nDate: ${new Date().toLocaleDateString()}\n\n[Document will be populated here]`;
+}
+
+function executeToolAction() {
+  if (!selectedClient) return;
+  const toolName = document.getElementById('toolActionTitle').textContent;
+  selectedClient.docs++;
+  document.getElementById('statDocs').textContent = selectedClient.docs;
+  selectedClient.civitatsDocs.push({
+    name: toolName.replace(/\s+/g,'-') + '.pdf',
+    size: '120 KB', date: 'Today', status: 'actioned'
+  });
+  logActivity(toolName + ' filed and pushed to client portal');
+  renderDocuments(selectedClient);
+  document.getElementById('toolActionArea').style.display = 'none';
+  showToast(toolName + ' marked as filed. Client portal updated.', '#2ecc71');
+}
+
+function saveToolDraft() {
+  showToast('Draft saved to client vault.', '#c9a84c');
+}
+
+// ── AI CASE READER ──
+function readCaseAloud() {
+  if (!selectedClient) { showToast('Select a client first.', '#e74c3c'); return; }
+  if (!('speechSynthesis' in window)) { showToast('Text-to-speech not supported in this browser.', '#e74c3c'); return; }
+  stopReading();
+  const utt = new SpeechSynthesisUtterance(selectedClient.caseText);
+  utt.rate = 0.88;
+  utt.pitch = 1;
+  const voices = speechSynthesis.getVoices();
+  const pref = voices.find(v => v.name.includes('Google') || v.name.includes('Natural') || v.lang === 'en-US');
+  if (pref) utt.voice = pref;
+  speechSynth.speak(utt);
+  speaking = true;
+  showToast('Reading case aloud...', '#c9a84c');
+}
+
+function stopReading() {
+  speechSynth.cancel();
+  speaking = false;
+}
+
+// ── TABS ──
+function showTab(name, el) {
+  document.querySelectorAll('.cp-body').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.cp-tab').forEach(t => t.classList.remove('act'));
+  document.getElementById('tab-' + name).style.display = 'block';
+  el.classList.add('act');
+  currentTab = name;
+}
+
+// ── NOTIFICATIONS ──
+function toggleNotif() {
+  const panel = document.getElementById('notifPanel');
+  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.notif-btn') && !e.target.closest('.notif-panel')) {
+    document.getElementById('notifPanel').style.display = 'none';
+  }
+});
+
+// ── TOAST ──
+function showToast(text, color) {
+  const t = document.getElementById('toast');
+  t.textContent = text;
+  t.style.background = color || '#c9a84c';
+  t.style.color = (color === '#2ecc71' || color === '#c9a84c') ? '#0a1628' : '#fff';
+  t.style.opacity = '1';
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => { t.style.opacity = '0'; }, 3500);
+}
+
+// ── MISC ──
+function showPanel(name) {
+  document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('act'));
+  event.currentTarget.classList.add('act');
+  document.querySelector('.topbar-title').textContent = 'Commander Dashboard / ' + name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+function editProfile() { showToast('Edit mode — update client details here.', '#c9a84c'); }
+function logout() { if (confirm('Sign out of Commander Dashboard?')) window.location.href = 'index.html'; }
+
+// Load speech voices
+speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
 </script>
 </body>
 </html>
