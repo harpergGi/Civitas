@@ -20,182 +20,156 @@ html,body{height:100%;overflow:hidden;background:var(--navy);}
 body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direction:column;max-width:430px;margin:0 auto;}
 .layer{position:fixed;inset:0;max-width:430px;margin:0 auto;display:none;flex-direction:column;background:var(--navy);z-index:10;}
 .layer.visible{display:flex;}
-
-/* LOADING */
 #loading{align-items:center;justify-content:center;z-index:100;}
-.ld-logo{font-family:‘Cormorant Garamond’,serif;font-size:2.5rem;font-weight:600;color:var(–white);letter-spacing:0.08em;margin-bottom:0.75rem;}
-.ld-logo span{color:var(–gold);}
-.ld-dot{width:6px;height:6px;border-radius:50%;background:var(–gold);animation:ldot 1.2s ease infinite;}
+.ld-logo{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;color:var(--white);letter-spacing:0.08em;margin-bottom:0.75rem;}
+.ld-logo span{color:var(--gold);}
+.ld-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:ldot 1.2s ease infinite;}
 @keyframes ldot{0%,80%,100%{opacity:0.2;}40%{opacity:1;}}
-
-/* ONBOARDING */
 #onboarding{overflow:hidden;}
 .ob-slides{display:flex;transition:transform 0.4s ease;height:100%;}
 .ob-slide{min-width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 2rem 10rem;text-align:center;}
 .ob-mark{margin-bottom:1.5rem;}
-.ob-wordmark{font-family:‘Cormorant Garamond’,serif;font-size:2.8rem;font-weight:600;color:var(–white);letter-spacing:0.06em;margin-bottom:0.25rem;}
-.ob-wordmark span{color:var(–gold);}
-.ob-by{font-size:0.62rem;color:var(–muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1.75rem;}
-.ob-tagline{font-family:‘Cormorant Garamond’,serif;font-size:1.5rem;font-weight:300;color:var(–white);line-height:1.4;margin-bottom:0.85rem;}
-.ob-tagline em{font-style:italic;color:var(–gold-light);}
-.ob-body{font-size:0.8rem;color:var(–muted);line-height:1.7;max-width:290px;}
+.ob-wordmark{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:var(--white);letter-spacing:0.06em;margin-bottom:0.25rem;}
+.ob-wordmark span{color:var(--gold);}
+.ob-by{font-size:0.62rem;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1.75rem;}
+.ob-tagline{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--white);line-height:1.4;margin-bottom:0.85rem;}
+.ob-tagline em{font-style:italic;color:var(--gold-light);}
+.ob-body{font-size:0.8rem;color:var(--muted);line-height:1.7;max-width:290px;}
 .ob-icon{font-size:3rem;margin-bottom:1rem;}
-.ob-title{font-family:‘Cormorant Garamond’,serif;font-size:1.75rem;font-weight:600;color:var(–white);margin-bottom:0.6rem;}
-.ob-desc{font-size:0.8rem;color:var(–muted);line-height:1.7;max-width:280px;}
+.ob-title{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:600;color:var(--white);margin-bottom:0.6rem;}
+.ob-desc{font-size:0.8rem;color:var(--muted);line-height:1.7;max-width:280px;}
 .ob-dots{display:flex;gap:6px;margin-top:1.5rem;}
 .ob-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);transition:all 0.3s;}
-.ob-dot.act{background:var(–gold);width:18px;border-radius:3px;}
-.ob-nav{position:absolute;bottom:0;left:0;right:0;padding:1.25rem 1.75rem calc(1.25rem + var(–safe-bottom));display:flex;flex-direction:column;gap:0.6rem;}
-.btn-gold{background:var(–gold);color:var(–navy);border:none;padding:0.85rem;font-family:‘DM Sans’,sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;width:100%;}
-.btn-outline{background:transparent;color:var(–muted);border:1px solid rgba(255,255,255,0.1);padding:0.85rem;font-family:‘DM Sans’,sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;width:100%;}
-.btn-text{background:none;border:none;color:rgba(138,155,181,0.45);font-family:‘DM Sans’,sans-serif;font-size:0.7rem;cursor:pointer;padding:0.4rem;letter-spacing:0.08em;}
-
-/* AUTH */
+.ob-dot.act{background:var(--gold);width:18px;border-radius:3px;}
+.ob-nav{position:absolute;bottom:0;left:0;right:0;padding:1.25rem 1.75rem calc(1.25rem + var(--safe-bottom));display:flex;flex-direction:column;gap:0.6rem;}
+.btn-gold{background:var(--gold);color:var(--navy);border:none;padding:0.85rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;width:100%;}
+.btn-outline{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.1);padding:0.85rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;width:100%;}
+.btn-text{background:none;border:none;color:rgba(138,155,181,0.45);font-family:'DM Sans',sans-serif;font-size:0.7rem;cursor:pointer;padding:0.4rem;letter-spacing:0.08em;}
 #auth{overflow-y:auto;}
-.auth-wrap{padding:calc(var(–safe-top) + 1.25rem) 1.75rem calc(1.25rem + var(–safe-bottom));}
-.auth-back{background:none;border:none;color:var(–muted);font-family:‘DM Sans’,sans-serif;font-size:0.7rem;cursor:pointer;margin-bottom:1.25rem;letter-spacing:0.06em;}
-.auth-logo{font-family:‘Cormorant Garamond’,serif;font-size:1.3rem;font-weight:600;color:var(–white);margin-bottom:1rem;}
-.auth-logo span{color:var(–gold);}
+.auth-wrap{padding:calc(var(--safe-top) + 1.25rem) 1.75rem calc(1.25rem + var(--safe-bottom));}
+.auth-back{background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.7rem;cursor:pointer;margin-bottom:1.25rem;letter-spacing:0.06em;}
+.auth-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--white);margin-bottom:1rem;}
+.auth-logo span{color:var(--gold);}
 .auth-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:1.25rem;}
-.auth-tab{flex:1;padding:0.55rem;font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:‘DM Sans’,sans-serif;transition:all 0.2s;}
-.auth-tab.act{color:var(–gold);border-bottom-color:var(–gold);}
-.auth-hed{font-family:‘Cormorant Garamond’,serif;font-size:1.8rem;font-weight:300;color:var(–white);margin-bottom:0.25rem;}
-.auth-sub{font-size:0.72rem;color:var(–muted);margin-bottom:1.5rem;line-height:1.5;}
+.auth-tab{flex:1;padding:0.55rem;font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.auth-tab.act{color:var(--gold);border-bottom-color:var(--gold);}
+.auth-hed{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:0.25rem;}
+.auth-sub{font-size:0.72rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.5;}
 .fg{display:flex;flex-direction:column;gap:0.25rem;margin-bottom:0.8rem;}
-.fg label{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(–muted);}
-.fg input{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(–white);font-family:‘DM Sans’,sans-serif;font-size:0.82rem;padding:0.7rem;outline:none;transition:border-color 0.2s;width:100%;}
-.fg input:focus{border-color:var(–gold);}
+.fg label{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+.fg input{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.7rem;outline:none;transition:border-color 0.2s;width:100%;}
+.fg input:focus{border-color:var(--gold);}
 .fg input::placeholder{color:rgba(138,155,181,0.28);}
-.auth-submit{width:100%;background:var(–gold);color:var(–navy);border:none;font-family:‘DM Sans’,sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.88rem;cursor:pointer;margin-top:0.4rem;transition:background 0.2s;}
+.auth-submit{width:100%;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.88rem;cursor:pointer;margin-top:0.4rem;transition:background 0.2s;}
 .auth-submit:disabled{opacity:0.5;cursor:not-allowed;}
-.auth-err{font-size:0.7rem;color:var(–red);padding:0.55rem 0.7rem;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);margin-bottom:0.7rem;display:none;}
-.auth-ok{font-size:0.7rem;color:var(–green);padding:0.55rem 0.7rem;background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.2);margin-bottom:0.7rem;display:none;}
-.auth-link{font-size:0.7rem;color:var(–muted);text-align:center;margin-top:1rem;}
-.auth-link a{color:var(–gold);cursor:pointer;}
-.auth-forgot{font-size:0.62rem;color:var(–muted);text-align:right;cursor:pointer;margin-top:-0.4rem;margin-bottom:0.7rem;}
-
-/* Plan cards */
-.plan-lbl{font-size:0.58rem;color:var(–muted);font-weight:500;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;margin-top:0.75rem;}
+.auth-err{font-size:0.7rem;color:var(--red);padding:0.55rem 0.7rem;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);margin-bottom:0.7rem;display:none;}
+.auth-ok{font-size:0.7rem;color:var(--green);padding:0.55rem 0.7rem;background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.2);margin-bottom:0.7rem;display:none;}
+.auth-link{font-size:0.7rem;color:var(--muted);text-align:center;margin-top:1rem;}
+.auth-link a{color:var(--gold);cursor:pointer;}
+.auth-forgot{font-size:0.62rem;color:var(--muted);text-align:right;cursor:pointer;margin-top:-0.4rem;margin-bottom:0.7rem;}
+.plan-lbl{font-size:0.58rem;color:var(--muted);font-weight:500;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;margin-top:0.75rem;}
 .plan-cards{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.75rem;}
 .plan-card{border:1px solid rgba(255,255,255,0.07);padding:0.75rem;cursor:pointer;transition:all 0.15s;position:relative;}
-.plan-card.sel{border-color:var(–gold);background:var(–gold-dim);}
+.plan-card.sel{border-color:var(--gold);background:var(--gold-dim);}
 .pc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.15rem;}
-.pc-name{font-size:0.76rem;font-weight:500;color:var(–white);}
-.pc-price{font-family:‘Cormorant Garamond’,serif;font-size:1.05rem;font-weight:600;color:var(–gold);}
-.pc-desc{font-size:0.62rem;color:var(–muted);}
+.pc-name{font-size:0.76rem;font-weight:500;color:var(--white);}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--gold);}
+.pc-desc{font-size:0.62rem;color:var(--muted);}
 .pc-check{position:absolute;top:0.55rem;right:0.55rem;width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:transparent;}
-.plan-card.sel .pc-check{background:var(–gold);border-color:var(–gold);color:var(–navy);}
+.plan-card.sel .pc-check{background:var(--gold);border-color:var(--gold);color:var(--navy);}
 .plan-note{font-size:0.6rem;color:rgba(138,155,181,0.38);text-align:center;line-height:1.5;margin-bottom:0.75rem;}
-
-/* MAIN APP */
 #app{flex-direction:column;}
-.topbar{background:var(–navy);border-bottom:1px solid rgba(201,168,76,0.12);padding:0.7rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding-top:calc(0.7rem + var(–safe-top));}
+.topbar{background:var(--navy);border-bottom:1px solid rgba(201,168,76,0.12);padding:0.7rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding-top:calc(0.7rem + var(--safe-top));}
 .tb-brand{display:flex;flex-direction:column;}
-.tb-logo{font-family:‘Cormorant Garamond’,serif;font-size:1.25rem;font-weight:600;color:var(–white);letter-spacing:0.04em;line-height:1;}
-.tb-logo span{color:var(–gold);}
-.tb-sub{font-size:0.48rem;color:var(–muted);letter-spacing:0.15em;text-transform:uppercase;}
+.tb-logo{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--white);letter-spacing:0.04em;line-height:1;}
+.tb-logo span{color:var(--gold);}
+.tb-sub{font-size:0.48rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;}
 .tb-right{display:flex;align-items:center;gap:0.55rem;}
 .tb-btn{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.05);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;}
-.tb-dot{position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(–gold);border:1.5px solid var(–navy);}
-.avatar{width:30px;height:30px;border-radius:50%;background:var(–gold-dim);border:1.5px solid rgba(201,168,76,0.35);display:flex;align-items:center;justify-content:center;font-size:0.62rem;font-weight:500;color:var(–gold);cursor:pointer;}
+.tb-dot{position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--gold);border:1.5px solid var(--navy);}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--gold-dim);border:1.5px solid rgba(201,168,76,0.35);display:flex;align-items:center;justify-content:center;font-size:0.62rem;font-weight:500;color:var(--gold);cursor:pointer;}
 .screens{flex:1;overflow:hidden;position:relative;}
 .screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none;padding-bottom:80px;}
 .screen::-webkit-scrollbar{display:none;}
 .screen.active{display:block;}
-.bottom-nav{background:rgba(10,22,40,0.97);border-top:1px solid rgba(201,168,76,0.12);display:flex;align-items:center;justify-content:space-around;padding:0.55rem 0;padding-bottom:calc(0.55rem + var(–safe-bottom));flex-shrink:0;}
+.bottom-nav{background:rgba(10,22,40,0.97);border-top:1px solid rgba(201,168,76,0.12);display:flex;align-items:center;justify-content:space-around;padding:0.55rem 0;padding-bottom:calc(0.55rem + var(--safe-bottom));flex-shrink:0;}
 .nb{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:3px 14px;min-width:56px;}
-.nb .ni{font-size:1.05rem;color:var(–muted);transition:color 0.15s;}
-.nb .nl{font-size:0.5rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:var(–muted);transition:color 0.15s;}
-.nb.active .ni,.nb.active .nl{color:var(–gold);}
-.nb-voice{width:48px;height:48px;border-radius:50%;background:var(–gold);border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;margin-top:-16px;box-shadow:0 4px 18px rgba(201,168,76,0.38);}
-.nb-voice .ni{font-size:0.95rem;color:var(–navy);margin:0;}
-.nb-voice .nl{font-size:0.46rem;color:var(–navy);}
-
-/* HOME */
-.home-hero{padding:1.25rem;background:linear-gradient(to bottom,#060e1a,var(–navy));}
-.h-greet{font-size:0.58rem;color:var(–muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.2rem;}
-.h-name{font-family:‘Cormorant Garamond’,serif;font-size:1.6rem;font-weight:300;color:var(–white);margin-bottom:0.12rem;}
-.h-name em{font-style:italic;color:var(–gold-light);}
-.h-tag{font-size:0.68rem;color:var(–muted);line-height:1.5;}
+.nb .ni{font-size:1.05rem;color:var(--muted);transition:color 0.15s;}
+.nb .nl{font-size:0.5rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:var(--muted);transition:color 0.15s;}
+.nb.active .ni,.nb.active .nl{color:var(--gold);}
+.nb-voice{width:48px;height:48px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;margin-top:-16px;box-shadow:0 4px 18px rgba(201,168,76,0.38);}
+.nb-voice .ni{font-size:0.95rem;color:var(--navy);margin:0;}
+.nb-voice .nl{font-size:0.46rem;color:var(--navy);}
+.home-hero{padding:1.25rem;background:linear-gradient(to bottom,#060e1a,var(--navy));}
+.h-greet{font-size:0.58rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.2rem;}
+.h-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--white);margin-bottom:0.12rem;}
+.h-name em{font-style:italic;color:var(--gold-light);}
+.h-tag{font-size:0.68rem;color:var(--muted);line-height:1.5;}
 .plan-pill{display:inline-flex;align-items:center;font-size:0.55rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;margin-top:0.4rem;}
-.plan-pill.free{background:rgba(138,155,181,0.08);color:var(–muted);border:1px solid rgba(138,155,181,0.18);}
-.plan-pill.paid{background:var(–gold-dim);color:var(–gold);border:1px solid rgba(201,168,76,0.28);}
-
-/* Free CTA block */
-.free-cta{margin:1rem 1.25rem;background:var(–navy-mid);border:1px solid rgba(201,168,76,0.15);padding:1.1rem;}
-.fc-label{font-size:0.58rem;color:var(–gold);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.4rem;}
-.fc-title{font-family:‘Cormorant Garamond’,serif;font-size:1.15rem;color:var(–white);margin-bottom:0.4rem;line-height:1.3;}
-.fc-body{font-size:0.7rem;color:var(–muted);margin-bottom:0.85rem;line-height:1.6;}
-.fc-btn{background:var(–gold);color:var(–navy);border:none;font-family:‘DM Sans’,sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.65rem 1.25rem;cursor:pointer;}
-
-/* Case card */
-.case-card{margin:1rem 1.25rem;background:var(–navy-mid);border:1px solid rgba(201,168,76,0.15);padding:1.1rem;position:relative;overflow:hidden;}
-.case-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(–gold),transparent);}
-.cc-lbl{font-size:0.56rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(–gold);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.35rem;}
-.ldot{width:5px;height:5px;border-radius:50%;background:var(–green);animation:blink 1.8s ease infinite;}
+.plan-pill.free{background:rgba(138,155,181,0.08);color:var(--muted);border:1px solid rgba(138,155,181,0.18);}
+.plan-pill.paid{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(201,168,76,0.28);}
+.free-cta{margin:1rem 1.25rem;background:var(--navy-mid);border:1px solid rgba(201,168,76,0.15);padding:1.1rem;}
+.fc-label{font-size:0.58rem;color:var(--gold);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.4rem;}
+.fc-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--white);margin-bottom:0.4rem;line-height:1.3;}
+.fc-body{font-size:0.7rem;color:var(--muted);margin-bottom:0.85rem;line-height:1.6;}
+.fc-btn{background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.65rem 1.25rem;cursor:pointer;}
+.case-card{margin:1rem 1.25rem;background:var(--navy-mid);border:1px solid rgba(201,168,76,0.15);padding:1.1rem;position:relative;overflow:hidden;}
+.case-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--gold),transparent);}
+.cc-lbl{font-size:0.56rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.35rem;}
+.ldot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.8s ease infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
-.cc-type{font-family:‘Cormorant Garamond’,serif;font-size:1.1rem;font-weight:600;color:var(–white);margin-bottom:0.25rem;}
-.cc-stage{font-size:0.68rem;color:var(–muted);margin-bottom:0.75rem;}
-.cc-stage span{color:var(–gold);}
+.cc-type{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--white);margin-bottom:0.25rem;}
+.cc-stage{font-size:0.68rem;color:var(--muted);margin-bottom:0.75rem;}
+.cc-stage span{color:var(--gold);}
 .mini-tl{display:flex;align-items:center;margin-bottom:0.75rem;}
 .mtn{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:500;flex-shrink:0;}
-.mtn.done{background:var(–gold);color:var(–navy);}
-.mtn.act{background:rgba(201,168,76,0.15);border:1.5px solid var(–gold);color:var(–gold);}
+.mtn.done{background:var(--gold);color:var(--navy);}
+.mtn.act{background:rgba(201,168,76,0.15);border:1.5px solid var(--gold);color:var(--gold);}
 .mtn.pend{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.18);}
 .mtc{flex:1;height:1.5px;background:rgba(255,255,255,0.06);}
-.mtc.done{background:var(–gold);}
+.mtc.done{background:var(--gold);}
 .prog-bar{background:rgba(255,255,255,0.06);height:3px;border-radius:2px;overflow:hidden;margin-bottom:0.35rem;}
-.prog-fill{height:100%;background:var(–gold);border-radius:2px;}
-.prog-lbl{font-size:0.58rem;color:var(–muted);}
-.prog-lbl span{color:var(–gold);}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;}
+.prog-lbl{font-size:0.58rem;color:var(--muted);}
+.prog-lbl span{color:var(--gold);}
 .cc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.05);}
-.cc-next{font-size:0.58rem;color:var(–muted);}
-.cc-next strong{color:var(–white);}
-.view-btn{font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(–gold);background:none;border:1px solid rgba(201,168,76,0.3);padding:3px 9px;cursor:pointer;font-family:‘DM Sans’,sans-serif;}
-
-/* Quick actions */
+.cc-next{font-size:0.58rem;color:var(--muted);}
+.cc-next strong{color:var(--white);}
+.view-btn{font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);background:none;border:1px solid rgba(201,168,76,0.3);padding:3px 9px;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .qa-wrap{padding:0 1.25rem;margin-bottom:0.85rem;}
-.qa-lbl{font-size:0.55rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(–muted);margin-bottom:0.5rem;}
+.qa-lbl{font-size:0.55rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
 .qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.45rem;}
-.qa{background:var(–navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.6rem 0.25rem;text-align:center;cursor:pointer;transition:all 0.15s;position:relative;}
+.qa{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.6rem 0.25rem;text-align:center;cursor:pointer;transition:all 0.15s;position:relative;}
 .qa:hover{border-color:rgba(201,168,76,0.25);}
 .qa-icon{font-size:1rem;margin-bottom:0.2rem;}
-.qa-text{font-size:0.52rem;color:var(–muted);line-height:1.3;}
-.qa-lock{position:absolute;top:3px;right:3px;font-size:0.5rem;color:var(–muted);opacity:0.45;}
-
-/* Section */
+.qa-text{font-size:0.52rem;color:var(--muted);line-height:1.3;}
+.qa-lock{position:absolute;top:3px;right:3px;font-size:0.5rem;color:var(--muted);opacity:0.45;}
 .sec{padding:0 1.25rem;margin-bottom:0.85rem;}
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;}
-.sec-lbl{font-size:0.55rem;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:var(–muted);}
-.sec-link{color:var(–gold);font-size:0.58rem;text-decoration:none;cursor:pointer;background:none;border:none;font-family:‘DM Sans’,sans-serif;}
-
-/* Doc items */
+.sec-lbl{font-size:0.55rem;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);}
+.sec-link{color:var(--gold);font-size:0.58rem;text-decoration:none;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;}
 .doc-item{display:flex;align-items:center;gap:0.55rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
 .doc-item:last-child{border-bottom:none;}
 .dicon{width:30px;height:30px;background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.14);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
 .dinfo{flex:1;}
-.dname{font-size:0.7rem;color:var(–white);margin-bottom:1px;}
-.dmeta{font-size:0.56rem;color:var(–muted);}
+.dname{font-size:0.7rem;color:var(--white);margin-bottom:1px;}
+.dmeta{font-size:0.56rem;color:var(--muted);}
 .dstat{font-size:0.53rem;font-weight:500;padding:1px 5px;border-radius:2px;}
-.dstat.filed{background:rgba(46,204,113,0.1);color:var(–green);}
-.dstat.sent{background:var(–gold-dim);color:var(–gold);}
+.dstat.filed{background:rgba(46,204,113,0.1);color:var(--green);}
+.dstat.sent{background:var(--gold-dim);color:var(--gold);}
 .dstat.review{background:rgba(52,152,219,0.1);color:#3498db;}
-
-/* Course items */
-.ci{background:var(–navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.8rem;margin-bottom:0.45rem;cursor:pointer;display:flex;align-items:flex-start;gap:0.55rem;}
+.ci{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.8rem;margin-bottom:0.45rem;cursor:pointer;display:flex;align-items:flex-start;gap:0.55rem;}
 .ci:hover{border-color:rgba(201,168,76,0.18);}
-.ci-num{font-family:‘Cormorant Garamond’,serif;font-size:1.25rem;font-weight:300;color:rgba(201,168,76,0.28);line-height:1;flex-shrink:0;min-width:24px;}
+.ci-num{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;color:rgba(201,168,76,0.28);line-height:1;flex-shrink:0;min-width:24px;}
 .ci-info{flex:1;}
 .ci-badge{font-size:0.52rem;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;padding:1px 5px;border-radius:2px;display:inline-block;margin-bottom:0.2rem;}
-.ci-title{font-size:0.76rem;font-weight:500;color:var(–white);margin-bottom:0.12rem;}
-.ci-lessons{font-size:0.58rem;color:var(–muted);}
-.ci-arr{color:var(–muted);font-size:0.75rem;margin-top:2px;}
-
-/* VOICE */
+.ci-title{font-size:0.76rem;font-weight:500;color:var(--white);margin-bottom:0.12rem;}
+.ci-lessons{font-size:0.58rem;color:var(--muted);}
+.ci-arr{color:var(--muted);font-size:0.75rem;margin-top:2px;}
 .voice-wrap{display:flex;flex-direction:column;align-items:center;padding:1.75rem 1.5rem 1rem;min-height:100%;}
-.v-title{font-family:‘Cormorant Garamond’,serif;font-size:1.45rem;font-weight:300;color:var(–white);text-align:center;margin-bottom:0.35rem;}
-.v-title em{font-style:italic;color:var(–gold-light);}
-.v-sub{font-size:0.7rem;color:var(–muted);text-align:center;line-height:1.6;margin-bottom:1.5rem;max-width:260px;}
+.v-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);text-align:center;margin-bottom:0.35rem;}
+.v-title em{font-style:italic;color:var(--gold-light);}
+.v-sub{font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:1.5rem;max-width:260px;}
 .mic-wrap{position:relative;margin-bottom:1.1rem;}
 .mic-rings{position:absolute;inset:-26px;display:flex;align-items:center;justify-content:center;pointer-events:none;}
 .mic-ring{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,0.18);animation:rp 2s ease infinite;}
@@ -205,125 +179,110 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
 @keyframes rp{0%,100%{opacity:0.6;transform:scale(1);}50%{opacity:0;transform:scale(1.05);}}
 .mic-ring.on{border-color:rgba(201,168,76,0.5);animation:rf 0.8s ease infinite;}
 @keyframes rf{0%,100%{opacity:0.8;}50%{opacity:0.1;}}
-.mic-btn{width:78px;height:78px;border-radius:50%;background:var(–gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;box-shadow:0 6px 22px rgba(201,168,76,0.32);transition:all 0.3s;}
-.mic-btn.on{background:var(–red);box-shadow:0 6px 22px rgba(231,76,60,0.38);}
+.mic-btn{width:78px;height:78px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;box-shadow:0 6px 22px rgba(201,168,76,0.32);transition:all 0.3s;}
+.mic-btn.on{background:var(--red);box-shadow:0 6px 22px rgba(231,76,60,0.38);}
 .mic-btn svg{width:26px;height:26px;}
-.v-stat{font-size:0.68rem;color:var(–muted);text-align:center;margin-bottom:1.1rem;min-height:17px;}
-.v-stat.active{color:var(–gold);}
+.v-stat{font-size:0.68rem;color:var(--muted);text-align:center;margin-bottom:1.1rem;min-height:17px;}
+.v-stat.active{color:var(--gold);}
 .v-stat.thinking{color:#3498db;}
-.transcript{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:0.75rem;width:100%;max-width:320px;font-size:0.72rem;color:var(–white);line-height:1.6;font-style:italic;display:none;margin-bottom:0.75rem;}
+.transcript{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:0.75rem;width:100%;max-width:320px;font-size:0.72rem;color:var(--white);line-height:1.6;font-style:italic;display:none;margin-bottom:0.75rem;}
 .transcript.show{display:block;}
 .ai-resp{width:100%;max-width:320px;display:none;}
 .ai-resp.show{display:block;}
 .ai-hdr{display:flex;align-items:center;gap:0.4rem;margin-bottom:0.5rem;}
-.ai-icon{width:22px;height:22px;background:var(–gold-dim);border:1px solid rgba(201,168,76,0.28);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;}
-.ai-lbl{font-size:0.55rem;color:var(–gold);letter-spacing:0.1em;text-transform:uppercase;}
-.ai-body{font-size:0.72rem;color:var(–muted);line-height:1.8;background:var(–navy-mid);border:1px solid rgba(201,168,76,0.1);padding:0.8rem;margin-bottom:0.55rem;}
-.ai-body strong{color:var(–white);}
+.ai-icon{width:22px;height:22px;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.28);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;}
+.ai-lbl{font-size:0.55rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;}
+.ai-body{font-size:0.72rem;color:var(--muted);line-height:1.8;background:var(--navy-mid);border:1px solid rgba(201,168,76,0.1);padding:0.8rem;margin-bottom:0.55rem;}
+.ai-body strong{color:var(--white);}
+/* Streaming cursor */
+.ai-body .cursor{display:inline-block;width:2px;height:12px;background:var(--gold);animation:cur 0.8s ease infinite;vertical-align:middle;margin-left:2px;}
+@keyframes cur{0%,100%{opacity:1;}50%{opacity:0;}}
 .ai-btns{display:flex;gap:0.45rem;width:100%;max-width:320px;}
-.ai-btn{flex:1;padding:0.55rem;font-family:‘DM Sans’,sans-serif;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.2s;}
-.ai-btn.play{background:var(–gold);color:var(–navy);}
-.ai-btn.story{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(–muted);}
+.ai-btn{flex:1;padding:0.55rem;font-family:'DM Sans',sans-serif;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.2s;}
+.ai-btn.play{background:var(--gold);color:var(--navy);}
+.ai-btn.story{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--muted);}
 .ai-btn.rst{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:rgba(138,155,181,0.38);}
 .chips-wrap{width:100%;max-width:320px;margin-top:1.1rem;}
-.chips-lbl{font-size:0.55rem;color:var(–muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.45rem;}
+.chips-lbl{font-size:0.55rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.45rem;}
 .chips{display:flex;flex-wrap:wrap;gap:5px;}
-.chip{font-size:0.6rem;padding:4px 8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);color:var(–muted);cursor:pointer;transition:all 0.15s;}
-.chip:hover{border-color:rgba(201,168,76,0.28);color:var(–gold);}
-
-/* DOCUMENTS */
+.chip{font-size:0.6rem;padding:4px 8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.chip:hover{border-color:rgba(201,168,76,0.28);color:var(--gold);}
 .doc-sec{padding:1.25rem;}
-.doc-sec h2{font-family:‘Cormorant Garamond’,serif;font-size:1.35rem;font-weight:300;color:var(–white);margin-bottom:0.2rem;}
-.doc-sec p{font-size:0.68rem;color:var(–muted);margin-bottom:1.1rem;}
+.doc-sec h2{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;color:var(--white);margin-bottom:0.2rem;}
+.doc-sec p{font-size:0.68rem;color:var(--muted);margin-bottom:1.1rem;}
 .upload-zone{border:1px dashed rgba(201,168,76,0.22);padding:1.1rem;text-align:center;margin-bottom:1.1rem;cursor:pointer;position:relative;transition:all 0.2s;}
 .upload-zone:hover{background:rgba(201,168,76,0.03);border-color:rgba(201,168,76,0.45);}
 .upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
 .upload-icon{font-size:1.3rem;margin-bottom:0.25rem;color:rgba(201,168,76,0.38);}
-.upload-txt{font-size:0.68rem;color:var(–muted);}
-.upload-txt strong{color:var(–white);}
-.dg-lbl{font-size:0.55rem;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:var(–muted);margin-bottom:0.35rem;padding-bottom:0.28rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+.upload-txt{font-size:0.68rem;color:var(--muted);}
+.upload-txt strong{color:var(--white);}
+.dg-lbl{font-size:0.55rem;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);margin-bottom:0.35rem;padding-bottom:0.28rem;border-bottom:1px solid rgba(255,255,255,0.05);}
 .doc-list{margin-bottom:1.1rem;}
-
-/* ACADEMY */
-.acad-hero{padding:1.25rem;background:linear-gradient(to bottom,#060e1a,var(–navy));border-bottom:1px solid rgba(255,255,255,0.05);}
-.acad-hero h2{font-family:‘Cormorant Garamond’,serif;font-size:1.45rem;font-weight:300;color:var(–white);margin-bottom:0.28rem;}
-.acad-hero h2 em{font-style:italic;color:var(–gold-light);}
-.acad-hero p{font-size:0.68rem;color:var(–muted);line-height:1.6;}
+.acad-hero{padding:1.25rem;background:linear-gradient(to bottom,#060e1a,var(--navy));border-bottom:1px solid rgba(255,255,255,0.05);}
+.acad-hero h2{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);margin-bottom:0.28rem;}
+.acad-hero h2 em{font-style:italic;color:var(--gold-light);}
+.acad-hero p{font-size:0.68rem;color:var(--muted);line-height:1.6;}
 .course-list{padding:0.85rem 1.25rem;}
-
-/* PROFILE */
 .prof-wrap{padding:1.25rem;}
-.prof-av{width:60px;height:60px;border-radius:50%;background:var(–gold-dim);border:2px solid rgba(201,168,76,0.35);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:500;color:var(–gold);margin:0 auto 0.55rem;}
-.prof-name{font-family:‘Cormorant Garamond’,serif;font-size:1.25rem;font-weight:600;color:var(–white);text-align:center;margin-bottom:0.12rem;}
-.prof-plan{font-size:0.56rem;color:var(–gold);letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin-bottom:1.1rem;}
+.prof-av{width:60px;height:60px;border-radius:50%;background:var(--gold-dim);border:2px solid rgba(201,168,76,0.35);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:500;color:var(--gold);margin:0 auto 0.55rem;}
+.prof-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--white);text-align:center;margin-bottom:0.12rem;}
+.prof-plan{font-size:0.56rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin-bottom:1.1rem;}
 .prof-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.45rem;margin-bottom:0.85rem;}
-.ps{background:var(–navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.6rem;text-align:center;}
-.ps-n{font-family:‘Cormorant Garamond’,serif;font-size:1.3rem;font-weight:600;color:var(–gold);line-height:1;}
-.ps-l{font-size:0.52rem;color:var(–muted);letter-spacing:0.07em;text-transform:uppercase;margin-top:2px;}
-.pcard{background:var(–navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.85rem;margin-bottom:0.6rem;}
-.pcard-title{font-size:0.56rem;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:var(–muted);margin-bottom:0.55rem;}
+.ps{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.6rem;text-align:center;}
+.ps-n{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--gold);line-height:1;}
+.ps-l{font-size:0.52rem;color:var(--muted);letter-spacing:0.07em;text-transform:uppercase;margin-top:2px;}
+.pcard{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.85rem;margin-bottom:0.6rem;}
+.pcard-title{font-size:0.56rem;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);margin-bottom:0.55rem;}
 .pf-row{display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
 .pf-row:last-child{border-bottom:none;}
-.pf-lbl{font-size:0.58rem;color:var(–muted);letter-spacing:0.08em;text-transform:uppercase;}
-.pf-val{font-size:0.7rem;color:var(–white);text-align:right;}
-.pf-val.gold{color:var(–gold);}
-.toggle{width:32px;height:17px;background:var(–gold);border-radius:9px;position:relative;cursor:pointer;flex-shrink:0;}
+.pf-lbl{font-size:0.58rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+.pf-val{font-size:0.7rem;color:var(--white);text-align:right;}
+.pf-val.gold{color:var(--gold);}
+.toggle{width:32px;height:17px;background:var(--gold);border-radius:9px;position:relative;cursor:pointer;flex-shrink:0;}
 .toggle.off{background:rgba(255,255,255,0.08);}
-.toggle::after{content:’’;position:absolute;width:13px;height:13px;border-radius:50%;background:var(–white);top:2px;right:2px;transition:transform 0.2s;}
+.toggle::after{content:'';position:absolute;width:13px;height:13px;border-radius:50%;background:var(--white);top:2px;right:2px;transition:transform 0.2s;}
 .toggle.off::after{transform:translateX(-15px);}
-.signout-btn{width:100%;background:transparent;border:1px solid rgba(231,76,60,0.18);color:rgba(231,76,60,0.55);font-family:‘DM Sans’,sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.65rem;cursor:pointer;margin-top:0.6rem;}
-
-/* STORY PLAYER */
-.story-player{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:0 auto;background:#060e1a;border-top:1px solid rgba(201,168,76,0.18);padding:0.8rem 1.25rem;padding-bottom:calc(0.8rem + var(–safe-bottom));display:none;z-index:100;}
+.signout-btn{width:100%;background:transparent;border:1px solid rgba(231,76,60,0.18);color:rgba(231,76,60,0.55);font-family:'DM Sans',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.65rem;cursor:pointer;margin-top:0.6rem;}
+.story-player{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:0 auto;background:#060e1a;border-top:1px solid rgba(201,168,76,0.18);padding:0.8rem 1.25rem;padding-bottom:calc(0.8rem + var(--safe-bottom));display:none;z-index:100;}
 .story-player.show{display:block;}
-.sp-lbl{font-size:0.52rem;color:var(–gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.28rem;}
-.sp-preface{font-size:0.66rem;color:var(–muted);line-height:1.5;margin-bottom:0.4rem;font-style:italic;display:none;}
+.sp-lbl{font-size:0.52rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.28rem;}
+.sp-preface{font-size:0.66rem;color:var(--muted);line-height:1.5;margin-bottom:0.4rem;font-style:italic;display:none;}
 .sp-preface.show{display:block;}
-.sp-title{font-size:0.75rem;color:var(–white);margin-bottom:0.35rem;font-weight:500;}
+.sp-title{font-size:0.75rem;color:var(--white);margin-bottom:0.35rem;font-weight:500;}
 .sp-prog{background:rgba(255,255,255,0.06);height:2.5px;border-radius:2px;overflow:hidden;margin-bottom:0.35rem;}
-.sp-fill{height:100%;background:var(–gold);border-radius:2px;width:0%;transition:width 0.5s linear;}
+.sp-fill{height:100%;background:var(--gold);border-radius:2px;width:0%;transition:width 0.5s linear;}
 .sp-ctrl{display:flex;align-items:center;gap:0.7rem;}
-.sp-btn{background:none;border:none;color:var(–muted);cursor:pointer;font-size:0.85rem;padding:2px;}
-.sp-play{width:30px;height:30px;border-radius:50%;background:var(–gold);color:var(–navy);font-size:0.75rem;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
-.sp-time{font-family:monospace;font-size:0.58rem;color:var(–muted);margin-left:auto;}
-.sp-x{background:none;border:none;color:var(–muted);cursor:pointer;font-size:0.72rem;margin-left:0.2rem;}
-
-/* UPGRADE WALL */
+.sp-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.85rem;padding:2px;}
+.sp-play{width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:0.75rem;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
+.sp-time{font-family:monospace;font-size:0.58rem;color:var(--muted);margin-left:auto;}
+.sp-x{background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.72rem;margin-left:0.2rem;}
 .uw{position:fixed;inset:0;max-width:430px;margin:0 auto;background:rgba(6,14,26,0.96);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.75rem;}
 .uw.show{display:flex;}
 .uw-icon{font-size:2.2rem;margin-bottom:0.85rem;}
-.uw-title{font-family:‘Cormorant Garamond’,serif;font-size:1.55rem;font-weight:600;color:var(–white);text-align:center;margin-bottom:0.4rem;}
-.uw-body{font-size:0.75rem;color:var(–muted);text-align:center;line-height:1.7;margin-bottom:1.5rem;max-width:270px;}
+.uw-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:600;color:var(--white);text-align:center;margin-bottom:0.4rem;}
+.uw-body{font-size:0.75rem;color:var(--muted);text-align:center;line-height:1.7;margin-bottom:1.5rem;max-width:270px;}
 .uw-plans{display:flex;flex-direction:column;gap:0.5rem;width:100%;max-width:310px;margin-bottom:1.1rem;}
 .uw-plan{border:1px solid rgba(255,255,255,0.07);padding:0.85rem;cursor:pointer;}
-.uw-plan.feat{border-color:var(–gold);background:var(–gold-dim);}
+.uw-plan.feat{border-color:var(--gold);background:var(--gold-dim);}
 .uw-plan-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.18rem;}
-.uw-pname{font-size:0.76rem;font-weight:500;color:var(–white);}
-.uw-pprice{font-family:‘Cormorant Garamond’,serif;font-size:1.05rem;font-weight:600;color:var(–gold);}
-.uw-pdesc{font-size:0.62rem;color:var(–muted);}
-.uw-cta{width:100%;max-width:310px;background:var(–gold);color:var(–navy);border:none;font-family:‘DM Sans’,sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.82rem;cursor:pointer;}
-.uw-skip{background:none;border:none;color:rgba(138,155,181,0.38);font-family:‘DM Sans’,sans-serif;font-size:0.65rem;cursor:pointer;margin-top:0.65rem;letter-spacing:0.07em;}
-
-/* TOAST */
-.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:var(–gold);color:var(–navy);font-size:0.68rem;font-weight:500;padding:0.5rem 1rem;border-radius:18px;z-index:999;opacity:0;transition:opacity 0.3s;white-space:nowrap;pointer-events:none;}
+.uw-pname{font-size:0.76rem;font-weight:500;color:var(--white);}
+.uw-pprice{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--gold);}
+.uw-pdesc{font-size:0.62rem;color:var(--muted);}
+.uw-cta{width:100%;max-width:310px;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.82rem;cursor:pointer;}
+.uw-skip{background:none;border:none;color:rgba(138,155,181,0.38);font-family:'DM Sans',sans-serif;font-size:0.65rem;cursor:pointer;margin-top:0.65rem;letter-spacing:0.07em;}
+.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:0.68rem;font-weight:500;padding:0.5rem 1rem;border-radius:18px;z-index:999;opacity:0;transition:opacity 0.3s;white-space:nowrap;pointer-events:none;}
 .toast.show{opacity:1;}
 </style>
-
 </head>
 <body>
-
-<!-- LOADING -->
 
 <div class="layer visible" id="loading">
   <div class="ld-logo">Civi<span>.</span></div>
   <div class="ld-dot"></div>
 </div>
 
-<!-- ONBOARDING -->
-
 <div class="layer" id="onboarding">
   <div class="ob-slides" id="obSlides">
-    <!-- Slide 1 -->
     <div class="ob-slide">
       <div class="ob-mark">
         <svg viewBox="0 0 100 100" width="72" height="72">
@@ -345,7 +304,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
         <button class="btn-text" onclick="showAuth('signin')">Already have an account? Sign in</button>
       </div>
     </div>
-    <!-- Slide 2 -->
     <div class="ob-slide">
       <div class="ob-icon">🎤</div>
       <div class="ob-title">Speak your situation.</div>
@@ -356,7 +314,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
         <button class="btn-outline" onclick="prevSlide()">Back</button>
       </div>
     </div>
-    <!-- Slide 3 -->
     <div class="ob-slide">
       <div class="ob-icon">⚖️</div>
       <div class="ob-title">Your case. Your documents. Your Academy.</div>
@@ -370,8 +327,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
   </div>
 </div>
 
-<!-- AUTH -->
-
 <div class="layer" id="auth">
   <div class="auth-wrap">
     <button class="auth-back" onclick="showLayer('onboarding')">← Back</button>
@@ -382,7 +337,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
     </div>
     <div id="authErr" class="auth-err"></div>
     <div id="authOk" class="auth-ok"></div>
-    <!-- Sign In -->
     <div id="form-signin">
       <div class="auth-hed">Welcome back.</div>
       <div class="auth-sub">Sign in to your Civi account.</div>
@@ -392,7 +346,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
       <button class="auth-submit" id="si-btn" onclick="signIn()">Sign In</button>
       <div class="auth-link">No account? <a onclick="authTab('register')">Register free</a></div>
     </div>
-    <!-- Register -->
     <div id="form-register" style="display:none;">
       <div class="auth-hed">Create account.</div>
       <div class="auth-sub">Free to start. Upgrade anytime.</div>
@@ -413,7 +366,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
       <button class="auth-submit" id="reg-btn" onclick="register()">Create Account</button>
       <div class="auth-link">Have an account? <a onclick="authTab('signin')">Sign in</a></div>
     </div>
-    <!-- Reset -->
     <div id="form-reset" style="display:none;">
       <div class="auth-hed">Reset password.</div>
       <div class="auth-sub">We will send a reset link to your email.</div>
@@ -423,8 +375,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
     </div>
   </div>
 </div>
-
-<!-- MAIN APP -->
 
 <div class="layer" id="app">
   <div class="topbar">
@@ -440,9 +390,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
       <div class="avatar" id="userAvatar" onclick="switchScreen('profile')">?</div>
     </div>
   </div>
-
   <div class="screens">
-    <!-- HOME -->
     <div class="screen active" id="sc-home">
       <div class="home-hero">
         <div class="h-greet" id="greeting">Good morning</div>
@@ -450,14 +398,12 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
         <div class="h-tag" id="heroTag">Your account is active.</div>
         <div class="plan-pill free" id="planPill">Free Plan</div>
       </div>
-      <!-- Free user CTA -->
       <div class="free-cta" id="freeCta">
         <div class="fc-label">Get Started</div>
         <div class="fc-title">You have recourse.<br>Let's find out what it is.</div>
         <div class="fc-body">Tap Ask Civi to speak your situation. Upgrade to open your full case portal, upload documents, and get real correspondence prepared by Brian Harper.</div>
         <button class="fc-btn" onclick="showUpgrade('Open your first case')">Open a Case</button>
       </div>
-      <!-- Paid case card -->
       <div class="case-card" id="caseCard" style="display:none;">
         <div class="cc-lbl"><div class="ldot"></div>Active Case / Live Updates</div>
         <div class="cc-type">Credit Dispute</div>
@@ -478,7 +424,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
           <button class="view-btn" onclick="toast('Opening full portal...')">View Case</button>
         </div>
       </div>
-      <!-- Quick actions -->
       <div class="qa-wrap">
         <div class="qa-lbl">Quick Access</div>
         <div class="qa-grid">
@@ -488,13 +433,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
           <div class="qa" id="qa-msg" onclick="requirePaid('Secure messaging with Brian')"><div class="qa-icon">💬</div><div class="qa-text">Message Brian</div><div class="qa-lock" id="msgLock">🔒</div></div>
         </div>
       </div>
-      <!-- Academy preview -->
       <div class="sec">
         <div class="sec-hdr"><div class="sec-lbl">Academy Preview</div><button class="sec-link" onclick="switchScreen('academy')">All courses</button></div>
         <div class="ci" onclick="switchScreen('academy')"><div class="ci-num">01</div><div class="ci-info"><div class="ci-badge" style="background:rgba(201,168,76,0.12);color:var(--gold);">Credit Rights</div><div class="ci-title">Credit Dispute Mastery</div><div class="ci-lessons">8 lessons / Free preview</div></div><div class="ci-arr">›</div></div>
         <div class="ci" onclick="switchScreen('academy')"><div class="ci-num">02</div><div class="ci-info"><div class="ci-badge" style="background:rgba(243,156,18,0.12);color:#f39c12;">Debt Defense</div><div class="ci-title">Debt Collector Defense</div><div class="ci-lessons">7 lessons / Free preview</div></div><div class="ci-arr">›</div></div>
       </div>
-      <!-- Paid: recent docs -->
       <div class="sec" id="recentDocs" style="display:none;">
         <div class="sec-hdr"><div class="sec-lbl">Recent Documents</div><button class="sec-link" onclick="switchScreen('documents')">View all</button></div>
         <div class="doc-item"><div class="dicon">📄</div><div class="dinfo"><div class="dname">Experian Dispute Letter</div><div class="dmeta">Filed Apr 11 / Civitas</div></div><div class="dstat filed">Filed</div></div>
@@ -503,7 +446,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
     </div>
 
 ```
-<!-- VOICE -->
 <div class="screen" id="sc-voice">
   <div class="voice-wrap">
     <div class="v-title">Ask <em>Civi.</em></div>
@@ -544,7 +486,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
   </div>
 </div>
 
-<!-- DOCUMENTS -->
 <div class="screen" id="sc-documents">
   <div class="doc-sec">
     <h2>My Documents</h2>
@@ -561,7 +502,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
   </div>
 </div>
 
-<!-- ACADEMY -->
 <div class="screen" id="sc-academy">
   <div class="acad-hero"><h2>Civitas <em>Academy.</em></h2><p>12 course tracks. Every fight everyday Americans face. Free previews on the first two. Full access with any paid plan.</p></div>
   <div class="course-list">
@@ -580,7 +520,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
   </div>
 </div>
 
-<!-- PROFILE -->
 <div class="screen" id="sc-profile">
   <div class="prof-wrap">
     <div class="prof-av" id="profAv">?</div>
@@ -611,8 +550,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
 
   </div>
 
-  <!-- BOTTOM NAV -->
-
   <div class="bottom-nav">
     <button class="nb active" id="nb-home" onclick="switchScreen('home')"><span class="ni">⌂</span><span class="nl">Home</span></button>
     <button class="nb" id="nb-documents" onclick="requirePaid('Document vault')"><span class="ni">📁</span><span class="nl">Docs</span></button>
@@ -621,8 +558,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
     <button class="nb" id="nb-profile" onclick="switchScreen('profile')"><span class="ni">◎</span><span class="nl">Profile</span></button>
   </div>
 </div>
-
-<!-- STORY PLAYER -->
 
 <div class="story-player" id="storyPlayer">
   <div class="sp-lbl">Victory Vault / Case Story</div>
@@ -638,8 +573,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
   </div>
 </div>
 
-<!-- UPGRADE WALL -->
-
 <div class="uw" id="uw">
   <div class="uw-icon">🔒</div>
   <div class="uw-title" id="uwTitle">Unlock this feature</div>
@@ -653,8 +586,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
   <button class="uw-skip" onclick="closeUpgrade()">Maybe later</button>
 </div>
 
-<!-- TOAST -->
-
 <div class="toast" id="toastEl"></div>
 
 <script>
@@ -662,330 +593,392 @@ const SUPABASE_URL='https://amskspjunrclvrzzzvsk.supabase.co';
 const SUPABASE_KEY='sb_publishable_HrE1YuE5pRRhDFhFeqlLWg_GUy9YKpS';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-let currentUser=null,userPlan='free',selPlanVal='free',curSlide=0;
+// ─── CLAUDE API SYSTEM PROMPT ────────────────────────────────────────────────
+const CIVI_SYSTEM = `You are Civi, the AI legal navigator for Civitas Legal Document Services — a California-registered Legal Document Assistant (LDA) operated by Brian Harper.
 
-// INIT
-window.addEventListener('DOMContentLoaded',async()=>{
-  const{data:{session}}=await sb.auth.getSession();
-  setTimeout(()=>{
-    document.getElementById('loading').classList.remove('visible');
-    if(session){loadUser(session.user);}
-    else{showLayer('onboarding');}
-  },1000);
-});
+Your role: When a user describes their legal situation, you analyze it and respond with:
+1. The specific federal or California statute(s) that apply
+2. What those laws say in plain English
+3. What actionable steps the user can take right now
+4. A clear statement that Civitas can prepare the relevant documents
 
-// LAYERS
-function showLayer(n){document.querySelectorAll('.layer').forEach(l=>l.classList.remove('visible'));document.getElementById(n).classList.add('visible');}
+RULES:
+- Always cite specific statutes (e.g. "California Civil Code Section 1950.5", "FCRA Section 611", "FDCPA Section 809")
+- Keep responses under 120 words — clear, direct, and empowering
+- Never give legal advice — frame everything as "your rights under [law]" or "you may be entitled to"
+- End with one sentence about how Civitas can prepare documentation
+- Never recommend attorneys (Civitas is the alternative)
+- Focus on: credit disputes (FCRA), debt collection (FDCPA), tenant rights (CA Civil Code), small claims, IRS correspondence, wrongful termination (CA FEHA), tax preparer negligence (IRS Form 14157)
+- Tone: confident, knowledgeable, empowering — like a legal navigator who has your back
+- Do NOT use markdown headers or bullet points — write in clear flowing sentences
+- Civitas is not a law firm and does not provide legal advice`;
 
-// ONBOARDING SLIDES
-function nextSlide(){curSlide=Math.min(curSlide+1,2);document.getElementById('obSlides').style.transform=`translateX(-${curSlide*100}%)`;}
-function prevSlide(){curSlide=Math.max(curSlide-1,0);document.getElementById('obSlides').style.transform=`translateX(-${curSlide*100}%)`;}
-
-// AUTH
-function showAuth(tab){showLayer('auth');authTab(tab);}
-function authTab(tab){
-  ['signin','register','reset'].forEach(t=>{
-    document.getElementById('form-'+t).style.display=t===tab?'block':'none';
-    const el=document.getElementById('tab-'+t);
-    if(el)el.className='auth-tab'+(t===tab?' act':'');
-  });
-  clearMsg();
-}
-function selPlan(p){
-  selPlanVal=p;
-  ['free','essential','advocate'].forEach(x=>document.getElementById('pc-'+x).classList.toggle('sel',x===p));
-}
-
-async function signIn(){
-  clearMsg();
-  const email=document.getElementById('si-email').value.trim();
-  const pw=document.getElementById('si-pw').value;
-  if(!email||!pw){showErr('Please enter your email and password.');return;}
-  setBtnLoad('si-btn',true);
-  const{data,error}=await sb.auth.signInWithPassword({email,password:pw});
-  if(error){setBtnLoad('si-btn',false,'Sign In');showErr('Incorrect email or password.');return;}
-  showOk('Signing you in...');
-  await loadUser(data.user);
-}
-
-async function register(){
-  clearMsg();
-  const fn=document.getElementById('reg-fn').value.trim();
-  const ln=document.getElementById('reg-ln').value.trim();
-  const email=document.getElementById('reg-email').value.trim();
-  const phone=document.getElementById('reg-phone').value.trim();
-  const pw=document.getElementById('reg-pw').value;
-  if(!fn||!ln||!email||!pw){showErr('Please fill in all required fields.');return;}
-  if(pw.length<8){showErr('Password must be at least 8 characters.');return;}
-  setBtnLoad('reg-btn',true);
-  const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{full_name:fn+' '+ln,phone,plan:selPlanVal}}});
-  if(error){setBtnLoad('reg-btn',false,'Create Account');showErr(error.message);return;}
-  if(data.user&&!data.session){setBtnLoad('reg-btn',false,'Create Account');showOk('Account created. Check your email to confirm, then sign in.');return;}
-  showOk('Account created. Loading your dashboard...');
-  await loadUser(data.user);
-}
-
-async function resetPw(){
-  clearMsg();
-  const email=document.getElementById('rst-email').value.trim();
-  if(!email){showErr('Please enter your email.');return;}
-  setBtnLoad('rst-btn',true);
-  const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+'/app.html'});
-  setBtnLoad('rst-btn',false,'Send Reset Link');
-  if(error){showErr(error.message);return;}
-  showOk('Reset link sent to '+email);
-}
-
-async function signOut(){
-  await sb.auth.signOut();
-  currentUser=null;userPlan='free';
-  curSlide=0;
-  document.getElementById('obSlides').style.transform='translateX(0)';
-  showLayer('onboarding');
-}
-
-async function loadUser(user){
-  currentUser=user;
-  let profile=null;
-  try{const{data}=await sb.from('profiles').select('*').eq('id',user.id).single();profile=data;}catch(e){}
-  if(profile?.role==='admin'){window.location.href='/commander.html';return;}
-  userPlan=profile?.plan||selPlanVal||'free';
-  const isPaid=userPlan!=='free';
-  const name=profile?.full_name||user.email?.split('@')[0]||'there';
-  const firstName=name.split(' ')[0];
-  const initials=name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
-  const h=new Date().getHours();
-  const greet=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
-  document.getElementById('greeting').textContent=greet;
-  document.getElementById('heroName').innerHTML=firstName+' <em>welcome.</em>';
-  document.getElementById('heroTag').textContent=isPaid?'Your case portal is active.':'Ask Civi anything. Upgrade to open a case.';
-  document.getElementById('userAvatar').textContent=initials;
-  document.getElementById('profAv').textContent=initials;
-  document.getElementById('profName').textContent=name;
-  document.getElementById('profEmail').textContent=user.email;
-  document.getElementById('profSince').textContent=new Date(user.created_at).toLocaleDateString('en-US',{month:'long',year:'numeric'});
-  const planLabels={free:'Free Plan',essential:'Essential $39/mo',advocate:'Advocate $99/mo',command:'Command $149/mo'};
-  const pl=planLabels[userPlan]||'Free Plan';
-  document.getElementById('planPill').textContent=pl;
-  document.getElementById('planPill').className='plan-pill '+(isPaid?'paid':'free');
-  document.getElementById('profPlan').textContent=pl;
-  document.getElementById('profPlanVal').textContent=pl;
-  document.getElementById('freeCta').style.display=isPaid?'none':'block';
-  document.getElementById('caseCard').style.display=isPaid?'block':'none';
-  document.getElementById('recentDocs').style.display=isPaid?'block':'none';
-  document.getElementById('docLock').style.display=isPaid?'none':'block';
-  document.getElementById('msgLock').style.display=isPaid?'none':'block';
-  document.getElementById('upgradeBtn').style.display=isPaid?'none':'block';
-  if(isPaid){document.getElementById('sPct').textContent='60%';document.getElementById('sDocs').textContent='5';document.getElementById('sDays').textContent='52';}
-  // Wire docs nav button for paid users
-  if(isPaid){document.getElementById('nb-documents').onclick=()=>switchScreen('documents');}
-  showLayer('app');
-}
-
-// NAV
-function switchScreen(n){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
-  document.getElementById('sc-'+n).classList.add('active');
-  const nb=document.getElementById('nb-'+n);
-  if(nb)nb.classList.add('active');
-}
-
-// ACCESS CONTROL
-function requirePaid(feature){
-  if(userPlan!=='free'){
-    if(feature==='Document vault')switchScreen('documents');
-    return;
-  }
-  showUpgrade(feature);
-}
-function showUpgrade(feat){document.getElementById('uwTitle').textContent=feat||'Unlock this feature';document.getElementById('uw').classList.add('show');}
-function closeUpgrade(){document.getElementById('uw').classList.remove('show');}
-
-// VOICE
-const responses={
-  'security deposit':{text:'Under California Civil Code Section 1950.5, your landlord must return your security deposit within 21 days with an itemized statement. Bad-faith withholding can result in 2x the deposit in statutory damages on top of the full amount returned. Civitas can prepare your demand letter today.',story:{title:'The Deposit That Cost a Landlord Three Times as Much',preface:'In California, your security deposit does not belong to your landlord the moment you hand it over. It never did. Most landlords count on you not knowing that.',fullStory:'Her name was Maria. Three years of on-time rent. Three years of keeping the apartment spotless. When she moved out, her landlord kept every dollar and sent a letter full of charges she had never seen.\n\nWhat he did not know was that Maria had read California Civil Code Section 1950.5. All of it.\n\nA landlord has exactly 21 days to return a security deposit. He sent his letter on day twenty-four.\n\nShe sent a demand letter by certified mail citing the exact code section. He did not respond.\n\nShe filed in small claims court. The judge found bad faith and awarded her the full deposit plus statutory damages.\n\nThe landlord who thought he was keeping two thousand dollars wrote a check for four thousand one hundred and twenty dollars.\n\nThe law was always on her side. She just had to know it was there.'}},
-  'debt collector':{text:'Under the Fair Debt Collection Practices Act, you have 30 days from first written contact to request debt validation in writing. Once you do, all collection activity must stop until they respond with proof. Many collectors cannot produce documentation. Civitas prepares your validation letter today.',story:{title:'The Collector Who Could Not Prove the Debt Existed',preface:'Debt collectors are in the business of creating fear. They need you to feel like you have no options and no rights. What they do not advertise is that there is a federal law written specifically to protect you.',fullStory:'James had been getting the calls for three months about a nine thousand dollar debt on a card he had closed eight years ago.\n\nWhen a debt gets sold between agencies, the chain of title can break. The company calling you may have no supporting documentation at all.\n\nJames sent a debt validation letter by certified mail under FDCPA Section 809. All collection activity had to stop until they responded with proof.\n\nThe collector never responded. Not with the original contract. Not with anything.\n\nJames filed a CFPB complaint. The calls stopped completely. Three months later the account disappeared from all three of his credit reports.\n\nNine thousand dollars gone. Not because he paid it. Because he asked one question in writing: prove it.'}},
-  'credit report':{text:'Under FCRA Section 611, you can dispute any inaccurate, incomplete, or unverifiable item on your credit report. Bureaus must investigate within 30 days. If they cannot verify with the original furnisher, they must delete it. Civitas prepares dispute letters that bureaus are required by law to respond to.',story:{title:'Three Late Payments That Were Never Late',preface:'There is a moment that happens in many people\'s lives when they pull their credit report and find something that should not be there. The credit bureaus are not infallible. The law knows it.',fullStory:'Diana was a teacher saving for a house. When she sat with a mortgage lender, the number was sixty-seven points below where she needed to be.\n\nThree late payment notations from 2019. She went through her bank records. Every payment, on time.\n\nShe wrote a formal FCRA Section 611 dispute letter. Certified mail. Specific accounts identified.\n\nOn day twenty-eight, Experian responded. The original furnisher could not verify the notations. All three were deleted.\n\nSixty-seven points in the right direction. She closed on her house four months later.\n\nThe information was wrong. She said so in writing. The law required them to prove she was wrong or remove it. They could not.'}},
-  'landlord entry':{text:'California Civil Code Section 1954 requires at least 24 hours written notice before any landlord entry except a genuine emergency. Repeated unauthorized entries can constitute harassment under CC 1927. Document every incident with dates and times. Civitas prepares formal notice to cure letters.',story:{title:'The Landlord Who Learned What Written Notice Means',preface:'Your home is supposed to be a place where you have control. California law takes that seriously. Some landlords simply bet that their tenants do not know it.',fullStory:'Keisha had documented fourteen unauthorized entries over four months. Her landlord lived next door, had a key, and used it whenever he felt like it.\n\nCalifornia Civil Code 1954 requires written notice of at least twenty-four hours stating the date, time, and purpose of entry. He had provided none.\n\nShe sent a formal certified letter citing 1954 verbatim, documenting all fourteen entries, demanding compliance, and noting that continued entries could constitute harassment under Civil Code 1927.\n\nHe stopped immediately.\n\nSix weeks later he tried again. She filed a complaint with the city. During the investigation, he agreed to a rent reduction of two hundred dollars per month.\n\nAll she did was document, cite the code, and put it in writing.'}},
-  'small claims':{text:'California small claims court lets you sue up to $12,500 without an attorney. File the SC-100 form, pay a $30 to $75 fee, serve the defendant, and present your case. Civitas helps you build your case file through the War Binder tool.',story:{title:'Seventy-Five Dollars. Fifteen Hundred Back.',preface:'Small claims court was designed for everyday people to resolve disputes without an attorney. What it requires is that you show up prepared with documentation and knowledge of the law that applies.',fullStory:'Marcus paid a fifteen hundred dollar deposit to a contractor who showed up once and disappeared. Sixty days later, no work done, no calls returned.\n\nHe filed the SC-100 form. Seventy-five dollar filing fee. He served the contractor through the county sheriff.\n\nAt the hearing Marcus brought the signed contract, his bank statement showing the payment, and every text message including the ones where the contractor admitted he had not done the work.\n\nThe contractor did not appear. Default judgment. Full fifteen hundred plus filing fees.\n\nEleven weeks. Seventy-five dollars spent. Fifteen hundred recovered.\n\nHe never needed a lawyer. He needed documentation and the willingness to show up.'}},
-  'irs':{text:'Most IRS notices have straightforward responses. First-time abatement can remove penalties if you have a clean compliance history. IRS Form 14157 lets you report a negligent tax preparer. Civitas prepares IRS correspondence at your direction. Never ignore a notice.',story:{title:'The Eight Thousand Dollar Penalty That Disappeared',preface:'The IRS sends millions of notices every year knowing most people will panic and pay whatever is asked. What most people do not know is that there is a formal process to fight penalties.',fullStory:'Sandra had filed her taxes on time for twelve years. In year thirteen, a CP14 notice: eight thousand two hundred dollars in failure-to-pay penalties.\n\nHer tax preparer had used the wrong entity classification. The mistake was not hers.\n\nThe IRS offers first-time abatement for taxpayers with a clean compliance history. Twelve consecutive years. She qualified.\n\nShe submitted a penalty abatement request citing the Internal Revenue Manual. She also filed Form 14157 against her preparer.\n\nSix weeks later the full eight thousand two hundred dollar penalty was removed. Her preparer was investigated.\n\nShe lost one preparer and kept eight thousand two hundred dollars.'}},
-  'wrongful termination':{text:'California is at-will employment with critical exceptions. You cannot be fired for discriminatory reasons under FEHA, for whistleblowing, taking protected leave, or in retaliation for a legal right. File with the EEOC or California DFEH. Document everything now.',story:{title:'Two Weeks After the Workers Comp Claim',preface:'California is an at-will employment state. But there are exceptions written directly into the law. You cannot be fired in retaliation for exercising a legal right.',fullStory:'David filed a workers compensation claim in March after hurting his back. Two weeks later he was called into his supervisor\'s office. His position was being eliminated.\n\nHe was the only one let go.\n\nDavid documented everything. Every date, every conversation. He requested documentation of the restructuring. There was none.\n\nCalifornia Labor Code 132a makes it illegal to discriminate against an employee for filing a workers comp claim.\n\nHe filed a DFEH complaint with the timeline attached. Workers comp claim: March 8th. Termination: March 22nd.\n\nThe employer could not show any restructuring decision that predated the termination.\n\nThe case settled. Forty-two thousand dollars in back pay plus reinstatement.\n\nHe won because he had a timeline.'}},
-  'tax preparer':{text:'If a tax preparer made errors causing penalties or additional taxes, IRS Form 14157 lets you file a formal complaint. Reasonable cause abatement may be available if you relied in good faith on a professional. Civitas prepares the correspondence and Form 14157 documentation.',story:{title:'The Tax Preparer Error That Cost Eight Thousand Dollars',preface:'When you rely on a licensed professional and they make a costly error, the IRS has a formal process for that. Most people do not know it exists.',fullStory:'Angela had used the same local tax preparer for eight years. Then came an IRS notice: eight thousand two hundred dollars in penalties. Wrong filing status. The preparer\'s mistake.\n\nHe told her to just pay it.\n\nShe submitted a reasonable cause abatement request showing she had relied in good faith on a licensed professional. She attached Form 14157 against the preparer.\n\nThe IRS removed the penalties. The amended return resulted in a refund.\n\nAngela paid nothing she did not legitimately owe and filed a formal complaint against the person who caused the problem.\n\nThe form exists. Most people just do not know to ask for it.'}}
+// ─── STORY LIBRARY (kept local for speed) ───────────────────────────────────
+const stories = {
+  'security deposit': {title:'The Deposit That Cost a Landlord Three Times as Much',preface:"In California, your security deposit does not belong to your landlord the moment you hand it over. It never did. Most landlords count on you not knowing that.",fullStory:"Her name was Maria. Three years of on-time rent. Three years of keeping the apartment spotless. When she moved out, her landlord kept every dollar and sent a letter full of charges she had never seen.\n\nWhat he did not know was that Maria had read California Civil Code Section 1950.5. All of it.\n\nA landlord has exactly 21 days to return a security deposit. He sent his letter on day twenty-four.\n\nShe sent a demand letter by certified mail citing the exact code section. He did not respond.\n\nShe filed in small claims court. The judge found bad faith and awarded her the full deposit plus statutory damages.\n\nThe landlord who thought he was keeping two thousand dollars wrote a check for four thousand one hundred and twenty dollars.\n\nThe law was always on her side. She just had to know it was there."},
+  'debt collector': {title:'The Collector Who Could Not Prove the Debt Existed',preface:"Debt collectors are in the business of creating fear. They need you to feel like you have no options and no rights. What they do not advertise is that there is a federal law written specifically to protect you.",fullStory:"James had been getting the calls for three months about a nine thousand dollar debt on a card he had closed eight years ago.\n\nWhen a debt gets sold between agencies, the chain of title can break. The company calling you may have no supporting documentation at all.\n\nJames sent a debt validation letter by certified mail under FDCPA Section 809. All collection activity had to stop until they responded with proof.\n\nThe collector never responded. Not with the original contract. Not with anything.\n\nJames filed a CFPB complaint. The calls stopped completely. Three months later the account disappeared from all three of his credit reports.\n\nNine thousand dollars gone. Not because he paid it. Because he asked one question in writing: prove it."},
+  'credit report': {title:'Three Late Payments That Were Never Late',preface:"There is a moment that happens in many people's lives when they pull their credit report and find something that should not be there. The credit bureaus are not infallible. The law knows it.",fullStory:"Diana was a teacher saving for a house. When she sat with a mortgage lender, the number was sixty-seven points below where she needed to be.\n\nThree late payment notations from 2019. She went through her bank records. Every payment, on time.\n\nShe wrote a formal FCRA Section 611 dispute letter. Certified mail. Specific accounts identified.\n\nOn day twenty-eight, Experian responded. The original furnisher could not verify the notations. All three were deleted.\n\nSixty-seven points in the right direction. She closed on her house four months later.\n\nThe information was wrong. She said so in writing. The law required them to prove she was wrong or remove it. They could not."},
+  'landlord entry': {title:'The Landlord Who Learned What Written Notice Means',preface:"Your home is supposed to be a place where you have control. California law takes that seriously. Some landlords simply bet that their tenants do not know it.",fullStory:"Keisha had documented fourteen unauthorized entries over four months. Her landlord lived next door, had a key, and used it whenever he felt like it.\n\nCalifornia Civil Code 1954 requires written notice of at least twenty-four hours stating the date, time, and purpose of entry. He had provided none.\n\nShe sent a formal certified letter citing 1954 verbatim, documenting all fourteen entries, demanding compliance, and noting that continued entries could constitute harassment under Civil Code 1927.\n\nHe stopped immediately.\n\nSix weeks later he tried again. She filed a complaint with the city. During the investigation, he agreed to a rent reduction of two hundred dollars per month.\n\nAll she did was document, cite the code, and put it in writing."},
+  'small claims': {title:'Seventy-Five Dollars. Fifteen Hundred Back.',preface:"Small claims court was designed for everyday people to resolve disputes without an attorney. What it requires is that you show up prepared with documentation and knowledge of the law that applies.",fullStory:"Marcus paid a fifteen hundred dollar deposit to a contractor who showed up once and disappeared. Sixty days later, no work done, no calls returned.\n\nHe filed the SC-100 form. Seventy-five dollar filing fee. He served the contractor through the county sheriff.\n\nAt the hearing Marcus brought the signed contract, his bank statement showing the payment, and every text message including the ones where the contractor admitted he had not done the work.\n\nThe contractor did not appear. Default judgment. Full fifteen hundred plus filing fees.\n\nEleven weeks. Seventy-five dollars spent. Fifteen hundred recovered.\n\nHe never needed a lawyer. He needed documentation and the willingness to show up."},
+  'irs': {title:'The Eight Thousand Dollar Penalty That Disappeared',preface:"The IRS sends millions of notices every year knowing most people will panic and pay whatever is asked. What most people do not know is that there is a formal process to fight penalties.",fullStory:"Sandra had filed her taxes on time for twelve years. In year thirteen, a CP14 notice: eight thousand two hundred dollars in failure-to-pay penalties.\n\nHer tax preparer had used the wrong entity classification. The mistake was not hers.\n\nThe IRS offers first-time abatement for taxpayers with a clean compliance history. Twelve consecutive years. She qualified.\n\nShe submitted a penalty abatement request citing the Internal Revenue Manual. She also filed Form 14157 against her preparer.\n\nSix weeks later the full eight thousand two hundred dollar penalty was removed. Her preparer was investigated.\n\nShe lost one preparer and kept eight thousand two hundred dollars."},
+  'wrongful termination': {title:'Two Weeks After the Workers Comp Claim',preface:"California is an at-will employment state. But there are exceptions written directly into the law. You cannot be fired in retaliation for exercising a legal right.",fullStory:"David filed a workers compensation claim in March after hurting his back. Two weeks later he was called into his supervisor's office. His position was being eliminated.\n\nHe was the only one let go.\n\nDavid documented everything. Every date, every conversation. He requested documentation of the restructuring. There was none.\n\nCalifornia Labor Code 132a makes it illegal to discriminate against an employee for filing a workers comp claim.\n\nHe filed a DFEH complaint with the timeline attached. Workers comp claim: March 8th. Termination: March 22nd.\n\nThe employer could not show any restructuring decision that predated the termination.\n\nThe case settled. Forty-two thousand dollars in back pay plus reinstatement.\n\nHe won because he had a timeline."},
+  'tax preparer': {title:'The Tax Preparer Error That Cost Eight Thousand Dollars',preface:"When you rely on a licensed professional and they make a costly error, the IRS has a formal process for that. Most people do not know it exists.",fullStory:"Angela had used the same local tax preparer for eight years. Then came an IRS notice: eight thousand two hundred dollars in penalties. Wrong filing status. The preparer's mistake.\n\nHe told her to just pay it.\n\nShe submitted a reasonable cause abatement request showing she had relied in good faith on a licensed professional. She attached Form 14157 against the preparer.\n\nThe IRS removed the penalties. The amended return resulted in a refund.\n\nAngela paid nothing she did not legitimately owe and filed a formal complaint against the person who caused the problem.\n\nThe form exists. Most people just do not know to ask for it."}
 };
 
-let recognition=null,isListening=false,curTranscript='';
-
-function getKey(t){
-  t=t.toLowerCase();
-  if(t.includes('deposit')||t.includes('security deposit'))return 'security deposit';
-  if(t.includes('collector')||t.includes('collection')||(t.includes('debt')&&!t.includes('credit')))return 'debt collector';
-  if(t.includes('credit report')||t.includes('bureau')||t.includes('experian')||t.includes('equifax'))return 'credit report';
-  if(t.includes('terminat')||t.includes('fired')||t.includes('wrongful'))return 'wrongful termination';
-  if(t.includes('landlord')||t.includes('entry')||t.includes('entered'))return 'landlord entry';
-  if(t.includes('irs')||(t.includes('tax')&&t.includes('notice')))return 'irs';
-  if(t.includes('small claims')||t.includes('sc-100'))return 'small claims';
-  if(t.includes('preparer'))return 'tax preparer';
+// ─── STORY MATCHER ───────────────────────────────────────────────────────────
+function getStoryKey(text) {
+  const t = text.toLowerCase();
+  if (t.includes('deposit') || t.includes('security deposit')) return 'security deposit';
+  if (t.includes('collector') || t.includes('collection') || (t.includes('debt') && !t.includes('credit'))) return 'debt collector';
+  if (t.includes('credit report') || t.includes('bureau') || t.includes('experian') || t.includes('equifax')) return 'credit report';
+  if (t.includes('terminat') || t.includes('fired') || t.includes('wrongful')) return 'wrongful termination';
+  if (t.includes('landlord') || t.includes('entry') || t.includes('entered') || t.includes('notice')) return 'landlord entry';
+  if (t.includes('irs') || (t.includes('tax') && t.includes('notice'))) return 'irs';
+  if (t.includes('small claims') || t.includes('sc-100')) return 'small claims';
+  if (t.includes('preparer')) return 'tax preparer';
   return null;
 }
 
-function toggleMic(){
-  if(isListening){if(recognition)recognition.stop();return;}
-  if(!('webkitSpeechRecognition'in window)&&!('SpeechRecognition'in window)){toast('Voice requires Chrome or Safari on iOS.');return;}
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  recognition=new SR();
-  recognition.continuous=false;recognition.interimResults=true;recognition.lang='en-US';
-  recognition.onstart=()=>{
-    isListening=true;
-    document.getElementById('micBtn').classList.add('on');
-    document.querySelectorAll('.mic-ring').forEach(r=>r.classList.add('on'));
-    document.getElementById('vStat').textContent='Listening... speak your situation';
-    document.getElementById('vStat').className='v-stat active';
-    document.getElementById('transcript').classList.add('show');
-    document.getElementById('transcript').textContent='';
-    document.getElementById('aiResp').classList.remove('show');
-    curTranscript='';
-  };
-  recognition.onresult=e=>{
-    let interim='';
-    for(let i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal)curTranscript+=e.results[i][0].transcript;
-      else interim+=e.results[i][0].transcript;
+// ─── CLAUDE API CALL WITH STREAMING ─────────────────────────────────────────
+async function callCivi(userText) {
+  const bodyEl = document.getElementById('aiBody');
+  bodyEl.innerHTML = '<span class="cursor"></span>';
+  document.getElementById('aiResp').classList.add('show');
+  document.getElementById('vStat').textContent = 'Civi is analyzing your situation...';
+  document.getElementById('vStat').className = 'v-stat thinking';
+
+  let fullText = '';
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        stream: true,
+        system: CIVI_SYSTEM,
+        messages: [{ role: 'user', content: userText }]
+      })
+    });
+
+    if (!res.ok) throw new Error('API error ' + res.status);
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6).trim();
+        if (data === '[DONE]') continue;
+        try {
+          const evt = JSON.parse(data);
+          if (evt.type === 'content_block_delta' && evt.delta?.text) {
+            fullText += evt.delta.text;
+            // Bold statute citations inline
+            const display = fullText.replace(/\b(FCRA|FDCPA|FEHA|CROA|California Civil Code(?: Section [\w.]+)?|Civil Code(?: Section [\w.]+)?|Labor Code(?: \d+\w*)?|Section \d+[\w.]*|IRS Form \d+|Internal Revenue Manual|CFPB)\b/g, '<strong>$1</strong>');
+            bodyEl.innerHTML = display + '<span class="cursor"></span>';
+          }
+        } catch(e) {}
+      }
     }
-    document.getElementById('transcript').textContent=curTranscript+interim;
+
+    // Final render — remove cursor
+    const display = fullText.replace(/\b(FCRA|FDCPA|FEHA|CROA|California Civil Code(?: Section [\w.]+)?|Civil Code(?: Section [\w.]+)?|Labor Code(?: \d+\w*)?|Section \d+[\w.]*|IRS Form \d+|Internal Revenue Manual|CFPB)\b/g, '<strong>$1</strong>');
+    bodyEl.innerHTML = display;
+    document.getElementById('vStat').textContent = 'Here is what Civi found';
+    document.getElementById('vStat').className = 'v-stat';
+
+    // Store full text for read aloud
+    window._civiText = fullText;
+    // Match a story
+    const key = getStoryKey(userText);
+    window._story = key ? stories[key] : null;
+
+  } catch(err) {
+    bodyEl.innerHTML = 'Civi is temporarily unavailable. Please try again in a moment.';
+    document.getElementById('vStat').textContent = 'Try again';
+    document.getElementById('vStat').className = 'v-stat';
+    console.error('Civi API error:', err);
+  }
+}
+
+// ─── VOICE ───────────────────────────────────────────────────────────────────
+let recognition = null, isListening = false, curTranscript = '';
+
+function toggleMic() {
+  if (isListening) { if (recognition) recognition.stop(); return; }
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    toast('Voice requires Chrome or Safari on iOS.'); return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.continuous = false; recognition.interimResults = true; recognition.lang = 'en-US';
+  recognition.onstart = () => {
+    isListening = true;
+    document.getElementById('micBtn').classList.add('on');
+    document.querySelectorAll('.mic-ring').forEach(r => r.classList.add('on'));
+    document.getElementById('vStat').textContent = 'Listening... speak your situation';
+    document.getElementById('vStat').className = 'v-stat active';
+    document.getElementById('transcript').classList.add('show');
+    document.getElementById('transcript').textContent = '';
+    document.getElementById('aiResp').classList.remove('show');
+    curTranscript = '';
   };
-  recognition.onend=()=>{
-    isListening=false;
-    document.getElementById('micBtn').classList.remove('on');
-    document.querySelectorAll('.mic-ring').forEach(r=>r.classList.remove('on'));
-    if(curTranscript)processVoice(curTranscript);
-    else{document.getElementById('vStat').textContent='Tap the mic to speak your situation';document.getElementById('vStat').className='v-stat';}
+  recognition.onresult = e => {
+    let interim = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) curTranscript += e.results[i][0].transcript;
+      else interim += e.results[i][0].transcript;
+    }
+    document.getElementById('transcript').textContent = curTranscript + interim;
   };
-  recognition.onerror=()=>{
-    isListening=false;
+  recognition.onend = () => {
+    isListening = false;
     document.getElementById('micBtn').classList.remove('on');
-    document.getElementById('vStat').textContent='Could not hear you. Try again.';
-    document.getElementById('vStat').className='v-stat';
+    document.querySelectorAll('.mic-ring').forEach(r => r.classList.remove('on'));
+    if (curTranscript) callCivi(curTranscript);
+    else { document.getElementById('vStat').textContent = 'Tap the mic to speak your situation'; document.getElementById('vStat').className = 'v-stat'; }
+  };
+  recognition.onerror = () => {
+    isListening = false;
+    document.getElementById('micBtn').classList.remove('on');
+    document.getElementById('vStat').textContent = 'Could not hear you. Try again.';
+    document.getElementById('vStat').className = 'v-stat';
   };
   recognition.start();
 }
 
-function processVoice(text){
-  document.getElementById('vStat').textContent='Analyzing your situation...';
-  document.getElementById('vStat').className='v-stat thinking';
-  setTimeout(()=>{
-    const key=getKey(text);
-    const resp=key?responses[key]:null;
-    const body=resp?resp.text:'Based on what you described this may involve consumer protection, contract law, or civil rights. Tap one of the common situations below or describe your situation in more detail.';
-    document.getElementById('vStat').textContent='Here is what Civi found';
-    document.getElementById('vStat').className='v-stat';
-    document.getElementById('aiBody').innerHTML=body.replace(/\b(FCRA|FDCPA|California Civil Code|IRS|CFPB|Section \d+[\w.]*)\b/g,'<strong>$1</strong>');
-    document.getElementById('aiResp').classList.add('show');
-    window._story=resp?resp.story:null;
-  },1300);
-}
-
-function quickAsk(text){
-  curTranscript=text;
+function quickAsk(text) {
+  curTranscript = text;
   document.getElementById('transcript').classList.add('show');
-  document.getElementById('transcript').textContent=text;
+  document.getElementById('transcript').textContent = text;
   document.getElementById('aiResp').classList.remove('show');
-  processVoice(text);
+  callCivi(text);
 }
 
-function readAloud(){
-  const text=document.getElementById('aiBody').textContent;
-  if(!('speechSynthesis'in window)){toast('Text-to-speech not available');return;}
+function readAloud() {
+  const text = window._civiText || document.getElementById('aiBody').textContent;
+  if (!('speechSynthesis' in window)) { toast('Text-to-speech not available'); return; }
   speechSynthesis.cancel();
-  const utt=new SpeechSynthesisUtterance(text);
-  utt.rate=0.88;utt.pitch=1;
-  const pref=speechSynthesis.getVoices().find(v=>v.lang==='en-US'&&(v.name.includes('Samantha')||v.name.includes('Google')||v.name.includes('Natural')));
-  if(pref)utt.voice=pref;
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.rate = 0.88; utt.pitch = 1;
+  const pref = speechSynthesis.getVoices().find(v => v.lang === 'en-US' && (v.name.includes('Samantha') || v.name.includes('Google') || v.name.includes('Natural')));
+  if (pref) utt.voice = pref;
   speechSynthesis.speak(utt);
   toast('Reading response aloud...');
 }
 
-function playStory(){
-  const story=window._story;
-  if(!story){toast('Ask Civi a question first, then tap Hear a Win');return;}
-  document.getElementById('spTitle').textContent=story.title;
-  const pre=document.getElementById('spPreface');
-  pre.textContent=story.preface;
-  pre.classList.add('show');
+function resetVoice() {
+  speechSynthesis.cancel(); curTranscript = '';
+  document.getElementById('transcript').classList.remove('show');
+  document.getElementById('aiResp').classList.remove('show');
+  document.getElementById('vStat').textContent = 'Tap the mic to speak your situation';
+  document.getElementById('vStat').className = 'v-stat';
+  window._story = null; window._civiText = null;
+}
+
+// ─── STORY PLAYER ────────────────────────────────────────────────────────────
+function playStory() {
+  const story = window._story;
+  if (!story) { toast('Ask Civi a question first, then tap Hear a Win'); return; }
+  document.getElementById('spTitle').textContent = story.title;
+  const pre = document.getElementById('spPreface');
+  pre.textContent = story.preface; pre.classList.add('show');
   document.getElementById('storyPlayer').classList.add('show');
-  window._storyFull=story.preface+'...\n\n'+story.fullStory;
+  window._storyFull = story.preface + '...\n\n' + story.fullStory;
   startStory();
 }
 
-let storyInterval=null,storyProgress=0,storyPlaying=false;
-function startStory(){
-  if(!('speechSynthesis'in window)){toast('Text-to-speech not available');return;}
+let storyInterval = null, storyPlaying = false;
+function startStory() {
+  if (!('speechSynthesis' in window)) { toast('Text-to-speech not available'); return; }
   speechSynthesis.cancel();
-  const utt=new SpeechSynthesisUtterance(window._storyFull);
-  utt.rate=0.84;utt.pitch=1;
-  const pref=speechSynthesis.getVoices().find(v=>v.lang==='en-US');
-  if(pref)utt.voice=pref;
+  const utt = new SpeechSynthesisUtterance(window._storyFull);
+  utt.rate = 0.84; utt.pitch = 1;
+  const pref = speechSynthesis.getVoices().find(v => v.lang === 'en-US');
+  if (pref) utt.voice = pref;
   speechSynthesis.speak(utt);
-  storyPlaying=true;
-  document.getElementById('spPlay').textContent='⏸';
-  storyProgress=0;
-  const dur=window._storyFull.length*58;
-  const t0=Date.now();
+  storyPlaying = true;
+  document.getElementById('spPlay').textContent = '⏸';
+  const dur = window._storyFull.length * 58;
+  const t0 = Date.now();
   clearInterval(storyInterval);
-  storyInterval=setInterval(()=>{
-    const el=Date.now()-t0;
-    const pct=Math.min((el/dur)*100,100);
-    storyProgress=pct;
-    document.getElementById('spFill').style.width=pct+'%';
-    const s=Math.floor(el/1000);
-    document.getElementById('spTime').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
-    if(pct>=100){clearInterval(storyInterval);storyPlaying=false;document.getElementById('spPlay').textContent='▶';}
-  },300);
-  utt.onend=()=>{clearInterval(storyInterval);storyPlaying=false;document.getElementById('spPlay').textContent='▶';};
+  storyInterval = setInterval(() => {
+    const el = Date.now() - t0;
+    const pct = Math.min((el / dur) * 100, 100);
+    document.getElementById('spFill').style.width = pct + '%';
+    const s = Math.floor(el / 1000);
+    document.getElementById('spTime').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    if (pct >= 100) { clearInterval(storyInterval); storyPlaying = false; document.getElementById('spPlay').textContent = '▶'; }
+  }, 300);
+  utt.onend = () => { clearInterval(storyInterval); storyPlaying = false; document.getElementById('spPlay').textContent = '▶'; };
 }
-function toggleStory(){
-  if(storyPlaying){speechSynthesis.pause();clearInterval(storyInterval);storyPlaying=false;document.getElementById('spPlay').textContent='▶';}
-  else{speechSynthesis.resume();storyPlaying=true;document.getElementById('spPlay').textContent='⏸';}
+function toggleStory() {
+  if (storyPlaying) { speechSynthesis.pause(); clearInterval(storyInterval); storyPlaying = false; document.getElementById('spPlay').textContent = '▶'; }
+  else { speechSynthesis.resume(); storyPlaying = true; document.getElementById('spPlay').textContent = '⏸'; }
 }
-function skipBack(){speechSynthesis.cancel();clearInterval(storyInterval);storyProgress=0;startStory();}
-function skipFwd(){speechSynthesis.cancel();closeStory();}
-function closeStory(){
-  speechSynthesis.cancel();clearInterval(storyInterval);storyPlaying=false;
+function skipBack() { speechSynthesis.cancel(); clearInterval(storyInterval); startStory(); }
+function skipFwd() { speechSynthesis.cancel(); closeStory(); }
+function closeStory() {
+  speechSynthesis.cancel(); clearInterval(storyInterval); storyPlaying = false;
   document.getElementById('storyPlayer').classList.remove('show');
   document.getElementById('spPreface').classList.remove('show');
-  storyProgress=0;document.getElementById('spFill').style.width='0%';
-}
-function resetVoice(){
-  speechSynthesis.cancel();curTranscript='';
-  document.getElementById('transcript').classList.remove('show');
-  document.getElementById('aiResp').classList.remove('show');
-  document.getElementById('vStat').textContent='Tap the mic to speak your situation';
-  document.getElementById('vStat').className='v-stat';
-  window._story=null;
+  document.getElementById('spFill').style.width = '0%';
 }
 
-function handleUpload(input){
-  const list=document.getElementById('uploadedDocs');
-  Array.from(input.files).forEach(f=>{
-    const size=f.size>1048576?(f.size/1048576).toFixed(1)+' MB':(f.size/1024).toFixed(0)+' KB';
-    const today=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    const div=document.createElement('div');
-    div.className='doc-item';
-    div.innerHTML=`<div class="dicon">📄</div><div class="dinfo"><div class="dname">${f.name}</div><div class="dmeta">${today} / ${size}</div></div><div class="dstat review">Uploaded</div>`;
+// ─── SUPABASE AUTH ────────────────────────────────────────────────────────────
+let currentUser = null, userPlan = 'free', selPlanVal = 'free', curSlide = 0;
+
+window.addEventListener('DOMContentLoaded', async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  setTimeout(() => {
+    document.getElementById('loading').classList.remove('visible');
+    if (session) { loadUser(session.user); } else { showLayer('onboarding'); }
+  }, 1000);
+});
+
+function showLayer(n) { document.querySelectorAll('.layer').forEach(l => l.classList.remove('visible')); document.getElementById(n).classList.add('visible'); }
+function nextSlide() { curSlide = Math.min(curSlide + 1, 2); document.getElementById('obSlides').style.transform = `translateX(-${curSlide * 100}%)`; }
+function prevSlide() { curSlide = Math.max(curSlide - 1, 0); document.getElementById('obSlides').style.transform = `translateX(-${curSlide * 100}%)`; }
+function showAuth(tab) { showLayer('auth'); authTab(tab); }
+function authTab(tab) {
+  ['signin', 'register', 'reset'].forEach(t => {
+    document.getElementById('form-' + t).style.display = t === tab ? 'block' : 'none';
+    const el = document.getElementById('tab-' + t); if (el) el.className = 'auth-tab' + (t === tab ? ' act' : '');
+  });
+  clearMsg();
+}
+function selPlan(p) {
+  selPlanVal = p;
+  ['free', 'essential', 'advocate'].forEach(x => document.getElementById('pc-' + x).classList.toggle('sel', x === p));
+}
+
+async function signIn() {
+  clearMsg();
+  const email = document.getElementById('si-email').value.trim();
+  const pw = document.getElementById('si-pw').value;
+  if (!email || !pw) { showErr('Please enter your email and password.'); return; }
+  setBtnLoad('si-btn', true);
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
+  if (error) { setBtnLoad('si-btn', false, 'Sign In'); showErr('Incorrect email or password.'); return; }
+  showOk('Signing you in...');
+  await loadUser(data.user);
+}
+
+async function register() {
+  clearMsg();
+  const fn = document.getElementById('reg-fn').value.trim();
+  const ln = document.getElementById('reg-ln').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+  const pw = document.getElementById('reg-pw').value;
+  if (!fn || !ln || !email || !pw) { showErr('Please fill in all required fields.'); return; }
+  if (pw.length < 8) { showErr('Password must be at least 8 characters.'); return; }
+  setBtnLoad('reg-btn', true);
+  const { data, error } = await sb.auth.signUp({ email, password: pw, options: { data: { full_name: fn + ' ' + ln, phone, plan: selPlanVal } } });
+  if (error) { setBtnLoad('reg-btn', false, 'Create Account'); showErr(error.message); return; }
+  if (data.user && !data.session) { setBtnLoad('reg-btn', false, 'Create Account'); showOk('Account created. Check your email to confirm, then sign in.'); return; }
+  showOk('Account created. Loading your dashboard...');
+  await loadUser(data.user);
+}
+
+async function resetPw() {
+  clearMsg();
+  const email = document.getElementById('rst-email').value.trim();
+  if (!email) { showErr('Please enter your email.'); return; }
+  setBtnLoad('rst-btn', true);
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/app.html' });
+  setBtnLoad('rst-btn', false, 'Send Reset Link');
+  if (error) { showErr(error.message); return; }
+  showOk('Reset link sent to ' + email);
+}
+
+async function signOut() {
+  await sb.auth.signOut(); currentUser = null; userPlan = 'free'; curSlide = 0;
+  document.getElementById('obSlides').style.transform = 'translateX(0)';
+  showLayer('onboarding');
+}
+
+async function loadUser(user) {
+  currentUser = user;
+  let profile = null;
+  try { const { data } = await sb.from('profiles').select('*').eq('id', user.id).single(); profile = data; } catch (e) {}
+  if (profile?.role === 'admin') { window.location.href = '/commander.html'; return; }
+  userPlan = profile?.plan || selPlanVal || 'free';
+  const isPaid = userPlan !== 'free';
+  const name = profile?.full_name || user.email?.split('@')[0] || 'there';
+  const firstName = name.split(' ')[0];
+  const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  const h = new Date().getHours();
+  const greet = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting').textContent = greet;
+  document.getElementById('heroName').innerHTML = firstName + ' <em>welcome.</em>';
+  document.getElementById('heroTag').textContent = isPaid ? 'Your case portal is active.' : 'Ask Civi anything. Upgrade to open a case.';
+  document.getElementById('userAvatar').textContent = initials;
+  document.getElementById('profAv').textContent = initials;
+  document.getElementById('profName').textContent = name;
+  document.getElementById('profEmail').textContent = user.email;
+  document.getElementById('profSince').textContent = new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const planLabels = { free: 'Free Plan', essential: 'Essential $39/mo', advocate: 'Advocate $99/mo', command: 'Command $149/mo' };
+  const pl = planLabels[userPlan] || 'Free Plan';
+  document.getElementById('planPill').textContent = pl;
+  document.getElementById('planPill').className = 'plan-pill ' + (isPaid ? 'paid' : 'free');
+  document.getElementById('profPlan').textContent = pl;
+  document.getElementById('profPlanVal').textContent = pl;
+  document.getElementById('freeCta').style.display = isPaid ? 'none' : 'block';
+  document.getElementById('caseCard').style.display = isPaid ? 'block' : 'none';
+  document.getElementById('recentDocs').style.display = isPaid ? 'block' : 'none';
+  document.getElementById('docLock').style.display = isPaid ? 'none' : 'block';
+  document.getElementById('msgLock').style.display = isPaid ? 'none' : 'block';
+  document.getElementById('upgradeBtn').style.display = isPaid ? 'none' : 'block';
+  if (isPaid) { document.getElementById('sPct').textContent = '60%'; document.getElementById('sDocs').textContent = '5'; document.getElementById('sDays').textContent = '52'; }
+  if (isPaid) { document.getElementById('nb-documents').onclick = () => switchScreen('documents'); }
+  showLayer('app');
+}
+
+function switchScreen(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
+  document.getElementById('sc-' + n).classList.add('active');
+  const nb = document.getElementById('nb-' + n); if (nb) nb.classList.add('active');
+}
+
+function requirePaid(feature) {
+  if (userPlan !== 'free') { if (feature === 'Document vault') switchScreen('documents'); return; }
+  showUpgrade(feature);
+}
+function showUpgrade(feat) { document.getElementById('uwTitle').textContent = feat || 'Unlock this feature'; document.getElementById('uw').classList.add('show'); }
+function closeUpgrade() { document.getElementById('uw').classList.remove('show'); }
+
+function handleUpload(input) {
+  const list = document.getElementById('uploadedDocs');
+  Array.from(input.files).forEach(f => {
+    const size = f.size > 1048576 ? (f.size / 1048576).toFixed(1) + ' MB' : (f.size / 1024).toFixed(0) + ' KB';
+    const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const div = document.createElement('div'); div.className = 'doc-item';
+    div.innerHTML = `<div class="dicon">📄</div><div class="dinfo"><div class="dname">${f.name}</div><div class="dmeta">${today} / ${size}</div></div><div class="dstat review">Uploaded</div>`;
     list.appendChild(div);
   });
-  toast('Uploaded. Brian will be notified.');
-  input.value='';
+  toast('Uploaded. Brian will be notified.'); input.value = '';
 }
 
 let toastT;
-function toast(msg){const el=document.getElementById('toastEl');el.textContent=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2800);}
-function showErr(msg){const el=document.getElementById('authErr');el.textContent=msg;el.style.display='block';}
-function showOk(msg){const el=document.getElementById('authOk');el.textContent=msg;el.style.display='block';}
-function clearMsg(){document.getElementById('authErr').style.display='none';document.getElementById('authOk').style.display='none';}
-function setBtnLoad(id,on,label){const b=document.getElementById(id);b.disabled=on;b.textContent=on?'Please wait...':(label||b.textContent);}
+function toast(msg) { const el = document.getElementById('toastEl'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 2800); }
+function showErr(msg) { const el = document.getElementById('authErr'); el.textContent = msg; el.style.display = 'block'; }
+function showOk(msg) { const el = document.getElementById('authOk'); el.textContent = msg; el.style.display = 'block'; }
+function clearMsg() { document.getElementById('authErr').style.display = 'none'; document.getElementById('authOk').style.display = 'none'; }
+function setBtnLoad(id, on, label) { const b = document.getElementById(id); b.disabled = on; b.textContent = on ? 'Please wait...' : (label || b.textContent); }
 
-if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();
+if ('speechSynthesis' in window) speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
 </script>
 
 </body>
