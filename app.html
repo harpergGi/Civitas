@@ -1305,17 +1305,11 @@ async function generateDeclaration() {
 
   const entriesText = entries.map((e, i) => {
     const dateStr = new Date(e.date + 'T00:00:00').toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
-    return `Incident ${i+1}: ${dateStr} — ${e.event}${e.notes ? '. Details: ' + e.notes : ''}`;
-  }).join('
-');
+    return 'Incident ' + (i+1) + ': ' + dateStr + ' - ' + e.event + (e.notes ? '. Details: ' + e.notes : '');
+  }).join(' | ');
 
-  const prompt = `Generate a declaration for:
-Name: ${name}
-Case type: ${caseType}
-Today's date: ${new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'})}
-
-Incidents:
-${entriesText}`;
+  const today2 = new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+  const prompt = 'Generate a declaration for: Name: ' + name + ', Case type: ' + caseType + ', Today is: ' + today2 + '. Incidents logged: ' + entriesText;
 
   try {
     const res = await fetch('/.netlify/functions/civi', {
