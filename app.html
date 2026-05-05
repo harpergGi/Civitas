@@ -338,6 +338,49 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
 .vd-chips{display:flex;flex-wrap:wrap;gap:5px;width:100%;max-width:320px;margin-top:0.75rem;}
 .vd-chip{font-size:0.6rem;padding:4px 8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:all 0.15s;}
 .vd-chip:hover{border-color:rgba(201,168,76,0.28);color:var(--gold);}
+
+/* LEGAL TIMELINE BUILDER */
+.tlb-wrap{display:flex;flex-direction:column;align-items:center;padding:1.75rem 1.5rem 1rem;min-height:100%;}
+.tlb-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);text-align:center;margin-bottom:0.35rem;}
+.tlb-title em{font-style:italic;color:var(--gold-light);}
+.tlb-sub{font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:1.25rem;max-width:280px;}
+.tlb-input-wrap{width:100%;max-width:320px;margin-bottom:0.75rem;}
+.tlb-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.7rem;outline:none;resize:none;min-height:90px;}
+.tlb-input:focus{border-color:var(--gold);}
+.tlb-input::placeholder{color:rgba(138,155,181,0.35);}
+.tlb-btn{width:100%;max-width:320px;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem;cursor:pointer;margin-bottom:1rem;}
+.tlb-thinking{font-size:0.68rem;color:#3498db;text-align:center;margin-bottom:1rem;display:none;}
+.tlb-thinking.show{display:block;}
+.tlb-results{width:100%;max-width:320px;display:none;}
+.tlb-results.show{display:block;}
+.tlb-results-hdr{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.tl-event{display:flex;gap:0.75rem;margin-bottom:0;position:relative;}
+.tl-event:not(:last-child)::after{content:'';position:absolute;left:10px;top:24px;bottom:-8px;width:1.5px;background:rgba(201,168,76,0.2);z-index:0;}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0;position:relative;z-index:1;}
+.tl-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:500;}
+.tl-dot.past{background:var(--gold);color:var(--navy);}
+.tl-dot.urgent{background:var(--red);color:var(--white);}
+.tl-dot.upcoming{background:rgba(201,168,76,0.15);border:1.5px solid var(--gold);color:var(--gold);}
+.tl-dot.expired{background:rgba(138,155,181,0.15);border:1px solid rgba(138,155,181,0.2);color:var(--muted);}
+.tl-content{flex:1;background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.75rem;margin-bottom:0.5rem;}
+.tl-content.urgent{border-left:2px solid var(--red);}
+.tl-content.past{border-left:2px solid var(--gold);}
+.tl-content.expired{opacity:0.55;}
+.tl-date{font-size:0.62rem;color:var(--muted);margin-bottom:0.2rem;}
+.tl-event-title{font-size:0.82rem;font-weight:500;color:var(--white);margin-bottom:0.2rem;}
+.tl-statute{font-size:0.62rem;color:var(--gold);margin-bottom:0.3rem;}
+.tl-deadline{font-size:0.65rem;font-weight:500;}
+.tl-deadline.urgent{color:var(--red);}
+.tl-deadline.ok{color:var(--green);}
+.tl-deadline.expired{color:var(--muted);}
+.tl-desc{font-size:0.68rem;color:var(--muted);line-height:1.6;}
+.tlb-summary{background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);padding:0.85rem;margin-top:0.75rem;}
+.tlb-summary-title{font-size:0.65rem;font-weight:500;color:var(--gold);margin-bottom:0.3rem;}
+.tlb-summary-body{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.tlb-reset{width:100%;background:none;border:1px solid rgba(255,255,255,0.08);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.68rem;padding:0.6rem;cursor:pointer;margin-top:0.75rem;letter-spacing:0.08em;}
+.tlb-chips{display:flex;flex-wrap:wrap;gap:5px;width:100%;max-width:320px;margin-bottom:0.75rem;}
+.tlb-chip{font-size:0.6rem;padding:4px 8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.tlb-chip:hover{border-color:rgba(201,168,76,0.28);color:var(--gold);}
 </style>
 </head>
 <body>
@@ -681,6 +724,35 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
         </div>
       </div>
     </div>
+
+    <!-- LEGAL TIMELINE BUILDER -->
+    <div class="screen" id="sc-timeline">
+      <div class="tlb-wrap">
+        <div class="tlb-title">Legal <em>Timeline.</em></div>
+        <p class="tlb-sub">Describe what happened and when. Civi builds your legal timeline and calculates every deadline automatically.</p>
+        <div class="tlb-chips">
+          <div class="tlb-chip" onclick="tlbQuick('My landlord kept my security deposit when I moved out on April 1 2026')">Security Deposit</div>
+          <div class="tlb-chip" onclick="tlbQuick('A debt collector first contacted me by letter on March 15 2026 about an old credit card debt')">Debt Collection</div>
+          <div class="tlb-chip" onclick="tlbQuick('I filed a credit dispute with Experian on April 11 2026 about two late payment errors')">Credit Dispute</div>
+          <div class="tlb-chip" onclick="tlbQuick('I was fired on March 22 2026 two weeks after I filed a workers comp claim on March 8 2026')">Wrongful Termination</div>
+          <div class="tlb-chip" onclick="tlbQuick('I received an IRS CP14 notice dated April 15 2026 for $8200 in penalties')">IRS Notice</div>
+        </div>
+        <div class="tlb-input-wrap">
+          <textarea class="tlb-input" id="tlbInput" placeholder="Describe what happened and when. Include dates if you know them. Example: My landlord kept my security deposit when I moved out on March 1st. I have not received anything from them in 30 days."></textarea>
+        </div>
+        <button class="tlb-btn" onclick="buildTimeline()">Build My Timeline</button>
+        <div class="tlb-thinking" id="tlbThinking">Civi is building your legal timeline...</div>
+        <div class="tlb-results" id="tlbResults">
+          <div class="tlb-results-hdr" id="tlbResultsHdr">Your Legal Timeline</div>
+          <div id="tlbEventList"></div>
+          <div class="tlb-summary" id="tlbSummary" style="display:none;">
+            <div class="tlb-summary-title">Civi's Assessment</div>
+            <div class="tlb-summary-body" id="tlbSummaryBody"></div>
+          </div>
+          <button class="tlb-reset" onclick="resetTimeline()">Start Over</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="bottom-nav">
@@ -690,6 +762,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
     <button class="nb" id="nb-academy" onclick="switchScreen('academy')"><span class="ni">🎓</span><span class="nl">Academy</span></button>
     <button class="nb" id="nb-calculator" onclick="switchScreen('calculator')"><span class="ni">⏱</span><span class="nl">Deadlines</span></button>
     <button class="nb" id="nb-detector" onclick="switchScreen('detector')"><span class="ni">🔍</span><span class="nl">Scan Doc</span></button>
+    <button class="nb" id="nb-timeline" onclick="switchScreen('timeline')"><span class="ni">📅</span><span class="nl">Timeline</span></button>
     <button class="nb" id="nb-profile" onclick="switchScreen('profile')"><span class="ni">◎</span><span class="nl">Profile</span></button>
   </div>
 </div>
@@ -1092,6 +1165,131 @@ function showErr(msg) { const el = document.getElementById('authErr'); el.textCo
 function showOk(msg) { const el = document.getElementById('authOk'); el.textContent = msg; el.style.display = 'block'; }
 function clearMsg() { document.getElementById('authErr').style.display = 'none'; document.getElementById('authOk').style.display = 'none'; }
 function setBtnLoad(id, on, label) { const b = document.getElementById(id); b.disabled = on; b.textContent = on ? 'Please wait...' : (label || b.textContent); }
+
+// ─── LEGAL TIMELINE BUILDER ───────────────────────────────────────────────────
+const TLB_SYSTEM = `You are Civi, the AI legal navigator for Civitas Legal Document Services.
+
+The user will describe a legal situation with dates. Build a chronological legal timeline.
+
+Respond ONLY with a JSON object in this exact format:
+{
+  "events": [
+    {
+      "date": "YYYY-MM-DD or approximate like 2026-03-01",
+      "title": "What happened",
+      "type": "incident" or "deadline" or "action_taken",
+      "statute": "Applicable statute if any",
+      "deadline_days": null or number of days from event date user has to act,
+      "deadline_label": "What the deadline is for",
+      "description": "Plain English explanation under 50 words",
+      "urgency": "past" or "urgent" or "upcoming" or "expired"
+    }
+  ],
+  "summary": "Two sentence overall assessment of the situation and most urgent action needed"
+}
+
+Sort events chronologically. Include both what happened AND the legal deadlines that flow from those events.
+Today is ${new Date().toISOString().split('T')[0]}.
+Be specific with statutes. Calculate deadlines precisely.`;
+
+async function buildTimeline() {
+  const text = document.getElementById('tlbInput').value.trim();
+  if (!text) { toast('Please describe your situation first'); return; }
+  document.getElementById('tlbThinking').classList.add('show');
+  document.getElementById('tlbResults').classList.remove('show');
+
+  try {
+    const res = await fetch('/.netlify/functions/civi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: TLB_SYSTEM,
+        messages: [{ role: 'user', content: text }]
+      })
+    });
+
+    const data = await res.json();
+    const raw = data.content?.[0]?.text || '{}';
+    let parsed;
+    try { parsed = JSON.parse(raw.replace(/```json|```/g, '').trim()); }
+    catch(e) { parsed = { events: [], summary: '' }; }
+    displayTimeline(parsed);
+  } catch(err) {
+    toast('Could not build timeline. Please try again.');
+    console.error(err);
+  } finally {
+    document.getElementById('tlbThinking').classList.remove('show');
+  }
+}
+
+function displayTimeline(data) {
+  const list = document.getElementById('tlbEventList');
+  list.innerHTML = '';
+  const events = data.events || [];
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  document.getElementById('tlbResultsHdr').textContent = events.length + ' Event' + (events.length !== 1 ? 's' : '') + ' on Your Timeline';
+
+  events.forEach((ev, i) => {
+    const evDate = ev.date ? new Date(ev.date + 'T00:00:00') : null;
+    let daysLeft = null;
+    let deadlineStr = '';
+
+    if (ev.deadline_days && evDate) {
+      const deadline = new Date(evDate);
+      deadline.setDate(deadline.getDate() + ev.deadline_days);
+      daysLeft = Math.ceil((deadline - today) / (1000*60*60*24));
+      const dl = deadline.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+      if (daysLeft < 0) deadlineStr = 'Deadline expired';
+      else if (daysLeft === 0) deadlineStr = 'Deadline TODAY — ' + ev.deadline_label;
+      else if (daysLeft <= 7) deadlineStr = daysLeft + ' days left — ' + ev.deadline_label;
+      else deadlineStr = dl + ' — ' + ev.deadline_label;
+    }
+
+    const urgency = daysLeft !== null ? (daysLeft < 0 ? 'expired' : daysLeft <= 7 ? 'urgent' : 'upcoming') : ev.urgency || 'past';
+    const dotClass = urgency;
+    const dotSymbol = urgency === 'past' ? '✓' : urgency === 'urgent' ? '!' : urgency === 'expired' ? '✕' : (i+1);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'tl-event';
+    const dateStr = evDate ? evDate.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'}) : 'Date unknown';
+    const deadlineClass = daysLeft === null ? '' : daysLeft < 0 ? 'expired' : daysLeft <= 7 ? 'urgent' : 'ok';
+    const deadlinePrefix = daysLeft !== null && daysLeft <= 7 && daysLeft >= 0 ? '⚡ ' : daysLeft !== null && daysLeft < 0 ? '⚠ ' : '';
+
+    wrap.innerHTML = `
+      <div class="tl-dot-wrap">
+        <div class="tl-dot ${dotClass}">${dotSymbol}</div>
+      </div>
+      <div class="tl-content ${urgency === 'urgent' ? 'urgent' : urgency === 'past' ? 'past' : urgency === 'expired' ? 'expired' : ''}">
+        <div class="tl-date">${dateStr}</div>
+        <div class="tl-event-title">${ev.title}</div>
+        ${ev.statute ? `<div class="tl-statute">${ev.statute}</div>` : ''}
+        ${deadlineStr ? `<div class="tl-deadline ${deadlineClass}">${deadlinePrefix}${deadlineStr}</div>` : ''}
+        <div class="tl-desc">${ev.description}</div>
+      </div>
+    `;
+    list.appendChild(wrap);
+  });
+
+  if (data.summary) {
+    document.getElementById('tlbSummaryBody').textContent = data.summary;
+    document.getElementById('tlbSummary').style.display = 'block';
+  }
+
+  document.getElementById('tlbResults').classList.add('show');
+}
+
+function tlbQuick(text) {
+  document.getElementById('tlbInput').value = text;
+  buildTimeline();
+}
+
+function resetTimeline() {
+  document.getElementById('tlbInput').value = '';
+  document.getElementById('tlbResults').classList.remove('show');
+  document.getElementById('tlbEventList').innerHTML = '';
+  document.getElementById('tlbSummary').style.display = 'none';
+}
 
 // ─── VIOLATION DETECTOR ──────────────────────────────────────────────────────
 const VD_SYSTEM = `You are Civi, the AI legal scanner for Civitas Legal Document Services.
