@@ -381,6 +381,39 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
 .tlb-chips{display:flex;flex-wrap:wrap;gap:5px;width:100%;max-width:320px;margin-bottom:0.75rem;}
 .tlb-chip{font-size:0.6rem;padding:4px 8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:all 0.15s;}
 .tlb-chip:hover{border-color:rgba(201,168,76,0.28);color:var(--gold);}
+
+/* WITNESS AND EVIDENCE LOG */
+.wl-wrap{display:flex;flex-direction:column;align-items:center;padding:1.75rem 1.5rem 1rem;min-height:100%;}
+.wl-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);text-align:center;margin-bottom:0.35rem;}
+.wl-title em{font-style:italic;color:var(--gold-light);}
+.wl-sub{font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:1.25rem;max-width:280px;}
+.wl-form{width:100%;max-width:320px;margin-bottom:0.75rem;}
+.wl-field{margin-bottom:0.65rem;}
+.wl-label{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.25rem;display:block;}
+.wl-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.65rem;outline:none;}
+.wl-input:focus{border-color:var(--gold);}
+.wl-input::placeholder{color:rgba(138,155,181,0.35);}
+.wl-textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.65rem;outline:none;resize:none;min-height:70px;}
+.wl-textarea:focus{border-color:var(--gold);}
+.wl-textarea::placeholder{color:rgba(138,155,181,0.35);}
+.wl-add-btn{width:100%;max-width:320px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem;cursor:pointer;margin-bottom:0.75rem;}
+.wl-entries{width:100%;max-width:320px;margin-bottom:0.75rem;}
+.wl-entry{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);border-left:2px solid var(--gold);padding:0.75rem;margin-bottom:0.5rem;position:relative;}
+.wl-entry-date{font-size:0.62rem;color:var(--gold);margin-bottom:0.2rem;}
+.wl-entry-title{font-size:0.8rem;font-weight:500;color:var(--white);margin-bottom:0.2rem;}
+.wl-entry-notes{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.wl-entry-remove{position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;color:rgba(138,155,181,0.35);cursor:pointer;font-size:0.7rem;font-family:'DM Sans',sans-serif;}
+.wl-entry-remove:hover{color:var(--red);}
+.wl-generate-btn{width:100%;max-width:320px;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem;cursor:pointer;margin-bottom:0.75rem;}
+.wl-generate-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.wl-thinking{font-size:0.68rem;color:#3498db;text-align:center;margin-bottom:1rem;display:none;}
+.wl-thinking.show{display:block;}
+.wl-declaration{width:100%;max-width:320px;display:none;}
+.wl-declaration.show{display:block;}
+.wl-decl-hdr{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.wl-decl-box{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.15);padding:1rem;font-size:0.75rem;color:var(--muted);line-height:1.85;white-space:pre-wrap;margin-bottom:0.75rem;}
+.wl-copy-btn{width:100%;background:none;border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.65rem;cursor:pointer;margin-bottom:0.5rem;}
+.wl-reset-btn{width:100%;background:none;border:1px solid rgba(255,255,255,0.08);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.68rem;padding:0.6rem;cursor:pointer;letter-spacing:0.08em;}
 </style>
 </head>
 <body>
@@ -753,6 +786,49 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
         </div>
       </div>
     </div>
+
+    <!-- WITNESS AND EVIDENCE LOG -->
+    <div class="screen" id="sc-witness">
+      <div class="wl-wrap">
+        <div class="wl-title">Evidence <em>Log.</em></div>
+        <p class="wl-sub">Document every incident with dates and details. Civi turns your log into a formatted declaration ready for small claims or a demand letter.</p>
+        <div class="wl-form">
+          <div class="wl-field">
+            <label class="wl-label">Your Name</label>
+            <input type="text" class="wl-input" id="wlName" placeholder="Your full name">
+          </div>
+          <div class="wl-field">
+            <label class="wl-label">Case Type</label>
+            <input type="text" class="wl-input" id="wlCase" placeholder="e.g. Security deposit dispute, Debt collector harassment">
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:0.65rem;margin-top:0.25rem;">
+            <div class="wl-label" style="margin-bottom:0.5rem;">Add an Incident</div>
+            <div class="wl-field">
+              <label class="wl-label">Date</label>
+              <input type="date" class="wl-input" id="wlDate" style="color-scheme:dark;">
+            </div>
+            <div class="wl-field">
+              <label class="wl-label">What happened</label>
+              <input type="text" class="wl-input" id="wlEvent" placeholder="Brief description of the incident">
+            </div>
+            <div class="wl-field">
+              <label class="wl-label">Details and evidence</label>
+              <textarea class="wl-textarea" id="wlNotes" placeholder="Who was present, what was said, any evidence you have (texts, photos, receipts)"></textarea>
+            </div>
+          </div>
+        </div>
+        <button class="wl-add-btn" onclick="addEntry()">+ Add This Incident</button>
+        <div class="wl-entries" id="wlEntries"></div>
+        <button class="wl-generate-btn" id="wlGenBtn" onclick="generateDeclaration()" disabled>Generate Declaration</button>
+        <div class="wl-thinking" id="wlThinking">Civi is drafting your declaration...</div>
+        <div class="wl-declaration" id="wlDeclaration">
+          <div class="wl-decl-hdr">Your Declaration</div>
+          <div class="wl-decl-box" id="wlDeclText"></div>
+          <button class="wl-copy-btn" onclick="copyDeclaration()">Copy Declaration</button>
+          <button class="wl-reset-btn" onclick="resetWitness()">Start New Log</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="bottom-nav">
@@ -763,6 +839,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
     <button class="nb" id="nb-calculator" onclick="switchScreen('calculator')"><span class="ni">⏱</span><span class="nl">Deadlines</span></button>
     <button class="nb" id="nb-detector" onclick="switchScreen('detector')"><span class="ni">🔍</span><span class="nl">Scan Doc</span></button>
     <button class="nb" id="nb-timeline" onclick="switchScreen('timeline')"><span class="ni">📅</span><span class="nl">Timeline</span></button>
+    <button class="nb" id="nb-witness" onclick="switchScreen('witness')"><span class="ni">📝</span><span class="nl">Evidence</span></button>
     <button class="nb" id="nb-profile" onclick="switchScreen('profile')"><span class="ni">◎</span><span class="nl">Profile</span></button>
   </div>
 </div>
@@ -1165,6 +1242,120 @@ function showErr(msg) { const el = document.getElementById('authErr'); el.textCo
 function showOk(msg) { const el = document.getElementById('authOk'); el.textContent = msg; el.style.display = 'block'; }
 function clearMsg() { document.getElementById('authErr').style.display = 'none'; document.getElementById('authOk').style.display = 'none'; }
 function setBtnLoad(id, on, label) { const b = document.getElementById(id); b.disabled = on; b.textContent = on ? 'Please wait...' : (label || b.textContent); }
+
+// ─── WITNESS AND EVIDENCE LOG ────────────────────────────────────────────────
+const WL_SYSTEM = `You are Civi, the AI legal navigator for Civitas Legal Document Services.
+
+The user will provide their name, case type, and a list of incidents with dates and details. Generate a formal declaration suitable for small claims court or attachment to a demand letter.
+
+Format it as a proper legal declaration with:
+- Header with declarant name and case type
+- "I, [name], declare under penalty of perjury under the laws of the State of California that the following is true and correct:"
+- Numbered paragraphs for each incident
+- Specific dates, times, and details from the log
+- Closing: "I declare under penalty of perjury that the foregoing is true and correct. Executed on [today's date] at [California]."
+- Signature line
+
+Keep it factual, specific, and professional. Do not include legal advice. Return plain text only, no markdown.`;
+
+let wlEntries = [];
+
+function addEntry() {
+  const date = document.getElementById('wlDate').value;
+  const event = document.getElementById('wlEvent').value.trim();
+  const notes = document.getElementById('wlNotes').value.trim();
+  if (!date || !event) { toast('Please enter a date and description'); return; }
+
+  wlEntries.push({ date, event, notes });
+
+  const container = document.getElementById('wlEntries');
+  const idx = wlEntries.length - 1;
+  const div = document.createElement('div');
+  div.className = 'wl-entry';
+  div.id = 'wl-entry-' + idx;
+  const dateStr = new Date(date + 'T00:00:00').toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+  div.innerHTML = `<button class="wl-entry-remove" onclick="removeEntry(${idx})">Remove</button><div class="wl-entry-date">${dateStr}</div><div class="wl-entry-title">${event}</div>${notes ? '<div class="wl-entry-notes">'+notes+'</div>' : ''}`;
+  container.appendChild(div);
+
+  document.getElementById('wlDate').value = '';
+  document.getElementById('wlEvent').value = '';
+  document.getElementById('wlNotes').value = '';
+  document.getElementById('wlGenBtn').disabled = false;
+  toast('Incident added');
+}
+
+function removeEntry(idx) {
+  wlEntries[idx] = null;
+  const el = document.getElementById('wl-entry-' + idx);
+  if (el) el.remove();
+  if (wlEntries.filter(e => e !== null).length === 0) {
+    document.getElementById('wlGenBtn').disabled = true;
+  }
+}
+
+async function generateDeclaration() {
+  const name = document.getElementById('wlName').value.trim() || 'Declarant';
+  const caseType = document.getElementById('wlCase').value.trim() || 'Legal Matter';
+  const entries = wlEntries.filter(e => e !== null);
+  if (entries.length === 0) { toast('Please add at least one incident'); return; }
+
+  document.getElementById('wlThinking').classList.add('show');
+  document.getElementById('wlDeclaration').classList.remove('show');
+  document.getElementById('wlGenBtn').disabled = true;
+
+  const entriesText = entries.map((e, i) => {
+    const dateStr = new Date(e.date + 'T00:00:00').toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+    return `Incident ${i+1}: ${dateStr} — ${e.event}${e.notes ? '. Details: ' + e.notes : ''}`;
+  }).join('
+');
+
+  const prompt = `Generate a declaration for:
+Name: ${name}
+Case type: ${caseType}
+Today's date: ${new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'})}
+
+Incidents:
+${entriesText}`;
+
+  try {
+    const res = await fetch('/.netlify/functions/civi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: WL_SYSTEM,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await res.json();
+    const text = data.content?.[0]?.text || 'Could not generate declaration. Please try again.';
+    document.getElementById('wlDeclText').textContent = text;
+    document.getElementById('wlDeclaration').classList.add('show');
+  } catch(err) {
+    toast('Could not generate declaration. Please try again.');
+    console.error(err);
+  } finally {
+    document.getElementById('wlThinking').classList.remove('show');
+    document.getElementById('wlGenBtn').disabled = false;
+  }
+}
+
+function copyDeclaration() {
+  const text = document.getElementById('wlDeclText').textContent;
+  navigator.clipboard.writeText(text).then(() => toast('Declaration copied to clipboard'));
+}
+
+function resetWitness() {
+  wlEntries = [];
+  document.getElementById('wlEntries').innerHTML = '';
+  document.getElementById('wlName').value = '';
+  document.getElementById('wlCase').value = '';
+  document.getElementById('wlDate').value = '';
+  document.getElementById('wlEvent').value = '';
+  document.getElementById('wlNotes').value = '';
+  document.getElementById('wlDeclaration').classList.remove('show');
+  document.getElementById('wlGenBtn').disabled = true;
+}
 
 // ─── LEGAL TIMELINE BUILDER ───────────────────────────────────────────────────
 const TLB_SYSTEM = `You are Civi, the AI legal navigator for Civitas Legal Document Services.
