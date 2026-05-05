@@ -639,7 +639,7 @@ function getStoryKey(text) {
   return null;
 }
 
-// ─── CLAUDE API CALL WITH STREAMING ─────────────────────────────────────────
+// ─── CLAUDE API CALL VIA NETLIFY PROXY ──────────────────────────────────────
 async function callCivi(userText) {
   const bodyEl = document.getElementById('aiBody');
   bodyEl.innerHTML = '<span class="cursor"></span>';
@@ -647,16 +647,11 @@ async function callCivi(userText) {
   document.getElementById('vStat').textContent = 'Civi is analyzing your situation...';
   document.getElementById('vStat').className = 'v-stat thinking';
 
-  let fullText = '';
-
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/.netlify/functions/civi', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 300,
-        stream: true,
         system: CIVI_SYSTEM,
         messages: [{ role: 'user', content: userText }]
       })
@@ -664,42 +659,15 @@ async function callCivi(userText) {
 
     if (!res.ok) throw new Error('API error ' + res.status);
 
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = '';
+    const data = await res.json();
+    const fullText = data.content?.[0]?.text || 'Civi could not analyze that situation. Please try again.';
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop();
-
-      for (const line of lines) {
-        if (!line.startsWith('data: ')) continue;
-        const data = line.slice(6).trim();
-        if (data === '[DONE]') continue;
-        try {
-          const evt = JSON.parse(data);
-          if (evt.type === 'content_block_delta' && evt.delta?.text) {
-            fullText += evt.delta.text;
-            // Bold statute citations inline
-            const display = fullText.replace(/\b(FCRA|FDCPA|FEHA|CROA|California Civil Code(?: Section [\w.]+)?|Civil Code(?: Section [\w.]+)?|Labor Code(?: \d+\w*)?|Section \d+[\w.]*|IRS Form \d+|Internal Revenue Manual|CFPB)\b/g, '<strong>$1</strong>');
-            bodyEl.innerHTML = display + '<span class="cursor"></span>';
-          }
-        } catch(e) {}
-      }
-    }
-
-    // Final render — remove cursor
     const display = fullText.replace(/\b(FCRA|FDCPA|FEHA|CROA|California Civil Code(?: Section [\w.]+)?|Civil Code(?: Section [\w.]+)?|Labor Code(?: \d+\w*)?|Section \d+[\w.]*|IRS Form \d+|Internal Revenue Manual|CFPB)\b/g, '<strong>$1</strong>');
     bodyEl.innerHTML = display;
+
     document.getElementById('vStat').textContent = 'Here is what Civi found';
     document.getElementById('vStat').className = 'v-stat';
-
-    // Store full text for read aloud
     window._civiText = fullText;
-    // Match a story
     const key = getStoryKey(userText);
     window._story = key ? stories[key] : null;
 
