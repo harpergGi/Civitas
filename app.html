@@ -271,6 +271,32 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
 .uw-skip{background:none;border:none;color:rgba(138,155,181,0.38);font-family:'DM Sans',sans-serif;font-size:0.65rem;cursor:pointer;margin-top:0.65rem;letter-spacing:0.07em;}
 .toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:0.68rem;font-weight:500;padding:0.5rem 1rem;border-radius:18px;z-index:999;opacity:0;transition:opacity 0.3s;white-space:nowrap;pointer-events:none;}
 .toast.show{opacity:1;}
+
+/* COURT DATE CALCULATOR */
+.calc-wrap{padding:1.25rem;}
+.calc-hero{background:linear-gradient(to bottom,#060e1a,var(--navy));padding:1.25rem;margin:-1.25rem -1.25rem 1.25rem;}
+.calc-hero h2{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);margin-bottom:0.28rem;}
+.calc-hero h2 em{font-style:italic;color:var(--gold-light);}
+.calc-hero p{font-size:0.68rem;color:var(--muted);line-height:1.6;}
+.calc-lbl{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;margin-top:0.85rem;}
+.calc-select{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.7rem;outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;}
+.calc-select option{background:#111f3a;color:var(--white);}
+.calc-date-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.7rem;outline:none;}
+.calc-date-input:focus,.calc-select:focus{border-color:var(--gold);}
+.calc-btn{width:100%;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem;cursor:pointer;margin-top:1rem;}
+.calc-results{margin-top:1.25rem;display:none;}
+.calc-results.show{display:block;}
+.calc-result-title{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.deadline-card{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);border-left:3px solid var(--gold);padding:0.85rem;margin-bottom:0.55rem;}
+.deadline-card.urgent{border-left-color:var(--red);}
+.deadline-card.passed{border-left-color:rgba(138,155,181,0.3);opacity:0.6;}
+.dc-deadline{font-size:0.65rem;font-weight:500;color:var(--gold);margin-bottom:0.2rem;}
+.deadline-card.urgent .dc-deadline{color:var(--red);}
+.dc-title{font-size:0.82rem;font-weight:500;color:var(--white);margin-bottom:0.2rem;}
+.dc-statute{font-size:0.62rem;color:var(--muted);}
+.dc-days{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--gold);float:right;margin-top:-0.5rem;}
+.deadline-card.urgent .dc-days{color:var(--red);}
+.calc-note{font-size:0.62rem;color:rgba(138,155,181,0.4);line-height:1.6;margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.05);}
 </style>
 </head>
 <body>
@@ -543,6 +569,38 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
         <button class="signout-btn" onclick="signOut()">Sign Out</button>
       </div>
     </div>
+
+    <!-- COURT DATE CALCULATOR -->
+    <div class="screen" id="sc-calculator">
+      <div class="calc-wrap">
+        <div class="calc-hero">
+          <h2>Deadline <em>Calculator.</em></h2>
+          <p>Know every legal deadline that applies to your situation before it expires.</p>
+        </div>
+        <div class="calc-lbl">What is your situation?</div>
+        <select class="calc-select" id="calcType" onchange="updateCalcFields()">
+          <option value="">Select your situation</option>
+          <option value="security_deposit">Landlord keeping my security deposit</option>
+          <option value="debt_collector">Debt collector contacted me</option>
+          <option value="credit_dispute">I filed a credit dispute</option>
+          <option value="wrongful_termination">I was wrongfully terminated</option>
+          <option value="small_claims">I want to file in small claims court</option>
+          <option value="landlord_entry">Landlord entered without notice</option>
+          <option value="irs_notice">I received an IRS notice</option>
+          <option value="consumer_complaint">Company violated my consumer rights</option>
+        </select>
+        <div id="calcDateWrap">
+          <div class="calc-lbl" id="calcDateLabel">When did this happen?</div>
+          <input type="date" class="calc-date-input" id="calcDate">
+        </div>
+        <button class="calc-btn" onclick="calculateDeadlines()">Calculate My Deadlines</button>
+        <div class="calc-results" id="calcResults">
+          <div class="calc-result-title">Your Legal Deadlines</div>
+          <div id="deadlineList"></div>
+          <div class="calc-note">These deadlines are based on federal and California statutes. Civitas Legal Document Services can prepare the correspondence you need before each deadline. Contact Brian at (916) 490-0063.</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="bottom-nav">
@@ -550,6 +608,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
     <button class="nb" id="nb-documents" onclick="requirePaid('Document vault')"><span class="ni">📁</span><span class="nl">Docs</span></button>
     <button class="nb-voice" onclick="switchScreen('voice')"><span class="ni">🎤</span><span class="nl">Ask Civi</span></button>
     <button class="nb" id="nb-academy" onclick="switchScreen('academy')"><span class="ni">🎓</span><span class="nl">Academy</span></button>
+    <button class="nb" id="nb-calculator" onclick="switchScreen('calculator')"><span class="ni">⏱</span><span class="nl">Deadlines</span></button>
     <button class="nb" id="nb-profile" onclick="switchScreen('profile')"><span class="ni">◎</span><span class="nl">Profile</span></button>
   </div>
 </div>
@@ -803,9 +862,22 @@ let currentUser = null, userPlan = 'free', selPlanVal = 'free', curSlide = 0;
 
 window.addEventListener('DOMContentLoaded', async () => {
   const { data: { session } } = await sb.auth.getSession();
-  setTimeout(() => {
+  setTimeout(async () => {
     document.getElementById('loading').classList.remove('visible');
-    if (session) { loadUser(session.user); } else { showLayer('onboarding'); }
+    if (session) {
+      // Check if this is a real profile in the database
+      let profile = null;
+      try { const { data } = await sb.from('profiles').select('id,role,plan').eq('id', session.user.id).single(); profile = data; } catch(e) {}
+      if (profile) {
+        loadUser(session.user);
+      } else {
+        // No valid profile — sign out and show onboarding
+        await sb.auth.signOut();
+        showLayer('onboarding');
+      }
+    } else {
+      showLayer('onboarding');
+    }
   }, 1000);
 });
 
@@ -866,9 +938,8 @@ async function resetPw() {
 }
 
 async function signOut() {
-  await sb.auth.signOut(); currentUser = null; userPlan = 'free'; curSlide = 0;
-  document.getElementById('obSlides').style.transform = 'translateX(0)';
-  showLayer('onboarding');
+  await sb.auth.signOut();
+  window.location.href = '/main.html';
 }
 
 async function loadUser(user) {
@@ -940,6 +1011,142 @@ function showErr(msg) { const el = document.getElementById('authErr'); el.textCo
 function showOk(msg) { const el = document.getElementById('authOk'); el.textContent = msg; el.style.display = 'block'; }
 function clearMsg() { document.getElementById('authErr').style.display = 'none'; document.getElementById('authOk').style.display = 'none'; }
 function setBtnLoad(id, on, label) { const b = document.getElementById(id); b.disabled = on; b.textContent = on ? 'Please wait...' : (label || b.textContent); }
+
+// ─── COURT DATE CALCULATOR ───────────────────────────────────────────────────
+const deadlineRules = {
+  security_deposit: {
+    label: 'Move-out / Last day of tenancy',
+    deadlines: [
+      { days: 21, title: 'Security deposit must be returned', statute: 'California Civil Code Section 1950.5', urgent: 14 },
+      { days: 21, title: 'Itemized statement of deductions required', statute: 'California Civil Code Section 1950.5(g)', urgent: 14 },
+      { days: 30, title: 'Send demand letter if deposit not returned', statute: 'Recommended action / Bad faith = 2x damages', urgent: 25 },
+      { days: 180, title: 'Small claims deadline to sue for deposit', statute: 'California CCP Section 339 (2 year limit applies to contracts)', urgent: 150 }
+    ]
+  },
+  debt_collector: {
+    label: 'Date of first written contact from collector',
+    deadlines: [
+      { days: 30, title: 'Send debt validation request', statute: 'FDCPA Section 809(b) — collector must cease until validated', urgent: 20 },
+      { days: 30, title: 'Dispute the debt in writing', statute: 'FDCPA Section 809(b)', urgent: 20 },
+      { days: 365, title: 'File FDCPA complaint with CFPB', statute: 'FDCPA Section 813 — 1 year statute of limitations', urgent: 300 },
+      { days: 365, title: 'File lawsuit for FDCPA violations', statute: 'FDCPA Section 813(d) — 1 year from violation', urgent: 300 }
+    ]
+  },
+  credit_dispute: {
+    label: 'Date you submitted your dispute',
+    deadlines: [
+      { days: 30, title: 'Bureau must complete investigation', statute: 'FCRA Section 611(a)(1)', urgent: 20 },
+      { days: 45, title: 'Extended investigation deadline (if new info submitted)', statute: 'FCRA Section 611(a)(1)(B)', urgent: 35 },
+      { days: 30, title: 'Bureau must notify furnisher of dispute', statute: 'FCRA Section 611(a)(2)', urgent: 20 },
+      { days: 90, title: 'Send follow-up dispute if not resolved', statute: 'Recommended action', urgent: 75 }
+    ]
+  },
+  wrongful_termination: {
+    label: 'Date of termination',
+    deadlines: [
+      { days: 180, title: 'File EEOC charge (federal discrimination)', statute: 'Title VII / ADEA — 180 days from termination', urgent: 150 },
+      { days: 300, title: 'File EEOC charge (if state agency exists)', statute: 'Title VII — 300 days if DFEH charge filed first', urgent: 270 },
+      { days: 365, title: 'File DFEH complaint (California)', statute: 'California FEHA — 1 year from violation', urgent: 300 },
+      { days: 365, title: 'File workers comp retaliation complaint', statute: 'California Labor Code 132a', urgent: 300 }
+    ]
+  },
+  small_claims: {
+    label: 'Date the dispute / incident occurred',
+    deadlines: [
+      { days: 30, title: 'Send formal demand letter first', statute: 'Recommended — required for some claims', urgent: 20 },
+      { days: 730, title: 'File small claims for written contracts', statute: 'California CCP Section 337 — 2 years', urgent: 600 },
+      { days: 730, title: 'File small claims for property damage', statute: 'California CCP Section 338 — 3 years', urgent: 600 },
+      { days: 365, title: 'File small claims for oral contracts', statute: 'California CCP Section 339 — 2 years', urgent: 300 }
+    ]
+  },
+  landlord_entry: {
+    label: 'Date of unauthorized entry',
+    deadlines: [
+      { days: 3, title: 'Send written notice to landlord citing violation', statute: 'California Civil Code 1954 — 24 hour notice required', urgent: 1 },
+      { days: 30, title: 'Document all entries and send formal demand', statute: 'Civil Code 1927 — covenant of quiet enjoyment', urgent: 20 },
+      { days: 180, title: 'File complaint with city/county housing authority', statute: 'Recommended if violations continue', urgent: 150 },
+      { days: 365, title: 'Small claims for harassment damages', statute: 'California Civil Code 1940.2', urgent: 300 }
+    ]
+  },
+  irs_notice: {
+    label: 'Date on the IRS notice',
+    deadlines: [
+      { days: 30, title: 'Respond to IRS notice', statute: 'Most CP notices require response within 30 days', urgent: 20 },
+      { days: 30, title: 'Request penalty abatement if applicable', statute: 'IRM 20.1.1.3.6 — First time abatement', urgent: 20 },
+      { days: 90, title: 'File Tax Court petition if you received a deficiency notice', statute: '90-day letter / IRC Section 6213', urgent: 75 },
+      { days: 180, title: 'File amended return to correct preparer errors', statute: 'Form 1040-X — generally 3 years from original filing', urgent: 150 }
+    ]
+  },
+  consumer_complaint: {
+    label: 'Date the violation occurred',
+    deadlines: [
+      { days: 30, title: 'Send written complaint to company', statute: 'Recommended first step for all consumer violations', urgent: 20 },
+      { days: 30, title: 'File CFPB complaint online', statute: 'consumerfinance.gov/complaint — company must respond in 15 days', urgent: 20 },
+      { days: 365, title: 'File FDCPA lawsuit', statute: 'FDCPA Section 813 — 1 year statute of limitations', urgent: 300 },
+      { days: 730, title: 'File FCRA lawsuit', statute: 'FCRA Section 618 — 2 years from discovery', urgent: 600 }
+    ]
+  }
+};
+
+function updateCalcFields() {
+  const type = document.getElementById('calcType').value;
+  const labels = {
+    security_deposit: 'Move-out date or last day of tenancy',
+    debt_collector: 'Date of first written contact from collector',
+    credit_dispute: 'Date you submitted your dispute',
+    wrongful_termination: 'Date of termination',
+    small_claims: 'Date the incident or dispute occurred',
+    landlord_entry: 'Date of the unauthorized entry',
+    irs_notice: 'Date printed on the IRS notice',
+    consumer_complaint: 'Date the violation occurred'
+  };
+  if (labels[type]) {
+    document.getElementById('calcDateLabel').textContent = labels[type];
+  }
+  document.getElementById('calcResults').classList.remove('show');
+}
+
+function calculateDeadlines() {
+  const type = document.getElementById('calcType').value;
+  const dateVal = document.getElementById('calcDate').value;
+  if (!type) { toast('Please select your situation'); return; }
+  if (!dateVal) { toast('Please enter the date'); return; }
+
+  const rules = deadlineRules[type];
+  if (!rules) return;
+
+  const startDate = new Date(dateVal + 'T00:00:00');
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const list = document.getElementById('deadlineList');
+  list.innerHTML = '';
+
+  const sorted = [...rules.deadlines].sort((a,b) => a.days - b.days);
+
+  sorted.forEach(rule => {
+    const deadline = new Date(startDate);
+    deadline.setDate(deadline.getDate() + rule.days);
+    const daysLeft = Math.ceil((deadline - today) / (1000*60*60*24));
+    const passed = daysLeft < 0;
+    const urgent = !passed && daysLeft <= (rule.days - rule.urgent);
+
+    const card = document.createElement('div');
+    card.className = 'deadline-card' + (passed ? ' passed' : urgent ? ' urgent' : '');
+
+    const deadlineStr = deadline.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const daysStr = passed ? 'Expired' : daysLeft === 0 ? 'TODAY' : daysLeft + ' days left';
+
+    card.innerHTML = `
+      <div class="dc-days">${daysStr}</div>
+      <div class="dc-deadline">${passed ? '⚠ EXPIRED — ' : urgent ? '⚡ URGENT — ' : ''}Due ${deadlineStr}</div>
+      <div class="dc-title">${rule.title}</div>
+      <div class="dc-statute">${rule.statute}</div>
+    `;
+    list.appendChild(card);
+  });
+
+  document.getElementById('calcResults').classList.add('show');
+}
 
 if ('speechSynthesis' in window) speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
 </script>
