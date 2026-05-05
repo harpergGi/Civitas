@@ -297,6 +297,47 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
 .dc-days{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--gold);float:right;margin-top:-0.5rem;}
 .deadline-card.urgent .dc-days{color:var(--red);}
 .calc-note{font-size:0.62rem;color:rgba(138,155,181,0.4);line-height:1.6;margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.05);}
+
+/* VIOLATION DETECTOR */
+.vd-wrap{display:flex;flex-direction:column;align-items:center;padding:1.75rem 1.5rem 1rem;min-height:100%;}
+.vd-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);text-align:center;margin-bottom:0.35rem;}
+.vd-title em{font-style:italic;color:var(--gold-light);}
+.vd-sub{font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:1.5rem;max-width:280px;}
+.vd-upload{border:1px dashed rgba(201,168,76,0.3);padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;width:100%;max-width:320px;margin-bottom:1rem;}
+.vd-upload:hover{background:rgba(201,168,76,0.04);border-color:rgba(201,168,76,0.5);}
+.vd-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.vd-upload-icon{font-size:2rem;color:rgba(201,168,76,0.4);margin-bottom:0.5rem;}
+.vd-upload-txt{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.vd-upload-txt strong{color:var(--white);}
+.vd-preview{width:100%;max-width:320px;background:var(--navy-mid);border:1px solid rgba(201,168,76,0.15);padding:0.75rem;margin-bottom:1rem;display:none;align-items:center;gap:0.75rem;}
+.vd-preview.show{display:flex;}
+.vd-preview-icon{font-size:1.5rem;color:var(--gold);}
+.vd-preview-name{font-size:0.75rem;color:var(--white);flex:1;}
+.vd-preview-size{font-size:0.62rem;color:var(--muted);}
+.vd-btn{width:100%;max-width:320px;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem;cursor:pointer;margin-bottom:1rem;}
+.vd-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.vd-analyzing{font-size:0.68rem;color:#3498db;text-align:center;margin-bottom:1rem;display:none;}
+.vd-analyzing.show{display:block;}
+.vd-results{width:100%;max-width:320px;display:none;}
+.vd-results.show{display:block;}
+.vd-results-hdr{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.violation-card{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);border-left:3px solid var(--red);padding:0.85rem;margin-bottom:0.55rem;}
+.violation-card.warning{border-left-color:#f39c12;}
+.vc-severity{font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:0.2rem;}
+.violation-card.warning .vc-severity{color:#f39c12;}
+.vc-title{font-size:0.85rem;font-weight:500;color:var(--white);margin-bottom:0.2rem;}
+.vc-statute{font-size:0.65rem;color:var(--gold);margin-bottom:0.4rem;}
+.vc-desc{font-size:0.75rem;color:var(--muted);line-height:1.6;}
+.vd-clean{background:var(--navy-mid);border:1px solid rgba(46,204,113,0.2);border-left:3px solid var(--green);padding:0.85rem;margin-bottom:0.55rem;display:none;}
+.vd-clean.show{display:block;}
+.vd-clean-title{font-size:0.85rem;font-weight:500;color:var(--green);margin-bottom:0.2rem;}
+.vd-clean-desc{font-size:0.75rem;color:var(--muted);line-height:1.6;}
+.vd-action{background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);padding:0.85rem;margin-top:0.75rem;}
+.vd-action-title{font-size:0.68rem;font-weight:500;color:var(--gold);margin-bottom:0.3rem;}
+.vd-action-body{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.vd-chips{display:flex;flex-wrap:wrap;gap:5px;width:100%;max-width:320px;margin-top:0.75rem;}
+.vd-chip{font-size:0.6rem;padding:4px 8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.vd-chip:hover{border-color:rgba(201,168,76,0.28);color:var(--gold);}
 </style>
 </head>
 <body>
@@ -601,6 +642,45 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
         </div>
       </div>
     </div>
+
+    <!-- VIOLATION DETECTOR -->
+    <div class="screen" id="sc-detector">
+      <div class="vd-wrap">
+        <div class="vd-title">Violation <em>Detector.</em></div>
+        <p class="vd-sub">Upload any document — a lease, debt collection letter, credit report, or IRS notice — and Civi will scan it for statutory violations.</p>
+        <div class="vd-upload" id="vdUpload">
+          <input type="file" id="vdFile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" onchange="handleVdFile(this)">
+          <div class="vd-upload-icon">📄</div>
+          <div class="vd-upload-txt"><strong>Upload your document</strong><br>PDF, image, or text file</div>
+        </div>
+        <div class="vd-preview" id="vdPreview">
+          <div class="vd-preview-icon">📄</div>
+          <div class="vd-preview-name" id="vdFileName">document.pdf</div>
+          <div class="vd-preview-size" id="vdFileSize">0 KB</div>
+        </div>
+        <button class="vd-btn" id="vdBtn" onclick="runDetector()" disabled>Scan for Violations</button>
+        <div class="vd-analyzing" id="vdAnalyzing">Civi is scanning your document for statutory violations...</div>
+        <div class="vd-results" id="vdResults">
+          <div class="vd-results-hdr" id="vdResultsHdr">Violations Found</div>
+          <div id="vdViolationList"></div>
+          <div class="vd-clean" id="vdClean">
+            <div class="vd-clean-title">No clear violations detected</div>
+            <div class="vd-clean-desc">Civi did not find obvious statutory violations in this document. That does not mean everything is legal — some issues require deeper case analysis. Contact Brian at (916) 490-0063 to review your situation.</div>
+          </div>
+          <div class="vd-action" id="vdAction" style="display:none;">
+            <div class="vd-action-title">What Civitas can do</div>
+            <div class="vd-action-body" id="vdActionBody">Civitas Legal Document Services can prepare the demand letters, dispute correspondence, and formal notices needed to address these violations. Contact Brian Harper at (916) 490-0063 to get started.</div>
+          </div>
+        </div>
+        <div class="vd-chips">
+          <div class="vd-chip" onclick="quickScan('debt_collection')">Debt Collection Letter</div>
+          <div class="vd-chip" onclick="quickScan('lease')">Lease Agreement</div>
+          <div class="vd-chip" onclick="quickScan('credit_report')">Credit Report</div>
+          <div class="vd-chip" onclick="quickScan('irs_notice')">IRS Notice</div>
+          <div class="vd-chip" onclick="quickScan('termination')">Termination Letter</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="bottom-nav">
@@ -609,6 +689,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
     <button class="nb-voice" onclick="switchScreen('voice')"><span class="ni">🎤</span><span class="nl">Ask Civi</span></button>
     <button class="nb" id="nb-academy" onclick="switchScreen('academy')"><span class="ni">🎓</span><span class="nl">Academy</span></button>
     <button class="nb" id="nb-calculator" onclick="switchScreen('calculator')"><span class="ni">⏱</span><span class="nl">Deadlines</span></button>
+    <button class="nb" id="nb-detector" onclick="switchScreen('detector')"><span class="ni">🔍</span><span class="nl">Scan Doc</span></button>
     <button class="nb" id="nb-profile" onclick="switchScreen('profile')"><span class="ni">◎</span><span class="nl">Profile</span></button>
   </div>
 </div>
@@ -1011,6 +1092,170 @@ function showErr(msg) { const el = document.getElementById('authErr'); el.textCo
 function showOk(msg) { const el = document.getElementById('authOk'); el.textContent = msg; el.style.display = 'block'; }
 function clearMsg() { document.getElementById('authErr').style.display = 'none'; document.getElementById('authOk').style.display = 'none'; }
 function setBtnLoad(id, on, label) { const b = document.getElementById(id); b.disabled = on; b.textContent = on ? 'Please wait...' : (label || b.textContent); }
+
+// ─── VIOLATION DETECTOR ──────────────────────────────────────────────────────
+const VD_SYSTEM = `You are Civi, the AI legal scanner for Civitas Legal Document Services.
+
+The user has uploaded a document. Analyze it and identify any statutory violations, problematic clauses, or consumer rights issues.
+
+Respond ONLY with a JSON object in this exact format:
+{
+  "violations": [
+    {
+      "severity": "violation" or "warning",
+      "title": "Brief title of the issue",
+      "statute": "Specific statute citation",
+      "description": "Plain English explanation of the violation and what it means for the user"
+    }
+  ],
+  "action": "One sentence describing what Civitas can prepare to address these violations",
+  "summary": "One sentence overall assessment"
+}
+
+If no violations found, return violations as empty array.
+Focus on: FDCPA, FCRA, CROA, California Civil Code, California Labor Code, California tenant rights, IRS regulations, consumer protection laws.
+Be specific with statute citations. Keep descriptions under 60 words each.`;
+
+let vdFileData = null;
+let vdFileType = null;
+
+function handleVdFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const size = file.size > 1048576 ? (file.size/1048576).toFixed(1)+' MB' : (file.size/1024).toFixed(0)+' KB';
+  document.getElementById('vdFileName').textContent = file.name;
+  document.getElementById('vdFileSize').textContent = size;
+  document.getElementById('vdPreview').classList.add('show');
+  document.getElementById('vdBtn').disabled = false;
+  document.getElementById('vdResults').classList.remove('show');
+  document.getElementById('vdAnalyzing').classList.remove('show');
+
+  const reader = new FileReader();
+  if (file.type.startsWith('image/')) {
+    reader.onload = e => {
+      vdFileData = e.target.result.split(',')[1];
+      vdFileType = file.type;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    reader.onload = e => {
+      vdFileData = e.target.result;
+      vdFileType = 'text';
+    };
+    reader.readAsText(file);
+  }
+}
+
+async function runDetector() {
+  if (!vdFileData) { toast('Please upload a document first'); return; }
+  document.getElementById('vdBtn').disabled = true;
+  document.getElementById('vdAnalyzing').classList.add('show');
+  document.getElementById('vdResults').classList.remove('show');
+
+  try {
+    let userContent;
+    if (vdFileType === 'text') {
+      userContent = 'Please scan this document for statutory violations:\n\n' + vdFileData.substring(0, 8000);
+    } else {
+      userContent = [
+        { type: 'image', source: { type: 'base64', media_type: vdFileType, data: vdFileData } },
+        { type: 'text', text: 'Please scan this document for statutory violations.' }
+      ];
+    }
+
+    const res = await fetch('/.netlify/functions/civi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: VD_SYSTEM,
+        messages: [{ role: 'user', content: userContent }]
+      })
+    });
+
+    const data = await res.json();
+    const raw = data.content?.[0]?.text || '{}';
+    let parsed;
+    try { parsed = JSON.parse(raw.replace(/```json|```/g, '').trim()); }
+    catch(e) { parsed = { violations: [], action: '', summary: '' }; }
+
+    displayViolations(parsed);
+  } catch(err) {
+    toast('Scan failed. Please try again.');
+    console.error(err);
+  } finally {
+    document.getElementById('vdBtn').disabled = false;
+    document.getElementById('vdAnalyzing').classList.remove('show');
+  }
+}
+
+function displayViolations(data) {
+  const list = document.getElementById('vdViolationList');
+  list.innerHTML = '';
+  const violations = data.violations || [];
+  const hdr = document.getElementById('vdResultsHdr');
+  const clean = document.getElementById('vdClean');
+  const action = document.getElementById('vdAction');
+  const actionBody = document.getElementById('vdActionBody');
+
+  if (violations.length === 0) {
+    hdr.textContent = 'Scan Complete';
+    clean.classList.add('show');
+    action.style.display = 'none';
+  } else {
+    hdr.textContent = violations.length + ' Issue' + (violations.length > 1 ? 's' : '') + ' Found';
+    clean.classList.remove('show');
+    violations.forEach(v => {
+      const card = document.createElement('div');
+      card.className = 'violation-card' + (v.severity === 'warning' ? ' warning' : '');
+      card.innerHTML = `<div class="vc-severity">${v.severity === 'warning' ? '⚠ Warning' : '🚨 Violation'}</div><div class="vc-title">${v.title}</div><div class="vc-statute">${v.statute}</div><div class="vc-desc">${v.description}</div>`;
+      list.appendChild(card);
+    });
+    if (data.action) {
+      actionBody.textContent = data.action + ' Contact Brian Harper at (916) 490-0063 to get started.';
+      action.style.display = 'block';
+    }
+  }
+
+  document.getElementById('vdResults').classList.add('show');
+}
+
+async function quickScan(type) {
+  const prompts = {
+    debt_collection: 'Scan this type of document for FDCPA violations: A debt collection letter that demands immediate payment, threatens legal action without validation notice, contacts the consumer after 9pm, and does not disclose the right to dispute within 30 days.',
+    lease: 'Scan this lease agreement for California tenant rights violations: Lease includes a clause waiving tenant right to habitable conditions, charges non-refundable security deposit, does not specify return timeline, and includes an illegal late fee of $500.',
+    credit_report: 'Scan this credit report dispute situation for FCRA violations: Bureau has not responded to a formal written dispute within 35 days, continues to report an unverified account, and failed to notify the furnisher of the dispute.',
+    irs_notice: 'Scan this IRS notice situation: CP14 notice for $8,200 in penalties. Taxpayer has clean 12-year filing history and relied on a licensed tax preparer who made an error. Notice does not mention first-time abatement options.',
+    termination: 'Scan this termination situation for California labor law violations: Employee was terminated 18 days after filing a workers compensation claim. No documented performance issues. No restructuring plan exists. Termination letter cites vague business reasons.'
+  };
+
+  document.getElementById('vdBtn').disabled = true;
+  document.getElementById('vdAnalyzing').classList.add('show');
+  document.getElementById('vdResults').classList.remove('show');
+  document.getElementById('vdPreview').classList.remove('show');
+
+  try {
+    const res = await fetch('/.netlify/functions/civi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: VD_SYSTEM,
+        messages: [{ role: 'user', content: prompts[type] }]
+      })
+    });
+
+    const data = await res.json();
+    const raw = data.content?.[0]?.text || '{}';
+    let parsed;
+    try { parsed = JSON.parse(raw.replace(/```json|```/g, '').trim()); }
+    catch(e) { parsed = { violations: [], action: '', summary: '' }; }
+    displayViolations(parsed);
+  } catch(err) {
+    toast('Scan failed. Please try again.');
+  } finally {
+    document.getElementById('vdBtn').disabled = false;
+    document.getElementById('vdAnalyzing').classList.remove('show');
+  }
+}
 
 // ─── COURT DATE CALCULATOR ───────────────────────────────────────────────────
 const deadlineRules = {
