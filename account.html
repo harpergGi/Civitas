@@ -125,6 +125,8 @@ body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);
       <div class="sb-section-label">Support</div>
       <a href="#messages" class="sb-item"><div class="sb-dot"></div>Messages</a>
       <a href="#billing" class="sb-item"><div class="sb-dot"></div>Billing</a>
+      <a href="#approvals" class="sb-item" id="adminNav" style="display:none;"><div class="sb-dot"></div>Approvals <span id="approvalCount" style="margin-left:auto;background:#e74c3c;color:#fff;font-size:0.6rem;font-weight:500;padding:1px 6px;border-radius:10px;display:none;">0</span></a>
+      <a href="/commander.html" class="sb-item" id="commanderNav" style="display:none;"><div class="sb-dot"></div>Commander</a>
     </nav>
   </aside>
 
@@ -304,6 +306,45 @@ function showToast(text,color){
   t.textContent=text;
   document.body.appendChild(t);
   setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.4s';setTimeout(()=>t.remove(),400);},3500);
+}
+
+async function loadApprovals(){
+  const{data,error}=await sb.from('profiles').select('*').eq('approval_status','pending').neq('role','admin');
+  const list=document.getElementById('approvalsList');
+  const count=document.getElementById('approvalCount');
+  if(error||!data||data.length===0){
+    list.innerHTML='<div style="font-size:0.75rem;color:var(--muted);padding:0.5rem 0;">No pending approvals. All accounts are reviewed.</div>';
+    count.style.display='none';
+    return;
+  }
+  count.textContent=data.length;
+  count.style.display='inline';
+  list.innerHTML='';
+  data.forEach(user=>{
+    const name=user.full_name||user.email?.split('@')[0]||'Unknown';
+    const since=new Date(user.created_at||Date.now()).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    const div=document.createElement('div');
+    div.id='ap-'+user.id;
+    div.style.cssText='background:#111f3a;border:1px solid rgba(201,168,76,0.1);border-left:3px solid #f39c12;padding:1rem;margin-bottom:0.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;';
+    div.innerHTML=`<div><div style="font-size:0.9rem;font-weight:500;color:#fff;margin-bottom:0.2rem;">${name}</div><div style="font-size:0.72rem;color:#8a9bb5;margin-bottom:0.2rem;">${user.email||'No email'}</div><div style="font-size:0.62rem;color:rgba(138,155,181,0.5);">Registered ${since}</div></div><div style="display:flex;gap:0.5rem;flex-shrink:0;"><button onclick="approveUser('${user.id}','${name}')" style="background:#2ecc71;color:#0a1628;border:none;font-family:'DM Sans',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.5rem 1rem;cursor:pointer;">Approve</button><button onclick="denyUser('${user.id}','${name}')" style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);color:#e74c3c;font-family:'DM Sans',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.5rem 1rem;cursor:pointer;">Deny</button></div>`;
+    list.appendChild(div);
+  });
+}
+
+async function approveUser(userId,name){
+  const{error}=await sb.from('profiles').update({approval_status:'approved'}).eq('id',userId);
+  if(error){alert('Error approving user. Try again.');return;}
+  document.getElementById('ap-'+userId)?.remove();
+  showToast(name+' approved. They can now access their account.','#2ecc71');
+  loadApprovals();
+}
+
+async function denyUser(userId,name){
+  if(!confirm('Deny access for '+name+'? This will delete their account.'))return;
+  await sb.from('profiles').delete().eq('id',userId);
+  document.getElementById('ap-'+userId)?.remove();
+  showToast(name+' denied and removed.','#e74c3c');
+  loadApprovals();
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
