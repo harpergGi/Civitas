@@ -945,7 +945,8 @@ async function callCivi(userText) {
     if (!res.ok) throw new Error('API error ' + res.status);
 
     const data = await res.json();
-    const fullText = data.content?.[0]?.text || 'Civi could not analyze that situation. Please try again.';
+    console.log('Civi API response:', JSON.stringify(data));
+    const fullText = data.content?.[0]?.text || data.error?.message || 'Civi could not analyze that situation. Please try again.';
 
     const display = fullText.replace(/\b(FCRA|FDCPA|FEHA|CROA|California Civil Code(?: Section [\w.]+)?|Civil Code(?: Section [\w.]+)?|Labor Code(?: \d+\w*)?|Section \d+[\w.]*|IRS Form \d+|Internal Revenue Manual|CFPB)\b/g, '<strong>$1</strong>');
     bodyEl.innerHTML = display;
