@@ -601,6 +601,10 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
         </div>
         <div class="v-stat" id="vStat">Tap the mic to speak your situation</div>
         <div class="transcript" id="transcript"></div>
+        <div style="width:100%;max-width:320px;margin-bottom:0.75rem;display:flex;gap:0.5rem;">
+          <input type="text" id="textInput" placeholder="Or type your situation here..." style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.78rem;padding:0.6rem;outline:none;">
+          <button onclick="submitText()" style="background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.7rem;font-weight:500;padding:0.6rem 0.85rem;cursor:pointer;white-space:nowrap;">Ask</button>
+        </div>
         <div class="ai-resp" id="aiResp">
           <div class="ai-hdr"><div class="ai-icon">⚖️</div><div class="ai-lbl">Civi Analysis</div></div>
           <div class="ai-body" id="aiBody"></div>
@@ -945,7 +949,6 @@ async function callCivi(userText) {
     if (!res.ok) throw new Error('API error ' + res.status);
 
     const data = await res.json();
-    console.log('Civi API response:', JSON.stringify(data));
     const fullText = data.content?.[0]?.text || data.error?.message || 'Civi could not analyze that situation. Please try again.';
 
     const display = fullText.replace(/\b(FCRA|FDCPA|FEHA|CROA|California Civil Code(?: Section [\w.]+)?|Civil Code(?: Section [\w.]+)?|Labor Code(?: \d+\w*)?|Section \d+[\w.]*|IRS Form \d+|Internal Revenue Manual|CFPB)\b/g, '<strong>$1</strong>');
@@ -1009,6 +1012,14 @@ function toggleMic() {
     document.getElementById('vStat').className = 'v-stat';
   };
   recognition.start();
+}
+
+function submitText() {
+  const input = document.getElementById('textInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  quickAsk(text);
 }
 
 function quickAsk(text) {
@@ -1155,6 +1166,14 @@ async function register() {
   if (error) { setBtnLoad('reg-btn', false, 'Create Account'); showErr(error.message); return; }
   if (data.user && !data.session) { setBtnLoad('reg-btn', false, 'Create Account'); showOk('Account created. Check your email to confirm, then sign in.'); return; }
   showOk('Account created. Loading your dashboard...');
+  // Notify Brian of new registration
+  try {
+    await fetch('/.netlify/functions/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: fn + ' ' + ln, email })
+    });
+  } catch(e) { console.log('Notification error:', e); }
   await loadUser(data.user);
 }
 
@@ -1167,6 +1186,11 @@ async function resetPw() {
   setBtnLoad('rst-btn', false, 'Send Reset Link');
   if (error) { showErr(error.message); return; }
   showOk('Reset link sent to ' + email);
+}
+
+async function signOutPending() {
+  await sb.auth.signOut();
+  window.location.href = '/main.html';
 }
 
 async function signOut() {
@@ -1778,6 +1802,12 @@ function calculateDeadlines() {
 }
 
 if ('speechSynthesis' in window) speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+
+// Text input enter key
+document.addEventListener('DOMContentLoaded', () => {
+  const ti = document.getElementById('textInput');
+  if (ti) ti.addEventListener('keydown', e => { if (e.key === 'Enter') submitText(); });
+});
 </script>
 </body>
 </html>
