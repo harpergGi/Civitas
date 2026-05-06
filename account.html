@@ -47,22 +47,25 @@ body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);
 .stat-val.green{color:var(--green);}
 .stat-sub{font-size:0.62rem;color:var(--muted);margin-top:3px;}
 .full{margin-bottom:1rem;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
 .card{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.1);padding:1.25rem;}
 .card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(255,255,255,0.05);}
 .card-title{font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.card-action{font-size:0.7rem;color:var(--gold);cursor:pointer;text-decoration:none;}
 .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
 .field{display:flex;flex-direction:column;gap:0.25rem;}
 .field label{font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
 .field-val{font-size:0.82rem;color:var(--white);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:0.45rem 0.7rem;}
 .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
-.res-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);padding:0.6rem 0.75rem;text-decoration:none;display:block;transition:all 0.15s;}
+.res-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);padding:0.6rem 0.75rem;cursor:pointer;transition:all 0.15s;text-decoration:none;display:block;}
 .res-item:hover{background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.2);}
 .res-tag{font-size:0.58rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
 .res-tag.fed{color:rgba(52,152,219,0.8);}
 .res-tag.ca{color:rgba(46,204,113,0.8);}
+.res-tag.irs{color:rgba(231,76,60,0.8);}
 .res-tag.tool{color:rgba(201,168,76,0.8);}
 .res-title{font-size:0.75rem;color:var(--white);line-height:1.3;}
-.msg-thread{display:flex;flex-direction:column;gap:0.6rem;max-height:200px;overflow-y:auto;}
+.msg-thread{display:flex;flex-direction:column;gap:0.6rem;max-height:200px;overflow-y:auto;padding-right:0.25rem;}
 .msg{max-width:85%;padding:0.6rem 0.85rem;}
 .msg.them{background:rgba(255,255,255,0.05);color:var(--white);align-self:flex-start;}
 .msg.me{background:rgba(201,168,76,0.1);color:var(--gold-light);align-self:flex-end;}
@@ -155,12 +158,14 @@ body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);
       <div class="stat-card">
         <div class="stat-label">Case Status</div>
         <div class="stat-val green" id="statCase" style="font-size:1rem;margin-top:4px;">Active</div>
-        <div class="stat-sub">Account in good standing</div>
+        <div class="stat-sub" id="statCaseSub">Account in good standing</div>
       </div>
     </div>
 
     <div class="full card" id="profile">
-      <div class="card-hdr"><div class="card-title">Account Profile</div></div>
+      <div class="card-hdr">
+        <div class="card-title">Account Profile</div>
+      </div>
       <div class="field-grid">
         <div class="field"><label>Full Name</label><div class="field-val" id="pfName">...</div></div>
         <div class="field"><label>Email</label><div class="field-val" id="pfEmail">...</div></div>
@@ -170,12 +175,16 @@ body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);
     </div>
 
     <div class="full card" id="documents">
-      <div class="card-hdr"><div class="card-title">My Documents</div></div>
+      <div class="card-hdr">
+        <div class="card-title">My Documents</div>
+      </div>
       <p style="font-size:0.75rem;color:var(--muted);line-height:1.7;" id="docsMsg">Your document vault is available with any paid plan. Contact Brian at (916) 490-0063 to open your case and get started.</p>
     </div>
 
     <div class="full card" id="resources">
-      <div class="card-hdr"><div class="card-title">Legal Resources and References</div></div>
+      <div class="card-hdr">
+        <div class="card-title">Legal Resources and References</div>
+      </div>
       <div class="res-grid">
         <a class="res-item" href="https://www.consumerfinance.gov/consumer-tools/credit-reports-and-scores/" target="_blank"><div class="res-tag fed">Federal / FCRA</div><div class="res-title">FCRA dispute rights / CFPB guide</div></a>
         <a class="res-item" href="https://www.consumerfinance.gov/consumer-tools/debt-collection/" target="_blank"><div class="res-tag fed">Federal / FDCPA</div><div class="res-title">Debt collection rights / CFPB guide</div></a>
@@ -206,7 +215,9 @@ body{background:var(--navy);font-family:'DM Sans',sans-serif;color:var(--white);
     </div>
 
     <div class="full card" id="billing">
-      <div class="card-hdr"><div class="card-title">Billing and Membership</div></div>
+      <div class="card-hdr">
+        <div class="card-title">Billing and Membership</div>
+      </div>
       <div class="bill-row"><span class="bill-label">Current plan</span><span id="billPlan"><span class="plan-badge">Free</span></span></div>
       <div class="bill-row"><span class="bill-label">Monthly cost</span><span class="bill-val" id="billCost">$0.00</span></div>
       <div class="bill-row"><span class="bill-label">To upgrade</span><span class="bill-val gold">Call or text (916) 490-0063</span></div>
@@ -235,7 +246,7 @@ async function init(){
   const user=session.user;
   let profile=null;
   try{const{data}=await sb.from('profiles').select('*').eq('id',user.id).single();profile=data;}catch(e){}
-  if(profile?.role==='admin'){window.location.href='commander.html';return;}
+  if(profile&&profile.role==='admin'){window.location.href='/commander.html';return;}
   const name=profile?.full_name||user.email?.split('@')[0]||'there';
   const firstName=name.split(' ')[0];
   const initials=name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
