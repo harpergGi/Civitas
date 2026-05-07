@@ -33,4 +33,189 @@ nav{padding:0 3rem;height:64px;display:flex;align-items:center;justify-content:s
 .form-box{width:100%;}
 .form-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--white);margin-bottom:0.4rem;}
 .form-sub{font-size:0.72rem;color:var(--muted);margin-bottom:2rem;line-height:1.6;}
-.form-tabs{
+.form-tabs{display:flex;gap:0;margin-bottom:1.75rem;border-bottom:1px solid rgba(255,255,255,0.07);}
+.form-tab{font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.6rem 1.25rem;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.2s;}
+.form-tab.act{color:var(--gold);border-bottom-color:var(--gold);}
+.fg{display:flex;flex-direction:column;gap:0.25rem;margin-bottom:0.75rem;}
+.fg label{font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+.fg input{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.65rem 0.85rem;outline:none;transition:border-color 0.2s;width:100%;}
+.fg input:focus{border-color:var(--gold);}
+.fg input::placeholder{color:rgba(138,155,181,0.35);}
+.btn-submit{width:100%;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.85rem;cursor:pointer;transition:background 0.2s;margin-top:0.5rem;}
+.btn-submit:hover{background:var(--gold-light);}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed;}
+.form-err{font-size:0.72rem;color:var(--red);padding:0.6rem 0.75rem;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);margin-bottom:0.75rem;display:none;}
+.form-ok{font-size:0.72rem;color:var(--green);padding:0.6rem 0.75rem;background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.2);margin-bottom:0.75rem;display:none;}
+.form-link{font-size:0.72rem;color:var(--muted);text-align:center;margin-top:1.25rem;}
+.form-link a{color:var(--gold);text-decoration:none;}
+.forgot{font-size:0.65rem;color:var(--muted);text-align:right;cursor:pointer;margin-top:-0.4rem;margin-bottom:0.75rem;}
+.forgot:hover{color:var(--gold);}
+.spinner{width:18px;height:18px;border:2px solid rgba(10,22,40,0.3);border-top-color:var(--navy);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="main.html" class="nav-logo">Civitas<span>.</span></a>
+  <a href="main.html" class="nav-back">Back to Site</a>
+</nav>
+<div class="page">
+  <div class="left">
+    <div class="left-eye"><div class="left-line"></div><span>Member Portal</span></div>
+    <h1>Your case.<br>Your rights.<br><em>Your ground.</em></h1>
+    <p>Log in to access your personal Civitas dashboard. Every document, every update, every message, live and waiting for you.</p>
+    <div class="feature-list">
+      <div class="feat"><div class="feat-dot"></div><div class="feat-text"><strong>Live case timeline</strong> showing exactly where your matter stands today</div></div>
+      <div class="feat"><div class="feat-dot"></div><div class="feat-text"><strong>Document vault</strong> isolated to your account only, upload and access anytime</div></div>
+      <div class="feat"><div class="feat-dot"></div><div class="feat-text"><strong>Secure messaging</strong> directly with Brian Harper at Civitas</div></div>
+      <div class="feat"><div class="feat-dot"></div><div class="feat-text"><strong>Real-time notifications</strong> by text and email when anything changes</div></div>
+      <div class="feat"><div class="feat-dot"></div><div class="feat-text"><strong>Legal resources library</strong> with direct links to FCRA, FDCPA, CFPB, and California law</div></div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="form-box">
+      <div class="form-title" id="formTitle">Welcome back.</div>
+      <div class="form-sub" id="formSub">Sign in to your Civitas account.</div>
+      <div class="form-tabs">
+        <div class="form-tab act" id="tab-signin" onclick="switchTab('signin')">Sign In</div>
+        <div class="form-tab" id="tab-register" onclick="switchTab('register')">Register</div>
+        <div class="form-tab" id="tab-reset" onclick="switchTab('reset')" style="display:none;">Reset Password</div>
+      </div>
+      <div id="errBox" class="form-err"></div>
+      <div id="okBox" class="form-ok"></div>
+      <div id="form-signin">
+        <div class="fg"><label>Email Address</label><input type="email" id="si-email" placeholder="your@email.com" autocomplete="email"></div>
+        <div class="fg"><label>Password</label><input type="password" id="si-password" placeholder="Your password" autocomplete="current-password"></div>
+        <div class="forgot" onclick="switchTab('reset')">Forgot your password?</div>
+        <button class="btn-submit" id="si-btn" onclick="signIn()">Sign In to My Account</button>
+        <div class="form-link">Don't have an account? <a onclick="switchTab('register')" style="cursor:pointer;">Register here</a></div>
+      </div>
+      <div id="form-register" style="display:none;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+          <div class="fg"><label>First Name</label><input type="text" id="reg-fn" placeholder="First"></div>
+          <div class="fg"><label>Last Name</label><input type="text" id="reg-ln" placeholder="Last"></div>
+        </div>
+        <div class="fg"><label>Email Address</label><input type="email" id="reg-email" placeholder="your@email.com" autocomplete="email"></div>
+        <div class="fg"><label>Phone Number</label><input type="tel" id="reg-phone" placeholder="(555) 000-0000"></div>
+        <div class="fg"><label>Password</label><input type="password" id="reg-password" placeholder="Min 8 characters" autocomplete="new-password"></div>
+        <div class="fg"><label>Confirm Password</label><input type="password" id="reg-confirm" placeholder="Repeat password"></div>
+        <div style="font-size:0.65rem;color:rgba(138,155,181,0.5);margin:0.5rem 0 0.75rem;line-height:1.6;">By registering you agree to our Terms of Service. Under CROA you have the right to cancel any signed agreement within three business days.</div>
+        <button class="btn-submit" id="reg-btn" onclick="register()">Create My Account</button>
+        <div class="form-link">Already have an account? <a onclick="switchTab('signin')" style="cursor:pointer;">Sign in</a></div>
+      </div>
+      <div id="form-reset" style="display:none;">
+        <div class="fg"><label>Email Address</label><input type="email" id="rst-email" placeholder="your@email.com"></div>
+        <button class="btn-submit" id="rst-btn" onclick="resetPassword()">Send Reset Link</button>
+        <div class="form-link"><a onclick="switchTab('signin')" style="cursor:pointer;">Back to Sign In</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const SUPABASE_URL='https://amskspjunrclvrzzzvsk.supabase.co';
+const SUPABASE_KEY='sb_publishable_HrE1YuE5pRRhDFhFeqlLWg_GUy9YKpS';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+sb.auth.signOut();
+
+function switchTab(tab){
+  ['signin','register','reset'].forEach(t=>{
+    document.getElementById('form-'+t).style.display=t===tab?'block':'none';
+    const el=document.getElementById('tab-'+t);
+    if(el) el.className='form-tab'+(t===tab?' act':'');
+  });
+  clearMessages();
+  const titles={
+    signin:['Welcome back.','Sign in to your Civitas account.'],
+    register:['Create your account.','Takes about 2 minutes. No credit card required yet.'],
+    reset:['Reset your password.','Enter your email and we will send a reset link.']
+  };
+  document.getElementById('formTitle').textContent=titles[tab][0];
+  document.getElementById('formSub').textContent=titles[tab][1];
+  document.getElementById('tab-reset').style.display=tab==='reset'?'flex':'none';
+}
+
+async function signIn(){
+  clearMessages();
+  const email=document.getElementById('si-email').value.trim();
+  const password=document.getElementById('si-password').value;
+  if(!email||!password){showErr('Please enter your email and password.');return;}
+  setLoading('si-btn',true);
+  const{data,error}=await sb.auth.signInWithPassword({email,password});
+  if(error){setLoading('si-btn',false);showErr('Incorrect email or password. Please try again.');return;}
+  showOk('Signing you in...');
+  await redirectUser(data.user);
+}
+
+async function register(){
+  clearMessages();
+  const fn=document.getElementById('reg-fn').value.trim();
+  const ln=document.getElementById('reg-ln').value.trim();
+  const email=document.getElementById('reg-email').value.trim();
+  const phone=document.getElementById('reg-phone').value.trim();
+  const pw=document.getElementById('reg-password').value;
+  const pw2=document.getElementById('reg-confirm').value;
+  if(!fn||!ln||!email||!pw){showErr('Please fill in all required fields.');return;}
+  if(pw.length<8){showErr('Password must be at least 8 characters.');return;}
+  if(pw!==pw2){showErr('Passwords do not match.');return;}
+  setLoading('reg-btn',true);
+  const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{full_name:fn+' '+ln,phone}}});
+  if(error){setLoading('reg-btn',false);showErr(error.message);return;}
+  try{
+    await fetch('/.netlify/functions/notify',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:fn+' '+ln,email:email})
+    });
+  }catch(e){console.log('Notify error:',e);}
+  if(data.user&&!data.session){setLoading('reg-btn',false);showOk('Account created. Check your email to confirm, then sign in.');return;}
+  showOk('Account created. Taking you to your dashboard...');
+  await redirectUser(data.user);
+}
+
+async function resetPassword(){
+  clearMessages();
+  const email=document.getElementById('rst-email').value.trim();
+  if(!email){showErr('Please enter your email address.');return;}
+  setLoading('rst-btn',true);
+  const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://civitasca.com/login.html'});
+  setLoading('rst-btn',false);
+  if(error){showErr(error.message);return;}
+  showOk('Reset link sent to '+email+'. Check your inbox.');
+  try{
+    await fetch('/.netlify/functions/notify',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({type:'reset',email:email})
+    });
+  }catch(e){console.log('Notify error:',e);}
+}
+
+async function redirectUser(user){
+  try{
+    const{data:profile}=await sb.from('profiles').select('role,approval_status').eq('id',user.id).single();
+    if(profile&&profile.role==='admin'){
+      window.location.href='commander.html';
+    }else{
+      window.location.href='account.html';
+    }
+  }catch(e){
+    window.location.href='account.html';
+  }
+}
+
+function showErr(msg){const el=document.getElementById('errBox');el.textContent=msg;el.style.display='block';}
+function showOk(msg){const el=document.getElementById('okBox');el.textContent=msg;el.style.display='block';}
+function clearMessages(){document.getElementById('errBox').style.display='none';document.getElementById('okBox').style.display='none';}
+function setLoading(id,on){const b=document.getElementById(id);b.disabled=on;if(!b.getAttribute('data-label'))b.setAttribute('data-label',b.textContent);b.innerHTML=on?'<span class="spinner"></span>Please wait...':(b.getAttribute('data-label'));}
+
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  const active=document.querySelector('[id^="form-"]:not([style*="none"])');
+  if(active?.id==='form-signin')signIn();
+  if(active?.id==='form-register')register();
+  if(active?.id==='form-reset')resetPassword();
+});
+</script>
+</body>
+</html>
