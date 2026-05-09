@@ -178,7 +178,7 @@ async function resetPassword(){
   const email=document.getElementById('rst-email').value.trim();
   if(!email){showErr('Please enter your email address.');return;}
   setLoading('rst-btn',true);
-  const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://civitasca.com/login.html'});
+  const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://civitasca.com/update-password.html'});
   setLoading('rst-btn',false);
   if(error){showErr(error.message);return;}
   showOk('Reset link sent to '+email+'. Check your inbox.');
