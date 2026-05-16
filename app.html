@@ -193,7 +193,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
 .ai-lbl{font-size:0.55rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;}
 .ai-body{font-size:0.72rem;color:var(--muted);line-height:1.8;background:var(--navy-mid);border:1px solid rgba(201,168,76,0.1);padding:0.8rem;margin-bottom:0.55rem;}
 .ai-body strong{color:var(--white);}
-/* Streaming cursor */
 .ai-body .cursor{display:inline-block;width:2px;height:12px;background:var(--gold);animation:cur 0.8s ease infinite;vertical-align:middle;margin-left:2px;}
 @keyframes cur{0%,100%{opacity:1;}50%{opacity:0;}}
 .ai-btns{display:flex;gap:0.45rem;width:100%;max-width:320px;}
@@ -266,4 +265,419 @@ body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direc
 .uw-plan-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.18rem;}
 .uw-pname{font-size:0.76rem;font-weight:500;color:var(--white);}
 .uw-pprice{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--gold);}
-.uw-pdesc{font-size:0.62rem;color:var(--muted
+.uw-pdesc{font-size:0.62rem;color:var(--muted);}
+.uw-cta{width:100%;max-width:310px;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.82rem;cursor:pointer;}
+.uw-skip{background:none;border:none;color:rgba(138,155,181,0.38);font-family:'DM Sans',sans-serif;font-size:0.65rem;cursor:pointer;margin-top:0.65rem;letter-spacing:0.07em;}
+.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:0.68rem;font-weight:500;padding:0.5rem 1rem;border-radius:18px;z-index:999;opacity:0;transition:opacity 0.3s;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;}
+.calc-wrap{padding:1.25rem;}
+.calc-hero{background:linear-gradient(to bottom,#060e1a,var(--navy));padding:1.25rem;margin:-1.25rem -1.25rem 1.25rem;}
+.calc-hero h2{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);margin-bottom:0.28rem;}
+.calc-hero h2 em{font-style:italic;color:var(--gold-light);}
+.calc-hero p{font-size:0.68rem;color:var(--muted);line-height:1.6;}
+.calc-lbl{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;margin-top:0.85rem;}
+.calc-select{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.7rem;outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;}
+.calc-select option{background:#111f3a;color:var(--white);}
+.calc-date-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.7rem;outline:none;}
+.calc-date-input:focus,.calc-select:focus{border-color:var(--gold);}
+.calc-btn{width:100%;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem;cursor:pointer;margin-top:1rem;}
+.calc-results{margin-top:1.25rem;display:none;}
+.calc-results.show{display:block;}
+.calc-result-title{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.deadline-card{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);border-left:3px solid var(--gold);padding:0.85rem;margin-bottom:0.55rem;}
+.deadline-card.urgent{border-left-color:var(--red);}
+.deadline-card.passed{border-left-color:rgba(138,155,181,0.3);opacity:0.6;}
+.dc-deadline{font-size:0.65rem;font-weight:500;color:var(--gold);margin-bottom:0.2rem;}
+.deadline-card.urgent .dc-deadline{color:var(--red);}
+.dc-title{font-size:0.82rem;font-weight:500;color:var(--white);margin-bottom:0.2rem;}
+.dc-statute{font-size:0.62rem;color:var(--muted);}
+.dc-days{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--gold);float:right;margin-top:-0.5rem;}
+.deadline-card.urgent .dc-days{color:var(--red);}
+.calc-note{font-size:0.62rem;color:rgba(138,155,181,0.4);line-height:1.6;margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.05);}
+.vd-wrap{display:flex;flex-direction:column;align-items:center;padding:1.75rem 1.5rem 1rem;min-height:100%;}
+.vd-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);text-align:center;margin-bottom:0.35rem;}
+.vd-title em{font-style:italic;color:var(--gold-light);}
+.vd-sub{font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:1.5rem;max-width:280px;}
+.vd-upload{border:1px dashed rgba(201,168,76,0.3);padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;width:100%;max-width:320px;margin-bottom:1rem;}
+.vd-upload:hover{background:rgba(201,168,76,0.04);border-color:rgba(201,168,76,0.5);}
+.vd-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.vd-upload-icon{font-size:2rem;color:rgba(201,168,76,0.4);margin-bottom:0.5rem;}
+.vd-upload-txt{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.vd-upload-txt strong{color:var(--white);}
+.vd-preview{width:100%;max-width:320px;background:var(--navy-mid);border:1px solid rgba(201,168,76,0.15);padding:0.75rem;margin-bottom:1rem;display:none;align-items:center;gap:0.75rem;}
+.vd-preview.show{display:flex;}
+.vd-preview-icon{font-size:1.5rem;color:var(--gold);}
+.vd-preview-name{font-size:0.75rem;color:var(--white);flex:1;}
+.vd-preview-size{font-size:0.62rem;color:var(--muted);}
+.vd-btn{width:100%;max-width:320px;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem;cursor:pointer;margin-bottom:1rem;}
+.vd-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.vd-analyzing{font-size:0.68rem;color:#3498db;text-align:center;margin-bottom:1rem;display:none;}
+.vd-analyzing.show{display:block;}
+.vd-results{width:100%;max-width:320px;display:none;}
+.vd-results.show{display:block;}
+.vd-results-hdr{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.violation-card{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);border-left:3px solid var(--red);padding:0.85rem;margin-bottom:0.55rem;}
+.violation-card.warning{border-left-color:#f39c12;}
+.vc-severity{font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:0.2rem;}
+.violation-card.warning .vc-severity{color:#f39c12;}
+.vc-title{font-size:0.85rem;font-weight:500;color:var(--white);margin-bottom:0.2rem;}
+.vc-statute{font-size:0.65rem;color:var(--gold);margin-bottom:0.4rem;}
+.vc-desc{font-size:0.75rem;color:var(--muted);line-height:1.6;}
+.vd-clean{background:var(--navy-mid);border:1px solid rgba(46,204,113,0.2);border-left:3px solid var(--green);padding:0.85rem;margin-bottom:0.55rem;display:none;}
+.vd-clean.show{display:block;}
+.vd-clean-title{font-size:0.85rem;font-weight:500;color:var(--green);margin-bottom:0.2rem;}
+.vd-clean-desc{font-size:0.75rem;color:var(--muted);line-height:1.6;}
+.vd-action{background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);padding:0.85rem;margin-top:0.75rem;}
+.vd-action-title{font-size:0.68rem;font-weight:500;color:var(--gold);margin-bottom:0.3rem;}
+.vd-action-body{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.vd-chips{display:flex;flex-wrap:wrap;gap:5px;width:100%;max-width:320px;margin-top:0.75rem;}
+.vd-chip{font-size:0.6rem;padding:4px 8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.vd-chip:hover{border-color:rgba(201,168,76,0.28);color:var(--gold);}
+.tlb-wrap{display:flex;flex-direction:column;align-items:center;padding:1.75rem 1.5rem 1rem;min-height:100%;}
+.tlb-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);text-align:center;margin-bottom:0.35rem;}
+.tlb-title em{font-style:italic;color:var(--gold-light);}
+.tlb-sub{font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:1.25rem;max-width:280px;}
+.tlb-input-wrap{width:100%;max-width:320px;margin-bottom:0.75rem;}
+.tlb-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.7rem;outline:none;resize:none;min-height:90px;}
+.tlb-input:focus{border-color:var(--gold);}
+.tlb-input::placeholder{color:rgba(138,155,181,0.35);}
+.tlb-btn{width:100%;max-width:320px;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem;cursor:pointer;margin-bottom:1rem;}
+.tlb-thinking{font-size:0.68rem;color:#3498db;text-align:center;margin-bottom:1rem;display:none;}
+.tlb-thinking.show{display:block;}
+.tlb-results{width:100%;max-width:320px;display:none;}
+.tlb-results.show{display:block;}
+.tlb-results-hdr{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.tl-event{display:flex;gap:0.75rem;margin-bottom:0;position:relative;}
+.tl-event:not(:last-child)::after{content:'';position:absolute;left:10px;top:24px;bottom:-8px;width:1.5px;background:rgba(201,168,76,0.2);z-index:0;}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0;position:relative;z-index:1;}
+.tl-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:500;}
+.tl-dot.past{background:var(--gold);color:var(--navy);}
+.tl-dot.urgent{background:var(--red);color:var(--white);}
+.tl-dot.upcoming{background:rgba(201,168,76,0.15);border:1.5px solid var(--gold);color:var(--gold);}
+.tl-dot.expired{background:rgba(138,155,181,0.15);border:1px solid rgba(138,155,181,0.2);color:var(--muted);}
+.tl-content{flex:1;background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);padding:0.75rem;margin-bottom:0.5rem;}
+.tl-content.urgent{border-left:2px solid var(--red);}
+.tl-content.past{border-left:2px solid var(--gold);}
+.tl-content.expired{opacity:0.55;}
+.tl-date{font-size:0.62rem;color:var(--muted);margin-bottom:0.2rem;}
+.tl-event-title{font-size:0.82rem;font-weight:500;color:var(--white);margin-bottom:0.2rem;}
+.tl-statute{font-size:0.62rem;color:var(--gold);margin-bottom:0.3rem;}
+.tl-deadline{font-size:0.65rem;font-weight:500;}
+.tl-deadline.urgent{color:var(--red);}
+.tl-deadline.ok{color:var(--green);}
+.tl-deadline.expired{color:var(--muted);}
+.tl-desc{font-size:0.68rem;color:var(--muted);line-height:1.6;}
+.tlb-summary{background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);padding:0.85rem;margin-top:0.75rem;}
+.tlb-summary-title{font-size:0.65rem;font-weight:500;color:var(--gold);margin-bottom:0.3rem;}
+.tlb-summary-body{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.tlb-reset{width:100%;background:none;border:1px solid rgba(255,255,255,0.08);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.68rem;padding:0.6rem;cursor:pointer;margin-top:0.75rem;letter-spacing:0.08em;}
+.tlb-chips{display:flex;flex-wrap:wrap;gap:5px;width:100%;max-width:320px;margin-bottom:0.75rem;}
+.tlb-chip{font-size:0.6rem;padding:4px 8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.tlb-chip:hover{border-color:rgba(201,168,76,0.28);color:var(--gold);}
+.wl-wrap{display:flex;flex-direction:column;align-items:center;padding:1.75rem 1.5rem 1rem;min-height:100%;}
+.wl-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--white);text-align:center;margin-bottom:0.35rem;}
+.wl-title em{font-style:italic;color:var(--gold-light);}
+.wl-sub{font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:1.25rem;max-width:280px;}
+.wl-form{width:100%;max-width:320px;margin-bottom:0.75rem;}
+.wl-field{margin-bottom:0.65rem;}
+.wl-label{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.25rem;display:block;}
+.wl-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.65rem;outline:none;}
+.wl-input:focus{border-color:var(--gold);}
+.wl-input::placeholder{color:rgba(138,155,181,0.35);}
+.wl-textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.82rem;padding:0.65rem;outline:none;resize:none;min-height:70px;}
+.wl-textarea:focus{border-color:var(--gold);}
+.wl-textarea::placeholder{color:rgba(138,155,181,0.35);}
+.wl-add-btn{width:100%;max-width:320px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem;cursor:pointer;margin-bottom:0.75rem;}
+.wl-entries{width:100%;max-width:320px;margin-bottom:0.75rem;}
+.wl-entry{background:var(--navy-mid);border:1px solid rgba(255,255,255,0.05);border-left:2px solid var(--gold);padding:0.75rem;margin-bottom:0.5rem;position:relative;}
+.wl-entry-date{font-size:0.62rem;color:var(--gold);margin-bottom:0.2rem;}
+.wl-entry-title{font-size:0.8rem;font-weight:500;color:var(--white);margin-bottom:0.2rem;}
+.wl-entry-notes{font-size:0.72rem;color:var(--muted);line-height:1.6;}
+.wl-entry-remove{position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;color:rgba(138,155,181,0.35);cursor:pointer;font-size:0.7rem;font-family:'DM Sans',sans-serif;}
+.wl-entry-remove:hover{color:var(--red);}
+.wl-generate-btn{width:100%;max-width:320px;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem;cursor:pointer;margin-bottom:0.75rem;}
+.wl-generate-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.wl-thinking{font-size:0.68rem;color:#3498db;text-align:center;margin-bottom:1rem;display:none;}
+.wl-thinking.show{display:block;}
+.wl-declaration{width:100%;max-width:320px;display:none;}
+.wl-declaration.show{display:block;}
+.wl-decl-hdr{font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.wl-decl-box{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.15);padding:1rem;font-size:0.75rem;color:var(--muted);line-height:1.85;white-space:pre-wrap;margin-bottom:0.75rem;}
+.wl-copy-btn{width:100%;background:none;border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.65rem;cursor:pointer;margin-bottom:0.5rem;}
+.wl-reset-btn{width:100%;background:none;border:1px solid rgba(255,255,255,0.08);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.68rem;padding:0.6rem;cursor:pointer;letter-spacing:0.08em;}
+</style>
+</head>
+<body>
+
+<div class="layer visible" id="loading">
+  <div class="ld-logo">Civi<span>.</span></div>
+  <div class="ld-dot"></div>
+</div>
+
+<div class="layer" id="onboarding">
+  <div class="ob-slides" id="obSlides">
+    <div class="ob-slide">
+      <div class="ob-mark">
+        <svg viewBox="0 0 100 100" width="72" height="72">
+          <path d="M50,7 A43,43 0 0,0 50,93" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity="0.28"/>
+          <path d="M50,15 A35,35 0 0,0 50,85" fill="none" stroke="#c9a84c" stroke-width="1.4" stroke-opacity="0.44"/>
+          <path d="M50,23 A27,27 0 0,0 50,77" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-opacity="0.62"/>
+          <path d="M50,31 A19,19 0 0,0 50,69" fill="none" stroke="#c9a84c" stroke-width="2.2" stroke-opacity="0.82"/>
+          <path d="M50,39 A11,11 0 0,0 50,61" fill="none" stroke="#c9a84c" stroke-width="2.7" stroke-opacity="1"/>
+          <circle cx="45" cy="50" r="4.5" fill="#c9a84c"/>
+        </svg>
+      </div>
+      <div class="ob-wordmark">Civi<span>.</span></div>
+      <div class="ob-by">by Civitas Legal Document Services</div>
+      <div class="ob-tagline">Their policy is not the law.<br><em>You have recourse.</em></div>
+      <p class="ob-body">Your AI-powered legal navigator. Know your rights, fight back, and get real documents prepared by a registered California LDA.</p>
+      <div class="ob-dots"><div class="ob-dot act"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+      <div class="ob-nav">
+        <button class="btn-gold" onclick="nextSlide()">Get Started</button>
+        <button class="btn-text" onclick="showAuth('signin')">Already have an account? Sign In</button>
+      </div>
+    </div>
+    <div class="ob-slide">
+      <div class="ob-icon">🎤</div>
+      <div class="ob-title">Speak your situation.</div>
+      <p class="ob-desc">Tell Civi what you are dealing with. It identifies what law applies, explains your rights, and plays you a real story of someone in your position who won.</p>
+      <div class="ob-dots"><div class="ob-dot"></div><div class="ob-dot act"></div><div class="ob-dot"></div></div>
+      <div class="ob-nav">
+        <button class="btn-gold" onclick="nextSlide()">Next</button>
+      </div>
+    </div>
+    <div class="ob-slide">
+      <div class="ob-icon">⚖️</div>
+      <div class="ob-title">Your case. Your documents. Your Academy.</div>
+      <p class="ob-desc">Track your live case, upload documents securely, take courses on credit rights, tenant law, small claims, IRS disputes, family court, and more.</p>
+      <div class="ob-dots"><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot act"></div></div>
+      <div class="ob-nav">
+        <button class="btn-gold" onclick="showAuth('register')">Create Free Account</button>
+        <button class="btn-text" onclick="showAuth('signin')">Already have an account? Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="layer" id="auth">
+  <div class="auth-wrap">
+
+    <div class="auth-logo">Civi<span>.</span></div>
+    <div class="auth-tabs">
+      <button class="auth-tab act" id="tab-si" onclick="authTab('signin')">Sign In</button>
+      <button class="auth-tab" id="tab-reg" onclick="authTab('register')">Register</button>
+    </div>
+    <div id="authErr" class="auth-err"></div>
+    <div id="authOk" class="auth-ok"></div>
+    <div id="form-signin">
+      <div class="auth-hed">Welcome back.</div>
+      <div class="auth-sub">Sign in to your Civi account.</div>
+      <div class="fg"><label>Email</label><input type="email" id="si-email" placeholder="your@email.com" autocomplete="email"></div>
+      <div class="fg"><label>Password</label><input type="password" id="si-pw" placeholder="Your password" autocomplete="current-password"></div>
+      <div class="auth-forgot" onclick="authTab('reset')">Forgot password?</div>
+      <button class="auth-submit" id="si-btn" onclick="signIn()">Sign In</button>
+      <div class="auth-link">No account? <a onclick="authTab('register')">Register free</a></div>
+    </div>
+    <div id="form-register" style="display:none;">
+      <div class="auth-hed">Create account.</div>
+      <div class="auth-sub">Free to start. Upgrade anytime.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+        <div class="fg"><label>First Name</label><input type="text" id="reg-fn" placeholder="First"></div>
+        <div class="fg"><label>Last Name</label><input type="text" id="reg-ln" placeholder="Last"></div>
+      </div>
+      <div class="fg"><label>Email</label><input type="email" id="reg-email" placeholder="your@email.com" autocomplete="email"></div>
+      <div class="fg"><label>Phone</label><input type="tel" id="reg-phone" placeholder="(555) 000-0000"></div>
+      <div class="fg"><label>Password</label><input type="password" id="reg-pw" placeholder="Min 8 characters" autocomplete="new-password"></div>
+      <div class="plan-lbl">Choose a plan</div>
+      <div class="plan-cards">
+        <div class="plan-card sel" id="pc-free" onclick="selPlan('free')"><div class="pc-check">✓</div><div class="pc-top"><span class="pc-name">Free</span><span class="pc-price">$0</span></div><div class="pc-desc">Ask Civi, Academy previews, hear case stories. Upgrade anytime.</div></div>
+        <div class="plan-card" id="pc-essential" onclick="selPlan('essential')"><div class="pc-check">✓</div><div class="pc-top"><span class="pc-name">Essential</span><span class="pc-price">$39/mo</span></div><div class="pc-desc">Full voice intake, document upload, 1 active case, secure messaging with Brian.</div></div>
+        <div class="plan-card" id="pc-advocate" onclick="selPlan('advocate')"><div class="pc-check">✓</div><div class="pc-top"><span class="pc-name">Advocate</span><span class="pc-price">$99/mo</span></div><div class="pc-desc">3 active cases, unlimited documents, priority support, full Academy access.</div></div>
+      </div>
+      <div class="plan-note">No setup fee. No retainer. Cancel anytime. CROA compliant.</div>
+      <button class="auth-submit" id="reg-btn" onclick="register()">Create Account</button>
+      <div class="auth-link">Have an account? <a onclick="authTab('signin')">Sign in</a></div>
+    </div>
+    <div id="form-reset" style="display:none;">
+      <div class="auth-hed">Reset password.</div>
+      <div class="auth-sub">We will send a reset link to your email.</div>
+      <div class="fg"><label>Email</label><input type="email" id="rst-email" placeholder="your@email.com"></div>
+      <button class="auth-submit" id="rst-btn" onclick="resetPw()">Send Reset Link</button>
+      <div class="auth-link"><a onclick="authTab('signin')">Back to sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="layer" id="app">
+  <div class="topbar">
+    <div class="tb-brand">
+      <div class="tb-logo">Civi<span>.</span></div>
+      <div class="tb-sub">by Civitas</div>
+    </div>
+    <div class="tb-right">
+      <button class="tb-btn" onclick="toast('No new notifications')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8a9bb5" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <div class="tb-dot"></div>
+      </button>
+      <div class="avatar" id="userAvatar" onclick="switchScreen('profile')">?</div>
+    </div>
+  </div>
+  <div class="screens">
+    <div class="screen active" id="sc-home">
+      <div class="home-hero">
+        <div class="h-greet" id="greeting">Good morning</div>
+        <div class="h-name" id="heroName">Welcome <em>back.</em></div>
+        <div class="h-tag" id="heroTag">Your account is active.</div>
+        <div class="plan-pill free" id="planPill">Free Plan</div>
+      </div>
+      <div class="free-cta" id="freeCta">
+        <div class="fc-label">Get Started</div>
+        <div class="fc-title">You have recourse.<br>Let's find out what it is.</div>
+        <div class="fc-body">Tap Ask Civi to speak your situation. Upgrade to open your full case portal, upload documents, and get real correspondence prepared by Brian Harper.</div>
+        <button class="fc-btn" onclick="showUpgrade('Open your first case')">Open a Case</button>
+      </div>
+      <div class="case-card" id="caseCard" style="display:none;">
+        <div class="cc-lbl"><div class="ldot"></div>Active Case / Live Updates</div>
+        <div class="cc-type">Credit Dispute</div>
+        <div class="cc-stage">Stage <span>3 of 7</span> / Bureau Investigation Open</div>
+        <div class="mini-tl">
+          <div class="mtn done">✓</div><div class="mtc done"></div>
+          <div class="mtn done">✓</div><div class="mtc done"></div>
+          <div class="mtn act">3</div><div class="mtc"></div>
+          <div class="mtn pend">4</div><div class="mtc"></div>
+          <div class="mtn pend">5</div><div class="mtc"></div>
+          <div class="mtn pend">6</div><div class="mtc"></div>
+          <div class="mtn pend">7</div>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" style="width:60%"></div></div>
+        <div class="prog-lbl">Bureau investigation / <span>Day 18 of 30</span></div>
+        <div class="cc-foot">
+          <div class="cc-next">Next: <strong>May 13, 2026</strong></div>
+          <button class="view-btn" onclick="toast('Opening full portal...')">View Case</button>
+        </div>
+      </div>
+      <div class="qa-wrap">
+        <div class="qa-lbl">Quick Access</div>
+        <div class="qa-grid">
+          <div class="qa" onclick="switchScreen('voice')"><div class="qa-icon">🎤</div><div class="qa-text">Ask Civi</div></div>
+          <div class="qa" id="qa-docs" onclick="requirePaid('Document vault')"><div class="qa-icon">📁</div><div class="qa-text">Documents</div><div class="qa-lock" id="docLock">🔒</div></div>
+          <div class="qa" onclick="switchScreen('academy')"><div class="qa-icon">🎓</div><div class="qa-text">Academy</div></div>
+          <div class="qa" id="qa-msg" onclick="requirePaid('Secure messaging with Brian')"><div class="qa-icon">💬</div><div class="qa-text">Message Brian</div><div class="qa-lock" id="msgLock">🔒</div></div>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-hdr"><div class="sec-lbl">Academy Preview</div><button class="sec-link" onclick="switchScreen('academy')">All courses</button></div>
+        <div class="ci" onclick="switchScreen('academy')"><div class="ci-num">01</div><div class="ci-info"><div class="ci-badge" style="background:rgba(201,168,76,0.12);color:var(--gold);">Credit Rights</div><div class="ci-title">Credit Dispute Mastery</div><div class="ci-lessons">8 lessons / Free preview</div></div><div class="ci-arr">›</div></div>
+        <div class="ci" onclick="switchScreen('academy')"><div class="ci-num">02</div><div class="ci-info"><div class="ci-badge" style="background:rgba(243,156,18,0.12);color:#f39c12;">Debt Defense</div><div class="ci-title">Debt Collector Defense</div><div class="ci-lessons">7 lessons / Free preview</div></div><div class="ci-arr">›</div></div>
+      </div>
+      <div class="sec" id="recentDocs" style="display:none;">
+        <div class="sec-hdr"><div class="sec-lbl">Recent Documents</div><button class="sec-link" onclick="switchScreen('documents')">View all</button></div>
+        <div class="doc-item"><div class="dicon">📄</div><div class="dinfo"><div class="dname">Experian Dispute Letter</div><div class="dmeta">Filed Apr 11 / Civitas</div></div><div class="dstat filed">Filed</div></div>
+        <div class="doc-item"><div class="dicon">📄</div><div class="dinfo"><div class="dname">FCRA 611 Notice</div><div class="dmeta">Sent Apr 11 / Civitas</div></div><div class="dstat sent">Sent</div></div>
+      </div>
+    </div>
+
+    <div class="screen" id="sc-voice">
+      <div class="voice-wrap">
+        <div class="v-title">Ask <em>Civi.</em></div>
+        <p class="v-sub">Tap the mic and speak your situation. Civi finds the law, explains your rights, and plays you a real story of someone who won.</p>
+        <div class="mic-wrap">
+          <div class="mic-rings"><div class="mic-ring" id="r1"></div><div class="mic-ring" id="r2"></div><div class="mic-ring" id="r3"></div></div>
+          <button class="mic-btn" id="micBtn" onclick="toggleMic()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" fill="rgba(10,22,40,0.3)" stroke="#0a1628"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </button>
+        </div>
+        <div class="v-stat" id="vStat">Tap the mic to speak your situation</div>
+        <div class="transcript" id="transcript"></div>
+        <div style="width:100%;max-width:320px;margin-bottom:0.75rem;display:flex;gap:0.5rem;">
+          <input type="text" id="textInput" placeholder="Or type your situation here..." style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.78rem;padding:0.6rem;outline:none;">
+          <button onclick="submitText()" style="background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.7rem;font-weight:500;padding:0.6rem 0.85rem;cursor:pointer;white-space:nowrap;">Ask</button>
+        </div>
+        <div class="ai-resp" id="aiResp">
+          <div class="ai-hdr"><div class="ai-icon">⚖️</div><div class="ai-lbl">Civi Analysis</div></div>
+          <div class="ai-body" id="aiBody"></div>
+          <div class="ai-btns">
+            <button class="ai-btn play" onclick="readAloud()">▶ Read Aloud</button>
+            <button class="ai-btn story" onclick="playStory()">📖 Hear a Win</button>
+            <button class="ai-btn rst" onclick="resetVoice()">↺</button>
+          </div>
+        </div>
+        <div class="chips-wrap">
+          <div class="chips-lbl">Common situations</div>
+          <div class="chips">
+            <div class="chip" onclick="quickAsk('My landlord is keeping my security deposit')">Security Deposit</div>
+            <div class="chip" onclick="quickAsk('A debt collector keeps calling me')">Debt Collector</div>
+            <div class="chip" onclick="quickAsk('I have errors on my credit report')">Credit Report Error</div>
+            <div class="chip" onclick="quickAsk('My landlord entered without notice')">Landlord Entry</div>
+            <div class="chip" onclick="quickAsk('I was wrongfully terminated from my job')">Wrongful Termination</div>
+            <div class="chip" onclick="quickAsk('I got an IRS notice I do not understand')">IRS Notice</div>
+            <div class="chip" onclick="quickAsk('I want to file in small claims court')">Small Claims</div>
+            <div class="chip" onclick="quickAsk('My tax preparer made errors on my return')">Tax Preparer Error</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen" id="sc-documents">
+      <div class="doc-sec">
+        <h2>My Documents</h2>
+        <p>Your vault is private. Isolated to your account only.</p>
+        <div class="upload-zone"><input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.png" onchange="handleUpload(this)"><div class="upload-icon">+</div><div class="upload-txt"><strong>Upload a document</strong><br>Tap to add files from your phone</div></div>
+        <div class="dg-lbl">Filed by Civitas</div>
+        <div class="doc-list">
+          <div class="doc-item"><div class="dicon">📄</div><div class="dinfo"><div class="dname">Experian Dispute Letter</div><div class="dmeta">Apr 11, 2026 / 140 KB</div></div><div class="dstat filed">Filed</div></div>
+          <div class="doc-item"><div class="dicon">📄</div><div class="dinfo"><div class="dname">Equifax Dispute Letter</div><div class="dmeta">Apr 11, 2026 / 138 KB</div></div><div class="dstat filed">Filed</div></div>
+          <div class="doc-item"><div class="dicon">📄</div><div class="dinfo"><div class="dname">FCRA Section 611 Notice</div><div class="dmeta">Apr 11, 2026 / 95 KB</div></div><div class="dstat sent">Sent</div></div>
+        </div>
+        <div class="dg-lbl">Uploaded by You</div>
+        <div class="doc-list" id="uploadedDocs"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="sc-academy">
+      <div class="acad-hero"><h2>Civitas <em>Academy.</em></h2><p>12 course tracks. Every fight everyday Americans face. Free previews on the first two. Full access with any paid plan.</p></div>
+      <div class="course-list">
+        <div class="ci" onclick="toast('Opening Credit Dispute Mastery...')"><div class="ci-num">01</div><div class="ci-info"><div class="ci-badge" style="background:rgba(201,168,76,0.12);color:var(--gold);">Credit Rights</div><div class="ci-title">Credit Dispute Mastery</div><div class="ci-lessons">8 lessons / Free preview</div></div><div class="ci-arr">›</div></div>
+        <div class="ci" onclick="toast('Opening Debt Collector Defense...')"><div class="ci-num">02</div><div class="ci-info"><div class="ci-badge" style="background:rgba(243,156,18,0.12);color:#f39c12;">Debt Defense</div><div class="ci-title">Debt Collector Defense</div><div class="ci-lessons">7 lessons / Free preview</div></div><div class="ci-arr">›</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">03</div><div class="ci-info"><div class="ci-badge" style="background:rgba(46,204,113,0.12);color:#2ecc71;">Tenant Rights</div><div class="ci-title">Landlord-Tenant Combat</div><div class="ci-lessons">9 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">04</div><div class="ci-info"><div class="ci-badge" style="background:rgba(52,152,219,0.12);color:#3498db;">Small Claims</div><div class="ci-title">Small Claims Mastery</div><div class="ci-lessons">10 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">05</div><div class="ci-info"><div class="ci-badge" style="background:rgba(155,89,182,0.12);color:#9b59b6;">Family Law</div><div class="ci-title">Divorce and Family Court</div><div class="ci-lessons">11 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">06</div><div class="ci-info"><div class="ci-badge" style="background:rgba(231,76,60,0.12);color:#e74c3c;">IRS and Tax</div><div class="ci-title">IRS Defense and Tax Rights</div><div class="ci-lessons">8 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">07</div><div class="ci-info"><div class="ci-badge" style="background:rgba(26,188,156,0.12);color:#1abc9c;">Employment</div><div class="ci-title">Workplace Rights</div><div class="ci-lessons">9 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">08</div><div class="ci-info"><div class="ci-badge" style="background:rgba(243,156,18,0.12);color:#f39c12;">Consumer</div><div class="ci-title">Consumer Protection</div><div class="ci-lessons">7 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">09</div><div class="ci-info"><div class="ci-badge" style="background:rgba(52,152,219,0.12);color:#3498db;">Insurance</div><div class="ci-title">Fighting Insurance Denials</div><div class="ci-lessons">7 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">10</div><div class="ci-info"><div class="ci-badge" style="background:rgba(155,89,182,0.12);color:#9b59b6;">Estate</div><div class="ci-title">Probate and Estate Basics</div><div class="ci-lessons">8 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">11</div><div class="ci-info"><div class="ci-badge" style="background:rgba(52,152,219,0.12);color:#3498db;">Civil Rights</div><div class="ci-title">Civil Rights Accountability</div><div class="ci-lessons">8 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+        <div class="ci" onclick="requirePaid('Full Academy access')"><div class="ci-num">12</div><div class="ci-info"><div class="ci-badge" style="background:rgba(52,152,219,0.12);color:#3498db;">Civic Power</div><div class="ci-title">Ballots, Bonds, Legislation</div><div class="ci-lessons">6 lessons / Paid plan required</div></div><div class="ci-arr">🔒</div></div>
+      </div>
+    </div>
+
+    <div class="screen" id="sc-profile">
+      <div class="prof-wrap">
+        <div class="prof-av" id="profAv">?</div>
+        <div class="prof-name" id="profName">Your Account</div>
+        <div class="prof-plan" id="profPlan">Free Plan</div>
+        <div class="prof-stats">
+          <div class="ps"><div class="ps-n" id="sPct">—</div><div class="ps-l">Case Progress</div></div>
+          <div class="ps"><div class="ps-n" id="sDocs">0</div><div class="ps-l">Docs Filed</div></div>
+          <div class="ps"><div class="ps-n" id="sDays">—</div><div class="ps-l">Days Active</div></div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-title">Account</div>
+          <div class="pf-row"><div class="pf-lbl">Email</div><div class="pf-val" id="profEmail">—</div></div>
+          <div class="pf-row"><div class="pf-lbl">Plan</div><div class="pf-val gold" id="profPlanVal">Free</div></div>
+          <div class="pf-row"><div class="pf-lbl">Member since</div><div class="pf-val" id="profSince">—</div></div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-title">Notifications</div>
+          <div class="pf-row"><div class="pf-lbl">Case updates (SMS)</div><div class="toggle" onclick="this.classList.toggle('off')"></div></div>
+          <div class="pf-row"><div class="pf-lbl">Document filed (Email)</div><div class="toggle" onclick="this.classList.toggle('off')"></div></div>
+          <div class="pf-row"><div class="pf-lbl">Message from Brian</div><div class="toggle" onclick="this.classList.toggle('off')"></div></div>
+        </div>
+        <button onclick="showUpgrade('Unlock all Civi features')" style="width:100%;background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.8rem;cursor:pointer;margin-bottom:0.5rem;" id="upgradeBtn">Upgrade My Plan</button>
+        <button class="signout-btn" onclick="signOut()">Sign Out</button>
+      </div>
+    </div>
