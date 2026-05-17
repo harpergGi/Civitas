@@ -1004,7 +1004,7 @@ function quickAsk(text) {
   callCivi(text);
 }
 async function readAloud() {
-  let text = window._civiText || document.getElementById('aiBody').textContent;
+  let text = window._civiText || document.getElementById('aiBody').textContent || document.getElementById('transcript').textContent;
   
   text = text.replace(/Model:.*?\n/gi, '').replace(/Model:.*claude.*/gi, '').trim();
 
