@@ -867,14 +867,14 @@ const SUPABASE_URL='https://amskspjunrclvrzzzvsk.supabase.co';
 const SUPABASE_KEY='sb_publishable_HrE1YuE5pRRhDFhFeqlLWg_GUy9YKpS';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const CIVI_SYSTEM = `You are Civi, the AI legal navigator for Civitas Legal Document Services.
-Your role: When a user describes their legal situation, you analyze it and respond with:
-1. The specific federal or California statute(s) that apply
-2. What those laws say in plain English
-3. What actionable steps the user can take right now
-4. A clear statement that Civitas can prepare the relevant documents
-RULES: Keep responses under 120 words. Never give legal advice. End with one sentence about Civitas. Do NOT use markdown headers or bullet points.`;
-
+const CIVI_SYSTEM = `You are Civi, the expert AI legal navigator for Civitas Legal Document Services.
+Your job is to analyze the user's situation and immediately identify statutory violations.
+You must structure your response exactly like this:
+1. VIOLATION DETECTED: State the exact law (e.g., California Civil Code Section 1954 for landlord entry, or FDCPA Section 807 for debt collectors).
+2. WHAT THE LAW SAYS: Explain your rights under this code in one simple, powerful sentence.
+3. YOUR RECOURSE: Tell the user exactly what document or form they need to fill out (e.g., "You must send a formal 30-Day Demand Letter" or "File California Court Form SC-100").
+4. CIVITAS HELP: Conclude by stating that Civitas can prepare this exact document for them.
+RULES: Keep the total response under 100 words. Be direct, authoritative, and clear. Do not use markdown headers. Bold the statute names.`;
 const stories = {
   'security deposit': {title:'The Deposit That Cost a Landlord Three Times as Much',preface:"In California, your security deposit does not belong to your landlord the moment you hand it over.",fullStory:"Her name was Maria. Three years of on-time rent. When she moved out, her landlord kept every dollar... The law was always on her side."},
   'debt collector': {title:'The Collector Who Could Not Prove the Debt Existed',preface:"Debt collectors are in the business of creating fear.",fullStory:"James had been getting the calls for three months... He sent a debt validation letter. The account disappeared from his credit reports."}
