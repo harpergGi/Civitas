@@ -918,60 +918,61 @@ async function callCivi(userText) {
 }
 
 // ─── VOICE ───────────────────────────────────────────────────────────────────
-let recognition = null, isListening = false, curTranscript = '', mediaRecorder = null, audioChunks = [];
+let recognition = null, isListening = false, curTranscript = '';
 
-async function toggleMic() {
-  if (isListening) {
-    isListening = false;
-    document.getElementById('micBtn').classList.remove('on');
-    document.querySelectorAll('.mic-ring').forEach(r => r.classList.remove('on'));
-    if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-    return;
+function toggleMic() {
+  if (isListening) { if (recognition) recognition.stop(); return; }
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    toast('Voice requires Chrome or Safari on iOS.'); return;
   }
-
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    audioChunks = [];
-    
-    mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
-    
-    mediaRecorder.onstop = async () => {
-      document.getElementById('vStat').textContent = 'Processing your voice...';
-      document.getElementById('vStat').className = 'v-stat thinking';
-      const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-      const reader = new FileReader();
-      reader.readAsDataURL(audioBlob);
-      reader.onloadend = async () => {
-        const base64Audio = reader.result.split(',')[1];
-        try {
-          const res = await fetch('/.netlify/functions/whisper', {
-            method: 'POST',
-            body: JSON.stringify({ audio: base64Audio })
-          });
-          const data = await res.json();
-          if (data.text) {
-            document.getElementById('transcript').classList.add('show');
-            document.getElementById('transcript').textContent = data.text;
-            callCivi(data.text);
-          } else {
-            document.getElementById('vStat').textContent = 'Could not hear you. Try again.';
-          }
-        } catch (e) { document.getElementById('vStat').textContent = 'Error processing voice.'; }
-      };
-      stream.getTracks().forEach(track => track.stop());
-    };
-
-    mediaRecorder.start();
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.continuous = false; recognition.interimResults = true; recognition.lang = 'en-US';
+  
+  recognition.onstart = () => {
     isListening = true;
     document.getElementById('micBtn').classList.add('on');
     document.querySelectorAll('.mic-ring').forEach(r => r.classList.add('on'));
-    document.getElementById('vStat').textContent = 'Listening... tap mic again to stop';
+    document.getElementById('vStat').textContent = 'Listening... speak your situation';
     document.getElementById('vStat').className = 'v-stat active';
+    document.getElementById('transcript').classList.add('show');
+    document.getElementById('transcript').textContent = '';
     document.getElementById('aiResp').classList.remove('show');
-  } catch(err) {
-    toast('Microphone access denied or not available.');
-  }
+    curTranscript = '';
+  };
+  
+  recognition.onresult = e => {
+    let interim = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) curTranscript += e.results[i][0].transcript;
+      else interim += e.results[i][0].transcript;
+    }
+    document.getElementById('transcript').textContent = curTranscript + interim;
+    window._lastHeard = curTranscript + interim;
+  };
+  
+  recognition.onend = () => {
+    isListening = false;
+    document.getElementById('micBtn').classList.remove('on');
+    document.querySelectorAll('.mic-ring').forEach(r => r.classList.remove('on'));
+    
+    const finalSpeech = curTranscript || window._lastHeard;
+    if (finalSpeech && finalSpeech.trim().length > 0) {
+      callCivi(finalSpeech);
+    } else {
+      document.getElementById('vStat').textContent = 'Tap the mic to speak your situation';
+      document.getElementById('vStat').className = 'v-stat';
+    }
+  };
+  
+  recognition.onerror = () => {
+    isListening = false;
+    document.getElementById('micBtn').classList.remove('on');
+    document.getElementById('vStat').textContent = 'Could not hear you. Try again.';
+    document.getElementById('vStat').className = 'v-stat';
+  };
+  
+  recognition.start();
 }
 
 function submitText() {
@@ -1019,7 +1020,6 @@ function resetVoice() {
   document.getElementById('vStat').className = 'v-stat';
   window._story = null; window._civiText = null;
 }
-
 // ─── STORY PLAYER ────────────────────────────────────────────────────────────
 function playStory() {
   const story = window._story;
