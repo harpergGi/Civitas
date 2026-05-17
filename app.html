@@ -905,50 +905,63 @@ async function callCivi(userText) {
     });
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
-    const fullText = data.content?.[0]?.text || data.error?.message || 'Error.';
+    let fullText = data.content?.[0]?.text || data.error?.message || 'Error.';
+    
+    // 1. Scrub the annoying "Claude-sonnet" model text out
+    fullText = fullText.replace(/Model:.*?\n/gi, '').replace(/Model:.*claude.*/gi, '').trim();
+
     bodyEl.innerHTML = fullText.replace(/\b(FCRA|FDCPA|FEHA|CROA|California Civil Code)\b/g, '<strong>$1</strong>');
     document.getElementById('vStat').textContent = 'Here is what Civi found';
     document.getElementById('vStat').className = 'v-stat';
     window._civiText = fullText;
     const key = getStoryKey(userText);
     window._story = key ? stories[key] : null;
+
+    // 2. Automatically speak the answer aloud as soon as it loads!
+    setTimeout(() => { readAloud(); }, 500);
+
   } catch(err) {
     bodyEl.innerHTML = 'Civi is temporarily unavailable.';
+    document.getElementById('vStat').textContent = 'Try again';
+    document.getElementById('vStat').className = 'v-stat';
   }
 }
 
 // ─── VOICE ───────────────────────────────────────────────────────────────────
-let recognition = null, isListening = false, curTranscript = '';
+let recognition = null, isListening = false;
 
 function toggleMic() {
-  if (isListening) { if (recognition) recognition.stop(); return; }
-  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    toast('Voice requires Chrome or Safari on iOS.'); return;
+  // 3. Fix the "Manual Stop" bug by processing exactly what is on screen
+  if (isListening) {
+    if (recognition) recognition.stop();
+    return; 
   }
+  
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { toast('Voice requires Chrome or Safari.'); return; }
+  
   recognition = new SR();
-  recognition.continuous = false; recognition.interimResults = true; recognition.lang = 'en-US';
+  recognition.continuous = false; 
+  recognition.interimResults = true; 
+  recognition.lang = 'en-US';
   
   recognition.onstart = () => {
     isListening = true;
     document.getElementById('micBtn').classList.add('on');
     document.querySelectorAll('.mic-ring').forEach(r => r.classList.add('on'));
-    document.getElementById('vStat').textContent = 'Listening... speak your situation';
+    document.getElementById('vStat').textContent = 'Listening... tap mic again to stop';
     document.getElementById('vStat').className = 'v-stat active';
     document.getElementById('transcript').classList.add('show');
     document.getElementById('transcript').textContent = '';
     document.getElementById('aiResp').classList.remove('show');
-    curTranscript = '';
   };
   
   recognition.onresult = e => {
-    let interim = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      if (e.results[i].isFinal) curTranscript += e.results[i][0].transcript;
-      else interim += e.results[i][0].transcript;
+    let text = '';
+    for (let i = 0; i < e.results.length; i++) {
+      text += e.results[i][0].transcript;
     }
-    document.getElementById('transcript').textContent = curTranscript + interim;
-    window._lastHeard = curTranscript + interim;
+    document.getElementById('transcript').textContent = text;
   };
   
   recognition.onend = () => {
@@ -956,8 +969,10 @@ function toggleMic() {
     document.getElementById('micBtn').classList.remove('on');
     document.querySelectorAll('.mic-ring').forEach(r => r.classList.remove('on'));
     
-    const finalSpeech = curTranscript || window._lastHeard;
-    if (finalSpeech && finalSpeech.trim().length > 0) {
+    // Grab the actual text from the screen so we don't lose it
+    const finalSpeech = document.getElementById('transcript').textContent.trim();
+    
+    if (finalSpeech.length > 0) {
       callCivi(finalSpeech);
     } else {
       document.getElementById('vStat').textContent = 'Tap the mic to speak your situation';
@@ -965,11 +980,11 @@ function toggleMic() {
     }
   };
   
-  recognition.onerror = () => {
+  recognition.onerror = (e) => {
+    if (e.error === 'no-speech') return; // Ignore silent timeouts
     isListening = false;
     document.getElementById('micBtn').classList.remove('on');
-    document.getElementById('vStat').textContent = 'Could not hear you. Try again.';
-    document.getElementById('vStat').className = 'v-stat';
+    document.querySelectorAll('.mic-ring').forEach(r => r.classList.remove('on'));
   };
   
   recognition.start();
@@ -984,7 +999,6 @@ function submitText() {
 }
 
 function quickAsk(text) {
-  curTranscript = text;
   document.getElementById('transcript').classList.add('show');
   document.getElementById('transcript').textContent = text;
   document.getElementById('aiResp').classList.remove('show');
@@ -994,9 +1008,8 @@ function quickAsk(text) {
 async function readAloud() {
   let text = window._civiText || document.getElementById('aiBody').textContent;
   
-  // Clean up any formatting before speaking
-  text = text.replace(/Model:.*?Sonnet/gi, ''); 
-  text = text.replace(/Model:.*?Claude/gi, '');
+  // Double-check the Claude text is scrubbed before speaking
+  text = text.replace(/Model:.*?\n/gi, '').replace(/Model:.*claude.*/gi, '').trim();
 
   toast('Generating AI voice...');
   try {
@@ -1013,7 +1026,6 @@ async function readAloud() {
 }
 
 function resetVoice() {
-  curTranscript = '';
   document.getElementById('transcript').classList.remove('show');
   document.getElementById('aiResp').classList.remove('show');
   document.getElementById('vStat').textContent = 'Tap the mic to speak your situation';
