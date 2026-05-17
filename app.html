@@ -1003,7 +1003,6 @@ function quickAsk(text) {
   document.getElementById('aiResp').classList.remove('show');
   callCivi(text);
 }
-
 async function readAloud() {
   let text = window._civiText || document.getElementById('aiBody').textContent;
   
@@ -1015,12 +1014,23 @@ async function readAloud() {
       method: 'POST',
       body: JSON.stringify({ text })
     });
+    // If OpenAI or Netlify crashes, this will pop up the exact error on your screen!
+    if (!res.ok) {
+        const errText = await res.text();
+        alert("Backend Error: " + res.status + " - " + errText);
+        return;
+    }
+    
     const data = await res.json();
     if (data.audio) {
       const audio = new Audio('data:audio/mp3;base64,' + data.audio);
       audio.play();
-    } else { toast('Voice generation failed.'); }
-  } catch(e) { toast('Voice generation failed.'); }
+    } else { 
+      alert("Missing Audio Data: " + JSON.stringify(data)); 
+    }
+  } catch(e) { 
+    alert("Connection Error: " + e.message); 
+  }
 }
 
 function resetVoice() {
