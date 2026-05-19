@@ -1029,7 +1029,7 @@ section, .quick-access-item, [id*="-section"] {
 
   <div class="bottom-nav" style="position: fixed; bottom: 0; left: 0; right: 0; flex-direction: row !important; display: flex !important; justify-content: space-around; align-items: center; bg-[#0a0f18]; background-color: #0a0f18 !important; border-top: 1px solid rgba(201, 168, 76, 0.15) !important; shadow-2xl z-50; height: 75px; padding-bottom: env(safe-area-inset-bottom, 10px); padding-left: 4px; padding-right: 4px;">
 
-  <button class="nb active" id="nb-home" onclick="switchScreen('home')" style="background: none; border: none; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; position: relative; cursor: pointer;">
+  <button class="nb active" id="nb-home" onclick="switchScreen('dashboard')" style="background: none; border: none; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; position: relative; cursor: pointer;">
     <div style="position: absolute; width: 45px; height: 45px; background: radial-gradient(circle, rgba(201, 168, 76, 0.25) 0%, rgba(201, 168, 76, 0) 70%); top: -5px; z-index: 1; pointer-events: none; filter: blur(2px);"></div>
     <svg class="w-6 h-6" viewBox="0 0 24 24" style="fill: #c9a84c; z-index: 2; filter: drop-shadow(0 0 4px rgba(201,168,76,0.4));">
       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
@@ -1454,7 +1454,7 @@ async function resetPw() {
 
 async function signOut() {
   await sb.auth.signOut();
-  window.location.href = '/main.html';
+  showLayer('onboarding');
 }
 
 async function loadUser(user) {
