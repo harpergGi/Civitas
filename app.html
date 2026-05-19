@@ -14,6 +14,47 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--navy:#0a1628;--navy-mid:#111f3a;--navy-light:#1a2f52;--gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);--white:#fff;--muted:#8a9bb5;--green:#2ecc71;--red:#e74c3c;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-bottom,0px);}
+/* Container at the very bottom of the screen */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+}
+
+/* Uniform style for every single navigation item */
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #8e8e93;
+  font-family: sans-serif;
+  font-size: 12px;
+  transition: color 0.2s ease;
+}
+
+/* Uniform sizing for all icons */
+.nav-item i {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+/* Clean highlight color for the active/selected page */
+.nav-item.active, 
+.nav-item:hover {
+  color: #007aff;
+}
+
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;background:var(--navy);}
 body{font-family:'DM Sans',sans-serif;color:var(--white);display:flex;flex-direction:column;max-width:430px;margin:0 auto;}
@@ -1868,6 +1909,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <nav class="bottom-nav">
+  <a href="#home" class="nav-item active">
+    <i class="fas fa-home"></i>
+    <span>Home</span>
+  </a>
+  <a href="#search" class="nav-item">
+    <i class="fas fa-search"></i>
+    <span>Search</span>
+  </a>
+  <a href="#notifications" class="nav-item">
+    <i class="fas fa-bell"></i>
+    <span>Alerts</span>
+  </a>
+  <a href="#profile" class="nav-item">
+    <i class="fas fa-user"></i>
+    <span>Profile</span>
+  </a>
+</nav>
+
     <a href="#home">Home</a>
     <a href="#search">Search</a>
     <a href="#profile">Profile</a>
