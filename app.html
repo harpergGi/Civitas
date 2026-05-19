@@ -1497,10 +1497,20 @@ async function loadUser(user) {
 function switchScreen(n) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
-  document.getElementById('sc-' + n).classList.add('active');
-  const nb = document.getElementById('nb-' + n); if (nb) nb.classList.add('active');
+  
+  const targetScreen = document.getElementById('sc-' + n);
+  if (targetScreen) targetScreen.classList.add('active');
+  
+  let buttonId = 'nb-' + n;
+  if (n === 'calculator') buttonId = 'nb-calculator';
+  if (n === 'witness') buttonId = 'nb-witness';
+  if (n === 'voice') buttonId = 'nb-voice';
+  if (n === 'detector') buttonId = 'nb-detector';
+  
+  const nb = document.getElementById(buttonId);
+  if (nb) nb.classList.add('active');
 }
-
+  
 function requirePaid(feature) {
   if (userPlan !== 'free') { if (feature === 'Document vault') switchScreen('documents'); return; }
   showUpgrade(feature);
