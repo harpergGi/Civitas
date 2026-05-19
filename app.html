@@ -479,21 +479,35 @@ section, .quick-access-item, [id*="-section"] {
   z-index: 1000 !important;
 }
 
-.nav-item {
+/* Force your custom .nb navigation buttons to display cleanly inline */
+.nb {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   color: rgba(201, 168, 76, 0.4) !important;
   text-decoration: none !important;
-  font-size: 10px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.05em !important;
-  gap: 4px !important;
   background: none !important;
   border: none !important;
   cursor: pointer !important;
-  transition: all 0.2s ease !important;
+  flex: 1 !important;
+  height: 100% !important;
+}
+
+/* Lock the actual SVGs inside your custom buttons to luxury mobile dimensions */
+.nb svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  margin: 0 auto 4px auto !important;
+}
+
+/* Ensure text labels under your buttons behave */
+.nb .nl {
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase !important;
 }
 
 /* Forces your gold geometric SVGs to shrink down and stay elegant */
