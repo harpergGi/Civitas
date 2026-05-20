@@ -577,32 +577,47 @@ section, .quick-access-item, [id*="-section"] {
   box-sizing: border-box !important;
 }
 
-.nb {
+/* Targets ANY class or link inside the bottom bar */
+.bottom-nav a, .nb, .nav-item {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  color: rgba(201, 168, 76, 0.5) !important;
+  color: #c9a84c !important; /* Forces solid gold */
   background: none !important;
   border: none !important;
   cursor: pointer !important;
   flex: 1 !important;
   height: 100% !important;
   box-sizing: border-box !important;
+  text-decoration: none !important; /* Strips the default iOS link styles */
 }
 
-.nb svg {
+/* Forces SVGs/Images to 24px and makes them draw in Gold */
+.bottom-nav a svg, .nb svg, .nav-item svg,
+.bottom-nav a img, .nb img, .nav-item img {
   width: 24px !important;
   height: 24px !important;
   display: block !important;
   margin: 0 auto 4px auto !important;
+  stroke: currentColor !important;
+  fill: none !important;
 }
 
-.nb .nl {
+/* Targets Icon Fonts if you are using them */
+.bottom-nav a i, .nb i, .nav-item i {
+  font-size: 24px !important;
+  display: block !important;
+  margin: 0 auto 4px auto !important;
+}
+
+/* Styles the text labels to match */
+.bottom-nav a span, .nb .nl, .nav-item span {
   font-size: 9px !important;
   font-weight: 500 !important;
   letter-spacing: 0.02em !important;
   text-transform: uppercase !important;
+  color: rgba(201, 168, 76, 0.6) !important;
 }
 </style>
 </head>
