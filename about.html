@@ -11,16 +11,15 @@
     --gold: #c9a84c; --gold-light: #e8c97a; --gold-pale: #f5e9c8;
     --white: #ffffff; --off-white: #f8f6f1;
     --text-muted: #8a9bb5; --text-body: #2c3e5c;
-    /* STICKY APP PROMO BANNER */
-  .promo-banner {
-    background: #050b14;
-    padding: 12px 4rem;
-    border-bottom: 1px solid rgba(201,168,76,0.2);
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 999999 !important;
-    width: 100% !important;
-  }
+  /* STICKY APP PROMO BANNER */
+.promo-banner {
+  background: #050b14;
+  padding: 12px 4rem;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  position: relative !important; /* Changed from sticky to relative */
+  width: 100% !important;
+  z-index: 999999 !important;
+ }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-body); }
@@ -35,15 +34,18 @@
   .ti .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
   .ti span{color:var(--white);font-weight:500;}
 
-  /* NAV STYLES */
   nav {
-    position: sticky; top: 0; left: 0; right: 0; z-index: 100;
-    background: var(--navy);
-    border-bottom: 1px solid rgba(201,168,76,0.2);
-    padding: 0 4rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 72px;
-  }
+  position: sticky; 
+  top: 0; /* This is perfect as-is if the banner stays relative */
+  left: 0; 
+  right: 0; 
+  z-index: 100;
+  background: var(--navy);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 0 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+}
   .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); letter-spacing: 0.04em; text-decoration: none; }
   .nav-logo span { color: var(--gold); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
