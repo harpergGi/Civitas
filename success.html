@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Received | Civitas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a1628; 
+      --gold: #c9a84c; 
+      --white: #ffffff; 
+      --off-white: #f8f6f1;
+      --text-muted: #8a9bb5; 
+      --text-body: #2c3e5c;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-body); display: flex; flex-direction: column; min-height: 100vh; }
+
+    header {
+      background: var(--navy);
+      padding: 1.5rem 4rem;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); text-decoration: none; }
+    .logo span { color: var(--gold); }
+
+    .success-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 4rem 2rem;
+      text-align: center;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(10, 22, 40, 0.05);
+      border-top: 4px solid var(--gold);
+      transform: translateY(-20px);
+    }
+    
+    .check-icon {
+      font-size: 4rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: var(--navy);
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    
+    p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6; }
+
+    .return-btn {
+      display: inline-block;
+      background: var(--navy);
+      color: var(--white);
+      text-decoration: none;
+      padding: 12px 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .return-btn:hover { background: #12284c; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo">Civitas<span>.</span></a>
+  </header>
+
+  <div class="success-container">
+    <div class="check-icon">✓</div>
+    <h1>Application Received</h1>
+    <p>Thank you for your interest in the Civitas Professional Network. Our team will review your credentials and reach out to the email provided within 1-2 business days.</p>
+    <a href="index.html" class="return-btn">Return to Home</a>
+  </div>
+
+</body>
+</html>
