@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 1: Tenant Rights | Civitas Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a1628; 
+      --navy-light: #12284c;
+      --gold: #c9a84c; 
+      --gold-light: #e8c97a; 
+      --white: #ffffff; 
+      --off-white: #f8f6f1;
+      --text-muted: #8a9bb5; 
+      --text-body: #2c3e5c;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-body); display: flex; min-height: 100vh; }
+
+    /* SIDEBAR (Match Dashboard) */
+    .sidebar { width: 260px; background: var(--navy); color: var(--white); display: flex; flex-direction: column; padding: 2rem 1.5rem; border-right: 1px solid rgba(201,168,76,0.2); flex-shrink: 0;}
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--white); text-decoration: none; margin-bottom: 3rem; text-align: center; }
+    .logo span { color: var(--gold); }
+    .nav-link { color: var(--text-muted); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 6px; font-weight: 500; transition: all 0.3s ease; display: block;}
+    .nav-link:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+    .nav-link.active { background: rgba(201,168,76,0.1); color: var(--gold); border-left: 3px solid var(--gold); }
+
+    /* LESSON CONTENT */
+    .lesson-stage { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
+    
+    .top-nav { padding: 1.5rem 4rem; background: var(--white); border-bottom: 1px solid #eaeaea; display: flex; justify-content: space-between; align-items: center; }
+    .breadcrumb { color: var(--text-muted); font-size: 0.9rem; }
+    .breadcrumb a { color: var(--navy); text-decoration: none; font-weight: 600; }
+    .breadcrumb a:hover { color: var(--gold); }
+
+    .lesson-container { max-width: 900px; margin: 3rem auto; padding: 0 2rem; width: 100%; }
+    
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--navy); font-weight: 300; margin-bottom: 1.5rem; }
+
+    /* VIDEO PLAYER PLACEHOLDER */
+    .video-player {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--navy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      box-shadow: 0 15px 35px rgba(10, 22, 40, 0.1);
+      position: relative;
+      cursor: pointer;
+    }
+    .play-btn {
+      width: 80px;
+      height: 80px;
+      background: rgba(201, 168, 76, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+    .video-player:hover .play-btn { transform: scale(1.1); background: var(--gold); }
+    .play-icon { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid var(--white); margin-left: 5px; }
+
+    /* LESSON TEXT & MATERIALS */
+    .lesson-tabs { display: flex; gap: 2rem; border-bottom: 2px solid #eaeaea; margin-bottom: 2rem; }
+    .tab { padding-bottom: 1rem; color: var(--text-muted); font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.3s; }
+    .tab.active { color: var(--navy); border-color: var(--gold); }
+
+    .lesson-body p { line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.05rem; }
+    
+    .resources-box { background: var(--white); padding: 2rem; border-radius: 8px; border: 1px solid #eaeaea; margin-top: 3rem; }
+    .resources-box h3 { color: var(--navy); margin-bottom: 1rem; font-size: 1.2rem; }
+    .resource-link { display: inline-block; color: var(--gold); font-weight: 600; text-decoration: none; padding: 10px 20px; border: 1px solid var(--gold); border-radius: 4px; transition: all 0.3s; }
+    .resource-link:hover { background: var(--gold); color: var(--white); }
+
+    .complete-action { margin-top: 4rem; text-align: center; padding-bottom: 4rem;}
+    .complete-btn { background: var(--navy); color: var(--white); border: none; padding: 15px 40px; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; cursor: pointer; transition: background 0.3s; }
+    .complete-btn:hover { background: var(--gold); color: var(--navy); }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <a href="index.html" class="logo">Civitas<span>.</span></a>
+    <nav>
+      <a href="learning-dashboard.html" class="nav-link">Dashboard</a>
+      <a href="#" class="nav-link active">Course Catalog</a>
+      <a href="#" class="nav-link">My Certificates</a>
+      <a href="#" class="nav-link">Resources & Forms</a>
+      <a href="#" class="nav-link" style="margin-top: 2rem;">Settings</a>
+      <a href="index.html" class="nav-link">Log Out</a>
+    </nav>
+  </aside>
+
+  <main class="lesson-stage">
+    
+    <div class="top-nav">
+      <div class="breadcrumb">
+        <a href="learning-dashboard.html">Academy</a> &nbsp; / &nbsp; Module 1: Tenant Rights
+      </div>
+    </div>
+
+    <div class="lesson-container">
+      <h1>Understanding Eviction Notices</h1>
+      
+      <div class="video-player">
+        <div class="play-btn"><div class="play-icon"></div></div>
+      </div>
+
+      <div class="lesson-tabs">
+        <div class="tab active">Overview</div>
+        <div class="tab">Transcript</div>
+        <div class="tab">Discussion</div>
+      </div>
+
+      <div class="lesson-body">
+        <p>In this initial lesson, we cover the strict legal parameters surrounding 3-Day, 30-Day, and 60-Day eviction notices in the state of California. As a Legal Document Assistant, your role is to ensure these documents are filled out with absolute precision according to the client's instructions.</p>
+        <p>We will review common procedural errors that cause notices to be thrown out in court, and how to verify that the dates of service comply with state law timelines.</p>
+      </div>
+
+      <div class="resources-box">
+        <h3>Downloads & Attachments</h3>
+        <a href="#" class="resource-link">↓ Download California Notice Matrix (PDF)</a>
+      </div>
+
+      <div class="complete-action">
+        <button class="complete-btn" onclick="alert('Progress Saved! Moving to Next Lesson...')">Complete & Continue</button>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>
