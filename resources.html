@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources & Forms | Civitas Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a1628; 
+      --navy-light: #12284c;
+      --gold: #c9a84c; 
+      --gold-light: #e8c97a; 
+      --white: #ffffff; 
+      --off-white: #f8f6f1;
+      --text-muted: #8a9bb5; 
+      --text-body: #2c3e5c;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-body); display: flex; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar { width: 260px; background: var(--navy); color: var(--white); display: flex; flex-direction: column; padding: 2rem 1.5rem; border-right: 1px solid rgba(201,168,76,0.2); flex-shrink: 0;}
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--white); text-decoration: none; margin-bottom: 3rem; text-align: center; }
+    .logo span { color: var(--gold); }
+    .nav-link { color: var(--text-muted); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 6px; font-weight: 500; transition: all 0.3s ease; display: block;}
+    .nav-link:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+    .nav-link.active { background: rgba(201,168,76,0.1); color: var(--gold); border-left: 3px solid var(--gold); }
+
+    /* MAIN CONTENT */
+    .main-content { flex: 1; padding: 3rem 4rem; overflow-y: auto; }
+    .page-header { margin-bottom: 3rem; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--navy); font-weight: 300; line-height: 1.1; margin-bottom: 0.5rem; }
+    .page-header p { color: var(--text-muted); }
+
+    /* RESOURCES LIST */
+    .resource-list { display: flex; flex-direction: column; gap: 1rem; max-width: 800px; }
+    .resource-item { background: var(--white); padding: 1.5rem 2rem; border-radius: 8px; border: 1px solid rgba(10, 22, 40, 0.05); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(10, 22, 40, 0.02); transition: transform 0.2s; }
+    .resource-item:hover { transform: translateX(5px); border-left: 4px solid var(--gold); }
+    
+    .resource-info h3 { color: var(--navy); font-size: 1.1rem; margin-bottom: 0.25rem; }
+    .resource-info p { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    .download-btn { display: inline-block; background: var(--navy); color: var(--white); text-decoration: none; padding: 10px 20px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; transition: background 0.3s; }
+    .download-btn:hover { background: var(--gold); color: var(--navy); }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <a href="index.html" class="logo">Civitas<span>.</span></a>
+    <nav>
+      <a href="learning-dashboard.html" class="nav-link">Dashboard</a>
+      <a href="#" class="nav-link">Course Catalog</a>
+      <a href="#" class="nav-link">My Certificates</a>
+      <a href="resources.html" class="nav-link active">Resources & Forms</a>
+      <a href="#" class="nav-link" style="margin-top: 2rem;">Settings</a>
+      <a href="index.html" class="nav-link">Log Out</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Resources & Forms</h1>
+      <p>Download standard templates, state matrices, and workflow checklists.</p>
+    </div>
+
+    <div class="resource-list">
+      <div class="resource-item">
+        <div class="resource-info">
+          <h3>California Eviction Notice Matrix</h3>
+          <p>PDF Document • 2.1 MB</p>
+        </div>
+        <a href="#" class="download-btn">Download</a>
+      </div>
+
+      <div class="resource-item">
+        <div class="resource-info">
+          <h3>Standard 3-Day Notice to Pay or Quit</h3>
+          <p>Word Document • 45 KB</p>
+        </div>
+        <a href="#" class="download-btn">Download</a>
+      </div>
+
+      <div class="resource-item">
+        <div class="resource-info">
+          <h3>Client Intake Checklist - Family Law</h3>
+          <p>PDF Document • 1.4 MB</p>
+        </div>
+        <a href="#" class="download-btn">Download</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
