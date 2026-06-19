@@ -7,19 +7,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0a1628;
-      --gold: #c9a84c;
-      --gold-light: #e8c97a;
-      --white: #ffffff;
+      --navy: #0a1628; 
+      --gold: #c9a84c; 
+      --gold-light: #e8c97a; 
+      --white: #ffffff; 
       --off-white: #f8f6f1;
-      --text-muted: #8a9bb5;
+      --text-muted: #8a9bb5; 
       --text-body: #2c3e5c;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-body); }
 
-    /* SIMPLE HEADER */
     header {
       background: var(--navy);
       padding: 1.5rem 4rem;
@@ -28,7 +27,6 @@
     .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); text-decoration: none; }
     .logo span { color: var(--gold); }
 
-    /* MAIN CONTAINER */
     .portal-container {
       max-width: 800px;
       margin: 4rem auto;
@@ -46,7 +44,6 @@
     }
     .portal-header p { color: var(--text-muted); font-size: 1.1rem; }
 
-    /* FORM STYLING */
     .onboarding-form {
       background: var(--white);
       padding: 3rem;
@@ -114,11 +111,8 @@
       <p>Submit your credentials to partner with Civitas Legal Document Services.</p>
     </div>
 
-    <form class="onboarding-form" name="lda-registration" method="POST" action="/success.html" data-netlify="true">
+    <form class="onboarding-form" name="lda-registration" method="POST" action="/success" data-netlify="true">
       
-      <!-- REQUIRED BY NETLIFY TO ROUTE THE DATA -->
-      <input type="hidden" name="form-name" value="lda-registration">
-
       <div class="form-group">
         <label for="fullName">Full Legal Name</label>
         <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Jane Doe" required>
