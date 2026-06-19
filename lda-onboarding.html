@@ -7,12 +7,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0a1628; 
-      --gold: #c9a84c; 
-      --gold-light: #e8c97a; 
-      --white: #ffffff; 
+      --navy: #0a1628;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --white: #ffffff;
       --off-white: #f8f6f1;
-      --text-muted: #8a9bb5; 
+      --text-muted: #8a9bb5;
       --text-body: #2c3e5c;
     }
     
@@ -114,9 +114,10 @@
       <p>Submit your credentials to partner with Civitas Legal Document Services.</p>
     </div>
 
-    <form class="onboarding-form" name="lda-app-v2" method="POST" action="/success" data-netlify="true">
+    <form class="onboarding-form" name="lda-registration" method="POST" action="/success.html" data-netlify="true">
       
-      <input type="hidden" name="form-name" value="lda-app-v2">
+      <!-- REQUIRED BY NETLIFY TO ROUTE THE DATA -->
+      <input type="hidden" name="form-name" value="lda-registration">
 
       <div class="form-group">
         <label for="fullName">Full Legal Name</label>
