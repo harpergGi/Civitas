@@ -97,6 +97,34 @@
       transition: background 0.3s;
     }
     .submit-btn:hover { background: var(--gold-light); }
+
+    /* Success Message Styling */
+    .success-container {
+      display: none;
+      text-align: center;
+      background: var(--white);
+      padding: 4rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(10, 22, 40, 0.05);
+      border-top: 4px solid var(--gold);
+    }
+    .success-container .check-icon {
+      font-size: 4rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .success-container h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: var(--navy);
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .success-container p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
@@ -111,8 +139,7 @@
       <p>Submit your credentials to partner with Civitas Legal Document Services.</p>
     </div>
 
-    <form class="onboarding-form" name="final-lda-form" method="POST" action="/success.html" data-netlify="true">
-      
+    <form id="ldaForm" class="onboarding-form" name="final-lda-form" method="POST" data-netlify="true">
       <input type="hidden" name="form-name" value="final-lda-form">
 
       <div class="form-group">
@@ -154,7 +181,37 @@
 
       <button type="submit" class="submit-btn">Submit Application</button>
     </form>
+
+    <div id="successMessage" class="success-container">
+      <div class="check-icon">✓</div>
+      <h2>Application Received</h2>
+      <p>Thank you for your interest in the Civitas Professional Network. Our team will review your credentials and reach out to the email provided within 1-2 business days.</p>
+    </div>
   </div>
+
+  <script>
+    document.getElementById('ldaForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevents the browser from redirecting
+      
+      const form = event.target;
+      const formData = new FormData(form);
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      })
+      .then(() => {
+        // Hide the form and show the success message instantly
+        form.style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+        window.scrollTo(0, 0);
+      })
+      .catch((error) => {
+        alert('There was an error submitting the form. Please try again.');
+      });
+    });
+  </script>
 
 </body>
 </html>
