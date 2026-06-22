@@ -4,38 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings | Civitas</title>
-    <!-- SECURITY SCRIPT -->
+    <!-- NETLIFY IDENTITY WIDGET -->
     <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
-      netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.location.href = "index.html";
-        }
-      });
+      // Security: Redirect if not logged in
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.location.href = "index.html";
+          }
+        });
+      }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #0a1628; --navy-dark: #060e1a; --gold: #c9a84c; --white: #ffffff; --muted: #8a9bb5; }
+        :root { --navy: #0a1628; --gold: #c9a84c; --white: #ffffff; --text-muted: #8a9bb5; }
         body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); margin: 0; padding: 4rem; }
         h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; margin-bottom: 2rem; }
         .back-link { color: var(--gold); text-decoration: none; display: inline-block; margin-bottom: 2rem; }
-        .content { max-width: 800px; }
-        p { color: var(--muted); line-height: 1.8; }
-        .setting-item { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #1a2a40; }
+        .content { max-width: 600px; }
+        .setting-item { margin-bottom: 3rem; padding-bottom: 1rem; border-bottom: 1px solid #1a2a40; }
+        .action-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 20px; cursor: pointer; font-weight: 600; border-radius: 4px; transition: 0.3s; }
+        .action-btn:hover { background: var(--gold); color: var(--navy); }
     </style>
 </head>
 <body>
     <a href="learning-dashboard.html" class="back-link">&larr; Back to Dashboard</a>
+    
     <div class="content">
         <h1>Account Settings</h1>
+        
         <div class="setting-item">
             <h3>Profile Preferences</h3>
-            <p>Manage your account details and password here.</p>
-        </div>
-        <div class="setting-item">
-            <h3>Notification Settings</h3>
-            <p>Adjust your email preferences for new course updates.</p>
+            <p style="margin-bottom: 1rem;">Click below to change your password or update your account email.</p>
+            <!-- THIS TRIGGER OPENS THE NETLIFY MODAL -->
+            <button onclick="netlifyIdentity.open('login')" class="action-btn">Manage Account</button>
         </div>
     </div>
+
+    <script>
+      // Ensures the widget is ready
+      netlifyIdentity.init();
+    </script>
 </body>
 </html>
