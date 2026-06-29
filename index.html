@@ -18,10 +18,19 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: linear-gradient(to bottom, var(--navy-light) 0%, var(--navy) 100%); color: var(--white); overflow-x: hidden; min-height: 100vh; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; min-height: 100vh; }
 
-  /* Transparent sections to show gradient */
-  .manifesto, .services, .legal, .cost, .contact { background: transparent !important; }
+  /* BOLD GRADIENT OVERLAY */
+  .header-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(to bottom, #1e2a44 0%, rgba(10, 22, 40, 0) 100%);
+    pointer-events: none;
+    z-index: 90;
+  }
 
   /* SPLASH */
   #splash { position: fixed; inset: 0; background: var(--navy); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease; }
@@ -73,7 +82,7 @@
   .nav-cta { background: var(--gold); color: var(--navy); padding: 0.5rem 1.25rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; border: 1px solid var(--gold); }
   .nav-cta:hover { background: transparent; color: var(--gold); }
 
-  .hero { min-height: calc(100vh - 110px); background: transparent; padding: 0 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+  .hero { min-height: calc(100vh - 110px); padding: 0 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
   .hero-content { max-width: 650px; }
   .hero-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
   .hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
@@ -129,8 +138,8 @@
 </style>
 </head>
 <body>
+  <div class="header-gradient"></div>
 
-<!-- ══ SPLASH ══ -->
 <div id="splash">
   <div style="font-size:0.65rem;letter-spacing:0.4em;margin-bottom:1.5rem;opacity:0;text-transform:uppercase;animation:fadeIn 0.6s ease 0.1s forwards;">YOU BELONG HERE.</div>
   <div class="logo-scene">
@@ -163,7 +172,6 @@
   <button class="skip-btn" onclick="enterSite()">Skip Intro</button>
 </div>
 
-<!-- ══ MAIN SITE ══ -->
 <div id="site">
   <div class="ticker-bar">
     <div class="ticker-label">Live / Your Rights</div>
