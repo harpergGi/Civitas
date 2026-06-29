@@ -20,7 +20,7 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
 
-  /* GRADIENT OVERLAY */
+  /* GRADIENT OVERLAY - Added to create top-down fade */
   .header-gradient {
     position: fixed;
     top: 0;
@@ -32,7 +32,7 @@
     z-index: 90;
   }
 
-  /* Section Transparency */
+  /* Section Transparency - Added to allow gradient to be visible */
   .manifesto, .services, .legal, .cost, .contact { background: transparent !important; }
 
   /* SPLASH */
@@ -232,10 +232,8 @@
 <body>
   <div class="header-gradient"></div>
 
-<!-- ══ SPLASH ══ -->
 <div id="splash">
 
-  <!-- "YOU BELONG HERE." fades in first -->
   <div style="font-size:0.65rem;letter-spacing:0.4em;margin-bottom:1.5rem;opacity:0;text-transform:uppercase;animation:fadeIn 0.6s ease 0.1s forwards;">
     YOU BELONG HERE.
   </div>
@@ -244,7 +242,6 @@
     <svg viewBox="0 0 560 340" width="560" height="340" xmlns="http://www.w3.org/2000/svg"
          style="overflow:visible;">
 
-      <!-- ── 5 C-ARC RIDGES drawing in one by one ── -->
       <path class="arc1" d="M 280,40 A 130,130 0 0,0 280,300" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
       <path class="arc2" d="M 280,65 A 105,105 0 0,0 280,275" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
       <path class="arc3" d="M 280,90 A 80,80 0 0,0 280,250" fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.7"/>
@@ -276,7 +273,6 @@
   <button class="skip-btn" onclick="enterSite()">Skip Intro</button>
 </div>
 
-<!-- ══ MAIN SITE ══ -->
 <div id="site">
 
   <div class="ticker-bar">
@@ -400,7 +396,7 @@
           <select required>
             <option value="">Select a service</option>
             <option>Credit Dispute Letter</option>
-            <option>Goodwill Adjustment Letter</option>
+            <option>Goodwill Adjustment Letters</option>
             <option>Debt Validation Letter</option>
             <option>Landlord-Tenant Document</option>
             <option>The War Binder™</option>
