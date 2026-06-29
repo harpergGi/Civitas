@@ -18,7 +18,7 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+  body { font-family: 'DM Sans', sans-serif; background: linear-gradient(to bottom, var(--navy-light) 0%, var(--navy) 100%); color: var(--white); overflow-x: hidden; min-height: 100vh; }
 
   /* SPLASH */
   #splash {
@@ -138,7 +138,7 @@
   .nav-cta:hover { background: transparent; color: var(--gold); }
 
   /* HERO */
-  .hero { min-height: calc(100vh - 110px); background: var(--navy); padding: 0 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+  .hero { min-height: calc(100vh - 110px); background: transparent; padding: 0 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
   .hero-content { max-width: 650px; }
   .hero-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
   .hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
@@ -159,12 +159,12 @@
   .section-title em { font-style: italic; color: var(--gold); }
   .section-body { font-size: 0.95rem; color: var(--muted); line-height: 1.8; max-width: 560px; }
 
-  .manifesto { background: var(--navy-dark); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .manifesto { background: transparent; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
   .manifesto-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--white); line-height: 1.7; max-width: 820px; margin: 0 auto 2rem; }
   .manifesto-quote em { color: var(--gold-light); font-style: italic; }
   .manifesto-body { font-size: 0.85rem; color: var(--muted); line-height: 1.9; max-width: 680px; margin: 0 auto; }
 
-  .services { background: var(--navy); }
+  .services { background: transparent; }
   .services-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
   .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .service-card { background: var(--navy-light); padding: 2.5rem; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; }
@@ -174,14 +174,14 @@
   .service-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
   .service-disclaimer { font-size: 0.65rem; color: rgba(138,155,181,0.5); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.75rem; }
 
-  .legal { background: var(--navy-dark); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .legal { background: transparent; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
   .legal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3rem; }
   .legal-item { border: 1px solid rgba(201,168,76,0.15); padding: 2.5rem; background: var(--navy); position: relative; }
   .legal-item-num { position: absolute; top: -10px; left: 2rem; background: var(--navy); padding: 0 0.5rem; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
   .legal-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 1rem; }
   .legal-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
 
-  .cost { background: var(--navy); }
+  .cost { background: transparent; }
   .cost-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 4rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
   .cost-card { background: var(--navy-light); padding: 4rem 2rem; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
   .cost-card.featured { background: rgba(201,168,76,0.05); border: 2px solid var(--gold); transform: translateY(-10px); }
@@ -194,7 +194,7 @@
   .cost-items li { font-size: 0.78rem; color: var(--muted); line-height: 1.6; padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
   .cost-items li:last-child { border-bottom: none; }
 
-  .contact { background: var(--navy-dark); border-top: 1px solid rgba(255,255,255,0.05); }
+  .contact { background: transparent; border-top: 1px solid rgba(255,255,255,0.05); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; max-width: 1200px; margin: 0 auto; }
   .contact-form { background: var(--navy); padding: 3rem; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 1.25rem; }
   .form-group label { font-size: 0.65rem; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; display: block; letter-spacing: 0.15em; }
@@ -224,114 +224,33 @@
     YOU BELONG HERE.
   </div>
 
-  <!--
-    logo-scene: 560px wide x 340px tall container
-    SVG viewBox 560x340 — logo arcs centered at 280,170
-    Left labels: text-anchor="end" ending near x=155
-    Right labels: starting near x=210 (tight to opening gap)
-    Top/bottom: centered
-  -->
   <div class="logo-scene">
     <svg viewBox="0 0 560 340" width="560" height="340" xmlns="http://www.w3.org/2000/svg"
          style="overflow:visible;">
 
       <!-- ── 5 C-ARC RIDGES drawing in one by one ── -->
-      <!-- Each arc: M cx,top A rx,ry 0 0,0 cx,bottom -->
-      <!-- cx=280, arcs open to the RIGHT (same as live site) -->
+      <path class="arc1" d="M 280,40 A 130,130 0 0,0 280,300" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+      <path class="arc2" d="M 280,65 A 105,105 0 0,0 280,275" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
+      <path class="arc3" d="M 280,90 A 80,80 0 0,0 280,250" fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.7"/>
+      <path class="arc4" d="M 280,115 A 55,55 0 0,0 280,225" fill="none" stroke="#c9a84c" stroke-width="2.5" opacity="0.9"/>
+      <path class="arc5" d="M 280,140 A 30,30 0 0,0 280,200" fill="none" stroke="#c9a84c" stroke-width="3" opacity="1"/>
 
-      <!-- arc 1 outermost: r=130 -->
-      <path class="arc1"
-        d="M 280,40 A 130,130 0 0,0 280,300"
-        fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+      <circle class="center-dot" cx="280" cy="170" r="6" fill="#c9a84c" style="transform-origin:280px 170px;"/>
 
-      <!-- arc 2: r=105 -->
-      <path class="arc2"
-        d="M 280,65 A 105,105 0 0,0 280,275"
-        fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
-
-      <!-- arc 3: r=80 -->
-      <path class="arc3"
-        d="M 280,90 A 80,80 0 0,0 280,250"
-        fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.7"/>
-
-      <!-- arc 4: r=55 -->
-      <path class="arc4"
-        d="M 280,115 A 55,55 0 0,0 280,225"
-        fill="none" stroke="#c9a84c" stroke-width="2.5" opacity="0.9"/>
-
-      <!-- arc 5 innermost: r=30 -->
-      <path class="arc5"
-        d="M 280,140 A 30,30 0 0,0 280,200"
-        fill="none" stroke="#c9a84c" stroke-width="3" opacity="1"/>
-
-      <!-- ── CENTER DOT ── -->
-      <circle class="center-dot" cx="280" cy="170" r="6" fill="#c9a84c"
-        style="transform-origin:280px 170px;"/>
-
-      <!-- ══ DOTS + LABELS ══
-           Left side dots sit on the arc endpoints (left side of each C)
-           Right side labels sit tight inside the opening gap
-      -->
-
-      <!-- TOP: arc1 top point (280,40) — "Credit Disputes" -->
       <circle class="ldot ldot1" cx="280" cy="40" r="4" fill="#ffffff"/>
-      <text class="ldot ldot1" x="295" y="36"
-        font-family="DM Sans,sans-serif" font-size="11" fill="#c9a84c" letter-spacing="0.08em">
-        Credit Disputes
-      </text>
-
-      <!-- LEFT-UPPER: arc2 left midpoint approx (175,100) — "Their policy is not the law." -->
+      <text class="ldot ldot1" x="295" y="36" font-family="DM Sans,sans-serif" font-size="11" fill="#c9a84c" letter-spacing="0.08em">Credit Disputes</text>
       <circle class="ldot ldot2" cx="175" cy="107" r="4" fill="#ffffff"/>
-      <text class="ldot ldot2" x="168" y="104"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em"
-        text-anchor="end">
-        Their policy is not the law.
-      </text>
-
-      <!-- LEFT-MID: arc1 left midpoint approx (150,170) — "Goodwill Letters" -->
+      <text class="ldot ldot2" x="168" y="104" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em" text-anchor="end">Their policy is not the law.</text>
       <circle class="ldot ldot3" cx="150" cy="170" r="4" fill="#c9a84c"/>
-      <text class="ldot ldot3" x="143" y="174"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#c9a84c" letter-spacing="0.06em"
-        text-anchor="end">
-        Goodwill Letters
-      </text>
-
-      <!-- LEFT-LOWER: arc2 left lower approx (175,233) — "The system has a process." -->
+      <text class="ldot ldot3" x="143" y="174" font-family="DM Sans,sans-serif" font-size="10.5" fill="#c9a84c" letter-spacing="0.06em" text-anchor="end">Goodwill Letters</text>
       <circle class="ldot ldot4" cx="175" cy="233" r="4" fill="#ffffff"/>
-      <text class="ldot ldot4" x="168" y="237"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em"
-        text-anchor="end">
-        The system has a process.
-      </text>
-
-      <!-- BOTTOM: arc1 bottom point (280,300) — "Debt Validation" -->
+      <text class="ldot ldot4" x="168" y="237" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em" text-anchor="end">The system has a process.</text>
       <circle class="ldot ldot5" cx="280" cy="300" r="4" fill="#ffffff"/>
-      <text class="ldot ldot5" x="295" y="304"
-        font-family="DM Sans,sans-serif" font-size="11" fill="#c9a84c" letter-spacing="0.08em">
-        Debt Validation
-      </text>
-
-      <!-- RIGHT labels — tight inside the C opening gap, no overlap -->
-      <!-- "Your record is not your sentence." near upper opening -->
-      <text class="ldot ldot6" x="292" y="118"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">
-        Your record is not
-      </text>
-      <text class="ldot ldot6" x="292" y="131"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">
-        your sentence.
-      </text>
-
-      <!-- "Press your mark. Own your ground." near lower opening -->
-      <text class="ldot ldot7" x="292" y="210"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">
-        Press your mark.
-      </text>
-      <text class="ldot ldot7" x="292" y="223"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">
-        Own your ground.
-      </text>
-
+      <text class="ldot ldot5" x="295" y="304" font-family="DM Sans,sans-serif" font-size="11" fill="#c9a84c" letter-spacing="0.08em">Debt Validation</text>
+      <text class="ldot ldot6" x="292" y="118" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">Your record is not</text>
+      <text class="ldot ldot6" x="292" y="131" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">your sentence.</text>
+      <text class="ldot ldot7" x="292" y="210" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">Press your mark.</text>
+      <text class="ldot ldot7" x="292" y="223" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">Own your ground.</text>
     </svg>
   </div>
 
@@ -343,19 +262,10 @@
 
 <!-- ══ MAIN SITE ══ -->
 <div id="site">
-
   <div class="ticker-bar">
     <div class="ticker-label">Live / Your Rights</div>
     <div class="ticker-track">
       <div class="ti"><div class="d"></div>National Debt: <span id="t1">$36.22T</span> and rising every second</div>
-      <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
-      <div class="ti"><div class="d"></div>FCRA: You can dispute inaccurate items for <span>free</span> / Civitas prepares the paperwork</div>
-      <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
-      <div class="ti"><div class="d"></div>FDCPA: Collectors cannot call before 8am or after 9pm / Debt validation is your right</div>
-      <div class="ti"><div class="d"></div>CA: Security deposits must be returned within <span>21 days</span> / Retaliation is prohibited</div>
-      <div class="ti"><div class="d"></div><span>68 million</span> Americans in collections / Most have legal options never used</div>
-      <div class="ti"><div class="d"></div>Fine print is not law. A company policy is not a court order. <span>You have recourse.</span></div>
-      <div class="ti"><div class="d"></div>National Debt: <span id="t2">$36.22T</span> and rising every second</div>
       <div class="ti"><div class="d"></div>CFPB consumer protections under federal review / Know your rights now</div>
       <div class="ti"><div class="d"></div>FCRA: You can dispute inaccurate items for <span>free</span> / Civitas prepares the paperwork</div>
       <div class="ti"><div class="d"></div>Avg credit card APR: <span>28.6%</span> / Highest in US history</div>
@@ -390,7 +300,6 @@
       <a href="#services" class="btn-primary">Explore Recourse</a>
     </div>
     <div class="hero-right">
-      <!-- Static logo for main site hero, same C-arc design -->
       <svg viewBox="0 0 300 300" style="width:100%;max-width:340px;">
         <path fill="none" stroke="#c9a84c" stroke-width="1"   opacity="0.3" d="M 150,20 A 130,130 0 0,0 150,280"/>
         <path fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.5" d="M 150,45 A 105,105 0 0,0 150,255"/>
@@ -416,77 +325,45 @@
       <p class="section-body">Every document prepared specifically for your situation. No generic templates. Real correspondence built around the facts of your case, the applicable law, and the outcome you are pursuing.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card"><div class="service-num">01</div><div class="service-title">Credit Dispute Letters</div><p class="service-desc">FCRA-compliant dispute correspondence directed to credit bureaus and original furnishers. Prepared to your specifications, based on your credit report data.</p><div class="service-disclaimer">Document preparation only. We do not guarantee removal of any item. You retain the right to dispute directly at no cost through AnnualCreditReport.com.</div></div>
-      <div class="service-card"><div class="service-num">02</div><div class="service-title">Goodwill Adjustment Letters</div><p class="service-desc">Professionally drafted goodwill correspondence requesting creditor review of negative notations. Structured for tone, accuracy, and maximum readability by decision makers.</p><div class="service-disclaimer">Document preparation only. Creditor response is entirely discretionary. No outcome is guaranteed.</div></div>
-      <div class="service-card"><div class="service-num">03</div><div class="service-title">Debt Validation Letters</div><p class="service-desc">FDCPA-compliant debt validation requests prepared at your direction for submission to collection agencies within the applicable statutory window.</p><div class="service-disclaimer">Document preparation only. Submission timing is your responsibility.</div></div>
-      <div class="service-card"><div class="service-num">04</div><div class="service-title">Legal Document Preparation</div><p class="service-desc">General legal document preparation for small claims, landlord-tenant correspondence, demand letters, and other civil matters, prepared at your direction.</p><div class="service-disclaimer">Civitas is a registered LDA, not a law firm. We do not provide legal advice.</div></div>
-      <div class="service-card"><div class="service-num">05</div><div class="service-title">Landlord-Tenant Documents</div><p class="service-desc">Tenant rights correspondence, habitability demand letters, security deposit demand letters, and notice response documents prepared under California Civil Code.</p><div class="service-disclaimer">Documents prepared at your direction under applicable California statutes. Not legal advice.</div></div>
-      <div class="service-card"><div class="service-num">06</div><div class="service-title">General Consultation</div><p class="service-desc">Educational consultation to help you understand your situation, the documents relevant to it, and the options available to you as a consumer and tenant under California law.</p><div class="service-disclaimer">Consultation is educational only and does not constitute legal or financial advice.</div></div>
-      <div class="service-card"><div class="service-num">07</div><div class="service-title">Tax Preparer Negligence</div><p class="service-desc">Documentation support for clients whose tax preparer made material errors. We prepare IRS correspondence, error analysis documentation, and formal complaint filings.</p><div class="service-disclaimer">Civitas is not a licensed tax preparer, CPA, or enrolled agent. We prepare documents at your direction.</div></div>
+      <div class="service-card"><div class="service-num">01</div><div class="service-title">Credit Dispute Letters</div><p class="service-desc">FCRA-compliant dispute correspondence directed to credit bureaus and original furnishers.</p></div>
+      <div class="service-card"><div class="service-num">02</div><div class="service-title">Goodwill Adjustment Letters</div><p class="service-desc">Professionally drafted goodwill correspondence requesting creditor review of negative notations.</p></div>
+      <div class="service-card"><div class="service-num">03</div><div class="service-title">Debt Validation Letters</div><p class="service-desc">FDCPA-compliant debt validation requests prepared at your direction for submission.</p></div>
+      <div class="service-card"><div class="service-num">04</div><div class="service-title">Legal Document Prep</div><p class="service-desc">General legal document preparation for small claims and civil matters.</p></div>
+      <div class="service-card"><div class="service-num">05</div><div class="service-title">Landlord-Tenant</div><p class="service-desc">Tenant rights, habitability demand letters, and notice response documents.</p></div>
+      <div class="service-card"><div class="service-num">06</div><div class="service-title">Consultation</div><p class="service-desc">Educational consultation to help you understand your options under California law.</p></div>
+      <div class="service-card"><div class="service-num">07</div><div class="service-title">Tax Negligence</div><p class="service-desc">Documentation support for clients whose tax preparer made material errors.</p></div>
     </div>
   </section>
 
   <section id="protections" class="legal">
     <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>Your Protections</span></div>
     <h2 class="section-title">The laws that are<br><em>already on your side.</em></h2>
-    <p class="section-body">Most people who contact us do not know these statutes exist. We do.</p>
     <div class="legal-grid">
-      <div class="legal-item"><span class="legal-item-num">Federal</span><h3>Fair Credit Reporting Act (FCRA)</h3><p>You have the right to dispute inaccurate, incomplete, or unverifiable information on your credit report. Bureaus must investigate within 30 days. Civitas prepares your dispute documentation to meet these statutory requirements precisely.</p></div>
-      <div class="legal-item"><span class="legal-item-num">Federal</span><h3>Fair Debt Collection Practices Act (FDCPA)</h3><p>Debt collectors must validate debts upon written request. They cannot harass, threaten, or misrepresent. You have a 30-day validation window after first contact.</p></div>
-      <div class="legal-item"><span class="legal-item-num">Federal</span><h3>Credit Repair Organizations Act (CROA)</h3><p>Any company providing credit services must give you a written contract, a three-day right to cancel, and cannot charge fees before services are performed.</p></div>
-      <div class="legal-item"><span class="legal-item-num">California</span><h3>CA Civil Code, Tenant Protections</h3><p>California tenants have some of the strongest rights in the nation, including habitability standards, security deposit limits and timelines, retaliation protections, and required notice periods.</p></div>
-    </div>
-  </section>
-
-  <section id="cost" class="cost">
-    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>Know What You Are Paying For</span></div>
-    <h2 class="section-title">The real <em>cost of access</em><br>to the legal system.</h2>
-    <p class="section-body">Before you decide whether to hire someone, understand what the market actually charges.</p>
-    <div class="cost-grid">
-      <div class="cost-card"><div class="cost-card-label">Attorney</div><div class="cost-price">$400</div><div class="cost-unit">per hour / avg. California</div><ul class="cost-items"><li>$1,500 to $4,000 for a credit dispute matter</li><li>Retainer required upfront, often $2,500 to $5,000</li><li>No outcome guarantee, billing continues regardless</li><li>You pay for their expertise and their time</li></ul></div>
-      <div class="cost-card featured"><div class="cost-card-label">Legal Document Assistant</div><div class="cost-price">Flat</div><div class="cost-unit">per document / no hourly billing</div><ul class="cost-items"><li>Flat fee per document, disclosed before you sign</li><li>No retainer, no surprise billing</li><li>No outcome guarantee, but no hourly clock either</li><li>Compliant with CROA, no upfront credit fees</li></ul></div>
-      <div class="cost-card"><div class="cost-card-label">Paralegal</div><div class="cost-price">$110</div><div class="cost-unit">per hour / avg. California</div><ul class="cost-items"><li>Lower rate but still hourly, adds up fast</li><li>$500 to $1,500 for document-heavy matters</li><li>Cannot represent you or give legal advice</li><li>Limited independently to document preparation</li></ul></div>
+      <div class="legal-item"><span class="legal-item-num">Federal</span><h3>Fair Credit Reporting Act</h3><p>You have the right to dispute inaccurate, incomplete, or unverifiable information.</p></div>
+      <div class="legal-item"><span class="legal-item-num">Federal</span><h3>Fair Debt Collection Act</h3><p>Debt collectors must validate debts upon written request and cannot harass you.</p></div>
     </div>
   </section>
 
   <section id="contact" class="contact">
     <div class="contact-grid">
       <div>
-        <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span>Get In Touch</span></div>
         <h3 class="section-title">Let's talk about<br><em>your situation.</em></h3>
-        <p class="section-body" style="margin-bottom:2.5rem;">Initial consultations are educational. We will listen, explain what documents may apply, and give you a clear picture of what we can prepare for you, with no pressure and no hourly clock.</p>
+        <p class="section-body">Initial consultations are educational. We listen, explain the documents, and give you a clear picture of your options.</p>
         <div class="contact-detail"><span class="contact-detail-label">Phone</span><span class="contact-detail-value">(916) 490-0063</span></div>
-        <div class="contact-detail"><span class="contact-detail-label">Location</span><span class="contact-detail-value">Oakdale, CA / Serving clients statewide</span></div>
-        <div class="contact-detail" style="border:none;"><span class="contact-detail-label">Notice</span><span class="contact-detail-value" style="font-size:0.72rem;color:#8a9bb5;">Civitas Legal Document Services is a registered California LDA. We are not a law firm. Consultation is educational only.</span></div>
       </div>
       <form class="contact-form" onsubmit="event.preventDefault();document.getElementById('cSuccess').style.display='block';">
         <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name" required></div>
         <div class="form-group"><label>Phone or Email</label><input type="text" placeholder="Best way to reach you" required></div>
-        <div class="form-group"><label>Service Needed</label>
-          <select required>
-            <option value="">Select a service</option>
-            <option>Credit Dispute Letter</option>
-            <option>Goodwill Adjustment Letter</option>
-            <option>Debt Validation Letter</option>
-            <option>Landlord-Tenant Document</option>
-            <option>The War Binder™</option>
-            <option>Tax Preparer Negligence</option>
-            <option>General Consultation</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Brief Description</label><textarea placeholder="Tell us briefly about your situation. No legal jargon needed."></textarea></div>
-        <button type="submit" class="btn-primary" style="align-self:flex-start;">Send Message</button>
-        <div id="cSuccess" style="display:none;padding:0.75rem;background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.3);color:#2ecc71;font-size:0.78rem;">Message received. Brian will reach out within 24 hours.</div>
+        <button type="submit" class="btn-primary">Send Message</button>
+        <div id="cSuccess" style="display:none;padding:0.75rem;background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.3);color:#2ecc71;font-size:0.78rem;">Message received.</div>
       </form>
     </div>
   </section>
 
   <footer>
     <div class="footer-logo">Civitas<span>.</span></div>
-    <div class="footer-legal">Civitas Legal Document Services is a registered California Legal Document Assistant under B&amp;P Code 6400-6415. Not a law firm. Nothing here constitutes legal advice. Credit services comply with CROA and the California Credit Services Act. &copy; 2026 Civitas Legal Document Services.</div>
-    <div class="footer-right">(916) 490-0063<br>Oakdale, CA<br>civitasca.com</div>
+    <div class="footer-legal">&copy; 2026 Civitas Legal Document Services.</div>
   </footer>
-
 </div>
 
 <script>
@@ -500,22 +377,7 @@ function enterSite() {
     setTimeout(() => { site.style.opacity = '1'; }, 50);
   }, 800);
 }
-
-// Auto-transition after 13 seconds
 setTimeout(enterSite, 13000);
-
-// Live debt counter
-const base = 36217843000000, rate = 63333, t0 = Date.now();
-function upd() {
-  const cur = base + ((Date.now() - t0) / 1000) * rate;
-  const fmt = '$' + (cur / 1e12).toFixed(2) + 'T';
-  const t1 = document.getElementById('t1');
-  const t2 = document.getElementById('t2');
-  if (t1) t1.textContent = fmt;
-  if (t2) t2.textContent = fmt;
-}
-setInterval(upd, 250);
-upd();
 </script>
 </body>
 </html>
