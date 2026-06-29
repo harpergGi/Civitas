@@ -13,7 +13,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--navy:#0a1628;--navy-mid:#111f3a;--navy-light:#1a2f52;--gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);--white:#fff;--muted:#8a9bb5;--green:#2ecc71;--red:#e74c3c;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-bottom,0px);}
+:root{--navy:#0a1628;--navy-mid:#111f3a;--navy-light:#1a2f52;--gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);--white:#fff;--muted:#8a9bb5;--green:#2ecc71;--red:#e74c3c;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-bottom,0px);}/* GRADIENT OVERLAY */
+  .header-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px; /* Adjusted height for mobile app */
+    background: linear-gradient(to bottom, #1e2a44 0%, rgba(10, 22, 40, 0) 100%);
+    pointer-events: none;
+    z-index: 999;
+  }
 /* Container at the very bottom of the screen */
 .bottom-nav {
   position: fixed;
@@ -622,6 +632,7 @@ section, .quick-access-item, [id*="-section"] {
 </style>
 </head>
 <body>
+  <div class="header-gradient"></div>
 
 <div id="loading" class="layer visible" style="position: fixed; inset: 0; background: #0a1628; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease, visibility 0.8s; overflow: hidden; width: 100vw; height: 100vh;">
 <style>
