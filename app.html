@@ -22,7 +22,7 @@
     height: 300px; /* Adjusted height for mobile app */
     background: linear-gradient(to bottom, #1e2a44 0%, rgba(10, 22, 40, 0) 100%);
     pointer-events: none;
-    z-index: 999;
+    z-index: 0;
   }
 /* Makes text readable over the gradient */
 .h-greet, .h-name, .h-name em {
@@ -42,6 +42,21 @@
   border-top: 1px solid #e0e0e0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
   z-index: 1000;
+}
+/* Ensure header content stays on top of the background gradient */
+.topbar {
+  position: relative;
+  z-index: 10;
+}
+
+/* Add a subtle drop shadow to text to improve visibility against any background */
+.tb-brand, .h-greet, .h-name {
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Make sure the icons have high enough contrast */
+.tb-btn svg, .avatar {
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
 }
 
 /* Uniform style for every single navigation item */
