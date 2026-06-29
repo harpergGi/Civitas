@@ -20,6 +20,21 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
 
+  /* GRADIENT OVERLAY */
+  .header-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(to bottom, #1e2a44 0%, rgba(10, 22, 40, 0) 100%);
+    pointer-events: none;
+    z-index: 90;
+  }
+
+  /* Section Transparency */
+  .manifesto, .services, .legal, .cost, .contact { background: transparent !important; }
+
   /* SPLASH */
   #splash {
     position: fixed; inset: 0; background: var(--navy); z-index: 9999;
@@ -215,6 +230,7 @@
 </style>
 </head>
 <body>
+  <div class="header-gradient"></div>
 
 <!-- ══ SPLASH ══ -->
 <div id="splash">
@@ -224,114 +240,33 @@
     YOU BELONG HERE.
   </div>
 
-  <!--
-    logo-scene: 560px wide x 340px tall container
-    SVG viewBox 560x340 — logo arcs centered at 280,170
-    Left labels: text-anchor="end" ending near x=155
-    Right labels: starting near x=210 (tight to opening gap)
-    Top/bottom: centered
-  -->
   <div class="logo-scene">
     <svg viewBox="0 0 560 340" width="560" height="340" xmlns="http://www.w3.org/2000/svg"
          style="overflow:visible;">
 
       <!-- ── 5 C-ARC RIDGES drawing in one by one ── -->
-      <!-- Each arc: M cx,top A rx,ry 0 0,0 cx,bottom -->
-      <!-- cx=280, arcs open to the RIGHT (same as live site) -->
+      <path class="arc1" d="M 280,40 A 130,130 0 0,0 280,300" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+      <path class="arc2" d="M 280,65 A 105,105 0 0,0 280,275" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
+      <path class="arc3" d="M 280,90 A 80,80 0 0,0 280,250" fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.7"/>
+      <path class="arc4" d="M 280,115 A 55,55 0 0,0 280,225" fill="none" stroke="#c9a84c" stroke-width="2.5" opacity="0.9"/>
+      <path class="arc5" d="M 280,140 A 30,30 0 0,0 280,200" fill="none" stroke="#c9a84c" stroke-width="3" opacity="1"/>
 
-      <!-- arc 1 outermost: r=130 -->
-      <path class="arc1"
-        d="M 280,40 A 130,130 0 0,0 280,300"
-        fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+      <circle class="center-dot" cx="280" cy="170" r="6" fill="#c9a84c" style="transform-origin:280px 170px;"/>
 
-      <!-- arc 2: r=105 -->
-      <path class="arc2"
-        d="M 280,65 A 105,105 0 0,0 280,275"
-        fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
-
-      <!-- arc 3: r=80 -->
-      <path class="arc3"
-        d="M 280,90 A 80,80 0 0,0 280,250"
-        fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.7"/>
-
-      <!-- arc 4: r=55 -->
-      <path class="arc4"
-        d="M 280,115 A 55,55 0 0,0 280,225"
-        fill="none" stroke="#c9a84c" stroke-width="2.5" opacity="0.9"/>
-
-      <!-- arc 5 innermost: r=30 -->
-      <path class="arc5"
-        d="M 280,140 A 30,30 0 0,0 280,200"
-        fill="none" stroke="#c9a84c" stroke-width="3" opacity="1"/>
-
-      <!-- ── CENTER DOT ── -->
-      <circle class="center-dot" cx="280" cy="170" r="6" fill="#c9a84c"
-        style="transform-origin:280px 170px;"/>
-
-      <!-- ══ DOTS + LABELS ══
-           Left side dots sit on the arc endpoints (left side of each C)
-           Right side labels sit tight inside the opening gap
-      -->
-
-      <!-- TOP: arc1 top point (280,40) — "Credit Disputes" -->
       <circle class="ldot ldot1" cx="280" cy="40" r="4" fill="#ffffff"/>
-      <text class="ldot ldot1" x="295" y="36"
-        font-family="DM Sans,sans-serif" font-size="11" fill="#c9a84c" letter-spacing="0.08em">
-        Credit Disputes
-      </text>
-
-      <!-- LEFT-UPPER: arc2 left midpoint approx (175,100) — "Their policy is not the law." -->
+      <text class="ldot ldot1" x="295" y="36" font-family="DM Sans,sans-serif" font-size="11" fill="#c9a84c" letter-spacing="0.08em">Credit Disputes</text>
       <circle class="ldot ldot2" cx="175" cy="107" r="4" fill="#ffffff"/>
-      <text class="ldot ldot2" x="168" y="104"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em"
-        text-anchor="end">
-        Their policy is not the law.
-      </text>
-
-      <!-- LEFT-MID: arc1 left midpoint approx (150,170) — "Goodwill Letters" -->
+      <text class="ldot ldot2" x="168" y="104" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em" text-anchor="end">Their policy is not the law.</text>
       <circle class="ldot ldot3" cx="150" cy="170" r="4" fill="#c9a84c"/>
-      <text class="ldot ldot3" x="143" y="174"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#c9a84c" letter-spacing="0.06em"
-        text-anchor="end">
-        Goodwill Letters
-      </text>
-
-      <!-- LEFT-LOWER: arc2 left lower approx (175,233) — "The system has a process." -->
+      <text class="ldot ldot3" x="143" y="174" font-family="DM Sans,sans-serif" font-size="10.5" fill="#c9a84c" letter-spacing="0.06em" text-anchor="end">Goodwill Letters</text>
       <circle class="ldot ldot4" cx="175" cy="233" r="4" fill="#ffffff"/>
-      <text class="ldot ldot4" x="168" y="237"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em"
-        text-anchor="end">
-        The system has a process.
-      </text>
-
-      <!-- BOTTOM: arc1 bottom point (280,300) — "Debt Validation" -->
+      <text class="ldot ldot4" x="168" y="237" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em" text-anchor="end">The system has a process.</text>
       <circle class="ldot ldot5" cx="280" cy="300" r="4" fill="#ffffff"/>
-      <text class="ldot ldot5" x="295" y="304"
-        font-family="DM Sans,sans-serif" font-size="11" fill="#c9a84c" letter-spacing="0.08em">
-        Debt Validation
-      </text>
-
-      <!-- RIGHT labels — tight inside the C opening gap, no overlap -->
-      <!-- "Your record is not your sentence." near upper opening -->
-      <text class="ldot ldot6" x="292" y="118"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">
-        Your record is not
-      </text>
-      <text class="ldot ldot6" x="292" y="131"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">
-        your sentence.
-      </text>
-
-      <!-- "Press your mark. Own your ground." near lower opening -->
-      <text class="ldot ldot7" x="292" y="210"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">
-        Press your mark.
-      </text>
-      <text class="ldot ldot7" x="292" y="223"
-        font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">
-        Own your ground.
-      </text>
-
+      <text class="ldot ldot5" x="295" y="304" font-family="DM Sans,sans-serif" font-size="11" fill="#c9a84c" letter-spacing="0.08em">Debt Validation</text>
+      <text class="ldot ldot6" x="292" y="118" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">Your record is not</text>
+      <text class="ldot ldot6" x="292" y="131" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">your sentence.</text>
+      <text class="ldot ldot7" x="292" y="210" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">Press your mark.</text>
+      <text class="ldot ldot7" x="292" y="223" font-family="DM Sans,sans-serif" font-size="10.5" fill="#ffffff" letter-spacing="0.04em">Own your ground.</text>
     </svg>
   </div>
 
@@ -390,7 +325,6 @@
       <a href="#services" class="btn-primary">Explore Recourse</a>
     </div>
     <div class="hero-right">
-      <!-- Static logo for main site hero, same C-arc design -->
       <svg viewBox="0 0 300 300" style="width:100%;max-width:340px;">
         <path fill="none" stroke="#c9a84c" stroke-width="1"   opacity="0.3" d="M 150,20 A 130,130 0 0,0 150,280"/>
         <path fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.5" d="M 150,45 A 105,105 0 0,0 150,255"/>
@@ -486,7 +420,6 @@
     <div class="footer-legal">Civitas Legal Document Services is a registered California Legal Document Assistant under B&amp;P Code 6400-6415. Not a law firm. Nothing here constitutes legal advice. Credit services comply with CROA and the California Credit Services Act. &copy; 2026 Civitas Legal Document Services.</div>
     <div class="footer-right">(916) 490-0063<br>Oakdale, CA<br>civitasca.com</div>
   </footer>
-
 </div>
 
 <script>
