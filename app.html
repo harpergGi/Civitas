@@ -15,15 +15,15 @@
 <style>
 :root{--navy:#0a1628;--navy-mid:#111f3a;--navy-light:#1a2f52;--gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);--white:#fff;--muted:#8a9bb5;--green:#2ecc71;--red:#e74c3c;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-bottom,0px);}/* GRADIENT OVERLAY */
   .header-gradient {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 300px; /* Adjusted height for mobile app */
-    background: linear-gradient(to bottom, #1e2a44 0%, rgba(10, 22, 40, 0) 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
+  position: absolute; /* Changed from fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(to bottom, #1e2a44 0%, rgba(10, 22, 40, 0) 100%);
+  pointer-events: none;
+  z-index: -1; /* Pushes it behind all other content */
+}
 /* Makes text readable over the gradient */
 .h-greet, .h-name, .h-name em {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -847,8 +847,8 @@ section, .quick-access-item, [id*="-section"] {
       <div class="avatar" id="userAvatar" onclick="switchScreen('profile')">?</div>
     </div>
   </div>
-  <div class="screens">
-    <div class="screen active" id="sc-home">
+  <div class="screen active" id="sc-home">
+    <div class="header-gradient"></div> <!-- Place it here instead of the body -->
       <div class="home-hero">
         <div class="h-greet" id="greeting">Good morning</div>
         <div class="h-name" id="heroName">Welcome <em>back.</em></div>
